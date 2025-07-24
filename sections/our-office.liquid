@@ -1,0 +1,705 @@
+<section class="our-offices-section">
+  <div class="container">
+    <h2>{{ section.settings.heading }}</h2>
+    <p class="section-subheading">{{ section.settings.subheading }}</p>
+    <div class="our-offices-grid" data-card-count="{{ section.blocks.size }}">
+      {% for block in section.blocks %}
+        {% if block.type == 'office' %}
+          <div class="office-card">
+            {% if block.settings.image != blank %}
+              <div class="office-image-container">
+                <img src="{{ block.settings.image | img_url: '600x400' }}" alt="{{ block.settings.office_name }}">
+                <div class="office-overlay">
+                  <div class="office-info">
+                    <h3>{{ block.settings.office_name }}</h3>
+                    {% if block.settings.company_details != blank %}
+                      <p class="company-details">{{ block.settings.company_details }}</p>
+                    {% endif %}
+                    <div class="office-location">
+                      <span>{{ block.settings.location }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% else %}
+              <div class="office-image-container no-image">
+                <div class="office-overlay">
+                  <div class="office-info">
+                    <h3>{{ block.settings.office_name }}</h3>
+                    {% if block.settings.company_details != blank %}
+                      <p class="company-details">{{ block.settings.company_details }}</p>
+                    {% endif %}
+                    <div class="office-location">
+                      <span>{{ block.settings.location }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  :root {
+    --heading-font-size: {{ section.settings.heading_desktop_font_size }}px;
+    --subheading-font-size: {{ section.settings.subheading_font_size }}px;
+    --office-name-font-size: {{ section.settings.office_name_font_size }}px;
+    --office-location-font-size: {{ section.settings.office_location_font_size }}px;
+    --company-details-font-size: {{ section.settings.company_details_font_size }}px;
+    --office-name-font-weight: {{ section.settings.office_name_font_weight }};
+    --office-location-font-weight: {{ section.settings.office_location_font_weight }};
+    --subheading-font-weight: {{ section.settings.subheading_font_weight }};
+    --company-details-font-weight: {{ section.settings.company_details_font_weight }};
+    --overlay-bg-color: {{ section.settings.overlay_bg_color }};
+    --overlay-text-color: {{ section.settings.overlay_text_color }};
+    --section-padding-top: {{ section.settings.section_padding_top_desktop }}px;
+    --section-padding-bottom: {{ section.settings.section_padding_bottom_desktop }}px;
+    --container-padding-left: {{ section.settings.container_padding_left_desktop }}px;
+    --container-padding-right: {{ section.settings.container_padding_right_desktop }}px;
+    --grid-gap: {{ section.settings.grid_gap_desktop }}px;
+    --card-border-radius: {{ section.settings.card_border_radius }}px;
+    --overlay-padding-top: {{ section.settings.overlay_padding_top }}px;
+    --overlay-padding-bottom: {{ section.settings.overlay_padding_bottom }}px;
+    --overlay-padding-left: {{ section.settings.overlay_padding_left }}px;
+    --overlay-padding-right: {{ section.settings.overlay_padding_right }}px;
+    --card-min-height: {{ section.settings.card_min_height }}px;
+  }
+
+  .our-offices-section {
+    padding: var(--section-padding-top) var(--container-padding-left) var(--section-padding-bottom) var(--container-padding-right);
+    text-align: center;
+  }
+
+  .our-offices-section h2 {
+    font-size: var(--heading-font-size);
+    font-weight: 700;
+    color: #2a3d00;
+    margin-bottom: 10px;
+  }
+
+  .our-offices-section .section-subheading {
+    font-size: var(--subheading-font-size);
+    font-weight: var(--subheading-font-weight);
+    max-width: 600px;
+    margin: 0 auto 40px;
+    color: #2a3d00;
+  }
+
+  .our-offices-grid {
+    display: grid;
+    gap: var(--grid-gap);
+    align-items: stretch;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Dynamic grid based on card count */
+  .our-offices-grid[data-card-count="1"] {
+    grid-template-columns: minmax(300px, 400px);
+    justify-content: center;
+  }
+
+  .our-offices-grid[data-card-count="2"] {
+    grid-template-columns: repeat(2, minmax(300px, 400px));
+    justify-content: center;
+    max-width: 900px;
+  }
+
+  .our-offices-grid[data-card-count="3"] {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 350px));
+  }
+
+  .our-offices-grid[data-card-count="4"],
+  .our-offices-grid[data-card-count="5"],
+  .our-offices-grid[data-card-count="6"],
+  .our-offices-grid[data-card-count="7"],
+  .our-offices-grid[data-card-count="8"] {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+  }
+
+  .office-card {
+    border-radius: var(--card-border-radius);
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    height: 100%;
+    min-height: var(--card-min-height);
+  }
+
+  .office-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  .office-image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: var(--card-min-height);
+    overflow: hidden;
+  }
+
+  .office-image-container.no-image {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .office-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .office-card:hover img {
+    transform: scale(1.05);
+  }
+
+  .office-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--overlay-bg-color);
+    color: var(--overlay-text-color);
+    padding: var(--overlay-padding-top) var(--overlay-padding-right) var(--overlay-padding-bottom) var(--overlay-padding-left);
+    transform: translateY(0);
+    transition: all 0.3s ease, background-color 0.3s ease;
+  }
+
+  .office-card:hover .office-overlay {
+    padding: calc(var(--overlay-padding-top) + 5px) var(--overlay-padding-right) var(--overlay-padding-bottom) var(--overlay-padding-left);
+    background: #009D03;
+  }
+
+  .office-info {
+    text-align: left;
+  }
+
+  .office-info h3 {
+    font-size: var(--office-name-font-size);
+    font-weight: var(--office-name-font-weight);
+    margin: 0 0 8px 0;
+    color: var(--overlay-text-color);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .company-details {
+    font-size: var(--company-details-font-size);
+    font-weight: var(--company-details-font-weight);
+    color: var(--overlay-text-color);
+    margin: 0 0 10px 0;
+    opacity: 0.9;
+    line-height: 1.4;
+  }
+
+  .office-location {
+    margin-top: 12px;
+  }
+
+  .office-location span {
+    font-size: var(--office-location-font-size);
+    font-weight: var(--office-location-font-weight);
+    color: var(--overlay-text-color);
+    opacity: 0.8;
+    display: inline-block;
+    position: relative;
+  }
+
+  .office-location span:before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background: var(--overlay-text-color);
+    opacity: 0.6;
+  }
+
+  /* Responsive Design */
+  @media only screen and (max-width: 1024px) {
+    :root {
+      --section-padding-top: {{ section.settings.section_padding_top_tablet }}px;
+      --section-padding-bottom: {{ section.settings.section_padding_bottom_tablet }}px;
+      --container-padding-left: {{ section.settings.container_padding_left_tablet }}px;
+      --container-padding-right: {{ section.settings.container_padding_right_tablet }}px;
+      --grid-gap: {{ section.settings.grid_gap_tablet }}px;
+    }
+
+    .our-offices-grid[data-card-count="2"] {
+      grid-template-columns: repeat(2, minmax(250px, 1fr));
+    }
+
+    .our-offices-grid[data-card-count="3"],
+    .our-offices-grid[data-card-count="4"],
+    .our-offices-grid[data-card-count="5"],
+    .our-offices-grid[data-card-count="6"],
+    .our-offices-grid[data-card-count="7"],
+    .our-offices-grid[data-card-count="8"] {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    :root {
+      --heading-font-size: {{ section.settings.heading_tablet_font_size }}px;
+      --section-padding-top: {{ section.settings.section_padding_top_mobile }}px;
+      --section-padding-bottom: {{ section.settings.section_padding_bottom_mobile }}px;
+      --container-padding-left: {{ section.settings.container_padding_left_mobile }}px;
+      --container-padding-right: {{ section.settings.container_padding_right_mobile }}px;
+      --grid-gap: {{ section.settings.grid_gap_mobile }}px;
+      --card-min-height: {{ section.settings.card_min_height_mobile }}px;
+    }
+
+    .our-offices-grid[data-card-count="1"],
+    .our-offices-grid[data-card-count="2"],
+    .our-offices-grid[data-card-count="3"],
+    .our-offices-grid[data-card-count="4"],
+    .our-offices-grid[data-card-count="5"],
+    .our-offices-grid[data-card-count="6"],
+    .our-offices-grid[data-card-count="7"],
+    .our-offices-grid[data-card-count="8"] {
+      grid-template-columns: 1fr;
+      max-width: 400px;
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    :root {
+      --heading-font-size: {{ section.settings.heading_mobile_font_size }}px;
+    }
+
+    .office-card:hover .office-overlay {
+      padding: calc(var(--overlay-padding-top) + 5px) var(--overlay-padding-right) var(--overlay-padding-bottom) var(--overlay-padding-left);
+      background: #009D03;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Our Offices",
+  "tag": "section",
+  "class": "our-offices-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Our Offices"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Section Subheading",
+      "default": "With our strategically located offices and warehouses, you're never far away from our products and services."
+    },
+    {
+      "type": "header",
+      "content": "Typography Settings"
+    },
+    {
+      "type": "range",
+      "id": "heading_desktop_font_size",
+      "label": "Heading Font Size (Desktop)",
+      "min": 20,
+      "max": 48,
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "heading_tablet_font_size",
+      "label": "Heading Font Size (Tablet)",
+      "min": 16,
+      "max": 36,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "heading_mobile_font_size",
+      "label": "Heading Font Size (Mobile)",
+      "min": 14,
+      "max": 32,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "subheading_font_size",
+      "label": "Subheading Font Size",
+      "min": 12,
+      "max": 24,
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "subheading_font_weight",
+      "label": "Subheading Font Weight",
+      "default": "400",
+      "options": [
+        { "value": "300", "label": "Light" },
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "office_name_font_size",
+      "label": "Office Name Font Size",
+      "min": 14,
+      "max": 28,
+      "default": 18
+    },
+    {
+      "type": "select",
+      "id": "office_name_font_weight",
+      "label": "Office Name Font Weight",
+      "default": "700",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "company_details_font_size",
+      "label": "Company Details Font Size",
+      "min": 10,
+      "max": 18,
+      "default": 13
+    },
+    {
+      "type": "select",
+      "id": "company_details_font_weight",
+      "label": "Company Details Font Weight",
+      "default": "400",
+      "options": [
+        { "value": "300", "label": "Light" },
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "office_location_font_size",
+      "label": "Office Location Font Size",
+      "min": 12,
+      "max": 20,
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "office_location_font_weight",
+      "label": "Office Location Font Weight",
+      "default": "400",
+      "options": [
+        { "value": "300", "label": "Light" },
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Spacing & Layout Settings"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_desktop",
+      "label": "Section Top Padding (Desktop)",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_desktop",
+      "label": "Section Bottom Padding (Desktop)",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_tablet",
+      "label": "Section Top Padding (Tablet)",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_tablet",
+      "label": "Section Bottom Padding (Tablet)",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_mobile",
+      "label": "Section Top Padding (Mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 30,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_mobile",
+      "label": "Section Bottom Padding (Mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 30,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "container_padding_left_desktop",
+      "label": "Container Left Padding (Desktop)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "container_padding_right_desktop",
+      "label": "Container Right Padding (Desktop)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "container_padding_left_tablet",
+      "label": "Container Left Padding (Tablet)",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "default": 15,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "container_padding_right_tablet",
+      "label": "Container Right Padding (Tablet)",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "default": 15,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "container_padding_left_mobile",
+      "label": "Container Left Padding (Mobile)",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "default": 15,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "container_padding_right_mobile",
+      "label": "Container Right Padding (Mobile)",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "default": 15,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_desktop",
+      "label": "Grid Gap (Desktop)",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "default": 30,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_tablet",
+      "label": "Grid Gap (Tablet)",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_mobile",
+      "label": "Grid Gap (Mobile)",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card Border Radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_min_height",
+      "label": "Card Min Height (Desktop)",
+      "min": 200,
+      "max": 500,
+      "step": 10,
+      "default": 300,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_min_height_mobile",
+      "label": "Card Min Height (Mobile)",
+      "min": 180,
+      "max": 400,
+      "step": 10,
+      "default": 250,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Overlay Padding Settings"
+    },
+    {
+  "type": "range",
+  "id": "overlay_padding_top",
+  "label": "Overlay Top Padding",
+  "min": 10,
+  "max": 50,
+  "step": 2,
+  "default": 24,
+  "unit": "px"
+},
+{
+  "type": "range",
+  "id": "overlay_padding_bottom",
+  "label": "Overlay Bottom Padding",
+  "min": 10,
+  "max": 50,
+  "step": 2,
+  "default": 24,
+  "unit": "px"
+}
+,
+    {
+      "type": "range",
+      "id": "overlay_padding_left",
+      "label": "Overlay Left Padding",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "overlay_padding_right",
+      "label": "Overlay Right Padding",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Color Settings"
+    },
+    {
+      "type": "color",
+      "id": "overlay_bg_color",
+      "label": "Overlay Background Color",
+      "default": "#6B8E23"
+    },
+    {
+      "type": "color",
+      "id": "overlay_text_color",
+      "label": "Overlay Text Color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "office",
+      "name": "Office",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Office Image"
+        },
+        {
+          "type": "text",
+          "id": "office_name",
+          "label": "Office Name",
+          "default": "BATA FOOD TURKEY"
+        },
+        {
+          "type": "textarea",
+          "id": "company_details",
+          "label": "Company Details",
+          "default": "Bardakci Tarim Gida Ic ve Dis Tic. Ltd. Sti.",
+          "info": "Optional additional company information"
+        },
+        {
+          "type": "text",
+          "id": "location",
+          "label": "Location",
+          "default": "Istanbul, Turkey"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Our Offices",
+      "blocks": [
+        { "type": "office" },
+        { "type": "office" },
+        { "type": "office" },
+        { "type": "office" }
+      ]
+    }
+  ]
+}
+{% endschema %}

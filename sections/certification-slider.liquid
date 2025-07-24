@@ -1,0 +1,869 @@
+{%- liquid
+  assign container = section.settings.container
+  assign section_heading = section.settings.section_heading
+  assign section_description = section.settings.section_description
+  assign button_text = section.settings.button_text
+  assign button_link = section.settings.button_link
+
+  assign section_bg_color = section.settings.section_bg_color
+  assign section_bg_gradient = section.settings.section_bg_gradient
+
+  assign heading_color = section.settings.heading_color
+  assign heading_font_size_desktop = section.settings.heading_font_size_desktop
+  assign heading_font_size_tablet = section.settings.heading_font_size_tablet
+  assign heading_font_size_mobile = section.settings.heading_font_size_mobile
+  assign heading_font_weight = section.settings.heading_font_weight
+
+  assign desc_color = section.settings.desc_color
+  assign desc_font_size_desktop = section.settings.desc_font_size_desktop
+  assign desc_font_size_mobile = section.settings.desc_font_size_mobile
+
+  assign button_color = section.settings.button_color
+  assign button_bg_color = section.settings.button_bg_color
+  assign button_border_color = section.settings.button_border_color
+  assign button_color_hover = section.settings.button_color_hover
+  assign button_bg_color_hover = section.settings.button_bg_color_hover
+  assign button_border_color_hover = section.settings.button_border_color_hover
+
+  assign mg_top_desktop = section.settings.mg_top_desktop
+  assign mg_top_tablet = section.settings.mg_top_tablet
+  assign mg_top_mobile = section.settings.mg_top_mobile
+  assign mg_bottom_desktop = section.settings.mg_bottom_desktop
+  assign mg_bottom_tablet = section.settings.mg_bottom_tablet
+  assign mg_bottom_mobile = section.settings.mg_bottom_mobile
+
+  assign enable_animation = section.settings.enable_animation
+  assign animation_type = section.settings.animation_type
+  assign autoplay = section.settings.autoplay
+  assign autoplay_speed = section.settings.autoplay_speed
+-%}
+
+<style>
+  #certification-slider-{{ section.id }} {
+    padding-top: {{ mg_top_desktop }}px;
+    padding-bottom: {{ mg_bottom_desktop }}px;
+    {% if section_bg_gradient != blank %}
+      background: {{ section_bg_gradient }};
+    {% elsif section_bg_color != blank %}
+      background-color: {{ section_bg_color }};
+    {% else %}
+      background-color: #ffffff;
+    {% endif %}
+  }
+
+  #certification-slider-{{ section.id }} .container {
+    {% if container == 'container' %}
+      max-width: 1200px;
+    {% elsif container == '1170' %}
+      max-width: 1170px;
+    {% elsif container == '1470' %}
+      max-width: 1470px;
+    {% elsif container == '1570' %}
+      max-width: 1570px;
+    {% elsif container == '1770' %}
+      max-width: 1770px;
+    {% elsif container == '1920' %}
+      max-width: 1920px;
+    {% elsif container == 'fullwidth' %}
+      max-width: 100%;
+    {% endif %}
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  #certification-slider-{{ section.id }} .certification-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 60px;
+  }
+
+  #certification-slider-{{ section.id }} .content-section {
+    flex: 0 0 35%;
+    max-width: 35%;
+  }
+
+  #certification-slider-{{ section.id }} .slider-section {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #certification-slider-{{ section.id }} .section-heading {
+    color: {{ heading_color | default: '#1a1a1a' }};
+    font-size: {{ heading_font_size_desktop }}px;
+    font-weight: {{ heading_font_weight }};
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+
+  #certification-slider-{{ section.id }} .section-description {
+    color: {{ desc_color | default: '#666666' }};
+    font-size: {{ desc_font_size_desktop }}px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+  }
+
+  #certification-slider-{{ section.id }} .slider-nav-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 60px;
+  }
+
+  #certification-slider-{{ section.id }} .slider-nav {
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  #certification-slider-{{ section.id }} .slider-nav:hover {
+    border-color: {{ button_color | default: '#00a000' }};
+  }
+
+  #certification-slider-{{ section.id }} .slider-nav svg {
+    width: 20px;
+    height: 20px;
+    fill: #666;
+  }
+
+  #certification-slider-{{ section.id }} .slider-nav:hover svg {
+    fill: {{ button_color | default: '#00a000' }};
+  }
+
+  #certification-slider-{{ section.id }} .certificate-slider-wrapper {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+  }
+
+  #certification-slider-{{ section.id }} .certificate-slider {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+  }
+
+  #certification-slider-{{ section.id }} .certificate-slide {
+    flex: 0 0 50%;
+    padding: 0 15px;
+    box-sizing: border-box;
+  }
+
+  #certification-slider-{{ section.id }} .certificate-card {
+    border-radius: 12px;
+    overflow: hidden;
+    display: block;
+    text-decoration: none;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  #certification-slider-{{ section.id }} .certificate-card:hover {
+    border-color: {{ button_color | default: '#00a000' }};
+    transform: translateY(-5px);
+  }
+
+  #certification-slider-{{ section.id }} .certificate-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #certification-slider-{{ section.id }} .certificate-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  #certification-slider-{{ section.id }} .placeholder-certificate {
+    text-align: center;
+    color: #999;
+  }
+
+  #certification-slider-{{ section.id }} .placeholder-certificate svg {
+    width: 100px;
+    height: 100px;
+    fill: #ddd;
+    margin-bottom: 10px;
+  }
+
+  @media (max-width: 1024px) {
+    #certification-slider-{{ section.id }} {
+      padding-top: {{ mg_top_tablet }}px;
+      padding-bottom: {{ mg_bottom_tablet }}px;
+    }
+
+    #certification-slider-{{ section.id }} .section-heading {
+      font-size: {{ heading_font_size_tablet }}px;
+    }
+
+    #certification-slider-{{ section.id }} .certificate-slide {
+      flex: 0 0 70%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    #certification-slider-{{ section.id }} {
+      padding-top: {{ mg_top_mobile }}px;
+      padding-bottom: {{ mg_bottom_mobile }}px;
+    }
+
+    #certification-slider-{{ section.id }} .certification-wrapper {
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    #certification-slider-{{ section.id }} .content-section {
+      flex: 1;
+      max-width: 100%;
+      text-align: center;
+    }
+
+    #certification-slider-{{ section.id }} .section-heading {
+      font-size: {{ heading_font_size_mobile }}px;
+    }
+
+    #certification-slider-{{ section.id }} .section-description {
+      font-size: {{ desc_font_size_mobile }}px;
+    }
+
+    #certification-slider-{{ section.id }} .certificate-slide {
+      flex: 0 0 100%;
+      padding: 0 20px;
+    }
+
+    #certification-slider-{{ section.id }} .certificate-card {
+      height: 300px;
+    }
+
+    #certification-slider-{{ section.id }} .slider-nav-container {
+      justify-content: center;
+    }
+  }
+
+  {% if enable_animation %}
+    #certification-slider-{{ section.id }} .scroll-trigger {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    #certification-slider-{{ section.id }} .scroll-trigger.animated {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+  {% endif %}
+</style>
+
+<div id="certification-slider-{{ section.id }}" class="certification-slider-section">
+  <div class="container">
+    <div class="certification-wrapper">
+      <div class="content-section">
+        {%- if section_heading != blank -%}
+          <h2 class="section-heading{% if enable_animation %} scroll-trigger{% endif %}">{{ section_heading }}</h2>
+        {%- endif -%}
+
+        {%- if section_description != blank -%}
+          <p class="section-description{% if enable_animation %} scroll-trigger{% endif %}">
+            {{ section_description }}
+          </p>
+        {%- endif -%}
+
+        {%- if button_text != blank -%}
+          <a
+            {% if button_link == blank %}
+              role="link" aria-disabled="true"
+            {% else %}
+              href="{{ button_link }}"
+            {% endif %}
+            class="global-button{% if enable_animation %} scroll-trigger{% endif %}"
+          >
+            {{ button_text }}
+            <span class="icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 16 16" fill="none">
+                <path d="M8.00961 0C4.28161 0 0.955671 2.6762 0.175824 6.32044C-0.213794 8.14133 0.0486724 10.0776 0.917914 11.7252C1.7545 13.3109 3.12602 14.5924 4.76694 15.3187C6.47379 16.0743 8.43331 16.206 10.2273 15.6907C11.958 15.1938 13.4926 14.103 14.5374 12.6388C16.7218 9.57778 16.4298 5.278 13.8598 2.53515C12.3536 0.927671 10.2142 0 8.00961 0ZM11.8525 8.42813L9.6687 10.6618C9.1158 11.2275 8.24187 10.3705 8.79252 9.80751L9.89443 8.68048H4.67245C4.30161 8.68048 3.9922 8.37126 3.9922 8.00109C3.9922 7.63092 4.30181 7.32169 4.67245 7.32169H9.8683L8.74455 6.19956C8.18615 5.64186 9.05192 4.77697 9.61033 5.33467L11.8474 7.56875C11.9614 7.68248 12.0258 7.8365 12.0268 7.99739C12.0277 8.15828 11.9651 8.31306 11.8525 8.42813Z" fill="#009D03"/>
+              </svg>
+            </span>
+          </a>
+        {%- endif -%}
+
+        {%- if section.blocks.size > 0 -%}
+          <div class="slider-nav-container">
+            <button class="slider-nav prev" type="button" aria-label="Previous slide">
+              <svg viewBox="0 0 24 24">
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+              </svg>
+            </button>
+            <button class="slider-nav next" type="button" aria-label="Next slide">
+              <svg viewBox="0 0 24 24">
+                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+              </svg>
+            </button>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="slider-section">
+        <div class="certificate-slider-wrapper">
+          <div class="certificate-slider">
+            {%- if section.blocks.size > 0 -%}
+              {%- for block in section.blocks -%}
+                <div
+                  class="certificate-slide{% if enable_animation %} scroll-trigger{% endif %}"
+                  {{ block.shopify_attributes }}
+                >
+                  <a
+                    {% if block.settings.certificate_link == blank %}
+                      role="link" aria-disabled="true"
+                    {% else %}
+                      href="{{ block.settings.certificate_link }}"
+                    {% endif %}
+                    class="certificate-card"
+                    {% if block.settings.open_in_new_tab %}
+                      target="_blank" rel="noopener noreferrer"
+                    {% endif %}
+                  >
+                    <div class="certificate-image">
+                      {%- if block.settings.certificate_image != blank -%}
+                        <img
+                          src="{{ block.settings.certificate_image | image_url: width: 800 }}"
+                          alt="{{ block.settings.certificate_title | default: 'Certificate' }}"
+                          loading="lazy"
+                        >
+                      {%- else -%}
+                        <div class="placeholder-certificate">
+                          <svg viewBox="0 0 24 24">
+                            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                          </svg>
+                          <p>Certificate {{ forloop.index }}</p>
+                        </div>
+                      {%- endif -%}
+                    </div>
+                  </a>
+                </div>
+              {%- endfor -%}
+            {%- else -%}
+              <!-- Default placeholder certificates -->
+              <div class="certificate-slide">
+                <div class="certificate-card">
+                  <div class="certificate-image">
+                    <div class="placeholder-certificate">
+                      <svg viewBox="0 0 24 24">
+                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                      </svg>
+                      <p>Add Certificate 1</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="certificate-slide">
+                <div class="certificate-card">
+                  <div class="certificate-image">
+                    <div class="placeholder-certificate">
+                      <svg viewBox="0 0 24 24">
+                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                      </svg>
+                      <p>Add Certificate 2</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const slider = document.querySelector('#certification-slider-{{ section.id }} .certificate-slider');
+    const slides = document.querySelectorAll('#certification-slider-{{ section.id }} .certificate-slide');
+    const prevButton = document.querySelector('#certification-slider-{{ section.id }} .slider-nav.prev');
+    const nextButton = document.querySelector('#certification-slider-{{ section.id }} .slider-nav.next');
+
+    if (!slider || slides.length === 0) return;
+
+    let currentSlide = 0;
+    const slidesPerView = window.innerWidth <= 768 ? 1 : 2;
+    const totalSlides = Math.ceil(slides.length / slidesPerView);
+
+    function updateSlider() {
+      const translateX = -currentSlide * 100;
+      slider.style.transform = 'translateX(' + translateX + '%)';
+    }
+
+    function goToSlide(index) {
+      currentSlide = Math.max(0, Math.min(index, totalSlides - 1));
+      updateSlider();
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        goToSlide(currentSlide + 1);
+      } else {
+        goToSlide(0);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        goToSlide(currentSlide - 1);
+      } else {
+        goToSlide(totalSlides - 1);
+      }
+    }
+
+    // Event listeners
+    if (prevButton) {
+      prevButton.addEventListener('click', prevSlide);
+    }
+
+    if (nextButton) {
+      nextButton.addEventListener('click', nextSlide);
+    }
+
+    // Autoplay
+    {% if autoplay %}
+      setInterval(nextSlide, {{ autoplay_speed | default: 5 }} * 1000);
+    {% endif %}
+
+    // Animation observer
+    {% if enable_animation %}
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animated');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('#certification-slider-{{ section.id }} .scroll-trigger').forEach(function(el) {
+        observer.observe(el);
+      });
+    {% endif %}
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Certification Slider",
+  "class": "section-certification-slider",
+  "settings": [
+    {
+      "type": "header",
+      "content": "General Settings"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container Width",
+      "default": "container",
+      "options": [
+        {
+          "value": "container",
+          "label": "Default Container"
+        },
+        {
+          "value": "1170",
+          "label": "1170px"
+        },
+        {
+          "value": "1470",
+          "label": "1470px"
+        },
+        {
+          "value": "1570",
+          "label": "1570px"
+        },
+        {
+          "value": "1770",
+          "label": "1770px"
+        },
+        {
+          "value": "1920",
+          "label": "1920px"
+        },
+        {
+          "value": "fullwidth",
+          "label": "Full Width"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Section Heading",
+      "default": "Certifications"
+    },
+    {
+      "type": "textarea",
+      "id": "section_description",
+      "label": "Section Description",
+      "default": "Our certifications reflect our commitment to excellence in every product we deliver."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Contact Us"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Heading Typography"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_desktop",
+      "label": "Heading Font Size (Desktop)",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_tablet",
+      "label": "Heading Font Size (Tablet)",
+      "min": 20,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_mobile",
+      "label": "Heading Font Size (Mobile)",
+      "min": 18,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "select",
+      "id": "heading_font_weight",
+      "label": "Heading Font Weight",
+      "default": "700",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal (400)"
+        },
+        {
+          "value": "500",
+          "label": "Medium (500)"
+        },
+        {
+          "value": "600",
+          "label": "Semi Bold (600)"
+        },
+        {
+          "value": "700",
+          "label": "Bold (700)"
+        },
+        {
+          "value": "800",
+          "label": "Extra Bold (800)"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Description Typography"
+    },
+    {
+      "type": "color",
+      "id": "desc_color",
+      "label": "Description Color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "desc_font_size_desktop",
+      "label": "Description Font Size (Desktop)",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "desc_font_size_mobile",
+      "label": "Description Font Size (Mobile)",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Button Styling"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button Text Color",
+      "default": "#00a000"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background Color",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button Border Color",
+      "default": "#00a000"
+    },
+    {
+      "type": "color",
+      "id": "button_color_hover",
+      "label": "Button Text Color (Hover)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color_hover",
+      "label": "Button Background Color (Hover)",
+      "default": "#00a000"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color_hover",
+      "label": "Button Border Color (Hover)",
+      "default": "#00a000"
+    },
+    {
+      "type": "header",
+      "content": "Background Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color_background",
+      "id": "section_bg_gradient",
+      "label": "Section Background Gradient"
+    },
+    {
+      "type": "header",
+      "content": "Section Margins"
+    },
+    {
+      "type": "range",
+      "id": "mg_top_desktop",
+      "label": "Top Margin (Desktop)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "mg_top_tablet",
+      "label": "Top Margin (Tablet)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mg_top_mobile",
+      "label": "Top Margin (Mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom_desktop",
+      "label": "Bottom Margin (Desktop)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom_tablet",
+      "label": "Bottom Margin (Tablet)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom_mobile",
+      "label": "Bottom Margin (Mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Slider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Enable Autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Autoplay Speed (seconds)",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Animation Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animation",
+      "label": "Enable Animations",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "animation_type",
+      "label": "Animation Type",
+      "default": "fade-in",
+      "options": [
+        {
+          "value": "fade-in",
+          "label": "Fade In"
+        },
+        {
+          "value": "slide-in",
+          "label": "Slide In"
+        },
+        {
+          "value": "slide-up",
+          "label": "Slide Up"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "certificate",
+      "name": "Certificate",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "certificate_image",
+          "label": "Certificate Image"
+        },
+        {
+          "type": "text",
+          "id": "certificate_title",
+          "label": "Certificate Title (Alt Text)",
+          "default": "ISO Certificate"
+        },
+        {
+          "type": "url",
+          "id": "certificate_link",
+          "label": "Certificate Link",
+          "info": "Link to open when certificate is clicked"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_in_new_tab",
+          "label": "Open in New Tab",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Certification Slider",
+      "blocks": [
+        {
+          "type": "certificate",
+          "settings": {
+            "certificate_title": "ISO 9001:2015 Certificate"
+          }
+        },
+        {
+          "type": "certificate",
+          "settings": {
+            "certificate_title": "HACCP Certificate"
+          }
+        },
+        {
+          "type": "certificate",
+          "settings": {
+            "certificate_title": "Organic Certificate"
+          }
+        },
+        {
+          "type": "certificate",
+          "settings": {
+            "certificate_title": "HALAL Certificate"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

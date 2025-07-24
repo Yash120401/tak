@@ -1,0 +1,963 @@
+<!-- home-banner.liquid -->
+{% comment %} Auto-translation logic based on URL {% endcomment %}
+{% assign current_url = request.path %}
+{% assign is_turkish = false %}
+{% assign is_russian = false %}
+
+{% if current_url contains '/tr' %}
+  {% assign is_turkish = true %}
+{% elsif current_url contains '/ru' %}
+  {% assign is_russian = true %}
+{% endif %}
+
+{% comment %} Translation mappings {% endcomment %}
+{% if is_turkish %}
+  {% assign translated_heading_part_1 = 'Premium' %}
+  {% assign translated_heading_highlight = 'Tarım' %}
+  {% assign translated_heading_part_2 = 'Ürünleri' %}
+  {% assign translated_description = "Afganistan'ın Kalbinden Dünya Standartlarında Kuru Meyve ve Tarım Ürünleri Sunuyoruz" %}
+  {% assign translated_button_text = 'Alışveriş Yap' %}
+{% elsif is_russian %}
+  {% assign translated_heading_part_1 = 'Премиум' %}
+  {% assign translated_heading_highlight = 'Сельское хозяйство' %}
+  {% assign translated_heading_part_2 = 'Продукты' %}
+  {% assign translated_description = 'Поставляем сухофрукты и сельскохозяйственную продукцию мирового класса из сердца Афганистана' %}
+  {% assign translated_button_text = 'Купить сейчас' %}
+{% else %}
+  {% assign translated_heading_part_1 = section.settings.heading_part_1 %}
+  {% assign translated_heading_highlight = section.settings.heading_highlight %}
+  {% assign translated_heading_part_2 = section.settings.heading_part_2 %}
+  {% assign translated_description = section.settings.description %}
+  {% assign translated_button_text = section.settings.button_text %}
+{% endif %}
+
+<div class="home-banner-section">
+  <div class="banner-container">
+    <div class="banner-wrapper">
+      <div class="banner-item">
+        <!-- Video Background -->
+        <div class="video-background">
+          {% if section.settings.background_video != blank %}
+            <video
+              autoplay
+              loop
+              muted
+              playsinline
+              preload="auto"
+              class="banner-video"
+            >
+              <source src="{{ section.settings.background_video }}" type="video/mp4">
+              <source src="{{ section.settings.background_video }}" type="video/webm">
+              Your browser does not support the video tag.
+            </video>
+          {% endif %}
+
+          <!-- Fallback Image -->
+          {% if section.settings.background_image != blank %}
+            <img
+              src="{{ section.settings.background_image | img_url: '1920x800' }}"
+              alt="{{ translated_heading_part_1 | escape }} {{ translated_heading_highlight | escape }} {{ translated_heading_part_2 | escape }}"
+              class="banner-image-fallback"
+              loading="lazy"
+            >
+          {% endif %}
+        </div>
+
+        <!-- Content Overlay -->
+        <div class="banner-content">
+          <div class="content-container container-{{ section.settings.content_container }}{% if section.settings.content_container == 'fullwidth' %} container-full{% endif %}">
+            <div class="content-wrapper">
+              {% comment %} Fixed heading structure with proper conditions and div wrapping {% endcomment %}
+              {% if translated_heading_part_1 != blank
+                or translated_heading_highlight != blank
+                or translated_heading_part_2 != blank
+              %}
+                <div class="banner-heading-wrapper">
+                  <h1 class="banner-heading">
+                    {% if translated_heading_part_1 != blank %}
+                      <div class="heading-part-1">{{ translated_heading_part_1 }}</div>
+                    {% endif %}
+                    {% if translated_heading_highlight != blank %}
+                      <div class="heading-highlight">
+                        <span class="highlight-text">{{ translated_heading_highlight }}</span>
+                      </div>
+                    {% endif %}
+                    {% if translated_heading_part_2 != blank %}
+                      <div class="heading-part-2">{{ translated_heading_part_2 }}</div>
+                    {% endif %}
+                  </h1>
+                </div>
+              {% endif %}
+
+              {% if translated_description != blank %}
+                <div class="banner-description-wrapper">
+                  <p class="banner-description">{{ translated_description }}</p>
+                </div>
+              {% endif %}
+
+              {% if translated_button_text != blank and section.settings.button_url != blank %}
+                <div class="banner-button-wrapper">
+                  <a href="{{ section.settings.button_url }}" class="button banner-button">
+                    <span>{{ translated_button_text }}</span>
+                  </a>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .home-banner-section {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding-top: {{ section.settings.section_padding_top | default: 0 }}px;
+    padding-bottom: {{ section.settings.section_padding_bottom | default: 0 }}px;
+  }
+
+  /* Banner Container - Always Full Width */
+  .banner-container {
+    position: relative;
+    width: 100%;
+  }
+
+  /* Content Container System */
+  .content-container {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .content-container.container-1170 {
+    max-width: 1170px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .content-container.container-1370 {
+    max-width: 1370px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .content-container.container-1470 {
+    max-width: 1470px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .content-container.container-1570 {
+    max-width: 1570px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .content-container.container-1770 {
+    max-width: 1770px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .content-container.container-fullwidth,
+  .content-container.container-full {
+    max-width: 100%;
+    padding-left: {{ section.settings.content_padding_full_width | default: 25 }}px;
+    padding-right: {{ section.settings.content_padding_full_width | default: 25 }}px;
+  }
+
+  .banner-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .banner-item {
+    position: relative;
+    width: 100%;
+    height: {{ section.settings.banner_height_desktop | default: 800 }}px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  /* Video Background Styles */
+  .video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .banner-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+  .banner-image-fallback {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0; /* Lower z-index than video, shows when video fails */
+  }
+
+  /* Hide fallback image when video is playing */
+  .banner-video:not([style*="display: none"]) ~ .banner-image-fallback {
+    display: none;
+  }
+
+  /* Content Overlay */
+  .banner-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: {{ section.settings.content_padding_top | default: 0 }}px 0 {{ section.settings.content_padding_bottom | default: 0 }}px 0;
+  }
+
+  .content-wrapper {
+    width: 100%;
+    text-align: {{ section.settings.content_alignment | default: 'left' }};
+    margin-top: {{ section.settings.content_margin_top | default: 0 }}px;
+    margin-bottom: {{ section.settings.content_margin_bottom | default: 0 }}px;
+    padding-left: {{ section.settings.content_inner_padding_horizontal | default: 0 }}px;
+    padding-right: {{ section.settings.content_inner_padding_horizontal | default: 0 }}px;
+  }
+
+  /* Heading Structure Styles */
+  .banner-heading-wrapper {
+    margin-bottom: 20px;
+  }
+
+  .banner-heading {
+    font-size: {{ section.settings.heading_size_desktop | default: 64 }}px;
+    line-height: {{ section.settings.heading_line_height_desktop | default: 72 }}px;
+    font-weight: {{ section.settings.heading_weight | default: 700 }};
+    color: {{ section.settings.heading_color | default: '#ffffff' }};
+    margin: 0;
+    width: 700px;
+    letter-spacing: var(--heading-letter-spacing, 0);
+  }
+
+  .heading-part-1,
+  .heading-part-2,
+  .heading-highlight {
+    display: inline-block;
+    margin-right: 0.25em;
+  }
+
+  .heading-part-1 {
+    /* Custom styles for first part if needed */
+  }
+
+  .heading-highlight {
+    /* Custom styles for highlight wrapper if needed */
+  }
+
+  .heading-part-2 {
+    /* Custom styles for second part if needed */
+  }
+
+  .highlight-text {
+    color: {{ section.settings.highlight_color | default: '#4CAF50' }};
+  }
+
+  /* Description Styles */
+  .banner-description-wrapper {
+    margin-bottom: 50px;
+  }
+
+  .banner-description {
+    font-size: {{ section.settings.description_size_desktop | default: 20 }}px;
+    line-height: {{ section.settings.description_line_height_desktop | default: 26 }}px;
+    color: {{ section.settings.description_color | default: '#ffffff' }};
+    margin: 0;
+    max-width: 600px;
+  }
+
+  /* Button Styles */
+  .banner-button-wrapper {
+    /* Wrapper for additional button styling if needed */
+  }
+
+  .banner-button {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: {{ section.settings.button_bg | default: '#232323' }};
+    color: {{ section.settings.button_text_color | default: '#ffffff' }};
+    text-decoration: none;
+    border: 2px solid {{ section.settings.button_border | default: '#232323' }};
+    font-weight: 500;
+    transition: all 0.3s ease;
+    min-width: 200px;
+    text-align: center;
+  }
+
+  .banner-button:hover {
+    background-color: {{ section.settings.button_bg_hover | default: '#ffffff' }};
+    color: {{ section.settings.button_text_color_hover | default: '#232323' }};
+    border-color: {{ section.settings.button_border_hover | default: '#232323' }};
+  }
+
+  /* Tablet Styles */
+  @media screen and (max-width: 1024px) {
+    .home-banner-section {
+      padding-top: {{ section.settings.section_padding_top | default: 0 | times: section.settings.tablet_padding_multiplier | default: 0.8 }}px;
+      padding-bottom: {{ section.settings.section_padding_bottom | default: 0 | times: section.settings.tablet_padding_multiplier | default: 0.8 }}px;
+    }
+
+    .banner-item {
+      height: {{ section.settings.banner_height_tablet | default: 600 }}px;
+    }
+
+    .banner-content {
+      padding: {{ section.settings.content_padding_top | default: 0 | times: section.settings.tablet_padding_multiplier | default: 0.8 }}px 0 {{ section.settings.content_padding_bottom | default: 0 | times: section.settings.tablet_padding_multiplier | default: 0.8 }}px 0;
+    }
+
+    .content-wrapper {
+      padding-left: {{ section.settings.content_inner_padding_horizontal | default: 0 | times: section.settings.tablet_padding_multiplier | default: 0.8 }}px;
+      padding-right: {{ section.settings.content_inner_padding_horizontal | default: 0 | times: section.settings.tablet_padding_multiplier | default: 0.8 }}px;
+    }
+
+    .banner-heading {
+      font-size: {{ section.settings.heading_size_tablet | default: 34 }}px;
+      line-height: {{ section.settings.heading_line_height_tablet | default: 42 }}px;
+    }
+
+    .banner-description {
+      font-size: {{ section.settings.description_size_tablet | default: 18 }}px;
+    }
+
+    .banner-description-wrapper {
+      margin-bottom: {{ section.settings.description_margin_bottom | default: 50 | times: section.settings.tablet_padding_multiplier | default: 0.8 }}px;
+    }
+
+    .content-container.container-fullwidth,
+    .content-container.container-full {
+      padding-left: {{ section.settings.content_padding_full_width | default: 25 | times: section.settings.tablet_padding_multiplier | default: 0.8 }}px;
+      padding-right: {{ section.settings.content_padding_full_width | default: 25 | times: section.settings.tablet_padding_multiplier | default: 0.8 }}px;
+    }
+  }
+
+  /* Mobile Styles */
+  @media screen and (max-width: 768px) {
+    .home-banner-section {
+      padding-top: {{ section.settings.section_padding_top | default: 0 | times: section.settings.mobile_padding_multiplier | default: 0.5 }}px;
+      padding-bottom: {{ section.settings.section_padding_bottom | default: 0 | times: section.settings.mobile_padding_multiplier | default: 0.5 }}px;
+    }
+
+    .banner-item {
+      height: {{ section.settings.banner_height_mobile | default: 500 }}px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .banner-content {
+      padding: {{ section.settings.content_padding_top | default: 0 | times: section.settings.mobile_padding_multiplier | default: 0.5 }}px 0 {{ section.settings.content_padding_bottom | default: 0 | times: section.settings.mobile_padding_multiplier | default: 0.5 }}px 0;
+      text-align: center;
+    }
+
+    .content-wrapper {
+      margin-top: {{ section.settings.content_margin_top | default: 0 | times: section.settings.mobile_padding_multiplier | default: 0.5 }}px;
+      margin-bottom: {{ section.settings.content_margin_bottom | default: 0 | times: section.settings.mobile_padding_multiplier | default: 0.5 }}px;
+      padding-left: {{ section.settings.content_inner_padding_horizontal | default: 0 | times: section.settings.mobile_padding_multiplier | default: 0.5 }}px;
+      padding-right: {{ section.settings.content_inner_padding_horizontal | default: 0 | times: section.settings.mobile_padding_multiplier | default: 0.5 }}px;
+    }
+
+    .banner-heading {
+      font-size: {{ section.settings.heading_size_mobile | default: 36 }}px;
+      line-height: {{ section.settings.heading_line_height_mobile | default: 44 }}px;
+      color: {{ section.settings.heading_color_mobile | default: '#ffffff' }};
+    }
+
+    .banner-description {
+      font-size: {{ section.settings.description_size_mobile | default: 16 }}px;
+      color: {{ section.settings.description_color_mobile | default: '#ffffff' }};
+    }
+
+    .banner-description-wrapper {
+      margin-bottom: {{ section.settings.description_margin_bottom | default: 50 | times: section.settings.mobile_padding_multiplier | default: 0.5 }}px;
+    }
+
+    .banner-button {
+      padding: 12px 25px;
+      min-width: 180px;
+    }
+
+    .content-container.container-fullwidth,
+    .content-container.container-full {
+      padding-left: {{ section.settings.content_padding_full_width | default: 25 | times: section.settings.mobile_padding_multiplier | default: 0.5 }}px;
+      padding-right: {{ section.settings.content_padding_full_width | default: 25 | times: section.settings.mobile_padding_multiplier | default: 0.5 }}px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .banner-item {
+      height: {{ section.settings.banner_height_mobile | default: 500 | times: 0.8 }}px;
+    }
+
+    .banner-heading {
+      font-size: {{ section.settings.heading_size_mobile | default: 36 | times: 0.78 }}px;
+      line-height: {{ section.settings.heading_line_height_mobile | default: 44 | times: 0.82 }}px;
+    }
+
+    .banner-description {
+      font-size: {{ section.settings.description_size_mobile | default: 16 | times: 0.875 }}px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const video = document.getElementById('banner-video-{{ section.id }}');
+
+    if (video) {
+      console.log('Banner video element found');
+
+      let isReloading = false;
+      let reloadTimeout;
+
+      // Function to safely reload and play video
+      function reloadVideo() {
+        if (isReloading) {
+          console.log('Video reload already in progress, skipping...');
+          return;
+        }
+
+        isReloading = true;
+        console.log('Reloading video...');
+
+        // Clear any existing timeout
+        if (reloadTimeout) {
+          clearTimeout(reloadTimeout);
+        }
+
+        // Pause and reset video
+        video.pause();
+        video.currentTime = 0;
+
+        // Remove and re-add sources to force complete reload
+        const sources = video.querySelectorAll('source');
+        const sourceUrls = Array.from(sources).map(source => ({
+          src: source.src,
+          type: source.type
+        }));
+
+        // Clear existing sources
+        sources.forEach(source => source.remove());
+
+        // Re-add sources after a brief delay
+        setTimeout(function() {
+          sourceUrls.forEach(sourceData => {
+            const newSource = document.createElement('source');
+            newSource.src = sourceData.src;
+            newSource.type = sourceData.type;
+            video.appendChild(newSource);
+          });
+
+          // Load and play
+          video.load();
+
+          reloadTimeout = setTimeout(function() {
+            video.play().then(function() {
+              console.log('Video playing successfully');
+              isReloading = false;
+            }).catch(function(error) {
+              console.log('Video autoplay failed:', error);
+              isReloading = false;
+            });
+          }, 200);
+        }, 100);
+      }
+
+      // Initial load
+      reloadVideo();
+
+      // Handle page visibility changes (language switches)
+      let visibilityHandler = function() {
+        if (!document.hidden && video) {
+          console.log('Page became visible, reloading video');
+          setTimeout(reloadVideo, 300); // Small delay to ensure page is fully loaded
+        }
+      };
+
+      // Handle window focus
+      let focusHandler = function() {
+        if (video && (video.paused || video.readyState === 0)) {
+          console.log('Window focused, attempting to restart video');
+          setTimeout(reloadVideo, 200);
+        }
+      };
+
+      // Remove existing listeners first (in case script runs multiple times)
+      document.removeEventListener('visibilitychange', visibilityHandler);
+      window.removeEventListener('focus', focusHandler);
+
+      // Add event listeners
+      document.addEventListener('visibilitychange', visibilityHandler);
+      window.addEventListener('focus', focusHandler);
+
+      // Video event listeners
+      video.addEventListener('loadeddata', function() {
+        console.log('Video data loaded successfully');
+      });
+
+      video.addEventListener('error', function(e) {
+        console.log('Video error details:', e);
+        console.log('Video error code:', video.error ? video.error.code : 'Unknown');
+        isReloading = false; // Reset flag on error
+      });
+
+      video.addEventListener('stalled', function() {
+        console.log('Video stalled, attempting reload...');
+        setTimeout(reloadVideo, 1000);
+      });
+
+      video.addEventListener('loadstart', function() {
+        console.log('Video load started');
+      });
+
+      // Cleanup function for when section is removed
+      window.addEventListener('beforeunload', function() {
+        if (reloadTimeout) {
+          clearTimeout(reloadTimeout);
+        }
+        document.removeEventListener('visibilitychange', visibilityHandler);
+        window.removeEventListener('focus', focusHandler);
+      });
+
+    } else {
+      console.log('Banner video element not found');
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Home Banner",
+  "tag": "section",
+  "class": "home-banner-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Auto-Translation Settings"
+    },
+    {
+      "type": "paragraph",
+      "content": "This section automatically translates text content when URL contains '/tr' (Turkish) or '/ru' (Russian). Video remains the same for all languages."
+    },
+    {
+      "type": "header",
+      "content": "Content Container Settings"
+    },
+    {
+      "type": "select",
+      "id": "content_container",
+      "label": "Content Container Width",
+      "default": "1770",
+      "options": [
+        {"value": "1170", "label": "1170px"},
+        {"value": "1370", "label": "1370px"},
+        {"value": "1470", "label": "1470px"},
+        {"value": "1570", "label": "1570px"},
+        {"value": "1770", "label": "1770px"},
+        {"value": "fullwidth", "label": "Full Width"}
+      ],
+      "info": "Controls the width of the content area only. Banner background remains full width."
+    },
+    {
+      "type": "range",
+      "id": "content_padding_full_width",
+      "label": "Content Full Width Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50,
+      "info": "Horizontal padding when content container is set to full width"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Section Top Padding",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Section Bottom Padding",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Banner Dimensions"
+    },
+    {
+      "type": "range",
+      "id": "banner_height_desktop",
+      "label": "Banner Height (Desktop)",
+      "min": 400,
+      "max": 1200,
+      "step": 50,
+      "unit": "px",
+      "default": 800
+    },
+    {
+      "type": "range",
+      "id": "banner_height_tablet",
+      "label": "Banner Height (Tablet)",
+      "min": 300,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "banner_height_mobile",
+      "label": "Banner Height (Mobile)",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "unit": "px",
+      "default": 500
+    },
+    {
+      "type": "header",
+      "content": "Content Spacing & Positioning"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content Alignment (Desktop)",
+      "default": "left",
+      "options": [
+        {"value": "left", "label": "Left"},
+        {"value": "center", "label": "Center"},
+        {"value": "right", "label": "Right"}
+      ]
+    },
+    {
+      "type": "range",
+      "id": "content_inner_padding_horizontal",
+      "label": "Content Inner Horizontal Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 0,
+      "info": "Additional horizontal padding inside the content container"
+    },
+    {
+      "type": "range",
+      "id": "content_padding_top",
+      "label": "Content Top Padding",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "content_padding_bottom",
+      "label": "Content Bottom Padding",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "content_margin_top",
+      "label": "Content Top Margin",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "content_margin_bottom",
+      "label": "Content Bottom Margin",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Responsive Multipliers"
+    },
+    {
+      "type": "range",
+      "id": "tablet_padding_multiplier",
+      "label": "Tablet Padding Multiplier",
+      "min": 0.5,
+      "max": 1,
+      "step": 0.1,
+      "default": 0.8,
+      "info": "Multiplier for all padding values on tablets"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_multiplier",
+      "label": "Mobile Padding Multiplier",
+      "min": 0.3,
+      "max": 1,
+      "step": 0.1,
+      "default": 0.5,
+      "info": "Multiplier for all padding values on mobile"
+    },
+    {
+      "type": "header",
+      "content": "Background Media"
+    },
+    {
+      "type": "url",
+      "id": "background_video",
+      "label": "Background Video URL",
+      "info": "Upload MP4 video file and copy the URL. Video will auto-loop and remain the same for all languages."
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Fallback Background Image",
+      "info": "Shows when video fails to load or on devices that don't support autoplay."
+    },
+    {
+      "type": "header",
+      "content": "Default Heading Settings"
+    },
+    {
+      "type": "text",
+      "id": "heading_part_1",
+      "label": "Heading Part 1",
+      "default": "Premium"
+    },
+    {
+      "type": "text",
+      "id": "heading_highlight",
+      "label": "Highlighted Text",
+      "default": "Agricultural"
+    },
+    {
+      "type": "text",
+      "id": "heading_part_2",
+      "label": "Heading Part 2",
+      "default": "Products"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color (Desktop/Tablet)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color_mobile",
+      "label": "Heading Color (Mobile)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "highlight_color",
+      "label": "Highlight Text Color",
+      "default": "#4CAF50"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Size (Desktop)",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "heading_size_tablet",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Size (Tablet)",
+      "default": 34
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 18,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Size (Mobile)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "heading_weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "label": "Heading Font Weight",
+      "default": 700
+    },
+    {
+      "type": "header",
+      "content": "Default Description Settings"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Delivering World-Class Dry Fruits & Agricultural\nProducts from the Heart of Afghanistan"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color (Desktop/Tablet)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "description_color_mobile",
+      "label": "Description Color (Mobile)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "description_size_desktop",
+      "min": 14,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "label": "Description Size (Desktop)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "description_size_tablet",
+      "min": 14,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Description Size (Tablet)",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "description_size_mobile",
+      "min": 12,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Description Size (Mobile)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "description_margin_bottom",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Description Bottom Margin",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Default Button Settings"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button Background",
+      "default": "#232323"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border",
+      "label": "Button Border Color",
+      "default": "#232323"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_hover",
+      "label": "Button Background (Hover)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color_hover",
+      "label": "Button Text Color (Hover)",
+      "default": "#232323"
+    },
+    {
+      "type": "color",
+      "id": "button_border_hover",
+      "label": "Button Border Color (Hover)",
+      "default": "#232323"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home Banner",
+      "settings": {
+        "heading_part_1": "Premium",
+        "heading_highlight": "Agricultural",
+        "heading_part_2": "Products",
+        "description": "Delivering World-Class Dry Fruits & Agricultural\nProducts from the Heart of Afghanistan",
+        "button_text": "Shop Now"
+      }
+    }
+  ]
+}
+{% endschema %}

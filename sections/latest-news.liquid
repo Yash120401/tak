@@ -1,0 +1,986 @@
+{%- liquid
+  assign container = section.settings.container
+  assign section_heading = section.settings.section_heading
+  assign section_description = section.settings.section_description
+  assign view_more_text = section.settings.view_more_text
+  assign view_more_link = section.settings.view_more_link
+
+  assign section_bg_color = section.settings.section_bg_color
+  assign section_bg_gradient = section.settings.section_bg_gradient
+
+  assign heading_color = section.settings.heading_color
+  assign heading_font_size_desktop = section.settings.heading_font_size_desktop
+  assign heading_font_size_tablet = section.settings.heading_font_size_tablet
+  assign heading_font_size_mobile = section.settings.heading_font_size_mobile
+  assign heading_font_weight = section.settings.heading_font_weight
+
+  assign desc_color = section.settings.desc_color
+  assign desc_font_size_desktop = section.settings.desc_font_size_desktop
+  assign desc_font_size_mobile = section.settings.desc_font_size_mobile
+
+  assign card_bg_color = section.settings.card_bg_color
+  assign card_border_color = section.settings.card_border_color
+  assign card_title_color = section.settings.card_title_color
+  assign card_text_color = section.settings.card_text_color
+  assign card_date_color = section.settings.card_date_color
+
+  assign button_color = section.settings.button_color
+  assign button_bg_color = section.settings.button_bg_color
+  assign button_border_color = section.settings.button_border_color
+  assign button_color_hover = section.settings.button_color_hover
+  assign button_bg_color_hover = section.settings.button_bg_color_hover
+  assign button_border_color_hover = section.settings.button_border_color_hover
+
+  assign read_more_color = section.settings.read_more_color
+  assign read_more_color_hover = section.settings.read_more_color_hover
+
+  assign mg_top_desktop = section.settings.mg_top_desktop
+  assign mg_top_tablet = section.settings.mg_top_tablet
+  assign mg_top_mobile = section.settings.mg_top_mobile
+  assign mg_bottom_desktop = section.settings.mg_bottom_desktop
+  assign mg_bottom_tablet = section.settings.mg_bottom_tablet
+  assign mg_bottom_mobile = section.settings.mg_bottom_mobile
+
+  assign enable_animation = section.settings.enable_animation
+-%}
+
+<style>
+  #news-insights-{{ section.id }} {
+    padding-top: {{ mg_top_desktop }}px;
+    padding-bottom: {{ mg_bottom_desktop }}px;
+    {% if section_bg_gradient != blank %}
+      background: {{ section_bg_gradient }};
+    {% elsif section_bg_color != blank %}
+      background-color: {{ section_bg_color }};
+    {% else %}
+      background-color: #ffffff;
+    {% endif %}
+  }
+
+  #news-insights-{{ section.id }} .container {
+    {% if container == 'container' %}
+      max-width: 1200px;
+    {% elsif container == '1170' %}
+      max-width: 1170px;
+    {% elsif container == '1470' %}
+      max-width: 1470px;
+    {% elsif container == '1570' %}
+      max-width: 1570px;
+    {% elsif container == '1770' %}
+      max-width: 1770px;
+    {% elsif container == '1920' %}
+      max-width: 1920px;
+    {% elsif container == 'fullwidth' %}
+      max-width: 100%;
+    {% endif %}
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  #news-insights-{{ section.id }} .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  #news-insights-{{ section.id }} .section-heading {
+    color: {{ heading_color | default: '#0E0F13' }};
+    font-size: {{ heading_font_size_desktop }}px;
+    font-weight: {{ heading_font_weight }};
+    margin-bottom: 20px;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  #news-insights-{{ section.id }} .section-description {
+    color: {{ desc_color | default: '#666666' }};
+    font-size: {{ desc_font_size_desktop }}px;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  #news-insights-{{ section.id }} .news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-bottom: 50px;
+  }
+
+  #news-insights-{{ section.id }} .news-card {
+    background-color: {{ card_bg_color | default: '#ffffff' }};
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid {{ card_border_color | default: '#f0f0f0' }};
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #news-insights-{{ section.id }} .news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  }
+
+  #news-insights-{{ section.id }} .card-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  #news-insights-{{ section.id }} .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  #news-insights-{{ section.id }} .news-card:hover .card-image img {
+    transform: scale(1.05);
+  }
+
+  #news-insights-{{ section.id }} .card-content {
+    padding: 25px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #news-insights-{{ section.id }} .card-date {
+    color: {{ card_date_color | default: '#00a000' }};
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  #news-insights-{{ section.id }} .card-title {
+    color: {{ card_title_color | default: '#1a1a1a' }};
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 15px;
+    flex: 1;
+  }
+
+  #news-insights-{{ section.id }} .card-title a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  #news-insights-{{ section.id }} .card-title a:hover {
+    color: {{ read_more_color | default: '#00a000' }};
+  }
+
+  #news-insights-{{ section.id }} .card-excerpt {
+    color: {{ card_text_color | default: '#666666' }};
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  #news-insights-{{ section.id }} .read-more {
+    color: {{ read_more_color | default: '#00a000' }};
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    margin-top: auto;
+  }
+
+  #news-insights-{{ section.id }} .read-more:hover {
+    color: {{ read_more_color_hover | default: '#008000' }};
+    gap: 12px;
+  }
+
+  #news-insights-{{ section.id }} .read-more svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+  }
+
+  #news-insights-{{ section.id }} .read-more:hover svg {
+    transform: translateX(4px);
+  }
+
+  #news-insights-{{ section.id }} .view-more-container {
+    text-align: center;
+  }
+
+  #news-insights-{{ section.id }} .view-more-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: {{ button_color | default: '#00a000' }};
+    background-color: {{ button_bg_color | default: 'transparent' }};
+    border: 2px solid {{ button_border_color | default: '#00a000' }};
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  #news-insights-{{ section.id }} .view-more-button:hover {
+    color: {{ button_color_hover | default: '#ffffff' }};
+    background-color: {{ button_bg_color_hover | default: '#00a000' }};
+    border-color: {{ button_border_color_hover | default: '#00a000' }};
+  }
+
+  #news-insights-{{ section.id }} .view-more-button .icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: {{ button_color | default: '#00a000' }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+  }
+
+  #news-insights-{{ section.id }} .view-more-button:hover .icon {
+    background-color: {{ button_color_hover | default: '#ffffff' }};
+  }
+
+  #news-insights-{{ section.id }} .view-more-button .icon svg {
+    width: 12px;
+    height: 12px;
+    fill: {{ button_bg_color | default: '#ffffff' }};
+  }
+
+  #news-insights-{{ section.id }} .view-more-button:hover .icon svg {
+    fill: {{ button_bg_color_hover | default: '#00a000' }};
+  }
+
+  #news-insights-{{ section.id }} .placeholder-image {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+  }
+
+  #news-insights-{{ section.id }} .placeholder-image svg {
+    width: 60px;
+    height: 60px;
+    fill: #ccc;
+  }
+
+  @media (max-width: 1024px) {
+    #news-insights-{{ section.id }} {
+      padding-top: {{ mg_top_tablet }}px;
+      padding-bottom: {{ mg_bottom_tablet }}px;
+    }
+
+    #news-insights-{{ section.id }} .section-heading {
+      font-size: {{ heading_font_size_tablet }}px;
+    }
+
+    #news-insights-{{ section.id }} .news-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+    }
+
+    #news-insights-{{ section.id }} .section-header {
+      margin-bottom: 40px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    #news-insights-{{ section.id }} {
+      padding-top: {{ mg_top_mobile }}px;
+      padding-bottom: {{ mg_bottom_mobile }}px;
+    }
+
+    #news-insights-{{ section.id }} .section-heading {
+      font-size: {{ heading_font_size_mobile }}px;
+    }
+
+    #news-insights-{{ section.id }} .section-description {
+      font-size: {{ desc_font_size_mobile }}px;
+    }
+
+    #news-insights-{{ section.id }} .news-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    #news-insights-{{ section.id }} .card-content {
+      padding: 20px;
+    }
+
+    #news-insights-{{ section.id }} .card-title {
+      font-size: 18px;
+    }
+
+    #news-insights-{{ section.id }} .card-excerpt {
+      font-size: 14px;
+    }
+
+    #news-insights-{{ section.id }} .section-header {
+      margin-bottom: 30px;
+    }
+  }
+
+  {% if enable_animation %}
+    #news-insights-{{ section.id }} .scroll-trigger {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    #news-insights-{{ section.id }} .scroll-trigger.animated {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    #news-insights-{{ section.id }} .news-card {
+      transition-delay: 0.1s;
+    }
+
+    #news-insights-{{ section.id }} .news-card:nth-child(2) {
+      transition-delay: 0.2s;
+    }
+
+    #news-insights-{{ section.id }} .news-card:nth-child(3) {
+      transition-delay: 0.3s;
+    }
+  {% endif %}
+</style>
+
+<div id="news-insights-{{ section.id }}" class="news-insights-section">
+  <div class="container">
+    <div class="section-header">
+      {%- if section_heading != blank -%}
+        <h2 class="section-heading{% if enable_animation %} scroll-trigger{% endif %}">{{ section_heading }}</h2>
+      {%- endif -%}
+
+      {%- if section_description != blank -%}
+        <p class="section-description{% if enable_animation %} scroll-trigger{% endif %}">
+          {{ section_description }}
+        </p>
+      {%- endif -%}
+    </div>
+
+    <div class="news-grid">
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          <div class="news-card{% if enable_animation %} scroll-trigger{% endif %}" {{ block.shopify_attributes }}>
+            <div class="card-image">
+              {%- if block.settings.article_image != blank -%}
+                <img
+                  src="{{ block.settings.article_image | image_url: width: 400 }}"
+                  alt="{{ block.settings.article_title | default: 'News Article' }}"
+                  loading="lazy"
+                >
+              {%- else -%}
+                <div class="placeholder-image">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19M19,19H5V5H19V19M13.96,12.29L11.21,15.83L9.25,13.47L6.5,17H17.5L13.96,12.29Z"/>
+                  </svg>
+                </div>
+              {%- endif -%}
+            </div>
+
+            <div class="card-content">
+              {%- if block.settings.article_date != blank -%}
+                <div class="card-date">{{ block.settings.article_date }}</div>
+              {%- endif -%}
+
+              {%- if block.settings.article_title != blank -%}
+                <h3 class="card-title">
+                  {%- if block.settings.article_link != blank -%}
+                    <a
+                      href="{{ block.settings.article_link }}"
+                      {% if block.settings.open_in_new_tab %}
+                        target="_blank" rel="noopener noreferrer"
+                      {% endif %}
+                    >
+                      {{ block.settings.article_title }}
+                    </a>
+                  {%- else -%}
+                    {{ block.settings.article_title }}
+                  {%- endif -%}
+                </h3>
+              {%- endif -%}
+
+              {%- if block.settings.article_excerpt != blank -%}
+                <div class="card-excerpt">{{ block.settings.article_excerpt }}</div>
+              {%- endif -%}
+
+              {%- if block.settings.article_link != blank -%}
+                <a
+                  href="{{ block.settings.article_link }}"
+                  class="read-more"
+                  {% if block.settings.open_in_new_tab %}
+                    target="_blank" rel="noopener noreferrer"
+                  {% endif %}
+                >
+                  {{ block.settings.read_more_text | default: 'Read more' }}
+                  <svg viewBox="0 0 16 16">
+                    <path d="M8.00961 0C4.28161 0 0.955671 2.6762 0.175824 6.32044C-0.213794 8.14133 0.0486724 10.0776 0.917914 11.7252C1.7545 13.3109 3.12602 14.5924 4.76694 15.3187C6.47379 16.0743 8.43331 16.206 10.2273 15.6907C11.958 15.1938 13.4926 14.103 14.5374 12.6388C16.7218 9.57778 16.4298 5.278 13.8598 2.53515C12.3536 0.927671 10.2142 0 8.00961 0ZM11.8525 8.42813L9.6687 10.6618C9.1158 11.2275 8.24187 10.3705 8.79252 9.80751L9.89443 8.68048H4.67245C4.30161 8.68048 3.9922 8.37126 3.9922 8.00109C3.9922 7.63092 4.30181 7.32169 4.67245 7.32169H9.8683L8.74455 6.19956C8.18615 5.64186 9.05192 4.77697 9.61033 5.33467L11.8474 7.56875C11.9614 7.68248 12.0258 7.8365 12.0268 7.99739C12.0277 8.15828 11.9651 8.31306 11.8525 8.42813Z"/>
+                  </svg>
+                </a>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <!-- Default placeholder articles -->
+        <div class="news-card">
+          <div class="card-image">
+            <div class="placeholder-image">
+              <svg viewBox="0 0 24 24">
+                <path d="M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19M19,19H5V5H19V19M13.96,12.29L11.21,15.83L9.25,13.47L6.5,17H17.5L13.96,12.29Z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="card-date">20 June 2025</div>
+            <h3 class="card-title">The Journey of Afghan Dry Fruits: From Farm to Global Markets</h3>
+            <div class="card-excerpt">
+              Afghanistan's dry fruits are world-renowned—but what does it take to get them from orchards to
+              international buyers?
+            </div>
+            <a href="#" class="read-more">
+              Read more
+              <svg viewBox="0 0 16 16">
+                <path d="M8.00961 0C4.28161 0 0.955671 2.6762 0.175824 6.32044C-0.213794 8.14133 0.0486724 10.0776 0.917914 11.7252C1.7545 13.3109 3.12602 14.5924 4.76694 15.3187C6.47379 16.0743 8.43331 16.206 10.2273 15.6907C11.958 15.1938 13.4926 14.103 14.5374 12.6388C16.7218 9.57778 16.4298 5.278 13.8598 2.53515C12.3536 0.927671 10.2142 0 8.00961 0ZM11.8525 8.42813L9.6687 10.6618C9.1158 11.2275 8.24187 10.3705 8.79252 9.80751L9.89443 8.68048H4.67245C4.30161 8.68048 3.9922 8.37126 3.9922 8.00109C3.9922 7.63092 4.30181 7.32169 4.67245 7.32169H9.8683L8.74455 6.19956C8.18615 5.64186 9.05192 4.77697 9.61033 5.33467L11.8474 7.56875C11.9614 7.68248 12.0258 7.8365 12.0268 7.99739C12.0277 8.15828 11.9651 8.31306 11.8525 8.42813Z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="news-card">
+          <div class="card-image">
+            <div class="placeholder-image">
+              <svg viewBox="0 0 24 24">
+                <path d="M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19M19,19H5V5H19V19M13.96,12.29L11.21,15.83L9.25,13.47L6.5,17H17.5L13.96,12.29Z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="card-date">24 June 2025</div>
+            <h3 class="card-title">Why Cold Storage Matters in Agricultural Exports</h3>
+            <div class="card-excerpt">
+              Temperature can make or break product quality in agriculture. Discover how TAK ensures freshness in every
+              shipment.
+            </div>
+            <a href="#" class="read-more">
+              Read more
+              <svg viewBox="0 0 16 16">
+                <path d="M8.00961 0C4.28161 0 0.955671 2.6762 0.175824 6.32044C-0.213794 8.14133 0.0486724 10.0776 0.917914 11.7252C1.7545 13.3109 3.12602 14.5924 4.76694 15.3187C6.47379 16.0743 8.43331 16.206 10.2273 15.6907C11.958 15.1938 13.4926 14.103 14.5374 12.6388C16.7218 9.57778 16.4298 5.278 13.8598 2.53515C12.3536 0.927671 10.2142 0 8.00961 0ZM11.8525 8.42813L9.6687 10.6618C9.1158 11.2275 8.24187 10.3705 8.79252 9.80751L9.89443 8.68048H4.67245C4.30161 8.68048 3.9922 8.37126 3.9922 8.00109C3.9922 7.63092 4.30181 7.32169 4.67245 7.32169H9.8683L8.74455 6.19956C8.18615 5.64186 9.05192 4.77697 9.61033 5.33467L11.8474 7.56875C11.9614 7.68248 12.0258 7.8365 12.0268 7.99739C12.0277 8.15828 11.9651 8.31306 11.8525 8.42813Z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="news-card">
+          <div class="card-image">
+            <div class="placeholder-image">
+              <svg viewBox="0 0 24 24">
+                <path d="M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19M19,19H5V5H19V19M13.96,12.29L11.21,15.83L9.25,13.47L6.5,17H17.5L13.96,12.29Z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="card-date">02 July 2025</div>
+            <h3 class="card-title">Supporting Afghan Farmers Through Ethical Sourcing</h3>
+            <div class="card-excerpt">
+              At TAK, sustainability begins at the source. Learn how we support local farmers across Afghanistan.
+            </div>
+            <a href="#" class="read-more">
+              Read more
+              <svg viewBox="0 0 16 16">
+                <path d="M8.00961 0C4.28161 0 0.955671 2.6762 0.175824 6.32044C-0.213794 8.14133 0.0486724 10.0776 0.917914 11.7252C1.7545 13.3109 3.12602 14.5924 4.76694 15.3187C6.47379 16.0743 8.43331 16.206 10.2273 15.6907C11.958 15.1938 13.4926 14.103 14.5374 12.6388C16.7218 9.57778 16.4298 5.278 13.8598 2.53515C12.3536 0.927671 10.2142 0 8.00961 0ZM11.8525 8.42813L9.6687 10.6618C9.1158 11.2275 8.24187 10.3705 8.79252 9.80751L9.89443 8.68048H4.67245C4.30161 8.68048 3.9922 8.37126 3.9922 8.00109C3.9922 7.63092 4.30181 7.32169 4.67245 7.32169H9.8683L8.74455 6.19956C8.18615 5.64186 9.05192 4.77697 9.61033 5.33467L11.8474 7.56875C11.9614 7.68248 12.0258 7.8365 12.0268 7.99739C12.0277 8.15828 11.9651 8.31306 11.8525 8.42813Z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if view_more_text != blank -%}
+      <div class="view-more-container">
+        <a
+          {% if view_more_link == blank %}
+            role="link" aria-disabled="true"
+          {% else %}
+            href="{{ view_more_link }}"
+          {% endif %}
+          class="view-more-button{% if enable_animation %} scroll-trigger{% endif %}"
+        >
+          <span class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 16 16" fill="none">
+              <path d="M8.00961 0C4.28161 0 0.955671 2.6762 0.175824 6.32044C-0.213794 8.14133 0.0486724 10.0776 0.917914 11.7252C1.7545 13.3109 3.12602 14.5924 4.76694 15.3187C6.47379 16.0743 8.43331 16.206 10.2273 15.6907C11.958 15.1938 13.4926 14.103 14.5374 12.6388C16.7218 9.57778 16.4298 5.278 13.8598 2.53515C12.3536 0.927671 10.2142 0 8.00961 0ZM11.8525 8.42813L9.6687 10.6618C9.1158 11.2275 8.24187 10.3705 8.79252 9.80751L9.89443 8.68048H4.67245C4.30161 8.68048 3.9922 8.37126 3.9922 8.00109C3.9922 7.63092 4.30181 7.32169 4.67245 7.32169H9.8683L8.74455 6.19956C8.18615 5.64186 9.05192 4.77697 9.61033 5.33467L11.8474 7.56875C11.9614 7.68248 12.0258 7.8365 12.0268 7.99739C12.0277 8.15828 11.9651 8.31306 11.8525 8.42813Z" fill="#009D03"/>
+            </svg>
+          </span>
+          {{ view_more_text }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+  {% if enable_animation %}
+    (function() {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animated');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('#news-insights-{{ section.id }} .scroll-trigger').forEach(function(el) {
+        observer.observe(el);
+      });
+    })();
+  {% endif %}
+</script>
+
+{% schema %}
+{
+  "name": "Latest News & Insights",
+  "class": "section-news-insights",
+  "settings": [
+    {
+      "type": "header",
+      "content": "General Settings"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container Width",
+      "default": "container",
+      "options": [
+        {
+          "value": "container",
+          "label": "Default Container"
+        },
+        {
+          "value": "1170",
+          "label": "1170px"
+        },
+        {
+          "value": "1470",
+          "label": "1470px"
+        },
+        {
+          "value": "1570",
+          "label": "1570px"
+        },
+        {
+          "value": "1770",
+          "label": "1770px"
+        },
+        {
+          "value": "1920",
+          "label": "1920px"
+        },
+        {
+          "value": "fullwidth",
+          "label": "Full Width"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Section Heading",
+      "default": "Latest News & Insights"
+    },
+    {
+      "type": "textarea",
+      "id": "section_description",
+      "label": "Section Description",
+      "default": "Stay updated with our latest news, insights, and industry developments."
+    },
+    {
+      "type": "text",
+      "id": "view_more_text",
+      "label": "View More Button Text",
+      "default": "View more"
+    },
+    {
+      "type": "url",
+      "id": "view_more_link",
+      "label": "View More Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Heading Typography"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_desktop",
+      "label": "Heading Font Size (Desktop)",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_tablet",
+      "label": "Heading Font Size (Tablet)",
+      "min": 20,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_mobile",
+      "label": "Heading Font Size (Mobile)",
+      "min": 18,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "select",
+      "id": "heading_font_weight",
+      "label": "Heading Font Weight",
+      "default": "700",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal (400)"
+        },
+        {
+          "value": "500",
+          "label": "Medium (500)"
+        },
+        {
+          "value": "600",
+          "label": "Semi Bold (600)"
+        },
+        {
+          "value": "700",
+          "label": "Bold (700)"
+        },
+        {
+          "value": "800",
+          "label": "Extra Bold (800)"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Description Typography"
+    },
+    {
+      "type": "color",
+      "id": "desc_color",
+      "label": "Description Color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "desc_font_size_desktop",
+      "label": "Description Font Size (Desktop)",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "desc_font_size_mobile",
+      "label": "Description Font Size (Mobile)",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Card Styling"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card Border Color",
+      "default": "#f0f0f0"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card Title Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card Text Color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "card_date_color",
+      "label": "Card Date Color",
+      "default": "#00a000"
+    },
+    {
+      "type": "color",
+      "id": "read_more_color",
+      "label": "Read More Link Color",
+      "default": "#00a000"
+    },
+    {
+      "type": "color",
+      "id": "read_more_color_hover",
+      "label": "Read More Link Color (Hover)",
+      "default": "#008000"
+    },
+    {
+      "type": "header",
+      "content": "View More Button Styling"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button Text Color",
+      "default": "#00a000"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background Color",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button Border Color",
+      "default": "#00a000"
+    },
+    {
+      "type": "color",
+      "id": "button_color_hover",
+      "label": "Button Text Color (Hover)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color_hover",
+      "label": "Button Background Color (Hover)",
+      "default": "#00a000"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color_hover",
+      "label": "Button Border Color (Hover)",
+      "default": "#00a000"
+    },
+    {
+      "type": "header",
+      "content": "Background Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color_background",
+      "id": "section_bg_gradient",
+      "label": "Section Background Gradient"
+    },
+    {
+      "type": "header",
+      "content": "Section Margins"
+    },
+    {
+      "type": "range",
+      "id": "mg_top_desktop",
+      "label": "Top Margin (Desktop)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "mg_top_tablet",
+      "label": "Top Margin (Tablet)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "mg_top_mobile",
+      "label": "Top Margin (Mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom_desktop",
+      "label": "Bottom Margin (Desktop)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom_tablet",
+      "label": "Bottom Margin (Tablet)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom_mobile",
+      "label": "Bottom Margin (Mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Animation Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animation",
+      "label": "Enable Animations",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "news_article",
+      "name": "News Article",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "article_image",
+          "label": "Article Image"
+        },
+        {
+          "type": "text",
+          "id": "article_date",
+          "label": "Article Date",
+          "default": "20 June 2025",
+          "info": "Display date for the article"
+        },
+        {
+          "type": "text",
+          "id": "article_title",
+          "label": "Article Title",
+          "default": "Article Title"
+        },
+        {
+          "type": "textarea",
+          "id": "article_excerpt",
+          "label": "Article Excerpt",
+          "default": "Brief description of the article content..."
+        },
+        {
+          "type": "text",
+          "id": "read_more_text",
+          "label": "Read More Text",
+          "default": "Read more"
+        },
+        {
+          "type": "url",
+          "id": "article_link",
+          "label": "Article Link",
+          "info": "Link to the full article"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_in_new_tab",
+          "label": "Open in New Tab",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Latest News & Insights",
+      "blocks": [
+        {
+          "type": "news_article",
+          "settings": {
+            "article_date": "20 June 2025",
+            "article_title": "The Journey of Afghan Dry Fruits: From Farm to Global Markets",
+            "article_excerpt": "Afghanistan's dry fruits are world-renowned—but what does it take to get them from orchards to international buyers?"
+          }
+        },
+        {
+          "type": "news_article",
+          "settings": {
+            "article_date": "24 June 2025",
+            "article_title": "Why Cold Storage Matters in Agricultural Exports",
+            "article_excerpt": "Temperature can make or break product quality in agriculture. Discover how TAK ensures freshness in every shipment."
+          }
+        },
+        {
+          "type": "news_article",
+          "settings": {
+            "article_date": "02 July 2025",
+            "article_title": "Supporting Afghan Farmers Through Ethical Sourcing",
+            "article_excerpt": "At TAK, sustainability begins at the source. Learn how we support local farmers across Afghanistan."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,895 @@
+{%- liquid
+  assign container = section.settings.container
+  assign section_heading = section.settings.section_heading
+  assign section_description = section.settings.section_description
+
+  assign section_bg_color = section.settings.section_bg_color
+  assign section_bg_gradient = section.settings.section_bg_gradient
+  assign card_bg_color = section.settings.card_bg_color
+  assign content_bg_color = section.settings.content_bg_color
+
+  assign heading_color = section.settings.heading_color
+  assign heading_font_size_desktop = section.settings.heading_font_size_desktop
+  assign heading_font_size_tablet = section.settings.heading_font_size_tablet
+  assign heading_font_size_mobile = section.settings.heading_font_size_mobile
+  assign heading_font_weight = section.settings.heading_font_weight
+
+  assign desc_color = section.settings.desc_color
+  assign desc_font_size_desktop = section.settings.desc_font_size_desktop
+  assign desc_font_size_mobile = section.settings.desc_font_size_mobile
+
+  assign card_title_color = section.settings.card_title_color
+  assign card_subtitle_color = section.settings.card_subtitle_color
+  assign card_text_color = section.settings.card_text_color
+
+  assign card_padding_desktop = section.settings.card_padding_desktop
+  assign card_padding_tablet = section.settings.card_padding_tablet
+  assign card_padding_mobile = section.settings.card_padding_mobile
+
+  assign image_margin_bottom = section.settings.image_margin_bottom
+  assign image_border_radius = section.settings.image_border_radius
+  assign card_border_radius = section.settings.card_border_radius
+
+  assign mg_top_desktop = section.settings.mg_top_desktop
+  assign mg_top_tablet = section.settings.mg_top_tablet
+  assign mg_top_mobile = section.settings.mg_top_mobile
+  assign mg_bottom_desktop = section.settings.mg_bottom_desktop
+  assign mg_bottom_tablet = section.settings.mg_bottom_tablet
+  assign mg_bottom_mobile = section.settings.mg_bottom_mobile
+
+  assign padding_top_desktop = section.settings.padding_top_desktop
+  assign padding_bottom_desktop = section.settings.padding_bottom_desktop
+  assign padding_top_mobile = section.settings.padding_top_mobile
+  assign padding_bottom_mobile = section.settings.padding_bottom_mobile
+
+  assign enable_animation = section.settings.enable_animation
+  assign animation_type = section.settings.animation_type
+-%}
+
+<style>
+  #dry-fruit-solutions-{{ section.id }} {
+    margin-top: {{ mg_top_desktop }}px;
+    margin-bottom: {{ mg_bottom_desktop }}px;
+    padding-top: {{ padding_top_desktop }}px;
+    padding-bottom: {{ padding_bottom_desktop }}px;
+    {% if section_bg_gradient != blank %}
+      background: {{ section_bg_gradient }};
+    {% elsif section_bg_color != blank %}
+      background-color: {{ section_bg_color }};
+    {% else %}
+      background-color: #f5f5f0;
+    {% endif %}
+  }
+
+  #dry-fruit-solutions-{{ section.id }} .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  #dry-fruit-solutions-{{ section.id }} .section-heading {
+    color: {{ heading_color }};
+    font-size: {{ heading_font_size_desktop }}px;
+    font-weight: {{ heading_font_weight }};
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+
+  #dry-fruit-solutions-{{ section.id }} .section-description {
+    color: {{ desc_color }};
+    font-size: {{ desc_font_size_desktop }}px;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  #dry-fruit-solutions-{{ section.id }} .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: stretch;
+    grid-auto-rows: 1fr;
+  }
+
+  #dry-fruit-solutions-{{ section.id }} .solution-card {
+    background-color: {{ card_bg_color | default: 'transparent' }};
+    border-radius: {{ card_border_radius }}px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  #dry-fruit-solutions-{{ section.id }} .solution-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  #dry-fruit-solutions-{{ section.id }} .card-content {
+    padding: {{ card_padding_desktop }}px;
+    overflow: hidden;
+    background: {{ content_bg_color | default: '#F1EDE8' }};
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  #dry-fruit-solutions-{{ section.id }} .card-image {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    margin-bottom: {{ image_margin_bottom }}px;
+    border-radius: {{ image_border_radius }}px;
+    flex-shrink: 0;
+  }
+
+  #dry-fruit-solutions-{{ section.id }} .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  #dry-fruit-solutions-{{ section.id }} .solution-card:hover .card-image img {
+    transform: scale(1.05);
+  }
+
+  #dry-fruit-solutions-{{ section.id }} .card-title {
+    color: {{ card_title_color }};
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+  }
+
+  #dry-fruit-solutions-{{ section.id }} .card-subtitle {
+    color: {{ card_subtitle_color }};
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    flex-shrink: 0;
+  }
+
+  #dry-fruit-solutions-{{ section.id }} .card-description {
+    color: {{ card_text_color }};
+    font-size: 16px;
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  #dry-fruit-solutions-{{ section.id }} .card-description p {
+    margin-bottom: 15px;
+    margin-top: 0;
+  }
+
+  #dry-fruit-solutions-{{ section.id }} .card-description p:first-child {
+    margin-top: 0;
+  }
+
+  #dry-fruit-solutions-{{ section.id }} .card-description p:last-child,
+  #dry-fruit-solutions-{{ section.id }} .card-description ul:last-child,
+  #dry-fruit-solutions-{{ section.id }} .card-description ol:last-child {
+    margin-bottom: 0;
+  }
+
+  #dry-fruit-solutions-{{ section.id }} .card-description ul,
+  #dry-fruit-solutions-{{ section.id }} .card-description ol {
+    margin: 10px 0 15px 0;
+    padding-left: 20px;
+  }
+
+  #dry-fruit-solutions-{{ section.id }} .card-description li {
+    margin-bottom: 8px;
+    list-style-position: outside;
+  }
+
+  #dry-fruit-solutions-{{ section.id }} .card-description li:last-child {
+    margin-bottom: 0;
+  }
+
+  #dry-fruit-solutions-{{ section.id }} .card-description ul li {
+    list-style-type: disc;
+  }
+
+  #dry-fruit-solutions-{{ section.id }} .card-description ol li {
+    list-style-type: decimal;
+  }
+
+  /* Tablet Styles */
+  @media (max-width: 1024px) {
+    #dry-fruit-solutions-{{ section.id }} {
+      margin-top: {{ mg_top_tablet }}px;
+      margin-bottom: {{ mg_bottom_tablet }}px;
+    }
+
+    #dry-fruit-solutions-{{ section.id }} .section-heading {
+      font-size: {{ heading_font_size_tablet }}px;
+    }
+
+    #dry-fruit-solutions-{{ section.id }} .cards-grid {
+      gap: 30px;
+      grid-auto-rows: 1fr;
+    }
+
+    #dry-fruit-solutions-{{ section.id }} .card-content {
+      padding: {{ card_padding_tablet }}px;
+      height: 100%;
+    }
+  }
+
+  /* Mobile Styles */
+  @media (max-width: 768px) {
+    #dry-fruit-solutions-{{ section.id }} {
+      margin-top: {{ mg_top_mobile }}px;
+      margin-bottom: {{ mg_bottom_mobile }}px;
+      padding-top: {{ padding_top_mobile }}px;
+      padding-bottom: {{ padding_bottom_mobile }}px;
+    }
+
+    #dry-fruit-solutions-{{ section.id }} .section-header {
+      margin-bottom: 40px;
+    }
+
+    #dry-fruit-solutions-{{ section.id }} .section-heading {
+      font-size: {{ heading_font_size_mobile }}px;
+    }
+
+    #dry-fruit-solutions-{{ section.id }} .section-description {
+      font-size: {{ desc_font_size_mobile }}px;
+    }
+
+    #dry-fruit-solutions-{{ section.id }} .cards-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      grid-auto-rows: auto;
+    }
+
+    #dry-fruit-solutions-{{ section.id }} .card-image {
+      height: 200px;
+    }
+
+    #dry-fruit-solutions-{{ section.id }} .card-content {
+      padding: {{ card_padding_mobile }}px;
+      height: 100%;
+    }
+
+    #dry-fruit-solutions-{{ section.id }} .card-title {
+      font-size: 20px;
+    }
+
+    #dry-fruit-solutions-{{ section.id }} .card-subtitle {
+      font-size: 16px;
+    }
+
+    #dry-fruit-solutions-{{ section.id }} .card-description {
+      font-size: 14px;
+    }
+
+    #dry-fruit-solutions-{{ section.id }} .card-description p {
+      margin-bottom: 12px;
+      margin-top: 0;
+    }
+
+    #dry-fruit-solutions-{{ section.id }} .card-description ul,
+    #dry-fruit-solutions-{{ section.id }} .card-description ol {
+      padding-left: 15px;
+      margin: 8px 0 12px 0;
+    }
+
+    #dry-fruit-solutions-{{ section.id }} .card-description li {
+      margin-bottom: 6px;
+    }
+
+    #dry-fruit-solutions-{{ section.id }} .card-description li:last-child {
+      margin-bottom: 0;
+    }
+
+    #dry-fruit-solutions-{{ section.id }} .card-description p:last-child,
+    #dry-fruit-solutions-{{ section.id }} .card-description ul:last-child,
+    #dry-fruit-solutions-{{ section.id }} .card-description ol:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  /* Animation Styles */
+  {% if enable_animation %}
+    #dry-fruit-solutions-{{ section.id }} .animate--{{ animation_type }} {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    #dry-fruit-solutions-{{ section.id }} .animate--{{ animation_type }}.animated {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    #dry-fruit-solutions-{{ section.id }} .solution-card {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    #dry-fruit-solutions-{{ section.id }} .solution-card.animated {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    #dry-fruit-solutions-{{ section.id }} .solution-card.animated:hover {
+      transform: translateY(-5px);
+    }
+
+    #dry-fruit-solutions-{{ section.id }} .solution-card:nth-child(1) { transition-delay: 0.1s; }
+    #dry-fruit-solutions-{{ section.id }} .solution-card:nth-child(2) { transition-delay: 0.2s; }
+    #dry-fruit-solutions-{{ section.id }} .solution-card:nth-child(3) { transition-delay: 0.3s; }
+    #dry-fruit-solutions-{{ section.id }} .solution-card:nth-child(4) { transition-delay: 0.4s; }
+  {% endif %}
+</style>
+
+<div id="dry-fruit-solutions-{{ section.id }}" class="dry-fruit-solutions-section">
+  <div class="{% if container == '1170' %}container-1170{% elsif container == '1470' %}container-1470{% elsif container == '1570' %}container-1570{% elsif container == '1770' %}container-1770{% elsif container == '1920' %}container-1920{% elsif container == 'fullwidth' %}container-full{% else %}container{% endif %}">
+    <div class="section-header">
+      {%- if section_heading != blank -%}
+        <h2 class="section-heading{% if enable_animation %} scroll-trigger animate--{{ animation_type }}{% endif %}">
+          {{ section_heading }}
+        </h2>
+      {%- endif -%}
+
+      {%- if section_description != blank -%}
+        <p class="section-description{% if enable_animation %} scroll-trigger animate--{{ animation_type }}{% endif %}">
+          {{ section_description }}
+        </p>
+      {%- endif -%}
+    </div>
+
+    <div class="cards-grid">
+      {%- for block in section.blocks -%}
+        <div class="solution-card{% if enable_animation %} scroll-trigger{% endif %}" {{ block.shopify_attributes }}>
+          <div class="card-content">
+            <div class="card-image">
+              {%- if block.settings.card_image != blank -%}
+                {{
+                  block.settings.card_image
+                  | image_url: width: 600
+                  | image_tag: loading: 'lazy', sizes: '(max-width: 768px) 100vw, 50vw', widths: '375, 550, 750, 1100'
+                }}
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </div>
+
+            {%- if block.settings.card_title != blank -%}
+              <h3 class="card-title">{{ block.settings.card_title }}</h3>
+            {%- endif -%}
+
+            {%- if block.settings.card_subtitle != blank -%}
+              <h4 class="card-subtitle">{{ block.settings.card_subtitle }}</h4>
+            {%- endif -%}
+
+            {%- if block.settings.card_description != blank -%}
+              <div class="card-description">
+                {{ block.settings.card_description }}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{%- if enable_animation -%}
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animated');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('#dry-fruit-solutions-{{ section.id }} .scroll-trigger').forEach(el => {
+        observer.observe(el);
+      });
+    });
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Dry Fruit Solutions",
+  "class": "section-dry-fruit-solutions",
+  "settings": [
+    {
+      "type": "header",
+      "content": "General Settings"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container Width",
+      "default": "container",
+      "options": [
+        {
+          "value": "container",
+          "label": "Default Container"
+        },
+        {
+          "value": "1170",
+          "label": "1170px"
+        },
+        {
+          "value": "1470",
+          "label": "1470px"
+        },
+        {
+          "value": "1570",
+          "label": "1570px"
+        },
+        {
+          "value": "1770",
+          "label": "1770px"
+        },
+        {
+          "value": "1920",
+          "label": "1920px"
+        },
+        {
+          "value": "fullwidth",
+          "label": "Full Width"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Section Content"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Section Heading",
+      "default": "Complete Dry Fruit Solutions — Sourcing, Processing, Packaging, and Logistics"
+    },
+    {
+      "type": "textarea",
+      "id": "section_description",
+      "label": "Section Description",
+      "default": "From orchard to your warehouse, TAK Dry Fruit Company provides flexible, reliable services tailored to your business needs."
+    },
+    {
+      "type": "header",
+      "content": "Heading Typography"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_desktop",
+      "label": "Heading Font Size (Desktop)",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_tablet",
+      "label": "Heading Font Size (Tablet)",
+      "min": 20,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_mobile",
+      "label": "Heading Font Size (Mobile)",
+      "min": 18,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "select",
+      "id": "heading_font_weight",
+      "label": "Heading Font Weight",
+      "default": "700",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal (400)"
+        },
+        {
+          "value": "500",
+          "label": "Medium (500)"
+        },
+        {
+          "value": "600",
+          "label": "Semi Bold (600)"
+        },
+        {
+          "value": "700",
+          "label": "Bold (700)"
+        },
+        {
+          "value": "800",
+          "label": "Extra Bold (800)"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Description Typography"
+    },
+    {
+      "type": "color",
+      "id": "desc_color",
+      "label": "Description Color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "desc_font_size_desktop",
+      "label": "Description Font Size (Desktop)",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "desc_font_size_mobile",
+      "label": "Description Font Size (Mobile)",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Card Typography"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card Title Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "card_subtitle_color",
+      "label": "Card Subtitle Color",
+      "default": "#4a9b4e"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card Text Color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Card Settings"
+    },
+    {
+      "type": "range",
+      "id": "card_padding_desktop",
+      "label": "Card Padding (Desktop)",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "card_padding_tablet",
+      "label": "Card Padding (Tablet)",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "card_padding_mobile",
+      "label": "Card Padding (Mobile)",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card Border Radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Image Settings"
+    },
+    {
+      "type": "range",
+      "id": "image_margin_bottom",
+      "label": "Image Bottom Margin",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image Border Radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Background Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section Background Color",
+      "default": "#f5f5f0"
+    },
+    {
+      "type": "color_background",
+      "id": "section_bg_gradient",
+      "label": "Section Background Gradient"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card Background Color (Outer)",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "content_bg_color",
+      "label": "Card Content Background Color",
+      "default": "#F1EDE8"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding Top (Desktop)",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding Bottom (Desktop)",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding Top (Mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding Bottom (Mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Section Margins"
+    },
+    {
+      "type": "range",
+      "id": "mg_top_desktop",
+      "label": "Top Margin (Desktop)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mg_top_tablet",
+      "label": "Top Margin (Tablet)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mg_top_mobile",
+      "label": "Top Margin (Mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom_desktop",
+      "label": "Bottom Margin (Desktop)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom_tablet",
+      "label": "Bottom Margin (Tablet)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom_mobile",
+      "label": "Bottom Margin (Mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Animation Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animation",
+      "label": "Enable Animations",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "animation_type",
+      "label": "Animation Type",
+      "default": "fade-in",
+      "options": [
+        {
+          "value": "fade-in",
+          "label": "Fade In"
+        },
+        {
+          "value": "slide-in",
+          "label": "Slide In"
+        },
+        {
+          "value": "slide-up",
+          "label": "Slide Up"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Solution Card",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "card_image",
+          "label": "Card Image"
+        },
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "Card Title",
+          "default": "Sourcing"
+        },
+        {
+          "type": "text",
+          "id": "card_subtitle",
+          "label": "Card Subtitle",
+          "default": "Reliable Sourcing"
+        },
+        {
+          "type": "richtext",
+          "id": "card_description",
+          "label": "Card Description",
+          "default": "<p>We source premium-quality dry fruits from trusted growers in Afghanistan, Uzbekistan, and the surrounding regions. Our long-term relationships with local farmers ensure consistent quality, ethical practices, and competitive pricing.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dry Fruit Solutions",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "card_title": "Sourcing",
+            "card_subtitle": "Reliable Sourcing",
+            "card_description": "<p>We source premium-quality dry fruits from trusted growers in Afghanistan, Uzbekistan, and the surrounding regions. Our long-term relationships with local farmers ensure consistent quality, ethical practices, and competitive pricing.</p>"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "card_title": "Processing Excellence",
+            "card_subtitle": "Modern Processing Facilities",
+            "card_description": "<p>Our high-end factories are equipped with advanced machinery including laser sorters, metal detectors, and automatic washing/drying lines. We guarantee food safety, consistent quality, and strict hygiene standards certified by ISO 22000, ISO 9001, HACCP, and HALAL.</p>"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "card_title": "Flexible Packaging",
+            "card_subtitle": "Flexible Packaging Options",
+            "card_description": "<p>We offer a variety of packaging solutions tailored to your market needs:</p><ul><li>Bulk packaging in cartons (8kg to 4×20kg)</li><li>Retail pouches (200g to 1000g) with or without zip locks</li><li>Gift formats (one large master box containing smaller packs)</li></ul><p>Whether you require bulk shipments for industrial use or consumer-ready retail packs, we provide complete flexibility.</p>"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "card_title": "Logistics & Shipping",
+            "card_subtitle": "Reliable Logistics Worldwide",
+            "card_description": "<p>We partner with reliable logistics providers to ensure safe and timely delivery worldwide. Our experienced team handles:</p><ul><li>Flexible Incoterms (EXW, FOB, CIF, etc.)</li><li>Efficient documentation for smooth customs clearance</li><li>Air, sea, and land transport options</li></ul><p>We are committed to delivering your goods on schedule and in perfect condition.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

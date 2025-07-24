@@ -1,0 +1,1264 @@
+{%- liquid
+  assign padding_top = section.settings.mg_top_desktop | append: 'px'
+  assign padding_bottom = section.settings.mg_bottom_desktop | append: 'px'
+  assign padding_top_tablet = section.settings.mg_top_tablet | append: 'px'
+  assign padding_bottom_tablet = section.settings.mg_bottom_tablet | append: 'px'
+  assign padding_top_mobile = section.settings.mg_top_mobile | append: 'px'
+  assign padding_bottom_mobile = section.settings.mg_bottom_mobile | append: 'px'
+  assign container = section.settings.container
+  assign padding_full_width = section.settings.padding_full_width
+  assign show_product_title = section.settings.show_product_title
+  assign show_product_image = section.settings.show_product_image
+  assign show_product_description = section.settings.show_product_description
+  assign show_product_benefits = section.settings.show_product_benefits
+  assign left_column_width = section.settings.left_column_width
+  assign right_column_width = section.settings.right_column_width
+  assign mobile_stack_order = section.settings.mobile_stack_order
+  assign desc_padding_top_desktop = section.settings.desc_padding_top_desktop
+  assign desc_padding_bottom_desktop = section.settings.desc_padding_bottom_desktop
+  assign desc_padding_left_desktop = section.settings.desc_padding_left_desktop
+  assign desc_padding_right_desktop = section.settings.desc_padding_right_desktop
+  assign desc_padding_top_tablet = section.settings.desc_padding_top_tablet
+  assign desc_padding_bottom_tablet = section.settings.desc_padding_bottom_tablet
+  assign desc_padding_left_tablet = section.settings.desc_padding_left_tablet
+  assign desc_padding_right_tablet = section.settings.desc_padding_right_tablet
+  assign desc_padding_top_mobile = section.settings.desc_padding_top_mobile
+  assign desc_padding_bottom_mobile = section.settings.desc_padding_bottom_mobile
+  assign desc_padding_left_mobile = section.settings.desc_padding_left_mobile
+  assign desc_padding_right_mobile = section.settings.desc_padding_right_mobile
+
+  assign title_font_size_desktop = section.settings.title_font_size_desktop | append: 'px'
+  assign title_font_size_tablet = section.settings.title_font_size_tablet | append: 'px'
+  assign title_font_size_mobile = section.settings.title_font_size_mobile | append: 'px'
+  assign description_font_size_desktop = section.settings.description_font_size_desktop | append: 'px'
+  assign description_font_size_tablet = section.settings.description_font_size_tablet | append: 'px'
+  assign description_font_size_mobile = section.settings.description_font_size_mobile | append: 'px'
+  assign accordion_font_size_desktop = section.settings.accordion_font_size_desktop | append: 'px'
+  assign accordion_font_size_tablet = section.settings.accordion_font_size_tablet | append: 'px'
+  assign accordion_font_size_mobile = section.settings.accordion_font_size_mobile | append: 'px'
+  assign accordion_header_font_size_desktop = section.settings.accordion_header_font_size_desktop | append: 'px'
+  assign accordion_header_font_size_tablet = section.settings.accordion_header_font_size_tablet | append: 'px'
+  assign accordion_header_font_size_mobile = section.settings.accordion_header_font_size_mobile | append: 'px'
+-%}
+
+<div
+  data-section-id="{{ section.id }}"
+  data-section-type="dynamic-product"
+  id="DynamicProductSection-{{ section.id }}"
+  data-section="{{ section.id }}"
+>
+  <div class="dynamic-product-container {% if container == '1170' %}container-1170{% elsif container == '1770' %}container-1770{% elsif container == 'fullwidth'%}container-full{% else %}container{% endif %}">
+    <div class="product-content-wrapper{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}">
+      {% if show_product_image %}
+        <div class="product-image-column">
+          {% if product.featured_image %}
+            <div class="product-image-container">
+              <img
+                src="{{ product.featured_image | img_url: 'master' }}"
+                alt="{{ product.title | escape }}"
+                loading="lazy"
+                class="product-featured-image"
+              >
+            </div>
+          {% else %}
+            <div class="product-image-placeholder">
+              <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="200" height="200" fill="#f0f0f0"/>
+                <path d="M100 80C108.284 80 115 86.716 115 95C115 103.284 108.284 110 100 110C91.716 110 85 103.284 85 95C85 86.716 91.716 80 100 80Z" fill="#ccc"/>
+                <path d="M170 140L150 120L130 140L120 130L100 150L80 130L70 140L30 100V170H170V140Z" fill="#ccc"/>
+              </svg>
+              <p>Product Image</p>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <div class="product-info-column">
+        {% if show_product_title %}
+          <h1 class="product-title">{{ product.title | default: 'Product Title' }}</h1>
+        {% endif %}
+
+        {% if show_product_description and product.description != blank %}
+          <div class="product-description">
+            {{ product.description }}
+          </div>
+        {% endif %}
+
+        {% comment %} Trust Badges with 5 Icons {% endcomment %}
+        {% assign has_trust_badges = false %}
+        {% if section.settings.trust_badge_icon_1 != blank
+          or section.settings.trust_badge_icon_2 != blank
+          or section.settings.trust_badge_icon_3 != blank
+          or section.settings.trust_badge_icon_4 != blank
+          or section.settings.trust_badge_icon_5 != blank
+        %}
+          {% assign has_trust_badges = true %}
+        {% endif %}
+
+        {% if has_trust_badges %}
+          <div class="trust-badges">
+            <div class="trust-badges-icons">
+              {% if section.settings.trust_badge_icon_1 != blank %}
+                <div class="trust-badge-icon">
+                  <img
+                    src="{{ section.settings.trust_badge_icon_1 | img_url: 'master' }}"
+                    alt="Trust Badge 1"
+                    loading="lazy"
+                  >
+                </div>
+              {% endif %}
+              {% if section.settings.trust_badge_icon_2 != blank %}
+                <div class="trust-badge-icon">
+                  <img
+                    src="{{ section.settings.trust_badge_icon_2 | img_url: 'master' }}"
+                    alt="Trust Badge 2"
+                    loading="lazy"
+                  >
+                </div>
+              {% endif %}
+              {% if section.settings.trust_badge_icon_3 != blank %}
+                <div class="trust-badge-icon">
+                  <img
+                    src="{{ section.settings.trust_badge_icon_3 | img_url: 'master' }}"
+                    alt="Trust Badge 3"
+                    loading="lazy"
+                  >
+                </div>
+              {% endif %}
+              {% if section.settings.trust_badge_icon_4 != blank %}
+                <div class="trust-badge-icon">
+                  <img
+                    src="{{ section.settings.trust_badge_icon_4 | img_url: 'master' }}"
+                    alt="Trust Badge 4"
+                    loading="lazy"
+                  >
+                </div>
+              {% endif %}
+              {% if section.settings.trust_badge_icon_5 != blank %}
+                <div class="trust-badge-icon">
+                  <img
+                    src="{{ section.settings.trust_badge_icon_5 | img_url: 'master' }}"
+                    alt="Trust Badge 5"
+                    loading="lazy"
+                  >
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+
+        <div class="product-accordion">
+          {% assign first_opened = false %}
+          {% if show_product_benefits and product.metafields.Product_Key_Benefits.Product_Key_Benefits != blank %}
+            <div class="accordion-item border-bottom-only" data-accordion-item>
+              <button class="accordion-header" data-accordion-trigger aria-expanded="true">
+                <span>Key Benefits</span>
+                <svg
+                  class="accordion-icon"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="accordion-content" data-accordion-content style="max-height: 1000px;">
+                <div class="accordion-content-inner">
+                  {{ product.metafields.Product_Key_Benefits.Product_Key_Benefits }}
+                </div>
+              </div>
+            </div>
+            {% assign first_opened = true %}
+          {% endif %}
+          {% if product.metafields.custom.nutritional_information != blank %}
+            <div class="accordion-item border-bottom-only" data-accordion-item>
+              <button
+                class="accordion-header"
+                data-accordion-trigger
+                aria-expanded="{% if first_opened %}false{% else %}true{% endif %}"
+              >
+                <span>Nutritional Information</span>
+                <svg
+                  class="accordion-icon"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div
+                class="accordion-content"
+                data-accordion-content
+                style="{% if first_opened %}{% else %}max-height: 1000px;{% endif %}"
+              >
+                <div class="accordion-content-inner">
+                  {{ product.metafields.custom.nutritional_information | metafield_tag }}
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const accordionSection = document.querySelector('#DynamicProductSection-{{ section.id }}');
+    if (!accordionSection) return;
+
+    const accordionItems = accordionSection.querySelectorAll('[data-accordion-item]');
+
+    accordionItems.forEach(item => {
+      const trigger = item.querySelector('[data-accordion-trigger]');
+      const content = item.querySelector('[data-accordion-content]');
+
+      if (!trigger || !content) return;
+
+      trigger.addEventListener('click', function() {
+        const isCurrentlyOpen = trigger.getAttribute('aria-expanded') === 'true';
+
+        // Close all accordion items
+        accordionItems.forEach(otherItem => {
+          const otherTrigger = otherItem.querySelector('[data-accordion-trigger]');
+          const otherContent = otherItem.querySelector('[data-accordion-content]');
+
+          if (otherTrigger && otherContent) {
+            otherTrigger.setAttribute('aria-expanded', 'false');
+            otherContent.style.maxHeight = '0px';
+          }
+        });
+
+        // If the clicked item wasn't open, open it
+        if (!isCurrentlyOpen) {
+          trigger.setAttribute('aria-expanded', 'true');
+          content.style.maxHeight = content.scrollHeight + 'px';
+        }
+      });
+    });
+  });
+</script>
+
+<style type="text/css" media="screen">
+  #DynamicProductSection-{{ section.id }} {
+    padding-top: {{ padding_top }};
+    padding-bottom: {{ padding_bottom }};
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background-color: #fff;
+    color: #333;
+  }
+
+  /* Container Settings */
+  #DynamicProductSection-{{ section.id }} .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  #DynamicProductSection-{{ section.id }} .container-1170 {
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  #DynamicProductSection-{{ section.id }} .container-1770 {
+    max-width: 1770px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  #DynamicProductSection-{{ section.id }} .container-full {
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
+  /* Product Content Layout */
+  #DynamicProductSection-{{ section.id }} .product-content-wrapper {
+    display: grid;
+    grid-template-columns: {{ left_column_width }}% {{ right_column_width }}%;
+    gap: 40px;
+    align-items: flex-start;
+  }
+
+  /* Product Image Column */
+  #DynamicProductSection-{{ section.id }} .product-image-column {
+    {% if section.settings.sticky_image %}
+      position: sticky;
+      top: {{ section.settings.sticky_offset }}px;
+    {% endif %}
+    align-self: flex-start;
+    height: fit-content;
+  }
+
+  #DynamicProductSection-{{ section.id }} .product-image-container {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f8f8f8;
+    box-sizing: border-box;
+  }
+
+  #DynamicProductSection-{{ section.id }} .product-featured-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    max-width: 100%;
+  }
+
+  #DynamicProductSection-{{ section.id }} .product-image-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: #f8f8f8;
+    border-radius: 8px;
+    color: #999;
+    box-sizing: border-box;
+  }
+
+  #DynamicProductSection-{{ section.id }} .product-image-placeholder p {
+    margin: 10px 0 0 0;
+    font-size: 14px;
+  }
+
+  /* Product Info Column */
+  #DynamicProductSection-{{ section.id }} .product-info-column {
+    min-width: 0;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+  }
+
+  /* Product Title */
+  #DynamicProductSection-{{ section.id }} .product-title {
+    font-size: {{ title_font_size_desktop }};
+    font-weight: {{ section.settings.title_font_weight }};
+    color: {{ section.settings.title_color | default: '#000' }};
+    margin: 0 0 20px 0px;
+    line-height: 1.3;
+    font-family: 'Kumbh Sans';
+    letter-spacing: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Product Description */
+  #DynamicProductSection-{{ section.id }} .product-description {
+    font-size: {{ description_font_size_desktop }};
+    font-weight: {{ section.settings.description_font_weight }};
+    color: {{ section.settings.description_color | default: '#666' }};
+    line-height: 1.6;
+    margin-bottom: 20px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  #DynamicProductSection-{{ section.id }} .product-description p {
+    margin: 0 0 15px 0;
+  }
+
+  #DynamicProductSection-{{ section.id }} .product-description p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Trust Badges */
+  #DynamicProductSection-{{ section.id }} .trust-badges {
+    margin-bottom: 30px;
+  }
+
+  #DynamicProductSection-{{ section.id }} .trust-badges-icons {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  #DynamicProductSection-{{ section.id }} .trust-badge-icon {
+    flex-shrink: 0;
+    max-width: 65px;
+    height: auto;
+  }
+
+  #DynamicProductSection-{{ section.id }} .trust-badge-icon img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+
+  /* Accordion Styles */
+  #DynamicProductSection-{{ section.id }} .product-accordion {
+    margin-top: 20px;
+  }
+
+  #DynamicProductSection-{{ section.id }} .accordion-item {
+    border-radius: 8px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  #DynamicProductSection-{{ section.id }} .accordion-header {
+    width: 100%;
+    padding: 16px 10px;
+    background: #F1EDE8;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: {{ accordion_header_font_size_desktop }};
+    font-weight: {{ section.settings.accordion_header_font_weight }};
+    color: {{ section.settings.accordion_header_color | default: '#333' }};
+    transition: background-color 0.3s ease;
+    border-radius: 10px;
+    border: 0;
+    margin-bottom: 10px;
+  }
+  .accordion-icon {
+    height: 2rem;
+    width: 2rem;
+  }
+  .accordion-icon path {
+    stroke: none;
+  }
+  #DynamicProductSection-{{ section.id }} .accordion-header:hover {
+    border-color: #009D03;
+  }
+
+  #DynamicProductSection-{{ section.id }} .accordion-header[aria-expanded="true"] {
+    color: #009D03;
+  }
+
+  #DynamicProductSection-{{ section.id }} .accordion-icon {
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  #DynamicProductSection-{{ section.id }} .accordion-header[aria-expanded="true"] .accordion-icon {
+    transform: rotate(180deg);
+  }
+
+  #DynamicProductSection-{{ section.id }} .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  #DynamicProductSection-{{ section.id }} .accordion-content-inner {
+    padding: {{ desc_padding_top_desktop }}px {{ desc_padding_right_desktop }}px {{ desc_padding_bottom_desktop }}px {{ desc_padding_left_desktop }}px;
+    font-size: {{ accordion_font_size_desktop }};
+    font-weight: {{ section.settings.accordion_content_font_weight }};
+    color: {{ section.settings.accordion_content_color | default: '#666' }};
+    line-height: 1.6;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  #DynamicProductSection-{{ section.id }} .accordion-content-inner p {
+    margin: 0 0 15px 0;
+  }
+
+  #DynamicProductSection-{{ section.id }} .accordion-content-inner p:last-child {
+    margin-bottom: 0;
+  }
+
+  #DynamicProductSection-{{ section.id }} .accordion-content-inner h1,
+  #DynamicProductSection-{{ section.id }} .accordion-content-inner h2,
+  #DynamicProductSection-{{ section.id }} .accordion-content-inner h3,
+  #DynamicProductSection-{{ section.id }} .accordion-content-inner h4,
+  #DynamicProductSection-{{ section.id }} .accordion-content-inner h5,
+  #DynamicProductSection-{{ section.id }} .accordion-content-inner h6 {
+    color: #333;
+    margin: 0 0 10px 0;
+  }
+
+  #DynamicProductSection-{{ section.id }} .accordion-content-inner ul,
+  #DynamicProductSection-{{ section.id }} .accordion-content-inner ol {
+    margin: 0 0 15px 20px;
+  }
+
+  #DynamicProductSection-{{ section.id }} .accordion-content-inner li {
+    margin-bottom: 5px;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1024px) and (min-width: 769px) {
+    #DynamicProductSection-{{ section.id }} {
+      padding-top: {{ padding_top_tablet }};
+      padding-bottom: {{ padding_bottom_tablet }};
+    }
+
+    /* Keep sticky behavior on tablet */
+    #DynamicProductSection-{{ section.id }} .product-image-column {
+      {% if section.settings.sticky_image %}
+        top: {{ section.settings.sticky_offset | divided_by: 1.2 }}px;
+      {% endif %}
+    }
+
+    #DynamicProductSection-{{ section.id }} .product-content-wrapper {
+      gap: 40px;
+    }
+
+    #DynamicProductSection-{{ section.id }} .product-title {
+      font-size: {{ title_font_size_tablet }};
+    }
+
+    #DynamicProductSection-{{ section.id }} .product-description {
+      font-size: {{ description_font_size_tablet }};
+    }
+
+    #DynamicProductSection-{{ section.id }} .product-featured-image {
+      height: 350px;
+    }
+
+    #DynamicProductSection-{{ section.id }} .accordion-header {
+      font-size: {{ accordion_header_font_size_tablet }};
+    }
+
+    #DynamicProductSection-{{ section.id }} .accordion-content-inner {
+      padding: {{ desc_padding_top_tablet }}px {{ desc_padding_right_tablet }}px {{ desc_padding_bottom_tablet }}px {{ desc_padding_left_tablet }}px;
+      font-size: {{ accordion_font_size_tablet }};
+    }
+
+    #DynamicProductSection-{{ section.id }} .trust-badges-icons {
+      gap: 15px;
+    }
+
+    #DynamicProductSection-{{ section.id }} .trust-badge-icon {
+      max-width: 70px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    #DynamicProductSection-{{ section.id }} {
+      padding-top: {{ padding_top_mobile }};
+      padding-bottom: {{ padding_bottom_mobile }};
+    }
+
+    /* Disable sticky on mobile */
+    #DynamicProductSection-{{ section.id }} .product-image-column {
+      position: static;
+      top: auto;
+    }
+
+    #DynamicProductSection-{{ section.id }} .product-content-wrapper {
+      grid-template-columns: 1fr;
+      gap: 30px;
+      {% if mobile_stack_order == 'info_first' %}
+        grid-template-areas: "info" "image";
+      {% else %}
+        grid-template-areas: "image" "info";
+      {% endif %}
+    }
+
+    {% if mobile_stack_order == 'info_first' %}
+      #DynamicProductSection-{{ section.id }} .product-image-column {
+        grid-area: image;
+      }
+      #DynamicProductSection-{{ section.id }} .product-info-column {
+        grid-area: info;
+      }
+    {% else %}
+      #DynamicProductSection-{{ section.id }} .product-image-column {
+        grid-area: image;
+      }
+      #DynamicProductSection-{{ section.id }} .product-info-column {
+        grid-area: info;
+      }
+    {% endif %}
+
+    #DynamicProductSection-{{ section.id }} .product-title {
+      font-size: {{ title_font_size_mobile }};
+      margin-bottom: 15px;
+    }
+
+    #DynamicProductSection-{{ section.id }} .product-description {
+      font-size: {{ description_font_size_mobile }};
+    }
+
+    #DynamicProductSection-{{ section.id }} .product-featured-image {
+      height: 280px;
+    }
+
+    #DynamicProductSection-{{ section.id }} .accordion-header {
+      padding: 14px 16px;
+      font-size: {{ accordion_header_font_size_mobile }};
+    }
+
+    #DynamicProductSection-{{ section.id }} .accordion-content-inner {
+      padding: {{ desc_padding_top_mobile }}px {{ desc_padding_right_mobile }}px {{ desc_padding_bottom_mobile }}px {{ desc_padding_left_mobile }}px;
+      font-size: {{ accordion_font_size_mobile }};
+    }
+
+    #DynamicProductSection-{{ section.id }} .trust-badges-icons {
+      gap: 12px;
+      justify-content: center;
+    }
+
+    #DynamicProductSection-{{ section.id }} .trust-badge-icon {
+      max-width: 60px;
+    }
+  }
+
+  @media (min-width: 1025px) {
+    {% if container == 'fullwidth' %}
+      #DynamicProductSection-{{ section.id }} > .container-full {
+        padding-left: {{ padding_full_width }}px;
+        padding-right: {{ padding_full_width }}px;
+      }
+    {% endif %}
+  }
+
+  /* Single column layout when image is disabled */
+  {% unless show_product_image %}
+    #DynamicProductSection-{{ section.id }} .product-content-wrapper {
+      grid-template-columns: 1fr !important;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  {% endunless %}
+
+  /* Adjust for very small screens */
+  @media (max-width: 480px) {
+    #DynamicProductSection-{{ section.id }} .product-content-wrapper {
+      gap: 20px;
+    }
+
+    #DynamicProductSection-{{ section.id }} .product-title {
+      font-size: {{ title_font_size_mobile }};
+      margin-bottom: 12px;
+    }
+
+    #DynamicProductSection-{{ section.id }} .product-description {
+      font-size: {{ description_font_size_mobile }};
+    }
+
+    #DynamicProductSection-{{ section.id }} .product-featured-image {
+      height: 240px;
+    }
+
+    #DynamicProductSection-{{ section.id }} .accordion-header {
+      padding: 12px 14px;
+      font-size: {{ accordion_header_font_size_mobile }};
+    }
+
+    #DynamicProductSection-{{ section.id }} .trust-badges-icons {
+      gap: 10px;
+    }
+
+    #DynamicProductSection-{{ section.id }} .trust-badge-icon {
+      max-width: 50px;
+    }
+  }
+
+  #DynamicProductSection-{{ section.id }} .accordion-item.border-bottom-only {
+    border: none;
+    border-radius: 0;
+    margin-bottom: 0;
+    box-shadow: none;
+    background: #fff;
+  }
+  #DynamicProductSection-{{ section.id }} .accordion-item.border-bottom-only:last-child {
+    border-bottom: none;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Dynamic Product Section",
+  "class": "section-dynamic-product",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Dynamic product section with accordion display for product description and key benefits."
+    },
+    {
+      "type": "header",
+      "content": "Container Settings"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container Width",
+      "default": "container",
+      "options": [
+        {
+          "value": "container",
+          "label": "Container (1200px)"
+        },
+        {
+          "value": "1170",
+          "label": "Container 1170px"
+        },
+        {
+          "value": "1770",
+          "label": "Container 1770px"
+        },
+        {
+          "value": "fullwidth",
+          "label": "Full Width"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_full_width",
+      "label": "Full Width Horizontal Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20,
+      "info": "Only applies when Container Width is set to Full Width"
+    },
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "range",
+      "id": "left_column_width",
+      "label": "Left Column Width (Image)",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 40,
+      "info": "Adjusts the width of the left column (image side). Must add up to 100% with right column."
+    },
+    {
+      "type": "range",
+      "id": "right_column_width",
+      "label": "Right Column Width (Info)",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 60,
+      "info": "Adjusts the width of the right column (product info side). Must add up to 100% with left column."
+    },
+    {
+      "type": "select",
+      "id": "mobile_stack_order",
+      "label": "Mobile Stack Order",
+      "default": "image_first",
+      "options": [
+        {
+          "value": "image_first",
+          "label": "Image First (Top)"
+        },
+        {
+          "value": "info_first",
+          "label": "Product Info First (Top)"
+        }
+      ],
+      "info": "Choose which content appears first on mobile devices"
+    },
+    {
+      "type": "header",
+      "content": "Image Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_image",
+      "label": "Make Image Sticky",
+      "default": true,
+      "info": "Image will stick to viewport when scrolling through content (desktop/tablet only)"
+    },
+    {
+      "type": "range",
+      "id": "sticky_offset",
+      "label": "Sticky Offset from Top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20,
+      "info": "Distance from top of viewport when image is sticky"
+    },
+    {
+      "type": "header",
+      "content": "Display Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_image",
+      "label": "Show Product Image",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_title",
+      "label": "Show Product Title",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_description",
+      "label": "Show Product Description",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_benefits",
+      "label": "Show Product Key Benefits",
+      "default": true,
+      "info": "Displays content from Product_Key_Benefits metafield"
+    },
+    {
+      "type": "header",
+      "content": "Trust Badges - 5 Icons"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_badge_icon_1",
+      "label": "Trust Badge Icon 1",
+      "info": "Upload first trust badge icon (recommended size: 80x80px)"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_badge_icon_2",
+      "label": "Trust Badge Icon 2",
+      "info": "Upload second trust badge icon (recommended size: 80x80px)"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_badge_icon_3",
+      "label": "Trust Badge Icon 3",
+      "info": "Upload third trust badge icon (recommended size: 80x80px)"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_badge_icon_4",
+      "label": "Trust Badge Icon 4",
+      "info": "Upload fourth trust badge icon (recommended size: 80x80px)"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_badge_icon_5",
+      "label": "Trust Badge Icon 5",
+      "info": "Upload fifth trust badge icon (recommended size: 80x80px)"
+    },
+    {
+      "type": "header",
+      "content": "Typography - Product Title"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_desktop",
+      "label": "Title Font Size - Desktop",
+      "min": 16,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_tablet",
+      "label": "Title Font Size - Tablet",
+      "min": 16,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_mobile",
+      "label": "Title Font Size - Mobile",
+      "min": 14,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "title_font_weight",
+      "label": "Title Font Weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "default": 700
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Typography - Product Description"
+    },
+    {
+      "type": "range",
+      "id": "description_font_size_desktop",
+      "label": "Description Font Size - Desktop",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "description_font_size_tablet",
+      "label": "Description Font Size - Tablet",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "description_font_size_mobile",
+      "label": "Description Font Size - Mobile",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "description_font_weight",
+      "label": "Description Font Weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "default": 400
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Typography - Accordion Headers"
+    },
+    {
+      "type": "range",
+      "id": "accordion_header_font_size_desktop",
+      "label": "Accordion Header Font Size - Desktop",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "accordion_header_font_size_tablet",
+      "label": "Accordion Header Font Size - Tablet",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "accordion_header_font_size_mobile",
+      "label": "Accordion Header Font Size - Mobile",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "accordion_header_font_weight",
+      "label": "Accordion Header Font Weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "default": 600
+    },
+    {
+      "type": "color",
+      "id": "accordion_header_color",
+      "label": "Accordion Header Color",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Typography - Accordion Content"
+    },
+    {
+      "type": "range",
+      "id": "accordion_font_size_desktop",
+      "label": "Accordion Content Font Size - Desktop",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "accordion_font_size_tablet",
+      "label": "Accordion Content Font Size - Tablet",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "accordion_font_size_mobile",
+      "label": "Accordion Content Font Size - Mobile",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "accordion_content_font_weight",
+      "label": "Accordion Content Font Weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "default": 400
+    },
+    {
+      "type": "color",
+      "id": "accordion_content_color",
+      "label": "Accordion Content Color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Accordion Content Padding - Desktop"
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_top_desktop",
+      "label": "Content Top Padding",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_bottom_desktop",
+      "label": "Content Bottom Padding",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_left_desktop",
+      "label": "Content Left Padding",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_right_desktop",
+      "label": "Content Right Padding",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Accordion Content Padding - Tablet"
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_top_tablet",
+      "label": "Content Top Padding",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_bottom_tablet",
+      "label": "Content Bottom Padding",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_left_tablet",
+      "label": "Content Left Padding",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_right_tablet",
+      "label": "Content Right Padding",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Accordion Content Padding - Mobile"
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_top_mobile",
+      "label": "Content Top Padding",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_bottom_mobile",
+      "label": "Content Bottom Padding",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_left_mobile",
+      "label": "Content Left Padding",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_right_mobile",
+      "label": "Content Right Padding",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Spacing - Desktop"
+    },
+    {
+      "type": "range",
+      "id": "mg_top_desktop",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom_desktop",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Spacing - Tablet"
+    },
+    {
+      "type": "range",
+      "id": "mg_top_tablet",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom_tablet",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Spacing - Mobile"
+    },
+    {
+      "type": "range",
+      "id": "mg_top_mobile",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom_mobile",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dynamic Product Section",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}

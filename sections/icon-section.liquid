@@ -1,0 +1,177 @@
+{% stylesheet %}
+/* Optional styling */
+.why-choose-wrapper {
+  padding: 60px 20px;
+  background-color: #fff;
+}
+.why-choose-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  text-align: center;
+}
+.why-choose-list {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+.why-choose-item {
+  max-width: 250px;
+}
+.why-choose-icon {
+  font-size: 40px;
+  color: #f5b301;
+}
+{% endstylesheet %}
+
+<section class="why-choose-wrapper" style="
+  
+  font-weight: {{ section.settings.font_weight }};
+  font-size: {{ section.settings.font_size }}px;
+  color: {{ section.settings.text_color }};
+">
+  <div class="why-choose-container">
+    <h2 style="margin-bottom: 40px;">{{ section.settings.heading }}</h2>
+    <div class="why-choose-list">
+      {% for block in section.blocks %}
+        <div class="why-choose-item">
+          <div class="why-choose-icon">{{ block.settings.icon }}</div>
+          <h3 style="margin: 10px 0;">{{ block.settings.title }}</h3>
+          <p>{{ block.settings.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if section.settings.button_text != blank %}
+      <div style="margin-top: 40px;">
+        <a href="{{ section.settings.button_link }}" style="
+          padding: 10px 20px;
+          background-color: #00c853;
+          color: #fff;
+          text-decoration: none;
+          border-radius: 4px;
+          font-weight: bold;
+        ">
+          {{ section.settings.button_text }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Why choose TAK",
+  "tag": "section",
+  "class": "why-choose-tak",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Why choose TAK"
+    },
+   
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font Weight",
+      "default": "400",
+      "options": [
+        { "value": "300", "label": "Light" },
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "700", "label": "Bold" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font Size (px)",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#333333"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Learn more"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link",
+      
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon (Emoji or HTML)",
+          "default": "⭐"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Premium Quality"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Strict quality control from sourcing to shipping ensures excellence in every batch."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Why choose TAK",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "⭐",
+            "title": "Premium Quality",
+            "description": "Strict quality control from sourcing to shipping ensures excellence in every batch."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "💡",
+            "title": "Modern facilities",
+            "description": "Equipped with advanced machinery, cold storage, and warehouses for fast, large-scale operations."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "🌐",
+            "title": "Skilled Team",
+            "description": "100+ trained professionals dedicated to efficiency, precision, and client satisfaction."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+

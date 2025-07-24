@@ -1,0 +1,747 @@
+{%- liquid
+  assign padding_top = section.settings.mg_top_desktop | append: 'px'
+  assign padding_bottom = section.settings.mg_bottom_desktop | append: 'px'
+  assign padding_top_tablet = section.settings.mg_top_tablet | append: 'px'
+  assign padding_bottom_tablet = section.settings.mg_bottom_tablet | append: 'px'
+  assign padding_top_mobile = section.settings.mg_top_mobile | append: 'px'
+  assign padding_bottom_mobile = section.settings.mg_bottom_mobile | append: 'px'
+  assign container = section.settings.container
+  assign padding_full_width = section.settings.padding_full_width
+  assign bg_color = section.settings.background_color
+  assign tab_bg_color = '#F1EDE8'
+  assign active_tab_bg_color = '#F1EDE8'
+  assign tab_text_color = '#0E0F13'
+  assign active_tab_text_color = '#0E0F13'
+  assign content_bg_color = '#F1EDE8'
+  assign content_text_color = '#0E0F13'
+  assign checkmark_color = '#009D03'
+  assign border_color = '#E0D5C7'
+  assign tab_font_size_desktop = section.settings.tab_font_size_desktop
+  assign tab_font_size_tablet = section.settings.tab_font_size_tablet
+  assign tab_font_size_mobile = section.settings.tab_font_size_mobile
+  assign content_font_size_desktop = section.settings.content_font_size_desktop
+  assign content_font_size_tablet = section.settings.content_font_size_tablet
+  assign content_font_size_mobile = section.settings.content_font_size_mobile
+  assign usage_icon = section.settings.usage_icon
+  assign ingredient_icon = section.settings.ingredient_icon
+  assign nutritional_icon = section.settings.nutritional_icon
+-%}
+
+{% comment %}
+  Product Tab Content Section
+  File: sections/product-tab-content.liquid
+{% endcomment %}
+
+{% assign usage_content = product.metafields.TabContent.usage_application %}
+{% assign ingredient_content = product.metafields.TabContent.ingredient_list %}
+{% assign nutritional_content = product.metafields.TabContent.nutritional_information %}
+
+{% assign has_content = false %}
+{% if usage_content != blank or ingredient_content != blank or nutritional_content != blank %}
+  {% assign has_content = true %}
+{% endif %}
+
+{% if has_content %}
+  <div
+    data-section-id="{{ section.id }}"
+    data-section-type="product-tab-content"
+    id="ProductTabSection-{{ section.id }}"
+    data-section="{{ section.id }}"
+  >
+    <div class="product-tab-container {% if container == '1170' %}container-1170{% elsif container == '1770' %}container-1770{% elsif container == 'fullwidth'%}container-full{% else %}container{% endif %}">
+      <!-- Tab Navigation -->
+      <div class="tab-navigation">
+        {% if usage_content != blank %}
+          <button class="tab-button active" data-tab="usage">
+            {{ section.settings.usage_title | default: 'Usage & Application' }}
+          </button>
+        {% endif %}
+
+        {% if ingredient_content != blank %}
+          <button class="tab-button{% unless usage_content != blank %} active{% endunless %}" data-tab="ingredients">
+            {{ section.settings.ingredient_title | default: 'Ingredient List' }}
+          </button>
+        {% endif %}
+
+        {% if nutritional_content != blank %}
+          <button
+            class="tab-button{% unless usage_content != blank or ingredient_content != blank %} active{% endunless %}"
+            data-tab="nutritional"
+          >
+            {{ section.settings.nutritional_title | default: 'Nutritional Information (Per 100g)' }}
+          </button>
+        {% endif %}
+      </div>
+
+      <!-- Tab Content -->
+      <div class="tab-content-wrapper">
+        {% if usage_content != blank %}
+          <div class="tab-content{% if usage_content != blank %} active{% endif %}" id="usage-content">
+            <div class="tab-content-inner">
+              {% assign usage_lines = usage_content | split: '<p>' %}
+              {% for line in usage_lines %}
+                {% if line != blank %}
+                  {% assign clean_line = line | remove: '</p>' | strip %}
+                  {% if clean_line != blank %}
+                    <div class="content-item">
+                      {% if usage_icon != blank %}
+                        <img
+                          src="{{ usage_icon | img_url: 'master' }}"
+                          alt="Usage Icon"
+                          class="content-icon custom-content-icon"
+                          loading="lazy"
+                        >
+                      {% else %}
+                        <svg
+                          class="checkmark-icon"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <circle cx="12" cy="12" r="10" fill="{{ checkmark_color }}"/>
+                          <path d="M9 12L11 14L15 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      {% endif %}
+                      <span class="content-text">{{ clean_line }}</span>
+                    </div>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+
+        {% if ingredient_content != blank %}
+          <div
+            class="tab-content{% unless usage_content != blank %}{% if ingredient_content != blank %} active{% endif %}{% endunless %}"
+            id="ingredients-content"
+          >
+            <div class="tab-content-inner">
+              {% assign ingredient_lines = ingredient_content | split: '<p>' %}
+              {% for line in ingredient_lines %}
+                {% if line != blank %}
+                  {% assign clean_line = line | remove: '</p>' | strip %}
+                  {% if clean_line != blank %}
+                    <div class="content-item">
+                      {% if ingredient_icon != blank %}
+                        <img
+                          src="{{ ingredient_icon | img_url: 'master' }}"
+                          alt="Ingredient Icon"
+                          class="content-icon custom-content-icon"
+                          loading="lazy"
+                        >
+                      {% else %}
+                        <svg
+                          class="checkmark-icon"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <circle cx="12" cy="12" r="10" fill="{{ checkmark_color }}"/>
+                          <path d="M9 12L11 14L15 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      {% endif %}
+                      <span class="content-text">{{ clean_line }}</span>
+                    </div>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+
+        {% if nutritional_content != blank %}
+          <div
+            class="tab-content{% unless usage_content != blank or ingredient_content != blank %}{% if nutritional_content != blank %} active{% endif %}{% endunless %}"
+            id="nutritional-content"
+          >
+            <div class="tab-content-inner">
+              {% assign nutritional_lines = nutritional_content | split: '<p>' %}
+              {% for line in nutritional_lines %}
+                {% if line != blank %}
+                  {% assign clean_line = line | remove: '</p>' | strip %}
+                  {% if clean_line != blank %}
+                    <div class="content-item">
+                      {% if nutritional_icon != blank %}
+                        <img
+                          src="{{ nutritional_icon | img_url: 'master' }}"
+                          alt="Nutritional Icon"
+                          class="content-icon custom-content-icon"
+                          loading="lazy"
+                        >
+                      {% else %}
+                        <svg
+                          class="checkmark-icon"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <circle cx="12" cy="12" r="10" fill="{{ checkmark_color }}"/>
+                          <path d="M9 12L11 14L15 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      {% endif %}
+                      <span class="content-text">{{ clean_line }}</span>
+                    </div>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <style type="text/css" media="screen">
+    #ProductTabSection-{{ section.id }} {
+      padding-top: {{ padding_top }};
+      padding-bottom: {{ padding_bottom }};
+      background-color: {{ bg_color }};
+      font-family: 'Kumbh Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    /* Container Settings */
+    #ProductTabSection-{{ section.id }} .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0px 0px 50px 0px;
+      box-sizing: border-box;
+    }
+
+    #ProductTabSection-{{ section.id }} .container-1170 {
+      max-width: 1170px;
+      margin: 0 auto;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    #ProductTabSection-{{ section.id }} .container-1770 {
+      max-width: 1770px;
+      margin: 0 auto;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    #ProductTabSection-{{ section.id }} .container-full {
+      width: 100%;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    /* Tab Navigation */
+    #ProductTabSection-{{ section.id }} .tab-navigation {
+      display: flex;
+      background: {{ tab_bg_color }};
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: none;
+      margin-bottom: 35px;
+    }
+
+    #ProductTabSection-{{ section.id }} .tab-button {
+      flex: 1;
+      padding: 18px 24px;
+      background: {{ tab_bg_color }};
+      color: {{ tab_text_color }};
+      border: none;
+      border-right: 1px solid #0E0F13;
+      font-size: {{ tab_font_size_desktop }}px;
+      font-weight: 600;
+      font-family: 'Kumbh Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    #ProductTabSection-{{ section.id }} .tab-button:last-child {
+      border-right: none;
+    }
+
+    #ProductTabSection-{{ section.id }} .tab-button:hover {
+      background: {{ active_tab_bg_color }};
+      color: #009D03;
+    }
+
+    #ProductTabSection-{{ section.id }} .tab-button.active {
+      background: {{ active_tab_bg_color }};
+      color: #009D03;
+      position: relative;
+    }
+
+    /* Tab Content */
+    #ProductTabSection-{{ section.id }} .tab-content-wrapper {
+      background: #fff;
+      border: none;
+      border-radius: 0;
+      min-height: 200px;
+    }
+
+    #ProductTabSection-{{ section.id }} .tab-content {
+      display: none;
+    }
+
+    #ProductTabSection-{{ section.id }} .tab-content.active {
+      display: block;
+    }
+
+    #ProductTabSection-{{ section.id }} .tab-content-inner {
+      max-width: 100%;
+    }
+
+    #ProductTabSection-{{ section.id }} .content-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 18px;
+      font-size: {{ content_font_size_desktop }}px;
+      line-height: 1.6;
+      font-family: 'Kumbh Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    #ProductTabSection-{{ section.id }} .content-item:last-child {
+      margin-bottom: 0;
+    }
+
+    #ProductTabSection-{{ section.id }} .checkmark-icon {
+      margin-right: 14px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    #ProductTabSection-{{ section.id }} .content-icon {
+      margin-right: 14px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    #ProductTabSection-{{ section.id }} .custom-content-icon {
+      width: 16px;
+      height: 16px;
+      object-fit: contain;
+    }
+
+    #ProductTabSection-{{ section.id }} .content-text {
+      color: {{ content_text_color }};
+      flex: 1;
+      font-weight: 400;
+    }
+
+    /* Tablet Styles */
+    @media (max-width: 1024px) and (min-width: 769px) {
+      #ProductTabSection-{{ section.id }} {
+        padding-top: {{ padding_top_tablet }};
+        padding-bottom: {{ padding_bottom_tablet }};
+      }
+
+      #ProductTabSection-{{ section.id }} .tab-button {
+        font-size: {{ tab_font_size_tablet }}px;
+        padding: 16px 20px;
+        min-height: 56px;
+      }
+
+      #ProductTabSection-{{ section.id }} .content-item {
+        font-size: {{ content_font_size_tablet }}px;
+        margin-bottom: 16px;
+      }
+
+      #ProductTabSection-{{ section.id }} .tab-content {
+        padding: 28px 20px;
+      }
+    }
+
+    /* Mobile Styles */
+    @media (max-width: 768px) {
+      #ProductTabSection-{{ section.id }} {
+        padding-top: {{ padding_top_mobile }};
+        padding-bottom: {{ padding_bottom_mobile }};
+      }
+
+      #ProductTabSection-{{ section.id }} .container,
+      #ProductTabSection-{{ section.id }} .container-1170,
+      #ProductTabSection-{{ section.id }} .container-1770 {
+        padding: 0 16px;
+      }
+
+      #ProductTabSection-{{ section.id }} .tab-navigation {
+        flex-direction: column;
+        margin-bottom: 15px;
+      }
+
+
+      #ProductTabSection-{{ section.id }} .tab-button {
+        border-right: none;
+        border-bottom: 1px solid {{ border_color }};
+        font-size: {{ tab_font_size_mobile }}px;
+        padding: 14px 16px;
+        min-height: 50px;
+      }
+
+      #ProductTabSection-{{ section.id }} .tab-button:last-child {
+        border-bottom: none;
+      }
+
+      #ProductTabSection-{{ section.id }} .content-item {
+        font-size: {{ content_font_size_mobile }}px;
+        margin-bottom: 14px;
+      }
+
+      #ProductTabSection-{{ section.id }} .tab-content {
+        padding: 20px 16px;
+      }
+
+      #ProductTabSection-{{ section.id }} .checkmark-icon {
+        margin-right: 12px;
+      }
+
+      #ProductTabSection-{{ section.id }} .content-icon {
+        margin-right: 12px;
+      }
+    }
+
+    /* Small Mobile */
+    @media (max-width: 480px) {
+      #ProductTabSection-{{ section.id }} .container,
+      #ProductTabSection-{{ section.id }} .container-1170,
+      #ProductTabSection-{{ section.id }} .container-1770 {
+        padding: 0 12px;
+      }
+
+      #ProductTabSection-{{ section.id }} .tab-content {
+        padding: 18px 12px;
+      }
+
+      #ProductTabSection-{{ section.id }} .tab-button {
+        padding: 12px 16px;
+        min-height: 48px;
+        font-size: {{ tab_font_size_mobile | minus: 1 }}px;
+      }
+    }
+
+    @media (min-width: 1025px) {
+      {% if container == 'fullwidth' %}
+        #ProductTabSection-{{ section.id }} > .container-full {
+          padding-left: {{ padding_full_width }}px;
+          padding-right: {{ padding_full_width }}px;
+        }
+      {% endif %}
+    }
+
+    /* Print Styles */
+    @media print {
+      #ProductTabSection-{{ section.id }} {
+        padding: 20px 0;
+        background: white !important;
+      }
+
+      #ProductTabSection-{{ section.id }} .tab-navigation {
+        display: none;
+      }
+
+      #ProductTabSection-{{ section.id }} .tab-content {
+        display: block !important;
+        border: 1px solid #ddd;
+        margin-bottom: 20px;
+      }
+    }
+
+    /* Accessibility - Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      #ProductTabSection-{{ section.id }} .tab-button {
+        transition: none;
+      }
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const sectionId = '{{ section.id }}';
+      const tabButtons = document.querySelectorAll(`#ProductTabSection-${sectionId} .tab-button`);
+      const tabContents = document.querySelectorAll(`#ProductTabSection-${sectionId} .tab-content`);
+
+      tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const targetTab = this.getAttribute('data-tab');
+
+          // Remove active class from all buttons and contents
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          tabContents.forEach(content => content.classList.remove('active'));
+
+          // Add active class to clicked button
+          this.classList.add('active');
+
+          // Show corresponding content
+          const targetContent = document.querySelector(`#ProductTabSection-${sectionId} #${targetTab}-content`);
+          if (targetContent) {
+            targetContent.classList.add('active');
+          }
+        });
+      });
+    });
+  </script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Product Tab Content",
+  "class": "section-product-tab-content",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Display product information in organized tabs with customizable icons. Create metafields with namespace 'TabContent' and keys: 'usage_application', 'ingredient_list', 'nutritional_information'. Uses Kumbh Sans font family and specific color scheme: #009D03 (green), #F1EDE8 (background), #0E0F13 (text). Upload custom icons for each tab content or use default green checkmarks."
+    },
+    {
+      "type": "header",
+      "content": "Container Settings"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container Width",
+      "default": "container",
+      "options": [
+        {
+          "value": "container",
+          "label": "Container (1200px)"
+        },
+        {
+          "value": "1170",
+          "label": "Container 1170px"
+        },
+        {
+          "value": "1770",
+          "label": "Container 1770px"
+        },
+        {
+          "value": "fullwidth",
+          "label": "Full Width"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_full_width",
+      "label": "Full Width Horizontal Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20,
+      "info": "Only applies when Container Width is set to Full Width"
+    },
+    {
+      "type": "header",
+      "content": "Tab Titles"
+    },
+    {
+      "type": "text",
+      "id": "usage_title",
+      "label": "Usage & Application Tab Title",
+      "default": "Usage & Application"
+    },
+    {
+      "type": "text",
+      "id": "ingredient_title",
+      "label": "Ingredient List Tab Title",
+      "default": "Ingredient List"
+    },
+    {
+      "type": "text",
+      "id": "nutritional_title",
+      "label": "Nutritional Information Tab Title",
+      "default": "Nutritional Information (Per 100g)"
+    },
+    {
+      "type": "header",
+      "content": "Tab Content Icons"
+    },
+    {
+      "type": "image_picker",
+      "id": "usage_icon",
+      "label": "Usage & Application Icon",
+      "info": "Upload a custom icon for Usage & Application content items. If not set, green checkmarks will be used."
+    },
+    {
+      "type": "image_picker",
+      "id": "ingredient_icon",
+      "label": "Ingredient List Icon",
+      "info": "Upload a custom icon for Ingredient List content items. If not set, green checkmarks will be used."
+    },
+    {
+      "type": "image_picker",
+      "id": "nutritional_icon",
+      "label": "Nutritional Information Icon",
+      "info": "Upload a custom icon for Nutritional Information content items. If not set, green checkmarks will be used."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section Background",
+      "default": "#ffffff",
+      "info": "Background color for the entire section"
+    },
+    {
+      "type": "header",
+      "content": "Typography - Desktop"
+    },
+    {
+      "type": "range",
+      "id": "tab_font_size_desktop",
+      "label": "Tab Font Size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "content_font_size_desktop",
+      "label": "Content Font Size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Typography - Tablet"
+    },
+    {
+      "type": "range",
+      "id": "tab_font_size_tablet",
+      "label": "Tab Font Size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "content_font_size_tablet",
+      "label": "Content Font Size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Typography - Mobile"
+    },
+    {
+      "type": "range",
+      "id": "tab_font_size_mobile",
+      "label": "Tab Font Size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "content_font_size_mobile",
+      "label": "Content Font Size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "header",
+      "content": "Spacing - Desktop"
+    },
+    {
+      "type": "range",
+      "id": "mg_top_desktop",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom_desktop",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Spacing - Tablet"
+    },
+    {
+      "type": "range",
+      "id": "mg_top_tablet",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom_tablet",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Spacing - Mobile"
+    },
+    {
+      "type": "range",
+      "id": "mg_top_mobile",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom_mobile",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Tab Content"
+    }
+  ]
+}
+{% endschema %}

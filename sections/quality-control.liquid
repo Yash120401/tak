@@ -1,0 +1,1238 @@
+{%- liquid
+  assign container = section.settings.container
+  assign section_bg_color = section.settings.section_bg_color
+  assign pattern_opacity = section.settings.pattern_opacity
+  assign mask_opacity = section.settings.mask_opacity
+
+  assign tagline = section.settings.tagline
+  assign tagline_color = section.settings.tagline_color
+  assign tagline_font_size = section.settings.tagline_font_size
+  assign tagline_font_weight = section.settings.tagline_font_weight
+
+  assign heading = section.settings.heading
+  assign heading_color = section.settings.heading_color
+  assign heading_font_size_desktop = section.settings.heading_font_size_desktop
+  assign heading_font_size_tablet = section.settings.heading_font_size_tablet
+  assign heading_font_size_mobile = section.settings.heading_font_size_mobile
+  assign heading_font_weight = section.settings.heading_font_weight
+  assign heading_line_height = section.settings.heading_line_height
+
+  assign description = section.settings.description
+  assign description_color = section.settings.description_color
+  assign description_font_size_desktop = section.settings.description_font_size_desktop
+  assign description_font_size_tablet = section.settings.description_font_size_tablet
+  assign description_font_size_mobile = section.settings.description_font_size_mobile
+  assign description_line_height = section.settings.description_line_height
+
+  assign list_icon_color = section.settings.list_icon_color
+  assign list_text_color = section.settings.list_text_color
+  assign list_font_size = section.settings.list_font_size
+
+  assign separator_color = section.settings.separator_color
+  assign separator_width = section.settings.separator_width
+
+  assign circle_size = section.settings.circle_size
+  assign icon_size = section.settings.icon_size
+  assign icon_bg_color = section.settings.icon_bg_color
+  assign icon_active_color = section.settings.icon_active_color
+
+  assign padding_top_desktop = section.settings.padding_top_desktop
+  assign padding_bottom_desktop = section.settings.padding_bottom_desktop
+  assign padding_top_tablet = section.settings.padding_top_tablet
+  assign padding_bottom_tablet = section.settings.padding_bottom_tablet
+  assign padding_top_mobile = section.settings.padding_top_mobile
+  assign padding_bottom_mobile = section.settings.padding_bottom_mobile
+
+  assign margin_top_desktop = section.settings.margin_top_desktop
+  assign margin_bottom_desktop = section.settings.margin_bottom_desktop
+  assign margin_top_tablet = section.settings.margin_top_tablet
+  assign margin_bottom_tablet = section.settings.margin_bottom_tablet
+  assign margin_top_mobile = section.settings.margin_top_mobile
+  assign margin_bottom_mobile = section.settings.margin_bottom_mobile
+-%}
+
+<style>
+  #quality-control-{{ section.id }} {
+    background-color: {{ section_bg_color }};
+    position: relative;
+    overflow: hidden;
+    margin-top: {{ margin_top_desktop }}px;
+    margin-bottom: {{ margin_bottom_desktop }}px;
+    padding: {{ padding_top_desktop }}px 0 {{ padding_bottom_desktop }}px 0;
+  }
+
+  /* Background Pattern */
+  #quality-control-{{ section.id }}::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M26 1h-7a3 3 0 00-3 3v7a3 3 0 003 3h7a3 3 0 003-3V4a3 3 0 00-3-3zM56 1h-7a3 3 0 00-3 3v7a3 3 0 003 3h7a3 3 0 003-3V4a3 3 0 00-3-3zM11 31H4a3 3 0 00-3 3v7a3 3 0 003 3h7a3 3 0 003-3v-7a3 3 0 00-3-3zM26 31h-7a3 3 0 00-3 3v7a3 3 0 003 3h7a3 3 0 003-3v-7a3 3 0 00-3-3zM41 31h-7a3 3 0 00-3 3v7a3 3 0 003 3h7a3 3 0 003-3v-7a3 3 0 00-3-3zM11 16H4a3 3 0 00-3 3v7a3 3 0 003 3h7a3 3 0 003-3v-7a3 3 0 00-3-3zM41 16h-7a3 3 0 00-3 3v7a3 3 0 003 3h7a3 3 0 003-3v-7a3 3 0 00-3-3zM56 16h-7a3 3 0 00-3 3v7a3 3 0 003 3h7a3 3 0 003-3v-7a3 3 0 00-3-3zM26 46h-7a3 3 0 00-3 3v7a3 3 0 003 3h7a3 3 0 003-3v-7a3 3 0 00-3-3zM56 46h-7a3 3 0 00-3 3v7a3 3 0 003 3h7a3 3 0 003-3v-7a3 3 0 00-3-3z' fill='rgba(145,161,132,1)'/%3E%3C/svg%3E");
+    background-size: 60px 60px;
+    opacity: {{ pattern_opacity | divided_by: 100.0 }};
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Background Mask */
+  #quality-control-{{ section.id }}::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='1920' height='954' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg clip-path='url(%23clip0)' fill='rgba(46,89,3,1)'%3E%3Cpath d='M1321.57 538C1357.08 287.516 1273.7 89.91 1127-.418L1374.18-6c65.77 100.68-15.89 431.512-52.61 544zM312 955c432.242 0 746.77-180.667 850-271-90.34 157.09-176.766 246.121-208.688 271H312z' fill-opacity='.25'/%3E%3Cpath d='M1344.5 427c0-252.4-212.67-390.833-319-428.5H1373c70 82.4 10.17 320-28.5 428.5z' fill-opacity='.1'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M839.644 954C1138.37 793.549 1337 508.902 1337 184.5c0-63.218-7.54-124.926-21.9-184.5H1920v954H839.644zm0 0C676.842 1041.44 484.311 1092 278 1092c-584.87 0-1059-406.302-1059-907.5S-306.87-723 278-723c511.098 0 937.63 310.269 1037.1 723H0v954h839.644z' fill-opacity='.5'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M1011.55 954C1221.42 793.95 1353 564.007 1353 308.5c0-108.584-23.76-212.552-67.2-308.5H1920v954h-908.45zm0 0c-187.291 142.83-436.933 230-711.05 230C-280.78 1184-752 792.025-752 308.5S-280.78-567 300.5-567c450.743 0 835.31 235.692 985.3 567H0v954h1011.55z'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='clip0'%3E%3Cpath fill='%23fff' d='M0 0h1920v954H0z'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E");
+    background-size: cover;
+    background-position: center;
+    opacity: {{ mask_opacity | divided_by: 100.0 }};
+    transform: scaleY(-1);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  #quality-control-{{ section.id }} .container,
+  #quality-control-{{ section.id }} .container-1170,
+  #quality-control-{{ section.id }} .container-1470,
+  #quality-control-{{ section.id }} .container-1570,
+  #quality-control-{{ section.id }} .container-1770,
+  #quality-control-{{ section.id }} .container-1920,
+  #quality-control-{{ section.id }} .container-full {
+    position: relative;
+    z-index: 3;
+  }
+
+  #quality-control-{{ section.id }} .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  #quality-control-{{ section.id }} .container-1170 {
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  #quality-control-{{ section.id }} .container-1470 {
+    max-width: 1470px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  #quality-control-{{ section.id }} .container-1570 {
+    max-width: 1570px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  #quality-control-{{ section.id }} .container-1770 {
+    max-width: 1770px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  #quality-control-{{ section.id }} .container-1920 {
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  #quality-control-{{ section.id }} .container-full {
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  #quality-control-{{ section.id }} .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 40px;
+  }
+
+  #quality-control-{{ section.id }} .col-left,
+  #quality-control-{{ section.id }} .col-right {
+    flex: 1;
+    min-width: 300px;
+  }
+
+  /* Typography */
+  #quality-control-{{ section.id }} .tagline {
+    color: {{ tagline_color }};
+    font-size: {{ tagline_font_size }}px;
+    font-weight: {{ tagline_font_weight }};
+    text-transform: capitalize;
+    margin-bottom: 10px;
+  }
+
+  #quality-control-{{ section.id }} .separator {
+    width: {{ separator_width }}px;
+    height: 1px;
+    background-color: {{ separator_color }};
+    border: none;
+    border-top: 2px dotted {{ separator_color }};
+    margin: 20px 0;
+  }
+
+  #quality-control-{{ section.id }} .heading {
+    color: {{ heading_color }};
+    font-size: {{ heading_font_size_desktop }}px;
+    font-weight: {{ heading_font_weight }};
+    line-height: {{ heading_line_height }};
+    margin: 20px 0 10px 0;
+    letter-spacing: 0;
+  }
+
+  #quality-control-{{ section.id }} .description {
+    color: {{ description_color }};
+    font-size: {{ description_font_size_desktop }}px;
+    line-height: {{ description_line_height }};
+    margin: 10px 0 30px 0;
+  }
+
+  /* List Styling */
+  #quality-control-{{ section.id }} .feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  #quality-control-{{ section.id }} .feature-list li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    font-size: {{ list_font_size }}px;
+    color: {{ list_text_color }};
+  }
+
+  #quality-control-{{ section.id }} .feature-list .icon {
+    color: {{ list_icon_color }};
+    margin-right: 15px;
+    margin-top: 5px;
+    flex-shrink: 0;
+    font-size: 14px;
+  }
+
+  #quality-control-{{ section.id }} .feature-list strong {
+    color: {{ list_text_color }};
+  }
+
+  /* Circular Info Component - IMPROVED */
+  #quality-control-{{ section.id }} .circles-info {
+    position: relative;
+    width: {{ circle_size }}px;
+    height: {{ circle_size }}px;
+    margin: 0 auto;
+  }
+
+  /* Center Circle - Enhanced with better proportions */
+  #quality-control-{{ section.id }} .circle-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+  }
+
+  /* Dotted border circle for icon positioning - visible outer circle */
+  #quality-control-{{ section.id }} .icon-path-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(65% + {{ icon_size }}px + 6px);
+    height: calc(65% + {{ icon_size }}px + 6px);
+    border: 2px dotted {{ separator_color }};
+    border-radius: 50%;
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 1;
+    {% unless section.settings.show_icon_path %}
+    display: none;
+    {% endunless %}
+  }
+
+  #quality-control-{{ section.id }} .circle-center:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+    border-width: 4px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+  }
+
+  #quality-control-{{ section.id }} .circle-center img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform: scale(1.1);
+  }
+
+  #quality-control-{{ section.id }} .circle-center:hover img {
+    transform: scale(1.15);
+  }
+
+  #quality-control-{{ section.id }} .circle-icons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Enhanced Icon Styling */
+  #quality-control-{{ section.id }} .circle-icon {
+    position: absolute;
+    width: {{ icon_size }}px;
+    height: {{ icon_size }}px;
+    background-color: {{ icon_bg_color }};
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    font-size: {{ icon_size | divided_by: 2.2 }}px;
+    color: #666;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+  }
+
+  #quality-control-{{ section.id }} .circle-icon:hover {
+    background-color: {{ icon_active_color }};
+    color: white;
+    transform: scale(1.15);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  #quality-control-{{ section.id }} .circle-icon.active {
+    background-color: {{ icon_active_color }};
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  #quality-control-{{ section.id }} .circle-icon.active:hover {
+    transform: scale(1.2);
+  }
+
+  /* Improved positioning animation */
+  #quality-control-{{ section.id }} .circle-icon::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  #quality-control-{{ section.id }} .circle-icon:hover::before,
+  #quality-control-{{ section.id }} .circle-icon.active::before {
+    opacity: 1;
+  }
+
+  /* Loading animation for image transitions */
+  #quality-control-{{ section.id }} .circle-center.loading {
+    opacity: 0.8;
+  }
+
+  #quality-control-{{ section.id }} .circle-center.loading img {
+    filter: blur(2px);
+  }
+
+  /* Tablet Responsive */
+  @media (max-width: 1024px) and (min-width: 768px) {
+    #quality-control-{{ section.id }} {
+      margin-top: {{ margin_top_tablet }}px;
+      margin-bottom: {{ margin_bottom_tablet }}px;
+      padding: {{ padding_top_tablet }}px 0 {{ padding_bottom_tablet }}px 0;
+    }
+
+    #quality-control-{{ section.id }} .heading {
+      font-size: {{ heading_font_size_tablet }}px;
+    }
+
+    #quality-control-{{ section.id }} .description {
+      font-size: {{ description_font_size_tablet }}px;
+    }
+
+    #quality-control-{{ section.id }} .circles-info {
+      width: {{ circle_size | times: 0.85 }}px;
+      height: {{ circle_size | times: 0.85 }}px;
+    }
+
+    #quality-control-{{ section.id }} .circle-icon {
+      width: {{ icon_size | times: 0.9 }}px;
+      height: {{ icon_size | times: 0.9 }}px;
+      font-size: {{ icon_size | times: 0.9 | divided_by: 2.2 }}px;
+    }
+
+    #quality-control-{{ section.id }} .icon-path-circle {
+      width: calc(65% + {{ icon_size | times: 0.9 }}px + 6px);
+      height: calc(65% + {{ icon_size | times: 0.9 }}px + 6px);
+    }
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 767px) {
+    #quality-control-{{ section.id }} {
+      margin-top: {{ margin_top_mobile }}px;
+      margin-bottom: {{ margin_bottom_mobile }}px;
+      padding: {{ padding_top_mobile }}px 0 {{ padding_bottom_mobile }}px 0;
+    }
+
+    #quality-control-{{ section.id }} .row {
+      flex-direction: column;
+      gap: 60px;
+    }
+
+    #quality-control-{{ section.id }} .col-left,
+    #quality-control-{{ section.id }} .col-right {
+      min-width: auto;
+      text-align: center;
+    }
+
+    #quality-control-{{ section.id }} .heading {
+      font-size: {{ heading_font_size_mobile }}px;
+    }
+
+    #quality-control-{{ section.id }} .description {
+      font-size: {{ description_font_size_mobile }}px;
+    }
+
+    #quality-control-{{ section.id }} .circles-info {
+      width: {{ circle_size | times: 0.75 }}px;
+      height: {{ circle_size | times: 0.75 }}px;
+    }
+
+    #quality-control-{{ section.id }} .circle-icon {
+      width: {{ icon_size | times: 0.8 }}px;
+      height: {{ icon_size | times: 0.8 }}px;
+      font-size: {{ icon_size | times: 0.8 | divided_by: 2.2 }}px;
+    }
+
+    #quality-control-{{ section.id }} .icon-path-circle {
+      width: calc(65% + {{ icon_size | times: 0.8 }}px + 6px);
+      height: calc(65% + {{ icon_size | times: 0.8 }}px + 6px);
+    }
+
+    #quality-control-{{ section.id }} .feature-list {
+      text-align: left;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+  }
+
+  /* Small Mobile */
+  @media (max-width: 480px) {
+    #quality-control-{{ section.id }} .circles-info {
+      width: {{ circle_size | times: 0.65 }}px;
+      height: {{ circle_size | times: 0.65 }}px;
+    }
+
+    #quality-control-{{ section.id }} .circle-icon {
+      width: {{ icon_size | times: 0.7 }}px;
+      height: {{ icon_size | times: 0.7 }}px;
+      font-size: {{ icon_size | times: 0.7 | divided_by: 2.2 }}px;
+    }
+
+    #quality-control-{{ section.id }} .icon-path-circle {
+      width: calc(65% + {{ icon_size | times: 0.7 }}px + 6px);
+      height: calc(65% + {{ icon_size | times: 0.7 }}px + 6px);
+    }
+  }
+
+  /* Pulse animation for active states */
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(145, 161, 132, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(145, 161, 132, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(145, 161, 132, 0); }
+  }
+
+  #quality-control-{{ section.id }} .circle-icon.active {
+    animation: pulse 2s infinite;
+  }
+</style>
+
+<div id="quality-control-{{ section.id }}">
+  <div class="{% if container == '1170' %}container-1170{% elsif container == '1470' %}container-1470{% elsif container == '1570' %}container-1570{% elsif container == '1770' %}container-1770{% elsif container == '1920' %}container-1920{% elsif container == 'fullwidth' %}container-full{% else %}container{% endif %}">
+    <div class="row">
+      <div class="col-left">
+        {% if tagline != blank %}
+          <div class="tagline">{{ tagline }}</div>
+          <hr class="separator">
+        {% endif %}
+
+        {% if heading != blank %}
+          <h2 class="heading">{{ heading }}</h2>
+        {% endif %}
+
+        {% if description != blank %}
+          <p class="description">{{ description }}</p>
+        {% endif %}
+
+        {% if section.blocks.size > 0 %}
+          <ul class="feature-list">
+            {% for block in section.blocks %}
+              {% case block.type %}
+                {% when 'feature_item' %}
+                  <li {{ block.shopify_attributes }}>
+                    <span class="icon">→</span>
+                    <div>
+                      {% if block.settings.feature_title != blank %}
+                        <strong>{{ block.settings.feature_title }}</strong>:
+                      {% endif %}
+                      {% if block.settings.feature_description != blank %}
+                        {{ block.settings.feature_description }}
+                      {% endif %}
+                    </div>
+                  </li>
+              {% endcase %}
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+
+      <div class="col-right">
+        <div class="circles-info" id="circles-info-{{ section.id }}">
+          <!-- Dotted border circle that shows icon path -->
+          {% if section.settings.show_icon_path %}
+            <div class="icon-path-circle"></div>
+          {% endif %}
+
+          <div class="circle-center" id="circle-center-{{ section.id }}">
+            {% assign first_image = section.blocks | where: 'type', 'circle_item' | first %}
+            {% if first_image.settings.circle_image != blank %}
+              <img
+                src="{{ first_image.settings.circle_image | img_url: '500x500' }}"
+                alt="{{ first_image.settings.circle_title | default: 'Circle Image' }}"
+                class="center-image"
+                id="center-image-{{ section.id }}"
+              >
+            {% else %}
+              <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #f0f0f0, #e0e0e0); display: flex; align-items: center; justify-content: center; color: #999; font-size: 14px;">
+                No Image
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="circle-icons">
+            {% assign circle_items = section.blocks | where: 'type', 'circle_item' %}
+            {% for item in circle_items %}
+              {% assign angle = forloop.index0 | times: 360 | divided_by: circle_items.size %}
+              {% comment %} Calculate radius to position icons on the dotted border of center circle {% endcomment %}
+              {% assign center_circle_radius = circle_size | times: 0.325 %}
+              {% assign icon_radius = icon_size | divided_by: 2 %}
+              {% assign border_radius = center_circle_radius | plus: icon_radius | plus: 3 %}
+
+              <div
+                class="circle-icon{% if forloop.first %} active{% endif %}"
+                data-index="{{ forloop.index0 }}"
+                data-image="{{ item.settings.circle_image | img_url: '500x500' }}"
+                data-title="{{ item.settings.circle_title }}"
+                style="
+                  transform: translate(-50%, -50%)
+                             rotate({{ angle }}deg)
+                             translateY(-{{ border_radius }}px)
+                             rotate(-{{ angle }}deg);
+                  top: 50%;
+                  left: 50%;
+                  z-index: 2;
+                "
+                {{ item.shopify_attributes }}
+              >
+                {% if item.settings.circle_icon != blank %}
+                  {{ item.settings.circle_icon }}
+                {% else %}
+                  <span style="font-size: 16px; font-weight: bold;">{{ forloop.index }}</span>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const circleInfo = document.getElementById('circles-info-{{ section.id }}');
+    if (!circleInfo) return;
+
+    const centerImage = document.getElementById('center-image-{{ section.id }}');
+    const centerCircle = document.getElementById('circle-center-{{ section.id }}');
+    const icons = circleInfo.querySelectorAll('.circle-icon');
+
+    // Enhanced image change function with smooth transitions
+    function changeImage(icon) {
+      const newImage = icon.dataset.image;
+      const newTitle = icon.dataset.title;
+
+      if (centerImage && newImage && newImage !== centerImage.src) {
+        // Add loading state
+        centerCircle.classList.add('loading');
+        
+        // Create new image element for preloading
+        const img = new Image();
+        img.onload = function() {
+          // Remove loading state and update image
+          setTimeout(() => {
+            centerImage.src = newImage;
+            centerImage.alt = newTitle || 'Circle Image';
+            centerCircle.classList.remove('loading');
+          }, 150);
+        };
+        img.src = newImage;
+      }
+    }
+
+    // Enhanced click handlers
+    icons.forEach(icon => {
+      // Click event
+      icon.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Remove active class from all icons
+        icons.forEach(i => i.classList.remove('active'));
+        
+        // Add active class to clicked icon
+        this.classList.add('active');
+        
+        // Change image
+        changeImage(this);
+      });
+
+      // Enhanced hover effects
+      icon.addEventListener('mouseenter', function() {
+        if (!this.classList.contains('active')) {
+          this.style.transform = this.style.transform.replace('scale(1)', 'scale(1.1)');
+        }
+      });
+
+      icon.addEventListener('mouseleave', function() {
+        if (!this.classList.contains('active')) {
+          this.style.transform = this.style.transform.replace('scale(1.1)', 'scale(1)');
+        }
+      });
+    });
+
+    // Auto rotation with improved timing
+    {% if section.settings.auto_rotation %}
+      let currentIndex = 0;
+      let rotationInterval;
+      
+      function startRotation() {
+        rotationInterval = setInterval(() => {
+          // Only rotate if not hovering over the component
+          if (!circleInfo.matches(':hover')) {
+            icons.forEach(i => i.classList.remove('active'));
+            
+            currentIndex = (currentIndex + 1) % icons.length;
+            const activeIcon = icons[currentIndex];
+            activeIcon.classList.add('active');
+            
+            changeImage(activeIcon);
+          }
+        }, {{ section.settings.rotation_speed | default: 5000 }});
+      }
+      
+      function stopRotation() {
+        if (rotationInterval) {
+          clearInterval(rotationInterval);
+        }
+      }
+      
+      // Start auto rotation
+      startRotation();
+      
+      // Pause rotation on hover
+      circleInfo.addEventListener('mouseenter', stopRotation);
+      circleInfo.addEventListener('mouseleave', startRotation);
+      
+      // Cleanup on page unload
+      window.addEventListener('beforeunload', stopRotation);
+    {% endif %}
+
+    // Keyboard accessibility
+    icons.forEach((icon, index) => {
+      icon.setAttribute('tabindex', '0');
+      icon.setAttribute('role', 'button');
+      icon.setAttribute('aria-label', `View ${icon.dataset.title || 'item ' + (index + 1)}`);
+      
+      icon.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.click();
+        }
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Quality Control",
+  "class": "section-quality-control",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Container Settings"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container Width",
+      "default": "container",
+      "options": [
+        {"value": "container", "label": "Default Container (1200px)"},
+        {"value": "1170", "label": "1170px"},
+        {"value": "1470", "label": "1470px"},
+        {"value": "1570", "label": "1570px"},
+        {"value": "1770", "label": "1770px"},
+        {"value": "1920", "label": "1920px"},
+        {"value": "fullwidth", "label": "Full Width"}
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Background Settings"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Background Color",
+      "default": "#2E5903"
+    },
+    {
+      "type": "range",
+      "id": "pattern_opacity",
+      "label": "Pattern Opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "mask_opacity",
+      "label": "Mask Opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Sourcing Nature, Supplying Quality"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Main Heading",
+      "default": "Quality control and Complete Traceability!"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "With our highly skilled teams and range of certifications, Bata Food is working continuously to monitor the organic integrity of its entire product range. In addition, we strive to ensure the highest food safety standards for our customers."
+    },
+    {
+      "type": "header",
+      "content": "Tagline Typography"
+    },
+    {
+      "type": "color",
+      "id": "tagline_color",
+      "label": "Tagline Color",
+      "default": "#91A184"
+    },
+    {
+      "type": "range",
+      "id": "tagline_font_size",
+      "label": "Tagline Font Size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 19
+    },
+    {
+      "type": "range",
+      "id": "tagline_font_weight",
+      "label": "Tagline Font Weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "default": 400
+    },
+    {
+      "type": "header",
+      "content": "Heading Typography"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_desktop",
+      "label": "Heading Font Size - Desktop",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_tablet",
+      "label": "Heading Font Size - Tablet",
+      "min": 20,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_mobile",
+      "label": "Heading Font Size - Mobile",
+      "min": 18,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "heading_font_weight",
+      "label": "Heading Font Weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "default": 700
+    },
+    {
+      "type": "range",
+      "id": "heading_line_height",
+      "label": "Heading Line Height",
+      "min": 1.0,
+      "max": 2.0,
+      "step": 0.1,
+      "default": 1.2
+    },
+    {
+      "type": "header",
+      "content": "Description Typography"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "rgba(255, 255, 255, 0.7)"
+    },
+    {
+      "type": "range",
+      "id": "description_font_size_desktop",
+      "label": "Description Font Size - Desktop",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "description_font_size_tablet",
+      "label": "Description Font Size - Tablet",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "description_font_size_mobile",
+      "label": "Description Font Size - Mobile",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "description_line_height",
+      "label": "Description Line Height",
+      "min": 1.2,
+      "max": 2.0,
+      "step": 0.1,
+      "default": 1.6
+    },
+    {
+      "type": "header",
+      "content": "Feature List Settings"
+    },
+    {
+      "type": "color",
+      "id": "list_icon_color",
+      "label": "List Icon Color",
+      "default": "#91A184"
+    },
+    {
+      "type": "color",
+      "id": "list_text_color",
+      "label": "List Text Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "list_font_size",
+      "label": "List Font Size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 17
+    },
+    {
+      "type": "header",
+      "content": "Separator Settings"
+    },
+    {
+      "type": "color",
+      "id": "separator_color",
+      "label": "Separator Color",
+      "default": "#91A184"
+    },
+    {
+      "type": "range",
+      "id": "separator_width",
+      "label": "Separator Width",
+      "min": 50,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "default": 280
+    },
+    {
+      "type": "header",
+      "content": "Circular Component Settings"
+    },
+    {
+      "type": "range",
+      "id": "circle_size",
+      "label": "Circle Container Size",
+      "min": 200,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "default": 350
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon Size",
+      "min": 30,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "color",
+      "id": "icon_bg_color",
+      "label": "Icon Background Color",
+      "default": "rgba(255, 255, 255, 0.2)"
+    },
+    {
+      "type": "color",
+      "id": "icon_active_color",
+      "label": "Icon Active Color",
+      "default": "#91A184"
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_rotation",
+      "label": "Enable Auto Rotation",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_icon_path",
+      "label": "Show Icon Path Circle",
+      "default": true,
+      "info": "Display the dotted circle that shows the icon positioning path"
+    },
+    {
+      "type": "range",
+      "id": "rotation_speed",
+      "label": "Rotation Speed (ms)",
+      "min": 2000,
+      "max": 9000,
+      "step": 500,
+      "unit": "ms",
+      "default": 5000,
+      "info": "Only applies if auto rotation is enabled"
+    },
+    {
+      "type": "header",
+      "content": "Spacing - Desktop"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "margin_top_desktop",
+      "label": "Top Margin",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_desktop",
+      "label": "Bottom Margin",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Spacing - Tablet"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_tablet",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_tablet",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "margin_top_tablet",
+      "label": "Top Margin",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_tablet",
+      "label": "Bottom Margin",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Spacing - Mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "margin_top_mobile",
+      "label": "Top Margin",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_mobile",
+      "label": "Bottom Margin",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature_item",
+      "name": "Feature Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature_title",
+          "label": "Feature Title",
+          "default": "Lab Tested"
+        },
+        {
+          "type": "textarea",
+          "id": "feature_description",
+          "label": "Feature Description",
+          "default": "We test all the products in 3rd party laboratories"
+        }
+      ]
+    },
+    {
+      "type": "circle_item",
+      "name": "Circle Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "circle_title",
+          "label": "Circle Title",
+          "default": "Quality Control"
+        },
+        {
+          "type": "image_picker",
+          "id": "circle_image",
+          "label": "Circle Image"
+        },
+        {
+          "type": "html",
+          "id": "circle_icon",
+          "label": "Circle Icon (HTML/SVG)",
+          "default": "🔬",
+          "info": "You can use HTML, SVG, or emoji for the icon"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quality Control",
+      "settings": {
+        "tagline": "Sourcing Nature, Supplying Quality",
+        "heading": "Quality control and Complete Traceability!",
+        "description": "With our highly skilled teams and range of certifications, Bata Food is working continuously to monitor the organic integrity of its entire product range. In addition, we strive to ensure the highest food safety standards for our customers.",
+        "show_icon_path": true
+      },
+      "blocks": [
+        {
+          "type": "feature_item",
+          "settings": {
+            "feature_title": "Lab Tested",
+            "feature_description": "We test all the products in 3rd party laboratories"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "feature_title": "Quality Management",
+            "feature_description": "Strict quality measures"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "feature_title": "International Audits",
+            "feature_description": "We audit all of our suppliers and sources to ensure the integrity of our products"
+          }
+        },
+        {
+          "type": "circle_item",
+          "settings": {
+            "circle_title": "Processing",
+            "circle_icon": "⚙️"
+          }
+        },
+        {
+          "type": "circle_item",
+          "settings": {
+            "circle_title": "Sourcing",
+            "circle_icon": "🌱"
+          }
+        },
+        {
+          "type": "circle_item",
+          "settings": {
+            "circle_title": "Trading",
+            "circle_icon": "📈"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

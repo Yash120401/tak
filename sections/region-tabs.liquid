@@ -1,0 +1,773 @@
+<!-- Dynamic Region Tabs HTML with Theme Editor Controls -->
+<div class="region-tabs-section region-tabs-bootstrap-scope">
+  <div class="container">
+    <!-- Tab Navigation Row -->
+    <div class="row">
+      <div class="col-12">
+        <div class="region-tabs-nav">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'region_tab' %}
+                {% if block.settings.region_name != blank %}
+                  <button
+                    class="region-tab-btn {% if forloop.first %}active{% endif %}"
+                    data-region="{{ block.id }}"
+                    {{ block.shopify_attributes }}
+                  >
+                    {{ block.settings.region_name }}
+                  </button>
+                {% endif %}
+            {% endcase %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab Content Row -->
+    <div class="row">
+      <div class="col-12">
+        <div class="region-tabs-content">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'region_tab' %}
+                {% if block.settings.region_name != blank %}
+                  <div
+                    class="region-content {% if forloop.first %}active{% endif %}"
+                    id="region-{{ block.id }}-content"
+                  >
+                    <div class="region-two-column-layout">
+                      <!-- Left Column - Region Table -->
+                      <div class="region-table-column">
+                        <div class="region-table-wrapper">
+                          <h3 class="region-table-title">{{ block.settings.region_name }} Specifications</h3>
+
+                          {% comment %} Dynamic table metafield lookup {% endcomment %}
+                          {% if block.settings.table_metafield_namespace != blank
+                            and block.settings.table_metafield_key != blank
+                          %}
+                            {% assign table_namespace = block.settings.table_metafield_namespace %}
+                            {% assign table_key = block.settings.table_metafield_key %}
+                            {% assign table_content = product.metafields[table_namespace][table_key].value %}
+
+                            {% if table_content != blank %}
+                              <div class="region-table-content">
+                                {{ table_content }}
+                              </div>
+                            {% else %}
+                              <div class="no-table-message">
+                                <p>No specifications available for {{ block.settings.region_name }}</p>
+                              </div>
+                            {% endif %}
+                          {% else %}
+                            <div class="no-table-message">
+                              <p>Table metafield not configured for {{ block.settings.region_name }}</p>
+                              <small
+                                >Configure in theme editor: Section Settings > {{ block.settings.region_name -}}
+                              </small>
+                            </div>
+                          {% endif %}
+                        </div>
+                        {% if block.settings.pdf_metafield_namespace != blank
+                          and block.settings.pdf_metafield_key != blank
+                        %}
+                          {% assign pdf_namespace = block.settings.pdf_metafield_namespace %}
+                          {% assign pdf_key = block.settings.pdf_metafield_key %}
+                          {% assign pdf_url = product.metafields[pdf_namespace][pdf_key].value %}
+                          {% if pdf_url != blank %}
+                            <div class="region-pdf-container">
+                              <a
+                                href="{{ pdf_url }}"
+                                target="_blank"
+                                class="region-pdf-btn button"
+                              >
+                                {{ block.settings.region_name }} PDF
+                                <svg
+                                  width="16"
+                                  height="16"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.89 22 5.99 22H18C19.1 22 20 21.1 20 20V8L14 2ZM18 20H6V4H13V9H18V20Z" fill="currentColor"/>
+                                </svg>
+                              </a>
+                            </div>
+                          {% endif %}
+                        {% endif %}
+                      </div>
+
+                      <!-- Right Column - Image Masonry Grid -->
+                      <div class="region-image-column">
+                        {% comment %} Dynamic image metafield lookup {% endcomment %}
+                        {% if block.settings.image_metafield_namespace != blank
+                          and block.settings.image_metafield_key != blank
+                        %}
+                          {% assign image_namespace = block.settings.image_metafield_namespace %}
+                          {% assign image_key = block.settings.image_metafield_key %}
+                          {% assign region_images = product.metafields[image_namespace][image_key].value %}
+
+                          {% if region_images != blank %}
+                            <div class="region-masonry-grid" data-region="{{ block.id }}">
+                              {% for image in region_images %}
+                                <div class="masonry-item">
+                                  <div class="masonry-image-wrapper">
+                                    <img
+                                      src="{{ image | image_url: width: 600 }}"
+                                      alt="{{ block.settings.region_name }} - {{ product.title }}"
+                                      data-full="{{ image | image_url: width: 1200 }}"
+                                      width="600"
+                                      height="450"
+                                    >
+                                  </div>
+                                </div>
+                              {% endfor %}
+                            </div>
+                          {% endif %}
+                        {% else %}
+
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+            {% endcase %}
+          {% endfor %}
+
+          {% comment %} Show message if no regions configured {% endcomment %}
+          {% unless section.blocks.size > 0 %}
+            <div class="no-regions-message">
+              <h3>No Regions Configured</h3>
+              <p>Add region tabs in the theme editor to display content here.</p>
+              <small>Go to: Customize Theme > This Section > Add Block > Region Tab</small>
+            </div>
+          {% endunless %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Scoped Bootstrap Grid System for Region Tabs */
+  .region-tabs-bootstrap-scope {
+    box-sizing: border-box;
+  }
+
+  .region-tabs-bootstrap-scope *,
+  .region-tabs-bootstrap-scope *::before,
+  .region-tabs-bootstrap-scope *::after {
+    box-sizing: border-box;
+  }
+
+  .region-tabs-bootstrap-scope .container {
+    width: 100%;
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  @media (min-width: 576px) {
+    .region-tabs-bootstrap-scope .container {
+      max-width: 540px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .region-tabs-bootstrap-scope .container {
+      max-width: 720px;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .region-tabs-bootstrap-scope .container {
+      max-width: 960px;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .region-tabs-bootstrap-scope .container {
+      max-width: 1140px;
+    }
+  }
+
+  @media (min-width: 1400px) {
+    .region-tabs-bootstrap-scope .container {
+      max-width: 1320px;
+    }
+  }
+
+  .region-tabs-bootstrap-scope .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(-1 * 0);
+    margin-right: calc(-.5 * 1.5rem);
+    margin-left: calc(-.5 * 1.5rem);
+  }
+
+  .region-tabs-bootstrap-scope .row > * {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-right: calc(1.5rem * .5);
+    padding-left: calc(1.5rem * .5);
+    margin-top: 0;
+  }
+
+  .region-tabs-bootstrap-scope .col-12 {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  /* Main Container */
+  .region-tabs-section {
+    margin: 30px 0;
+    font-family: var(--font-body-family, 'Kumbh Sans', sans-serif);
+    color: var(--color-foreground, #333);
+  }
+
+  /* Tab Navigation */
+  .region-tabs-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 30px;
+    justify-content: center;
+  }
+
+  .region-tab-btn {
+    background: transparent;
+    border: 2px solid var(--color-border, #e1e1e1);
+    padding: 12px 24px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 700 !important;
+    color: var(--color-foreground-75, #666);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    outline: none;
+    font-family: "Kumbh Sans";
+    white-space: nowrap;
+  }
+
+  .region-tab-btn:hover {
+    border-color: var(--color-button, #00A000);
+    color: var(--color-button, #00A000);
+    transform: translateY(-1px);
+  }
+
+  .region-tab-btn.active {
+    border-color: var(--color-button, #009D03);
+    color: var(--color-button-text, #009D03);
+    font-weight: 600;
+  }
+
+  /* Tab Content */
+  .region-content {
+    display: none;
+  }
+
+  .region-content.active {
+    display: block;
+  }
+
+  /* Two Column Layout */
+  .region-two-column-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: flex-start;
+  }
+
+  /* Left Column - Region Table */
+  .region-table-column {
+    display: flex;
+    flex-direction: column;
+    align-items: anchor-center;
+    gap: 30px;
+  }
+
+  .region-table-title {
+    background: var(--color-button, #009D03);
+    color: var(--color-button-text, white);
+    margin: 0;
+    padding: 16px 20px;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: "Kumbh Sans";
+  }
+
+  .region-table-content {
+    padding: 20px;
+  }
+
+  .region-table-content table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  .region-table-content table th,
+  .region-table-content table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border, #e1e1e1);
+  }
+
+  .region-table-content table th {
+    background: var(--color-background-2, #f9f9f9);
+    font-weight: 600;
+    color: var(--color-foreground, #333);
+  }
+
+  .region-table-content table td {
+    color: var(--color-foreground-75, #666);
+  }
+
+  .region-table-content table tr:hover {
+    background: var(--color-background-2, #f9f9f9);
+  }
+
+  .no-table-message,
+  .no-images-message {
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--color-foreground-50, #999);
+    font-style: italic;
+    background: var(--color-background, #fff);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .no-table-message small,
+  .no-images-message small {
+    display: block;
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--color-foreground-25, #ccc);
+  }
+
+  .no-regions-message {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--color-foreground-50, #999);
+    background: var(--color-background-2, #f9f9f9);
+    border-radius: 12px;
+    border: 2px dashed var(--color-border, #e1e1e1);
+  }
+
+  .no-regions-message h3 {
+    margin: 0 0 15px 0;
+    color: var(--color-foreground-75, #666);
+  }
+
+  .no-regions-message small {
+    display: block;
+    margin-top: 15px;
+    font-size: 12px;
+    color: var(--color-foreground-25, #ccc);
+  }
+
+  /* Right Column - Image Masonry Grid */
+  .region-image-column {
+    position: relative;
+  }
+  .region-masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+    width: 100%;
+    background: var(--color-background, #fff);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 16px;
+  }
+  .region-table-wrapper {
+    background: var(--color-background, #fff);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  .masonry-item {
+    break-inside: avoid;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--color-background-2, #f9f9f9);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    transition: box-shadow 0.2s;
+  }
+  .masonry-item:hover {
+    box-shadow: 0 4px 16px rgba(0,157,3,0.12);
+  }
+  .masonry-image-wrapper {
+    width: 100%;
+    height: 0;
+    padding-bottom: 75%; /* 4:3 aspect ratio */
+    position: relative;
+    overflow: hidden;
+  }
+  .masonry-image-wrapper img {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s;
+    border-radius: 8px;
+  }
+  .masonry-image-wrapper:hover img {
+    transform: scale(1.05);
+  }
+  @media (max-width: 991px) {
+    .region-masonry-grid {
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px;
+      padding: 10px;
+    }
+  }
+  @media (max-width: 767px) {
+    .region-masonry-grid {
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 8px;
+      padding: 6px;
+    }
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 991px) {
+    .region-two-column-layout {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .region-tabs-nav {
+      margin-bottom: 25px;
+    }
+
+    .region-tab-btn {
+      font-size: 16px;
+      padding: 10px 20px;
+    }
+
+    .region-table-title {
+      font-size: 16px;
+      padding: 14px 18px;
+    }
+
+    .region-table-content {
+      padding: 16px;
+    }
+
+    .region-table-content table th,
+    .region-table-content table td {
+      padding: 10px 12px;
+      font-size: 13px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .region-tabs-nav {
+      margin-bottom: 20px;
+    }
+
+    .region-tab-btn {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+
+    .region-table-title {
+      font-size: 15px;
+      padding: 12px 16px;
+    }
+
+    .region-table-content {
+      padding: 14px;
+    }
+
+    .region-table-content table th,
+    .region-table-content table td {
+      padding: 8px 10px;
+      font-size: 12px;
+    }
+
+    /* Region PDF Button */
+    .region-pdf-container {
+      text-align: center;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--color-border, #e1e1e1);
+    }
+    .region-pdf-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: var(--color-button, #009D03);
+      color: var(--color-button-text, white);
+      text-decoration: none;
+      border-radius: 8px;
+      font-family: "Kumbh Sans";
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0, 157, 3, 0.2);
+    }
+    .region-pdf-btn:hover {
+      background: var(--color-button-hover, #007A02);
+      color: var(--color-button-text, white);
+      text-decoration: none;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 157, 3, 0.3);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .region-tabs-nav {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .region-tab-btn {
+      text-align: center;
+      min-width: 120px;
+      margin-bottom: 8px;
+    }
+
+    .region-two-column-layout {
+      gap: 20px;
+    }
+
+    .region-table-content table th,
+    .region-table-content table td {
+      padding: 6px 8px;
+      font-size: 11px;
+    }
+
+    .region-pdf-btn {
+      font-size: 13px;
+      padding: 8px 16px;
+    }
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const tabButtons = document.querySelectorAll('.region-tab-btn');
+  const regionContents = document.querySelectorAll('.region-content');
+  // Tab switching functionality
+  tabButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const regionId = this.getAttribute('data-region');
+      // Remove active class from all tabs and content
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      regionContents.forEach(content => content.classList.remove('active'));
+      // Add active class to clicked tab and corresponding content
+      this.classList.add('active');
+      const targetContent = document.getElementById('region-' + regionId + '-content');
+      if (targetContent) {
+        targetContent.classList.add('active');
+      }
+    });
+  });
+  // Image lightbox functionality
+  function setupLightbox() {
+    const galleryImages = document.querySelectorAll('.masonry-image-wrapper img');
+    galleryImages.forEach(img => {
+      img.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const fullSrc = this.getAttribute('data-full');
+        // Create lightbox modal
+        const lightbox = document.createElement('div');
+        lightbox.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0,0,0,0.9);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 9999;
+          cursor: pointer;
+        `;
+        const lightboxImg = document.createElement('img');
+        lightboxImg.src = fullSrc;
+        lightboxImg.style.cssText = `
+          max-width: 90%;
+          max-height: 90%;
+          object-fit: contain;
+          border-radius: 8px;
+        `;
+        lightbox.appendChild(lightboxImg);
+        document.body.appendChild(lightbox);
+        // Close lightbox on click
+        lightbox.addEventListener('click', function() {
+          document.body.removeChild(lightbox);
+        });
+        // Close lightbox on Escape key
+        const closeOnEscape = function(e) {
+          if (e.key === 'Escape') {
+            document.body.removeChild(lightbox);
+            document.removeEventListener('keydown', closeOnEscape);
+          }
+        };
+        document.addEventListener('keydown', closeOnEscape);
+      });
+    });
+  }
+  setupLightbox();
+  // Re-setup lightbox on tab switch (in case DOM changes)
+  tabButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      setTimeout(setupLightbox, 100);
+    });
+  });
+  // Accessibility support
+  tabButtons.forEach(button => {
+    button.setAttribute('role', 'tab');
+    button.setAttribute('tabindex', '0');
+    button.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.click();
+      }
+    });
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Dynamic Region Tabs",
+  "class": "section-dynamic-region-tabs",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Create unlimited region tabs with custom tables and image galleries. Each region can be configured independently with its own ACF metafields."
+    },
+    {
+      "type": "header",
+      "content": "Instructions"
+    },
+    {
+      "type": "paragraph",
+      "content": "1. Add 'Region Tab' blocks below for each region you want to display\n2. Configure the region name and metafield mappings for each block\n3. Create corresponding ACF fields in your admin\n4. The content will automatically populate from your product metafields"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "region_tab",
+      "name": "Region Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "region_name",
+          "label": "Region Name",
+          "placeholder": "e.g., Afghanistan, Uzbekistan, Turkey",
+          "info": "This will be displayed as the tab title"
+        },
+        {
+          "type": "header",
+          "content": "Table Configuration"
+        },
+        {
+          "type": "text",
+          "id": "table_metafield_namespace",
+          "label": "Table Metafield Namespace",
+          "placeholder": "e.g., Region1_Table, custom",
+          "info": "The namespace of your ACF table metafield"
+        },
+        {
+          "type": "text",
+          "id": "table_metafield_key",
+          "label": "Table Metafield Key",
+          "placeholder": "e.g., region1_table, specifications",
+          "info": "The key of your ACF table metafield"
+        },
+        {
+          "type": "header",
+          "content": "Image Gallery Configuration"
+        },
+        {
+          "type": "text",
+          "id": "image_metafield_namespace",
+          "label": "Image Metafield Namespace",
+          "placeholder": "e.g., custom, images",
+          "info": "The namespace of your ACF image metafield"
+        },
+        {
+          "type": "text",
+          "id": "image_metafield_key",
+          "label": "Image Metafield Key",
+          "placeholder": "e.g., afghanistan_images, region_gallery",
+          "info": "The key of your ACF image metafield"
+        },
+        {
+          "type": "header",
+          "content": "PDF Download (Optional)"
+        },
+        {
+          "type": "text",
+          "id": "pdf_metafield_namespace",
+          "label": "PDF Metafield Namespace",
+          "placeholder": "e.g., custom, documents",
+          "info": "The namespace of your ACF PDF URL metafield (optional)"
+        },
+        {
+          "type": "text",
+          "id": "pdf_metafield_key",
+          "label": "PDF Metafield Key",
+          "placeholder": "e.g., afghanistan_pdf_url, region_pdf",
+          "info": "The key of your ACF PDF URL metafield (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dynamic Region Tabs",
+      "category": "Product",
+      "blocks": [
+        {
+          "type": "region_tab",
+          "settings": {
+            "region_name": "Afghanistan",
+            "table_metafield_namespace": "Region1_Table",
+            "table_metafield_key": "region1_table",
+            "image_metafield_namespace": "custom",
+            "image_metafield_key": "afghanistan_images",
+            "pdf_metafield_namespace": "custom",
+            "pdf_metafield_key": "afghanistan_pdf_url"
+          }
+        },
+        {
+          "type": "region_tab",
+          "settings": {
+            "region_name": "Uzbekistan",
+            "table_metafield_namespace": "Region2_Table",
+            "table_metafield_key": "region2_table",
+            "image_metafield_namespace": "custom",
+            "image_metafield_key": "uzbekistan_images",
+            "pdf_metafield_namespace": "custom",
+            "pdf_metafield_key": "uzbekistan_pdf_url"
+          }
+        },
+        {
+          "type": "region_tab",
+          "settings": {
+            "region_name": "Tajikistan",
+            "table_metafield_namespace": "Region3_Table",
+            "table_metafield_key": "region3_table",
+            "image_metafield_namespace": "custom",
+            "image_metafield_key": "tajikistan_images",
+            "pdf_metafield_namespace": "custom",
+            "pdf_metafield_key": "tajikistan_pdf_url"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

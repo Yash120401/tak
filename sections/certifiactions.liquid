@@ -1,0 +1,788 @@
+{% schema %}
+{
+  "name": "Certifications",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Content"
+    },
+    {
+      "type": "text",
+      "id": "section_tagline",
+      "label": "Section Tagline",
+      "default": "Sourcing Nature, Supplying Quality"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Section Heading",
+      "default": "Our Certificates & Memberships"
+    },
+    {
+      "type": "textarea",
+      "id": "section_description",
+      "label": "Section Description",
+      "default": "Ensuring the highest standards of safety and quality in every product we offer."
+    },
+    {
+      "type": "header",
+      "content": "Spacing & Layout"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Section Top Padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Section Bottom Padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "min": 30,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Header Bottom Spacing",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "card_height",
+      "min": 300,
+      "max": 600,
+      "step": 20,
+      "unit": "px",
+      "label": "Card Height",
+      "default": 420
+    },
+    {
+      "type": "range",
+      "id": "card_spacing",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "Space Between Cards",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "hover_distance",
+      "min": 30,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Card Hover Move Distance",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "select",
+      "id": "font_family",
+      "label": "Font Family",
+      "options": [
+        { "value": "Kumbh Sans", "label": "Kumbh Sans" },
+        { "value": "Arial", "label": "Arial" },
+        { "value": "Helvetica", "label": "Helvetica" },
+        { "value": "Georgia", "label": "Georgia" },
+        { "value": "sans-serif", "label": "Sans Serif" }
+      ],
+      "default": "Kumbh Sans"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Main Heading Size",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Description Size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Card Title Size",
+      "default": 19
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Primary Green Color",
+      "default": "#00A000"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#2c5234"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#6c757d"
+    },
+    {
+      "type": "header",
+      "content": "Load More"
+    },
+    {
+      "type": "range",
+      "id": "initial_items_count",
+      "label": "Initial Items to Show",
+      "min": 3,
+      "max": 12,
+      "step": 3,
+      "default": 9
+    },
+    {
+      "type": "text",
+      "id": "load_more_text",
+      "label": "Load More Button Text",
+      "default": "Load More Certificates"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "certificate",
+      "name": "Certificate",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "certificate_image",
+          "label": "Certificate Image"
+        },
+        {
+          "type": "text",
+          "id": "certificate_title",
+          "label": "Certificate Title",
+          "default": "Certificate Name"
+        },
+        {
+          "type": "text",
+          "id": "certificate_subtitle",
+          "label": "Footer Text (Company Name)",
+          "default": "Bata Food - KIWA"
+        },
+        {
+          "type": "url",
+          "id": "certificate_pdf_url",
+          "label": "Certificate PDF URL"
+        },
+        {
+          "type": "color",
+          "id": "card_background",
+          "label": "Card Background Color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Certifications",
+      "category": "Custom Sections",
+      "blocks": [
+        { "type": "certificate" },
+        { "type": "certificate" },
+        { "type": "certificate" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% assign primary_color = section.settings.primary_color | default: '#00A000' %}
+{% assign background_color = section.settings.background_color | default: '#ffffff' %}
+{% assign heading_color = section.settings.heading_color | default: '#2c5234' %}
+{% assign text_color = section.settings.text_color | default: '#6c757d' %}
+
+<style>
+  /* Scoped Bootstrap Grid System for Certifications Section Only */
+  .certifications-bootstrap-scope {
+    box-sizing: border-box;
+  }
+
+  .certifications-bootstrap-scope *,
+  .certifications-bootstrap-scope *::before,
+  .certifications-bootstrap-scope *::after {
+    box-sizing: border-box;
+  }
+
+  .certifications-bootstrap-scope .container {
+    width: 100%;
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  @media (min-width: 576px) {
+    .certifications-bootstrap-scope .container {
+      max-width: 540px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .certifications-bootstrap-scope .container {
+      max-width: 720px;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .certifications-bootstrap-scope .container {
+      max-width: 960px;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .certifications-bootstrap-scope .container {
+      max-width: 1140px;
+    }
+  }
+
+  @media (min-width: 1400px) {
+    .certifications-bootstrap-scope .container {
+      max-width: 1320px;
+    }
+  }
+
+  .certifications-bootstrap-scope .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(-1 * 0);
+    margin-right: calc(-.5 * 1.5rem);
+    margin-left: calc(-.5 * 1.5rem);
+  }
+
+  .certifications-bootstrap-scope .row > * {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-right: calc(1.5rem * .5);
+    padding-left: calc(1.5rem * .5);
+    margin-top: 0;
+  }
+
+  .certifications-bootstrap-scope .col {
+    flex: 1 0 0%;
+  }
+
+  .certifications-bootstrap-scope .col-12 {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .certifications-bootstrap-scope .col-6 {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+
+  @media (min-width: 768px) {
+    .certifications-bootstrap-scope .col-md-6 {
+      flex: 0 0 auto;
+      width: 50%;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .certifications-bootstrap-scope .col-lg-4 {
+      flex: 0 0 auto;
+      width: 33.33333333%;
+    }
+
+    .certifications-bootstrap-scope .col-lg-6 {
+      flex: 0 0 auto;
+      width: 50%;
+    }
+  }
+
+  .certifications-bootstrap-scope .gy-4 > * {
+    margin-top: 1.5rem;
+  }
+
+  .certifications-bootstrap-scope .align-items-center {
+    align-items: center !important;
+  }
+
+  .certifications-bootstrap-scope .m-0 {
+    margin: 0 !important;
+  }
+
+  /* Original section styles */
+  .certifications-section {
+    background-color: {{ background_color }};
+    padding-top: {{ section.settings.section_padding_top | default: 80 }}px;
+    padding-bottom: {{ section.settings.section_padding_bottom | default: 80 }}px;
+  }
+
+  .section-header {
+    margin-bottom: {{ section.settings.header_spacing | default: 60 }}px;
+  }
+
+  .section-tagline {
+    color: {{ primary_color }};
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    position: relative;
+    display: inline-block;
+  }
+
+  .section-tagline::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: {{ primary_color }};
+  }
+
+  .section-main-heading {
+    font-family: '{{ section.settings.font_family | default: 'Kumbh Sans' }}', sans-serif;
+    font-size: {{ section.settings.heading_size | default: 42 }}px;
+    line-height: 1.2;
+    font-weight: 600;
+    color: {{ heading_color }};
+    margin-bottom: 0;
+  }
+
+  .section-description {
+    font-family: '{{ section.settings.font_family | default: 'Kumbh Sans' }}', sans-serif;
+    font-size: {{ section.settings.description_size | default: 18 }}px;
+    line-height: 1.6;
+    color: {{ text_color }};
+    margin-bottom: 0;
+  }
+
+  .certificate-card {
+    position: relative;
+    height: {{ section.settings.card_height | default: 420 }}px;
+    margin-bottom: {{ section.settings.card_spacing | default: 40 }}px;
+    border-radius: 10px;
+  }
+
+  .certificate-card-container {
+    position: relative;
+    height: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    background: transparent;
+  }
+
+  .certificate-footer {
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    right: 0;
+    width: 90%;
+    background: {{ primary_color }};
+    color: white;
+    text-align: center;
+    padding: 18px;
+    font-size: 15px;
+    font-weight: 600;
+    z-index: 1;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .certificate-card-inner {
+    position: relative;
+    top: 0px;
+    left: 0;
+    right: 0;
+    height: 95%;
+    background: #f2f2f2;
+    transition: all 0.4s ease;
+    transform: translateY(0);
+    border-radius: 10px;
+    z-index: 2;
+  }
+
+  .certificate-card:hover .certificate-card-inner {
+    transform: translateY(-{{ section.settings.hover_distance | default: 30 }}px);
+    padding-top: 15px;
+  }
+
+  .certificate-image-container {
+    background: #f2f2f2;
+    padding: 40px 25px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .certificate-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+  }
+
+  .certificate-card:hover .certificate-image {
+    transform: scale(1.03);
+  }
+
+  .certificate-info {
+    text-align: center;
+    background: #f2f2f2;
+  }
+
+  .certificate-title {
+    font-size: {{ section.settings.card_title_size | default: 19 }}px;
+    font-weight: 600;
+    color: {{ heading_color }};
+    margin-bottom: 0;
+    line-height: 1.3;
+    transition: color 0.3s ease;
+  }
+
+  .certificate-card:hover .certificate-title {
+    color: {{ primary_color }};
+  }
+
+  .certificate-placeholder {
+    width: 220px;
+    height: 160px;
+    background: #e9ecef;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: {{ text_color }};
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .load-more-container {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .load-more-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 20px;
+    border: 1px solid {{ primary_color }};
+    border-radius: 6px;
+    background: #fff;
+    color: {{ primary_color }};
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .load-more-btn:hover {
+    background: {{ primary_color }};
+    color: white;
+    text-decoration: none;
+  }
+
+  .load-more-btn::after {
+    content: '→';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: {{ primary_color }};
+    color: white;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    margin-left: 10px;
+    font-size: 16px;
+    transition: background 0.3s;
+  }
+
+  .load-more-btn:hover::after {
+    background: white;
+    color: {{ primary_color }};
+  }
+
+  .load-more-btn::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background: {{ primary_color }};
+    clip-path: polygon(100% 100%, 0 100%, 100% 0);
+    transition: background 0.3s;
+  }
+
+  .load-more-btn:hover::before {
+    background: white;
+  }
+
+  .certificate-hidden {
+    display: none !important;
+  }
+
+  /* Responsive */
+  @media (max-width: 991px) {
+    .certifications-section {
+      padding-top: {{ section.settings.section_padding_top | default: 80 | times: 0.75 }}px;
+      padding-bottom: {{ section.settings.section_padding_bottom | default: 80 | times: 0.75 }}px;
+    }
+
+    .section-header {
+      margin-bottom: {{ section.settings.header_spacing | default: 60 | times: 0.85 }}px;
+    }
+
+    .section-main-heading {
+      font-size: {{ section.settings.heading_size | default: 42 | times: 0.85 }}px;
+    }
+
+    .section-description {
+      font-size: {{ section.settings.description_size | default: 18 | times: 0.9 }}px;
+    }
+
+    .certificate-card {
+      height: {{ section.settings.card_height | default: 420 | times: 0.9 }}px;
+      margin-bottom: {{ section.settings.card_spacing | default: 40 | times: 0.85 }}px;
+    }
+
+    .certificate-card:hover .certificate-card-inner {
+      transform: translateY(-{{ section.settings.hover_distance | default: 60 | times: 0.85 }}px);
+    }
+
+    .certificate-image-container {
+      padding: 30px 20px 15px;
+    }
+
+    .certificate-placeholder {
+      width: 180px;
+      height: 140px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .certifications-section {
+      padding-top: {{ section.settings.section_padding_top | default: 80 | times: 0.5 }}px;
+      padding-bottom: {{ section.settings.section_padding_bottom | default: 80 | times: 0.5 }}px;
+    }
+
+    .section-header {
+      margin-bottom: {{ section.settings.header_spacing | default: 60 | times: 0.7 }}px;
+    }
+
+    .section-main-heading {
+      font-size: {{ section.settings.heading_size | default: 42 | times: 0.7 }}px;
+    }
+
+    .section-description {
+      font-size: {{ section.settings.description_size | default: 18 | times: 0.85 }}px;
+    }
+
+    .certificate-card {
+      height: 100%;
+      margin-bottom: {{ section.settings.card_spacing | default: 40 | times: 0.65 }}px;
+    }
+
+    .certificate-card:hover .certificate-card-inner {
+      transform: translateY(-{{ section.settings.hover_distance | default: 60 | times: 0.75 }}px);
+    }
+
+    .certificate-image-container {
+      padding: 25px 15px 10px;
+    }
+
+    .certificate-footer {
+      padding: 15px;
+      font-size: 14px;
+    }
+
+    .certificate-title {
+      font-size: {{ section.settings.card_title_size | default: 19 | times: 0.9 }}px;
+    }
+
+    .certificate-placeholder {
+      width: 160px;
+      height: 120px;
+      font-size: 13px;
+    }
+
+    .section-tagline {
+      font-size: 12px;
+    }
+  }
+</style>
+
+<section class="certifications-section certifications-bootstrap-scope">
+  <div class="container">
+    <!-- Header Row: Two Columns -->
+    <div class="row align-items-center section-header">
+      <!-- Left Column: Heading -->
+      <div class="col-lg-6 col-md-6">
+        {% if section.settings.section_tagline != blank %}
+          <div class="section-tagline">
+            {{ section.settings.section_tagline }}
+          </div>
+        {% endif %}
+
+        <h2 class="section-main-heading">
+          {{ section.settings.section_heading }}
+        </h2>
+      </div>
+
+      <!-- Right Column: Description -->
+      <div class="col-lg-6 col-md-6">
+        {% if section.settings.section_description != blank %}
+          <p class="section-description">
+            {{ section.settings.section_description }}
+          </p>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Certificates Grid Row -->
+    <div class="row gy-4" id="certificationsGrid">
+      {% for block in section.blocks %}
+        {% assign block_index = forloop.index %}
+        {% assign is_hidden = false %}
+        {% if block_index > section.settings.initial_items_count %}
+          {% assign is_hidden = true %}
+        {% endif %}
+
+        <div class="col-lg-4 col-md-6 m-0 {% if is_hidden %}certificate-hidden{% endif %}">
+          <div class="certificate-card certificate-card-{{ forloop.index }}" {{ block.shopify_attributes }}>
+            <div
+              class="certificate-card-container"
+              onclick="openCertificate('{{ block.settings.certificate_pdf_url }}')"
+            >
+              <!-- Green footer (always present at bottom) -->
+              <div class="certificate-footer">
+                {{ block.settings.certificate_subtitle | default: 'Bata Food - KIWA' }}
+              </div>
+
+              <!-- White card (covers footer initially, moves up on hover) -->
+              <div class="certificate-card-inner">
+                <div class="certificate-image-container">
+                  {% if block.settings.certificate_image %}
+                    <img
+                      src="{{ block.settings.certificate_image | image_url: width: 400 }}"
+                      alt="{{ block.settings.certificate_title }}"
+                      class="certificate-image"
+                      loading="lazy"
+                    >
+                  {% else %}
+                    <div class="certificate-placeholder">Certificate Image</div>
+                  {% endif %}
+                </div>
+
+                <div class="certificate-info">
+                  <h3 class="certificate-title">
+                    {{ block.settings.certificate_title | default: 'Certificate Name' }}
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Load More Button -->
+    {% if section.blocks.size > section.settings.initial_items_count %}
+      <div class="row">
+        <div class="col-12">
+          <div class="load-more-container">
+            <button class="load-more-btn" id="loadMoreBtn" onclick="loadMoreCertificates()">
+              {{ section.settings.load_more_text }}
+            </button>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  function openCertificate(pdfUrl) {
+    if (pdfUrl) {
+      window.open(pdfUrl, '_blank');
+    }
+  }
+
+  function loadMoreCertificates() {
+    const hiddenCards = document.querySelectorAll('.certificate-hidden');
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+
+    if (hiddenCards.length > 0) {
+      hiddenCards.forEach(card => {
+        card.classList.remove('certificate-hidden');
+      });
+
+      if (loadMoreBtn) {
+        loadMoreBtn.style.display = 'none';
+      }
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const certificateCards = document.querySelectorAll('.certificate-card-container');
+
+    certificateCards.forEach(card => {
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
+        }
+      });
+    });
+  });
+</script>

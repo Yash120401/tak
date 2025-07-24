@@ -1,0 +1,1519 @@
+{%- liquid
+  assign padding_top = section.settings.mg_top_desktop | append: 'px'
+  assign padding_bottom = section.settings.mg_bottom_desktop | append: 'px'
+  assign padding_top_tablet = section.settings.mg_top_tablet | append: 'px'
+  assign padding_bottom_tablet = section.settings.mg_bottom_tablet | append: 'px'
+  assign padding_top_mobile = section.settings.mg_top_mobile | append: 'px'
+  assign padding_bottom_mobile = section.settings.mg_bottom_mobile | append: 'px'
+  assign container = section.settings.container
+  assign padding_full_width = section.settings.padding_full_width
+  assign show_packaging = section.settings.show_packaging
+  assign show_available_from = section.settings.show_available_from
+  assign show_shipping = section.settings.show_shipping
+  assign show_extra_description = section.settings.show_extra_description
+  assign bg_color = section.settings.background_color
+  assign card_bg_color = section.settings.card_background_color
+  assign title_color = section.settings.title_color
+  assign text_color = section.settings.text_color
+  assign border_radius = section.settings.border_radius
+  assign card_shadow = section.settings.card_shadow
+  assign hover_effect = section.settings.hover_effect
+  assign columns_gap = section.settings.columns_gap
+  assign card_padding_desktop = section.settings.card_padding_desktop
+  assign card_padding_tablet = section.settings.card_padding_tablet
+  assign card_padding_mobile = section.settings.card_padding_mobile
+  assign title_font_size_desktop = section.settings.title_font_size_desktop
+  assign title_font_size_tablet = section.settings.title_font_size_tablet
+  assign title_font_size_mobile = section.settings.title_font_size_mobile
+  assign text_font_size_desktop = section.settings.text_font_size_desktop
+  assign text_font_size_tablet = section.settings.text_font_size_tablet
+  assign text_font_size_mobile = section.settings.text_font_size_mobile
+  assign mobile_stack = section.settings.mobile_stack
+  assign tablet_columns = section.settings.tablet_columns
+  assign packaging_icon_style = section.settings.packaging_icon_style
+  assign packaging_icon_color = section.settings.packaging_icon_color
+  assign available_icon_style = section.settings.available_icon_style
+  assign available_icon_color = section.settings.available_icon_color
+  assign shipping_icon_style = section.settings.shipping_icon_style
+  assign shipping_icon_color = section.settings.shipping_icon_color
+  assign packaging_icon = section.settings.packaging_icon
+  assign available_icon = section.settings.available_icon
+  assign shipping_icon = section.settings.shipping_icon
+  assign extra_description_gap = section.settings.extra_description_gap
+-%}
+
+{% comment %}
+  Three Column Layout Section for Product Metafields
+  File: sections/three-column-layout.liquid
+{% endcomment %}
+
+{% assign has_content = false %}
+{% if show_packaging and product.metafields.PackagingDetails.packaging_details != blank %}
+  {% assign has_content = true %}
+{% endif %}
+{% if show_available_from and product.metafields.AvailableFrom.available_from != blank %}
+  {% assign has_content = true %}
+{% endif %}
+{% if show_shipping and product.metafields.shipping_options.shipping_options != blank %}
+  {% assign has_content = true %}
+{% endif %}
+
+{% if has_content %}
+  <div
+    data-section-id="{{ section.id }}"
+    data-section-type="three-column-layout"
+    id="ThreeColumnSection-{{ section.id }}"
+    data-section="{{ section.id }}"
+  >
+    <div class="three-column-layout-container {% if container == '1170' %}container-1170{% elsif container == '1770' %}container-1770{% elsif container == 'fullwidth'%}container-full{% else %}container{% endif %}">
+      <div class="columns-wrapper{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}">
+        {% comment %} Packaging Details Column {% endcomment %}
+        {% if show_packaging and product.metafields.PackagingDetails.packaging_details != blank %}
+          <div class="column-item">
+            <div class="column-content">
+              <div class="column-header">
+                <h3 class="column-title">{{ section.settings.packaging_title | default: 'Packaging' }}</h3>
+              </div>
+              <div class="column-description">
+                {% assign packaging_lines = product.metafields.PackagingDetails.packaging_details | split: '<p>' %}
+                {% for line in packaging_lines %}
+                  {% if line != blank %}
+                    {% assign clean_line = line | remove: '</p>' | strip %}
+                    {% if clean_line != blank %}
+                      <div class="content-item">
+                        {% comment %} Check for icon codes like [box], [package], [weight] etc {% endcomment %}
+                        {% assign icon_type = '' %}
+                        {% assign display_text = clean_line %}
+
+                        {% if clean_line contains '[box]' %}
+                          {% assign icon_type = 'box' %}
+                          {% assign display_text = clean_line | remove: '[box]' | strip %}
+                        {% elsif clean_line contains '[package]' %}
+                          {% assign icon_type = 'package' %}
+                          {% assign display_text = clean_line | remove: '[package]' | strip %}
+                        {% elsif clean_line contains '[weight]' %}
+                          {% assign icon_type = 'weight' %}
+                          {% assign display_text = clean_line | remove: '[weight]' | strip %}
+                        {% elsif clean_line contains '[cube]' %}
+                          {% assign icon_type = 'cube' %}
+                          {% assign display_text = clean_line | remove: '[cube]' | strip %}
+                        {% endif %}
+
+                        {% if packaging_icon != blank and icon_type == '' %}
+                          <img
+                            src="{{ packaging_icon | img_url: 'master' }}"
+                            alt="Packaging Icon"
+                            class="content-icon custom-content-icon"
+                            loading="lazy"
+                          >
+                        {% elsif icon_type == 'box' %}
+                          <svg
+                            class="content-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M21 16V8C21 6.89543 20.1046 6 19 6H5C3.89543 6 3 6.89543 3 8V16C3 17.1046 3.89543 18 5 18H19C20.1046 18 21 17.1046 21 16Z" stroke="{{ packaging_icon_color }}" stroke-width="2"/>
+                          </svg>
+                        {% elsif packaging_icon_style == 'box' and icon_type == '' %}
+                          <svg
+                            class="content-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M21 16V8C21 6.89543 20.1046 6 19 6H5C3.89543 6 3 6.89543 3 8V16C3 17.1046 3.89543 18 5 18H19C20.1046 18 21 17.1046 21 16Z" stroke="{{ packaging_icon_color }}" stroke-width="2"/>
+                          </svg>
+                        {% elsif icon_type == 'package' %}
+                          <svg
+                            class="content-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="{{ packaging_icon_color }}" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M2 17L12 22L22 17" stroke="{{ packaging_icon_color }}" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M2 12L12 17L22 12" stroke="{{ packaging_icon_color }}" stroke-width="2" stroke-linejoin="round"/>
+                          </svg>
+                        {% elsif packaging_icon_style == 'package' and icon_type == '' %}
+                          <svg
+                            class="content-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="{{ packaging_icon_color }}" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M2 17L12 22L22 17" stroke="{{ packaging_icon_color }}" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M2 12L12 17L22 12" stroke="{{ packaging_icon_color }}" stroke-width="2" stroke-linejoin="round"/>
+                          </svg>
+                        {% elsif icon_type == 'weight' %}
+                          <svg
+                            class="content-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1L13.5 2.5L16.17 5.17C15.24 5.7 14.62 6.62 14.38 7.69L13 7V9C13 10.66 14.34 12 16 12V22H8V12C9.66 12 11 10.66 11 9V7L9.62 7.69C9.38 6.62 8.76 5.7 7.83 5.17L10.5 2.5L9 1L3 7V9C3 10.66 4.34 12 6 12V22H18V12C19.66 12 21 10.66 21 9Z" fill="{{ packaging_icon_color }}"/>
+                          </svg>
+                        {% elsif packaging_icon_style == 'weight' and icon_type == '' %}
+                          <svg
+                            class="content-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1L13.5 2.5L16.17 5.17C15.24 5.7 14.62 6.62 14.38 7.69L13 7V9C13 10.66 14.34 12 16 12V22H8V12C9.66 12 11 10.66 11 9V7L9.62 7.69C9.38 6.62 8.76 5.7 7.83 5.17L10.5 2.5L9 1L3 7V9C3 10.66 4.34 12 6 12V22H18V12C19.66 12 21 10.66 21 9Z" fill="{{ packaging_icon_color }}"/>
+                          </svg>
+                        {% elsif icon_type == 'cube' %}
+                          <svg
+                            class="content-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="{{ packaging_icon_color }}" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M2 17L12 22L22 17" stroke="{{ packaging_icon_color }}" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M2 12L12 17L22 12" stroke="{{ packaging_icon_color }}" stroke-width="2" stroke-linejoin="round"/>
+                          </svg>
+                        {% elsif packaging_icon_style == 'cube' and icon_type == '' %}
+                          <svg
+                            class="content-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="{{ packaging_icon_color }}" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M2 17L12 22L22 17" stroke="{{ packaging_icon_color }}" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M2 12L12 17L22 12" stroke="{{ packaging_icon_color }}" stroke-width="2" stroke-linejoin="round"/>
+                          </svg>
+                        {% elsif packaging_icon_style == 'checkmark' and icon_type == '' %}
+                          <svg
+                            class="content-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M20 6L9 17L4 12" stroke="{{ packaging_icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        {% elsif packaging_icon_style == 'arrow' and icon_type == '' %}
+                          <svg
+                            class="content-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M9 18L15 12L9 6" stroke="{{ packaging_icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        {% elsif icon_type == '' %}
+                          <span class="content-dot" style="background-color: {{ packaging_icon_color }};"></span>
+                        {% endif %}
+                        {{ display_text }}
+                      </div>
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+
+        {% comment %} Available From Column {% endcomment %}
+        {% if show_available_from and product.metafields.AvailableFrom.available_from != blank %}
+          <div class="column-item">
+            <div class="column-content">
+              <div class="column-header">
+                <div class="column-icon-wrapper">
+                  {% if available_icon != blank %}
+                    <img
+                      src="{{ available_icon | img_url: 'master' }}"
+                      alt="Available From Icon"
+                      class="column-icon custom-icon"
+                      loading="lazy"
+                    >
+                  {% else %}
+                    <svg
+                      class="column-icon default-icon"
+                      width="{{ icon_size }}"
+                      height="{{ icon_size }}"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                      <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  {% endif %}
+                </div>
+                <h3 class="column-title">{{ section.settings.available_title | default: 'Available From' }}</h3>
+              </div>
+              <div class="column-description">
+                {% assign available_lines = product.metafields.AvailableFrom.available_from | split: '<p>' %}
+                {% for line in available_lines %}
+                  {% if line != blank %}
+                    {% assign clean_line = line | remove: '</p>' | strip %}
+                    {% if clean_line != blank %}
+                      <div class="availability-item">
+                        {% if custom_list_icon != blank %}
+                          <img
+                            src="{{ custom_list_icon | img_url: 'master' }}"
+                            alt="List Icon"
+                            class="list-icon custom-list-icon"
+                            loading="lazy"
+                          >
+                        {% elsif list_icon_style == 'checkmark' %}
+                          <svg
+                            class="list-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M20 6L9 17L4 12" stroke="{{ list_icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        {% elsif list_icon_style == 'arrow' %}
+                          <svg
+                            class="list-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M9 18L15 12L9 6" stroke="{{ list_icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        {% elsif list_icon_style == 'star' %}
+                          <svg
+                            class="list-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="{{ list_icon_color }}"/>
+                          </svg>
+                        {% else %}
+                          <span class="availability-dot"></span>
+                        {% endif %}
+                        {{ clean_line }}
+                      </div>
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+
+        {% comment %} Shipping Options Column {% endcomment %}
+        {% if show_shipping and product.metafields.shipping_options.shipping_options != blank %}
+          <div class="column-item">
+            <div class="column-content">
+              <div class="column-header">
+                <h3 class="column-title">{{ section.settings.shipping_title | default: 'Shipping Options' }}</h3>
+              </div>
+              <div class="column-description">
+                {% assign shipping_lines = product.metafields.shipping_options.shipping_options | split: '<p>' %}
+                {% for line in shipping_lines %}
+                  {% if line != blank %}
+                    {% assign clean_line = line | remove: '</p>' | strip %}
+                    {% if clean_line != blank %}
+                      <div class="content-item">
+                        {% comment %} Check for icon codes like [truck], [plane], [ship], [customs] etc {% endcomment %}
+                        {% assign icon_type = '' %}
+                        {% assign display_text = clean_line %}
+
+                        {% if clean_line contains '[truck]' %}
+                          {% assign icon_type = 'truck' %}
+                          {% assign display_text = clean_line | remove: '[truck]' | strip %}
+                        {% elsif clean_line contains '[plane]' %}
+                          {% assign icon_type = 'plane' %}
+                          {% assign display_text = clean_line | remove: '[plane]' | strip %}
+                        {% elsif clean_line contains '[ship]' %}
+                          {% assign icon_type = 'ship' %}
+                          {% assign display_text = clean_line | remove: '[ship]' | strip %}
+                        {% elsif clean_line contains '[customs]' %}
+                          {% assign icon_type = 'customs' %}
+                          {% assign display_text = clean_line | remove: '[customs]' | strip %}
+                        {% elsif clean_line contains '[fast]' %}
+                          {% assign icon_type = 'fast' %}
+                          {% assign display_text = clean_line | remove: '[fast]' | strip %}
+                        {% endif %}
+
+                        {% if shipping_icon != blank and icon_type == '' %}
+                          <img
+                            src="{{ shipping_icon | img_url: 'master' }}"
+                            alt="Shipping Icon"
+                            class="content-icon custom-content-icon"
+                            loading="lazy"
+                          >
+                        {% elsif icon_type == 'truck' %}
+                          <svg
+                            class="content-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <rect x="1" y="3" width="15" height="13" stroke="{{ shipping_icon_color }}" stroke-width="2"/>
+                            <polygon points="16,6 20,6 23,10 23,16 16,16" stroke="{{ shipping_icon_color }}" stroke-width="2"/>
+                            <circle cx="5.5" cy="18.5" r="2.5" stroke="{{ shipping_icon_color }}" stroke-width="2"/>
+                            <circle cx="18.5" cy="18.5" r="2.5" stroke="{{ shipping_icon_color }}" stroke-width="2"/>
+                          </svg>
+                        {% elsif shipping_icon_style == 'truck' and icon_type == '' %}
+                          <svg
+                            class="content-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <rect x="1" y="3" width="15" height="13" stroke="{{ shipping_icon_color }}" stroke-width="2"/>
+                            <polygon points="16,6 20,6 23,10 23,16 16,16" stroke="{{ shipping_icon_color }}" stroke-width="2"/>
+                            <circle cx="5.5" cy="18.5" r="2.5" stroke="{{ shipping_icon_color }}" stroke-width="2"/>
+                            <circle cx="18.5" cy="18.5" r="2.5" stroke="{{ shipping_icon_color }}" stroke-width="2"/>
+                          </svg>
+                        {% elsif icon_type == 'plane' %}
+                          <svg
+                            class="content-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M2 16H6L8 22L10 22L8 16H14L16 18H18L17 12L18 6H16L14 8H8L10 2L8 2L6 8H2L3 12L2 16Z" stroke="{{ shipping_icon_color }}" stroke-width="2"/>
+                          </svg>
+                        {% elsif shipping_icon_style == 'plane' and icon_type == '' %}
+                          <svg
+                            class="content-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M2 16H6L8 22L10 22L8 16H14L16 18H18L17 12L18 6H16L14 8H8L10 2L8 2L6 8H2L3 12L2 16Z" stroke="{{ shipping_icon_color }}" stroke-width="2"/>
+                          </svg>
+                        {% elsif icon_type == 'ship' %}
+                          <svg
+                            class="content-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M2 20C2 20 4 16 12 16S22 20 22 20H2Z" stroke="{{ shipping_icon_color }}" stroke-width="2"/>
+                            <path d="M10 12V6H14V12" stroke="{{ shipping_icon_color }}" stroke-width="2"/>
+                            <path d="M12 2V6" stroke="{{ shipping_icon_color }}" stroke-width="2"/>
+                          </svg>
+                        {% elsif shipping_icon_style == 'ship' and icon_type == '' %}
+                          <svg
+                            class="content-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M2 20C2 20 4 16 12 16S22 20 22 20H2Z" stroke="{{ shipping_icon_color }}" stroke-width="2"/>
+                            <path d="M10 12V6H14V12" stroke="{{ shipping_icon_color }}" stroke-width="2"/>
+                            <path d="M12 2V6" stroke="{{ shipping_icon_color }}" stroke-width="2"/>
+                          </svg>
+                        {% elsif icon_type == 'customs' %}
+                          <svg
+                            class="content-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M9 12L11 14L15 10" stroke="{{ shipping_icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="{{ shipping_icon_color }}" stroke-width="2"/>
+                          </svg>
+                        {% elsif shipping_icon_style == 'customs' and icon_type == '' %}
+                          <svg
+                            class="content-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M9 12L11 14L15 10" stroke="{{ shipping_icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="{{ shipping_icon_color }}" stroke-width="2"/>
+                          </svg>
+                        {% elsif icon_type == 'fast' %}
+                          <svg
+                            class="content-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="{{ shipping_icon_color }}" stroke-width="2" stroke-linejoin="round"/>
+                          </svg>
+                        {% elsif shipping_icon_style == 'fast' and icon_type == '' %}
+                          <svg
+                            class="content-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="{{ shipping_icon_color }}" stroke-width="2" stroke-linejoin="round"/>
+                          </svg>
+                        {% elsif shipping_icon_style == 'checkmark' and icon_type == '' %}
+                          <svg
+                            class="content-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M20 6L9 17L4 12" stroke="{{ shipping_icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        {% elsif shipping_icon_style == 'arrow' and icon_type == '' %}
+                          <svg
+                            class="content-icon"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M9 18L15 12L9 6" stroke="{{ shipping_icon_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        {% elsif icon_type == '' %}
+                          <span class="content-dot" style="background-color: {{ shipping_icon_color }};"></span>
+                        {% endif %}
+                        {{ display_text }}
+                      </div>
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+
+      {% comment %} Extra Description Section {% endcomment %}
+      {% if show_extra_description %}
+        {% assign extra_description = product.metafields.extra_line_description.extra_line_description %}
+
+        {% if extra_description != blank %}
+          <div class="extra-description-wrapper">
+            <div class="extra-description-content">
+              {{ extra_description }}
+            </div>
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+
+  <style type="text/css" media="screen">
+            #ThreeColumnSection-{{ section.id }} {
+              padding-top: {{ padding_top }};
+              padding-bottom: {{ padding_bottom }};
+              background-color: {{ bg_color }};
+              font-family: 'Kumbh Sans';
+              overflow-x: hidden;
+            }
+
+            /* Container Settings */
+            #ThreeColumnSection-{{ section.id }} .container {
+              max-width: 1200px;
+              margin: 0 auto;
+              padding: 0 20px;
+              box-sizing: border-box;
+            }
+
+            #ThreeColumnSection-{{ section.id }} .container-1170 {
+              max-width: 1170px;
+              margin: 0 auto;
+              padding: 0 20px;
+              box-sizing: border-box;
+            }
+
+            #ThreeColumnSection-{{ section.id }} .container-1770 {
+              max-width: 1770px;
+              margin: 0 auto;
+              padding: 0 20px;
+              box-sizing: border-box;
+            }
+
+            #ThreeColumnSection-{{ section.id }} .container-full {
+              width: 100%;
+              margin: 0 auto;
+              box-sizing: border-box;
+            }
+
+            #ThreeColumnSection-{{ section.id }} .columns-wrapper {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: {{ columns_gap }}px;
+              align-items: stretch;
+              width: 100%;
+              box-sizing: border-box;
+            }
+
+            #ThreeColumnSection-{{ section.id }} .column-item {
+              width: 100%;
+              min-width: 0;
+              box-sizing: border-box;
+              display: flex;
+              border-radius: 8px;
+            }
+
+            #ThreeColumnSection-{{ section.id }} .column-content {
+              background: {{ card_bg_color }};
+              border-radius: {{ border_radius }}px;
+              padding: {{ card_padding_desktop }}px;
+              flex: 1;
+              display: flex;
+              background: #F1EDE8;
+              flex-direction: column;
+              box-sizing: border-box;
+              word-wrap: break-word;
+              overflow-wrap: break-word;
+              {% if hover_effect %}
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+              {% endif %}
+            }
+
+            {% if hover_effect %}
+            #ThreeColumnSection-{{ section.id }} .column-content:hover {
+              transform: translateY(-4px);
+              box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            }
+            {% endif %}
+
+            #ThreeColumnSection-{{ section.id }} .column-header {
+              display: flex;
+              align-items: center;
+              margin-bottom: 16px;
+              flex-wrap: wrap;
+              gap: 8px;
+            }
+
+            #ThreeColumnSection-{{ section.id }} .column-title {
+              font-size: {{ title_font_size_desktop }}px;
+              font-weight: 600;
+              color: {{ title_color }};
+              margin: 0;
+              line-height: 1.2;
+              word-wrap: break-word;
+              overflow-wrap: break-word;
+              flex: 1;
+              min-width: 0;
+            }
+
+            #ThreeColumnSection-{{ section.id }} .column-description {
+              color: {{ text_color }};
+              line-height: 1.6;
+              font-size: {{ text_font_size_desktop }}px;
+              word-wrap: break-word;
+              overflow-wrap: break-word;
+            }
+
+            #ThreeColumnSection-{{ section.id }} .content-item {
+              display: flex;
+              align-items: flex-start;
+              margin-bottom: 8px;
+              font-size: {{ text_font_size_desktop }}px;
+              word-wrap: break-word;
+              overflow-wrap: break-word;
+            }
+
+            #ThreeColumnSection-{{ section.id }} .content-item:last-child {
+              margin-bottom: 0;
+            }
+
+            #ThreeColumnSection-{{ section.id }} .content-dot {
+              width: 8px;
+              height: 8px;
+              border-radius: 50%;
+              margin-right: 12px;
+              margin-top: 6px;
+              flex-shrink: 0;
+            }
+
+            #ThreeColumnSection-{{ section.id }} .content-icon {
+              margin-right: 12px;
+              margin-top: 2px;
+              flex-shrink: 0;
+            }
+
+            #ThreeColumnSection-{{ section.id }} .custom-content-icon {
+              width: 16px;
+              height: 16px;
+              object-fit: contain;
+            }
+
+            #ThreeColumnSection-{{ section.id }} .available-item {
+              display: block;
+              margin-bottom: 8px;
+              font-size: {{ text_font_size_desktop }}px;
+              word-wrap: break-word;
+              overflow-wrap: break-word;
+            }
+
+            #ThreeColumnSection-{{ section.id }} .available-item:last-child {
+              margin-bottom: 0;
+            }
+            .extra-description-content b {
+            font-size: 22px;
+            color: #0E0F13;
+            line-height: 1.3;
+        }
+        .extra-description-content span {
+        font-size: 16px;
+        color: #0E0F13;
+    }
+
+            /* Extra Description Styles */
+            #ThreeColumnSection-{{ section.id }} .extra-description-wrapper {
+              margin-top: {{ extra_description_gap }}px;
+              width: 100%;
+            }
+
+            #ThreeColumnSection-{{ section.id }} .extra-description-content {
+              color: {{ text_color }};
+              font-size: {{ text_font_size_desktop }}px;
+              line-height: 1.6;
+              text-align: left;
+              margin: 0 auto;
+              word-wrap: break-word;
+              overflow-wrap: break-word;
+            }
+
+            #ThreeColumnSection-{{ section.id }} .extra-description-content p {
+              margin: 0 0 16px 0;
+            }
+
+            #ThreeColumnSection-{{ section.id }} .extra-description-content p:last-child {
+              margin-bottom: 0;
+            }
+
+            /* Large Desktop (1200px+) */
+            @media (min-width: 1200px) {
+              #ThreeColumnSection-{{ section.id }} .columns-wrapper {
+                grid-template-columns: repeat(3, 1fr);
+              }
+            }
+
+            /* Medium Desktop (1025px - 1199px) */
+            @media (max-width: 1199px) and (min-width: 1025px) {
+              #ThreeColumnSection-{{ section.id }} .columns-wrapper {
+                grid-template-columns: repeat(3, 1fr);
+                gap: {{ columns_gap | minus: 4 }}px;
+              }
+
+              #ThreeColumnSection-{{ section.id }} .column-content {
+                padding: {{ card_padding_desktop | minus: 2 }}px;
+              }
+            }
+
+            /* Tablet responsiveness (769px - 1024px) */
+            @media (max-width: 1024px) and (min-width: 769px) {
+              #ThreeColumnSection-{{ section.id }} {
+                padding-top: {{ padding_top_tablet }};
+                padding-bottom: {{ padding_bottom_tablet }};
+              }
+
+              #ThreeColumnSection-{{ section.id }} .columns-wrapper {
+                {% if tablet_columns == '2' %}
+                  grid-template-columns: repeat(2, 1fr);
+                {% elsif tablet_columns == '1' %}
+                  grid-template-columns: 1fr;
+                  max-width: 600px;
+                  margin: 0 auto;
+                {% else %}
+                  grid-template-columns: repeat(3, 1fr);
+                {% endif %}
+                gap: {{ columns_gap | minus: 6 }}px;
+              }
+
+              #ThreeColumnSection-{{ section.id }} .column-content {
+                padding: {{ card_padding_tablet }}px;
+              }
+
+              #ThreeColumnSection-{{ section.id }} .column-title {
+                font-size: {{ title_font_size_tablet }}px;
+              }
+
+              #ThreeColumnSection-{{ section.id }} .column-description,
+              #ThreeColumnSection-{{ section.id }} .content-item,
+              #ThreeColumnSection-{{ section.id }} .available-item {
+                font-size: {{ text_font_size_tablet }}px;
+              }
+
+              #ThreeColumnSection-{{ section.id }} .extra-description-content {
+                font-size: {{ text_font_size_tablet }}px;
+              }
+            }
+
+            /* Mobile responsiveness (481px - 768px) */
+            @media (max-width: 768px) and (min-width: 481px) {
+              #ThreeColumnSection-{{ section.id }} {
+                padding-top: {{ padding_top_mobile }};
+                padding-bottom: {{ padding_bottom_mobile }};
+              }
+
+              #ThreeColumnSection-{{ section.id }} .container,
+              #ThreeColumnSection-{{ section.id }} .container-1170,
+              #ThreeColumnSection-{{ section.id }} .container-1770 {
+                padding: 0 16px;
+              }
+
+              #ThreeColumnSection-{{ section.id }} .columns-wrapper {
+                {% if mobile_stack == 'horizontal' %}
+                  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                  gap: 16px;
+                {% else %}
+                  gap: 16px;
+                  margin: 0 auto;
+                {% endif %}
+              }
+
+              #ThreeColumnSection-{{ section.id }} .column-content {
+                padding: {{ card_padding_mobile }}px;
+              }
+
+              #ThreeColumnSection-{{ section.id }} .column-title {
+                font-size: {{ title_font_size_mobile }}px;
+              }
+
+              #ThreeColumnSection-{{ section.id }} .column-description,
+              #ThreeColumnSection-{{ section.id }} .content-item,
+              #ThreeColumnSection-{{ section.id }} .available-item {
+                font-size: {{ text_font_size_mobile }}px;
+              }
+
+              #ThreeColumnSection-{{ section.id }} .extra-description-content {
+                font-size: {{ text_font_size_mobile }}px;
+              }
+            }
+
+            /* Small Mobile (320px - 480px) */
+            @media (max-width: 480px) {
+              #ThreeColumnSection-{{ section.id }} {
+                padding-top: {{ padding_top_mobile | minus: 4 }}px;
+                padding-bottom: {{ padding_bottom_mobile | minus: 4 }}px;
+              }
+
+              #ThreeColumnSection-{{ section.id }} .container,
+              #ThreeColumnSection-{{ section.id }} .container-1170,
+              #ThreeColumnSection-{{ section.id }} .container-1770 {
+                padding: 0 12px;
+              }
+
+              #ThreeColumnSection-{{ section.id }} .columns-wrapper {
+                grid-template-columns: 1fr;
+                gap: 12px;
+              }
+
+              #ThreeColumnSection-{{ section.id }} .column-content {
+                padding: {{ card_padding_mobile | minus: 4 }}px;
+              }
+
+              #ThreeColumnSection-{{ section.id }} .column-header {
+                margin-bottom: 12px;
+              }
+
+              #ThreeColumnSection-{{ section.id }} .column-icon-wrapper {
+                margin-right: 8px;
+              }
+
+              #ThreeColumnSection-{{ section.id }} .column-title {
+                font-size: {{ title_font_size_mobile | minus: 1 }}px;
+              }
+
+              #ThreeColumnSection-{{ section.id }} .column-description,
+              #ThreeColumnSection-{{ section.id }} .content-item,
+              #ThreeColumnSection-{{ section.id }} .available-item {
+                font-size: {{ text_font_size_mobile | minus: 1 }}px;
+              }
+
+              #ThreeColumnSection-{{ section.id }} .extra-description-content {
+                font-size: {{ text_font_size_mobile | minus: 1 }}px;
+              }
+            }
+
+            /* Extra Small Mobile (< 320px) */
+            @media (max-width: 319px) {
+              #ThreeColumnSection-{{ section.id }} .container,
+              #ThreeColumnSection-{{ section.id }} .container-1170,
+              #ThreeColumnSection-{{ section.id }} .container-1770 {
+                padding: 0 8px;
+              }
+
+              #ThreeColumnSection-{{ section.id }} .column-content {
+                padding: {{ card_padding_mobile | minus: 8 }}px;
+              }
+            }
+
+            @media (min-width: 1025px) {
+              {% if container == 'fullwidth' %}
+                #ThreeColumnSection-{{ section.id }} > .container-full {
+                  padding-left: {{ padding_full_width }}px;
+                  padding-right: {{ padding_full_width }}px;
+                }
+              {% endif %}
+            }
+
+            /* Print Styles */
+            @media print {
+              #ThreeColumnSection-{{ section.id }} {
+                padding: 20px 0;
+                background: white !important;
+              }
+
+              #ThreeColumnSection-{{ section.id }} .column-content {
+                background: white !important;
+                box-shadow: none !important;
+                border: 1px solid #ddd;
+              }
+            }
+
+            /* High DPI / Retina Displays */
+            @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+              #ThreeColumnSection-{{ section.id }} .custom-icon,
+              #ThreeColumnSection-{{ section.id }} .custom-list-icon {
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+              }
+            }
+
+            /* Accessibility - Reduced Motion */
+            @media (prefers-reduced-motion: reduce) {
+              #ThreeColumnSection-{{ section.id }} .column-content {
+                transition: none;
+              }
+
+              #ThreeColumnSection-{{ section.id }} .column-content:hover {
+                transform: none;
+              }
+            }
+
+            /* Dark Mode Support */
+            @media (prefers-color-scheme: dark) {
+              #ThreeColumnSection-{{ section.id }} .column-content {
+                border: 1px solid rgba(255, 255, 255, 0.1);
+              }
+            }
+  </style>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Three Column Layout",
+  "class": "section-three-column-layout",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Display product metafields (Packaging Details, Available From, Shipping Options) in a responsive three-column layout. Each metafield content item can have custom icons for better visual organization and readability."
+    },
+    {
+      "type": "paragraph",
+      "content": "💡 Pro Tip: Add icon codes in your metafield content for individual item icons! Packaging: [box], [package], [weight], [cube]. Shipping: [truck], [plane], [ship], [customs], [fast]. Example: '[box]12.50 kg cartons' will show a box icon."
+    },
+    {
+      "type": "header",
+      "content": "Container Settings"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container Width",
+      "default": "container",
+      "options": [
+        {
+          "value": "container",
+          "label": "Container (1200px)"
+        },
+        {
+          "value": "1170",
+          "label": "Container 1170px"
+        },
+        {
+          "value": "1770",
+          "label": "Container 1770px"
+        },
+        {
+          "value": "fullwidth",
+          "label": "Full Width"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_full_width",
+      "label": "Full Width Horizontal Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20,
+      "info": "Only applies when Container Width is set to Full Width"
+    },
+    {
+      "type": "header",
+      "content": "Display Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_packaging",
+      "label": "Show Packaging Details",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_available_from",
+      "label": "Show Available From",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shipping",
+      "label": "Show Shipping Options",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_extra_description",
+      "label": "Show Extra Description",
+      "default": true,
+      "info": "Display additional product information below the three columns"
+    },
+    {
+      "type": "header",
+      "content": "Column Titles"
+    },
+    {
+      "type": "text",
+      "id": "packaging_title",
+      "label": "Packaging Title",
+      "default": "Packaging"
+    },
+    {
+      "type": "text",
+      "id": "available_title",
+      "label": "Available From Title",
+      "default": "Available From"
+    },
+    {
+      "type": "text",
+      "id": "shipping_title",
+      "label": "Shipping Options Title",
+      "default": "Shipping Options"
+    },
+    {
+      "type": "header",
+      "content": "Extra Description Settings"
+    },
+    {
+      "type": "range",
+      "id": "extra_description_gap",
+      "label": "Gap Above Extra Description",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40,
+      "info": "Space between the three columns and the extra description"
+    },
+    {
+      "type": "header",
+      "content": "Packaging Content Icons"
+    },
+    {
+      "type": "select",
+      "id": "packaging_icon_style",
+      "label": "Packaging Icon Style",
+      "default": "dot",
+      "options": [
+        {
+          "value": "dot",
+          "label": "Dot"
+        },
+        {
+          "value": "checkmark",
+          "label": "Checkmark"
+        },
+        {
+          "value": "arrow",
+          "label": "Arrow"
+        },
+        {
+          "value": "box",
+          "label": "Box"
+        },
+        {
+          "value": "package",
+          "label": "Package"
+        },
+        {
+          "value": "weight",
+          "label": "Weight"
+        },
+        {
+          "value": "cube",
+          "label": "Cube"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Icon"
+        }
+      ],
+      "info": "Choose default icon style. Individual items can override this using codes like [box], [package], [weight], [cube] in the metafield content."
+    },
+    {
+      "type": "image_picker",
+      "id": "packaging_icon",
+      "label": "Packaging Custom Content Icon",
+      "info": "Upload a custom icon for packaging content items. Only used when 'Custom Icon' is selected above."
+    },
+    {
+      "type": "color",
+      "id": "packaging_icon_color",
+      "label": "Packaging Icon Color",
+      "default": "#10b981"
+    },
+    {
+      "type": "header",
+      "content": "Available From Content Icons"
+    },
+    {
+      "type": "select",
+      "id": "available_icon_style",
+      "label": "Available From Icon Style",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "No Icons"
+        },
+        {
+          "value": "dot",
+          "label": "Dot"
+        },
+        {
+          "value": "checkmark",
+          "label": "Checkmark"
+        },
+        {
+          "value": "arrow",
+          "label": "Arrow"
+        },
+        {
+          "value": "location",
+          "label": "Location Pin"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Icon"
+        }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "available_icon",
+      "label": "Available From Custom Content Icon",
+      "info": "Upload a custom icon for available from content items. Only used when 'Custom Icon' is selected above."
+    },
+    {
+      "type": "color",
+      "id": "available_icon_color",
+      "label": "Available From Icon Color",
+      "default": "#10b981"
+    },
+    {
+      "type": "header",
+      "content": "Shipping Content Icons"
+    },
+    {
+      "type": "select",
+      "id": "shipping_icon_style",
+      "label": "Shipping Icon Style",
+      "default": "dot",
+      "options": [
+        {
+          "value": "dot",
+          "label": "Dot"
+        },
+        {
+          "value": "checkmark",
+          "label": "Checkmark"
+        },
+        {
+          "value": "arrow",
+          "label": "Arrow"
+        },
+        {
+          "value": "truck",
+          "label": "Truck"
+        },
+        {
+          "value": "plane",
+          "label": "Plane"
+        },
+        {
+          "value": "ship",
+          "label": "Ship"
+        },
+        {
+          "value": "customs",
+          "label": "Customs (Checkmark)"
+        },
+        {
+          "value": "fast",
+          "label": "Fast (Lightning)"
+        },
+        {
+          "value": "custom",
+          "label": "Custom Icon"
+        }
+      ],
+      "info": "Choose default icon style. Individual items can override this using codes like [truck], [plane], [ship], [customs], [fast] in the metafield content."
+    },
+    {
+      "type": "image_picker",
+      "id": "shipping_icon",
+      "label": "Shipping Custom Content Icon",
+      "info": "Upload a custom icon for shipping content items. Only used when 'Custom Icon' is selected above."
+    },
+    {
+      "type": "color",
+      "id": "shipping_icon_color",
+      "label": "Shipping Icon Color",
+      "default": "#10b981"
+    },
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "range",
+      "id": "columns_gap",
+      "label": "Columns Gap",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "tablet_columns",
+      "label": "Tablet Layout",
+      "default": "2",
+      "options": [
+        {
+          "value": "3",
+          "label": "3 Columns"
+        },
+        {
+          "value": "2",
+          "label": "2 Columns"
+        },
+        {
+          "value": "1",
+          "label": "1 Column"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "mobile_stack",
+      "label": "Mobile Layout",
+      "default": "vertical",
+      "options": [
+        {
+          "value": "vertical",
+          "label": "Stack Vertically"
+        },
+        {
+          "value": "horizontal",
+          "label": "Auto-fit Horizontal"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Card Styling"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_background_color",
+      "label": "Card Background Color",
+      "default": "#F1EDE8"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Card Border Radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "card_shadow",
+      "label": "Enable Card Shadow",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hover_effect",
+      "label": "Enable Hover Effects",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#1f2937"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#4b5563"
+    },
+    {
+      "type": "header",
+      "content": "Card Padding - Desktop"
+    },
+    {
+      "type": "range",
+      "id": "card_padding_desktop",
+      "label": "Card Padding",
+      "min": 10,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 35
+    },
+    {
+      "type": "header",
+      "content": "Card Padding - Tablet"
+    },
+    {
+      "type": "range",
+      "id": "card_padding_tablet",
+      "label": "Card Padding",
+      "min": 10,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Card Padding - Mobile"
+    },
+    {
+      "type": "range",
+      "id": "card_padding_mobile",
+      "label": "Card Padding",
+      "min": 10,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 25
+    },
+    {
+      "type": "header",
+      "content": "Typography - Desktop"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_desktop",
+      "label": "Title Font Size",
+      "min": 14,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "text_font_size_desktop",
+      "label": "Text Font Size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Typography - Tablet"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_tablet",
+      "label": "Title Font Size",
+      "min": 14,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 17
+    },
+    {
+      "type": "range",
+      "id": "text_font_size_tablet",
+      "label": "Text Font Size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Typography - Mobile"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_mobile",
+      "label": "Title Font Size",
+      "min": 14,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "text_font_size_mobile",
+      "label": "Text Font Size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "header",
+      "content": "Spacing - Desktop"
+    },
+    {
+      "type": "range",
+      "id": "mg_top_desktop",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom_desktop",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Spacing - Tablet"
+    },
+    {
+      "type": "range",
+      "id": "mg_top_tablet",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom_tablet",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Spacing - Mobile"
+    },
+    {
+      "type": "range",
+      "id": "mg_top_mobile",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom_mobile",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Three Column Layout"
+    }
+  ]
+}
+{% endschema %}

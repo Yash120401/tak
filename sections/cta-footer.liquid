@@ -1,0 +1,1385 @@
+{%- liquid
+  assign container = section.settings.container
+  assign section_bg_color = section.settings.background_color
+  assign mg_top_desktop = section.settings.padding_top
+  assign mg_top_tablet = section.settings.padding_top_tablet
+  assign mg_top_mobile = section.settings.padding_top_mobile
+  assign mg_bottom_desktop = section.settings.padding_bottom
+  assign mg_bottom_tablet = section.settings.padding_bottom_tablet
+  assign mg_bottom_mobile = section.settings.padding_bottom_mobile
+-%}
+
+<!-- CTA Footer Section -->
+<section class="cta-footer-section section-{{ section.id }}" id="section-{{ section.id }}">
+  <!-- CTA Section -->
+  <div class="cta-section">
+    <div class="cta-container">
+      <div class="cta-content">
+        <div class="cta-text-content">
+          <h2 class="cta-title">
+            {%- if section.settings.cta_title != blank -%}
+              {{ section.settings.cta_title }}
+            {%- else -%}
+              Ready to Work With a Trusted <span class="highlight">Agricultural Partner?</span>
+            {%- endif -%}
+          </h2>
+
+          <p class="cta-description">
+            {%- if section.settings.cta_description != blank -%}
+              {{ section.settings.cta_description }}
+            {%- else -%}
+              At TAK, we combine advanced infrastructure, strong farmer partnerships, and a client-first approach to
+              deliver premium agricultural products to global markets.
+            {%- endif -%}
+          </p>
+
+          <div class="cta-button-wrapper">
+            {%- if section.settings.show_whatsapp_button -%}
+              <a
+                href="https://wa.me/{{ section.settings.whatsapp_button_number | replace: '+', '' | replace: ' ', '' }}{% if section.settings.whatsapp_button_message != blank %}?text={{ section.settings.whatsapp_button_message | url_param_escape }}{% endif %}"
+                target="_blank"
+                rel="noopener"
+                class="cta-button whatsapp-button"
+              >
+                {{ section.settings.whatsapp_button_text | default: 'Chat on WhatsApp' }}
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.525 3.687" fill="currentColor"/>
+                </svg>
+              </a>
+            {%- endif -%}
+
+            <a href="{{ section.settings.cta_button_link | default: '/contact' }}" class="cta-button">
+              {{ section.settings.cta_button_text | default: 'Get in Touch' }}
+              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="20" viewBox="0 0 19 20" fill="none">
+                <path d="M9.49997 0.580078C5.11613 0.580078 1.20509 3.73104 0.288054 8.02176C-0.170106 10.1657 0.138534 12.4454 1.16069 14.3854C2.14445 16.2523 3.75725 17.7612 5.68685 18.6163C7.69397 19.506 9.99821 19.661 12.1078 19.0543C14.143 18.4692 15.9476 17.185 17.1761 15.461C19.7449 11.857 19.4014 6.7944 16.3793 3.56496C14.6081 1.67232 12.0925 0.580078 9.49997 0.580078ZM14.0189 10.5034L11.4509 13.1333C10.8008 13.7993 9.77309 12.7903 10.4206 12.1274L11.7164 10.8005H5.57573C5.13965 10.8005 4.77581 10.4364 4.77581 10.0006C4.77581 9.56472 5.13989 9.20064 5.57573 9.20064H11.6857L10.3642 7.87944C9.70757 7.2228 10.7257 6.20448 11.3823 6.86112L14.0129 9.49152C14.1469 9.62542 14.2227 9.80677 14.2238 9.99621C14.225 10.1856 14.1513 10.3679 14.0189 10.5034Z" fill="currentColor"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <footer class="footer-section">
+    <div class="footer-container">
+      <div class="footer-content">
+        <!-- Logo -->
+        <div class="footer-logo">
+          {%- if section.settings.footer_logo != blank -%}
+            <img
+              src="{{ section.settings.footer_logo | image_url: width: 150 }}"
+              alt="{{ shop.name }}"
+              width="150"
+              height="60px"
+              loading="lazy"
+            >
+          {%- else -%}
+            <h3>{{ shop.name }}</h3>
+          {%- endif -%}
+
+          <!-- Social Media -->
+          {%- if section.settings.show_social_media -%}
+            <div class="social-media">
+              <h5 class="social-title">{{ section.settings.social_title | default: 'Follow Us' }}</h5>
+              <div class="social-links">
+                {%- for block in section.blocks -%}
+                  {%- if block.type == 'social_link' -%}
+                    <a
+                      href="{{ block.settings.url }}"
+                      target="_blank"
+                      rel="noopener"
+                      class="social-link"
+                      title="{{ block.settings.platform_select }}"
+                      aria-label="Follow us on {{ block.settings.platform_select }}"
+                    >
+                      {%- if block.settings.custom_icon != blank -%}
+                        <!-- Custom uploaded icon takes priority -->
+                        <img
+                          src="{{ block.settings.custom_icon | image_url: width: 24 }}"
+                          alt="{{ block.settings.platform_select }} Icon"
+                          width="24"
+                          height="24"
+                          loading="lazy"
+                        >
+                      {%- elsif block.settings.platform_select != blank -%}
+                        <!-- Predefined platform icons -->
+                        {%- case block.settings.platform_select -%}
+                          {%- when 'facebook' -%}
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                          {%- when 'instagram' -%}
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                          {%- when 'twitter' -%}
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                            </svg>
+                          {%- when 'linkedin' -%}
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                          {%- when 'youtube' -%}
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                          {%- when 'tiktok' -%}
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                            </svg>
+                          {%- when 'whatsapp' -%}
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.525 3.687"/>
+                            </svg>
+                          {%- when 'telegram' -%}
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                            </svg>
+                          {%- when 'snapchat' -%}
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.404-5.958 1.404-5.958s-.359-.719-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.746-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24c6.624 0 11.99-5.367 11.99-11.987C24.007 5.367 18.641.001.017.001z"/>
+                            </svg>
+                          {%- when 'pinterest' -%}
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.404-5.958 1.404-5.958s-.359-.719-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.746-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24c6.624 0 11.99-5.367 11.99-11.987C24.007 5.367 18.641.001.017.001z"/>
+                            </svg>
+                          {%- when 'discord' -%}
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419-.0190 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9460 2.4189-2.1568 2.4189Z"/>
+                            </svg>
+                          {%- else -%}
+                            <!-- Fallback text for unrecognized platforms -->
+                            <span class="social-text">
+                              {{- block.settings.platform_select | truncate: 2, '' | upcase -}}
+                            </span>
+                        {%- endcase -%}
+                      {%- else -%}
+                        <!-- Final fallback to text -->
+                        <span class="social-text">
+                          {{- block.settings.platform_select | default: 'SM' | truncate: 2, '' | upcase -}}
+                        </span>
+                      {%- endif -%}
+                    </a>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+
+        <!-- Footer Links Grid -->
+        <div class="footer-grid">
+          <!-- Quick Links -->
+          <div class="footer-column">
+            <h4 class="footer-column-title">
+              {{ section.settings.quick_links_title | default: 'Quick Links' }}
+            </h4>
+            <ul class="footer-links">
+              {%- if section.settings.quick_links_menu != blank -%}
+                {%- for link in linklists[section.settings.quick_links_menu].links -%}
+                  <li>
+                    <a href="{{ link.url }}">{{ link.title }}</a>
+                  </li>
+                {%- endfor -%}
+              {%- else -%}
+                <!-- Fallback links if no menu is selected -->
+                <li><a href="/">Home</a></li>
+                <li><a href="/pages/about">About Us</a></li>
+                <li><a href="/pages/services">Services</a></li>
+                <li><a href="/collections/all">Products</a></li>
+                <li><a href="/pages/contact">Contact Us</a></li>
+              {%- endif -%}
+            </ul>
+          </div>
+
+          <!-- TAK Products -->
+          <div class="footer-column">
+            <h4 class="footer-column-title">
+              {{ section.settings.products_title | default: 'TAK Products' }}
+            </h4>
+            <ul class="footer-links">
+              {%- if section.settings.products_menu != blank -%}
+                {%- for link in linklists[section.settings.products_menu].links -%}
+                  <li>
+                    <a href="{{ link.url }}">{{ link.title }}</a>
+                  </li>
+                {%- endfor -%}
+              {%- else -%}
+                <!-- Fallback links if no menu is selected -->
+                <li><a href="/collections/dry-apricots">Dry Apricots</a></li>
+                <li><a href="/collections/raisins">Raisins</a></li>
+                <li><a href="/collections/mulberries">Mulberries</a></li>
+                <li><a href="/collections/nuts">Nuts</a></li>
+                <li><a href="/collections/others">Others</a></li>
+              {%- endif -%}
+            </ul>
+          </div>
+
+          <!-- Contact Us -->
+          <div class="footer-column">
+            <h4 class="footer-column-title">
+              {{ section.settings.contact_title | default: 'Contact us' }}
+            </h4>
+            <div class="footer-contact">
+              {%- if section.settings.contact_email != blank -%}
+                <p>
+                  <strong>Mail us :</strong>
+                  <a href="mailto:{{ section.settings.contact_email }}">{{ section.settings.contact_email }}</a>
+                </p>
+              {%- endif -%}
+
+              {%- if section.settings.contact_phone != blank -%}
+                <p>
+                  <strong>Call us :</strong>
+                  <a href="tel:{{ section.settings.contact_phone | replace: ' ', '' }}">
+                    {{- section.settings.contact_phone -}}
+                  </a>
+                </p>
+              {%- endif -%}
+
+              {%- if section.settings.whatsapp_number != blank -%}
+                <p>
+                  <strong>WhatsApp :</strong>
+                  <a
+                    href="https://wa.me/{{ section.settings.whatsapp_number | replace: '+', '' | replace: ' ', '' }}{% if section.settings.whatsapp_message != blank %}?text={{ section.settings.whatsapp_message | url_param_escape }}{% endif %}"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    {{- section.settings.whatsapp_number -}}
+                  </a>
+                </p>
+              {%- endif -%}
+
+              {%- if section.settings.contact_address != blank -%}
+                <p><strong>Address :</strong> {{ section.settings.contact_address }}</p>
+              {%- endif -%}
+            </div>
+          </div>
+
+          <!-- Newsletter -->
+          <div class="footer-column">
+            <h4 class="footer-column-title">
+              {{ section.settings.newsletter_title | default: 'Subscribe Newsletter' }}
+            </h4>
+            <div class="newsletter-form">
+              {%- form 'customer', class: 'newsletter-form-element' -%}
+                <input type="hidden" name="contact[tags]" value="newsletter">
+                <div class="newsletter-input-wrapper">
+                  <input
+                    type="email"
+                    name="contact[email]"
+                    placeholder="{{ section.settings.newsletter_placeholder | default: 'Enter email' }}"
+                    required
+                    class="newsletter-input"
+                  >
+                  <button type="submit" class="newsletter-button">
+                    {{ section.settings.newsletter_button_text | default: 'Subscribe' }}
+                  </button>
+                </div>
+              {%- endform -%}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <div class="footer-bottom-content">
+          <p class="copyright">
+            {{ section.settings.copyright_text | default: 'TAK © 2025. All Rights Reserved.' }}
+          </p>
+          <div class="footer-bottom-links">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'footer_bottom_link' -%}
+                <a href="{{ block.settings.link }}">{{ block.settings.label }}</a>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section>
+
+<style>
+    .section-{{ section.id }} {
+      padding-top: {{ mg_top_desktop }}px;
+      padding-bottom: {{ mg_bottom_desktop }}px;
+    }
+
+    /* CTA Section Styles */
+    .section-{{ section.id }} .cta-section {
+
+    }
+
+    .section-{{ section.id }} .cta-container {
+      {% if container == 'container' %}
+        max-width: 1200px;
+      {% elsif container == '1170' %}
+        max-width: 1170px;
+      {% elsif container == '1470' %}
+        max-width: 1470px;
+      {% elsif container == '1570' %}
+        max-width: 1570px;
+      {% elsif container == '1770' %}
+        max-width: 1770px;
+      {% elsif container == '1920' %}
+        max-width: 1920px;
+      {% elsif container == 'fullwidth' %}
+        max-width: 100%;
+      {% endif %}
+      margin: 0 auto;
+      z-index: 2;
+      background: #009D03;
+      position: relative;
+      overflow: hidden;
+      padding: 80px 60px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: end;
+    }
+    .section-{{ section.id }} .cta-container:before {
+      content: '';
+      position: absolute;
+      background: url(https://cdn.shopify.com/s/files/1/0744/3234/8387/files/cta.png?v=1752495448);
+      height: 100%;
+      width: 100%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      top: 0;
+      background-position: 55px;
+  }
+
+    .section-{{ section.id }} .cta-content {
+        width: 65%;
+        z-index: 4;
+    }
+
+    .section-{{ section.id }} .cta-background-image {
+      max-width: 300px;
+      height: auto;
+    }
+
+    .section-{{ section.id }} .cta-background-image img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .section-{{ section.id }} .cta-title {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 0 0 24px 0;
+      color: {{ section.settings.cta_title_color | default: '#ffffff' }};
+      letter-spacing: -0.02em;
+    }
+
+    .section-{{ section.id }} .cta-title .highlight {
+      color: {{ section.settings.cta_highlight_color | default: '#FFC107' }};
+    }
+
+    .section-{{ section.id }} .cta-description {
+      font-size: 18px;
+      line-height: 1.6;
+      margin: 0 0 32px 0;
+      color: {{ section.settings.cta_text_color | default: '#ffffff' }};
+      opacity: 0.9;
+    }
+
+    /* CTA Button Wrapper - Updated to handle multiple buttons */
+    .section-{{ section.id }} .cta-button-wrapper {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .section-{{ section.id }} .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: transparent;
+      border: 2px solid {{ section.settings.cta_button_border_color | default: '#ffffff' }};
+      color: {{ section.settings.cta_button_text_color | default: '#ffffff' }};
+      padding: 16px 32px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      border-radius: 4px;
+    }
+
+    .section-{{ section.id }} .cta-button:hover {
+      background: {{ section.settings.cta_button_hover_bg | default: '#ffffff' }};
+      color: {{ section.settings.cta_button_hover_text | default: '#4CAF50' }};
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .section-{{ section.id }} .cta-button svg {
+      width: 19px;
+      height: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .section-{{ section.id }} .cta-button:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* WhatsApp Button Styles */
+    .section-{{ section.id }} .whatsapp-button {
+      background: {{ section.settings.whatsapp_button_bg | default: '#000000' }};
+      border: 2px solid {{ section.settings.whatsapp_button_border | default: '#000000' }};
+      color: {{ section.settings.whatsapp_button_text_color | default: '#ffffff' }};
+    }
+
+    .section-{{ section.id }} .whatsapp-button:hover {
+      background: {{ section.settings.whatsapp_button_hover_bg | default: '#333333' }};
+      color: {{ section.settings.whatsapp_button_hover_text | default: '#ffffff' }};
+      border-color: {{ section.settings.whatsapp_button_hover_border | default: '#333333' }};
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    }
+
+    .section-{{ section.id }} .whatsapp-button svg {
+      width: 20px;
+      height: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .section-{{ section.id }} .whatsapp-button:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* Footer Section Styles */
+    .section-{{ section.id }} .footer-section {
+      background-color: {{ section.settings.footer_bg_color | default: '#f5f5f5' }};
+      color: {{ section.settings.footer_text_color | default: '#333333' }};
+      padding: 60px 0 0 0;
+    }
+
+    .section-{{ section.id }} .footer-container {
+      {% if container == 'container' %}
+        max-width: 1200px;
+      {% elsif container == '1170' %}
+        max-width: 1170px;
+      {% elsif container == '1470' %}
+        max-width: 1470px;
+      {% elsif container == '1570' %}
+        max-width: 1570px;
+      {% elsif container == '1770' %}
+        max-width: 1770px;
+      {% elsif container == '1920' %}
+        max-width: 1920px;
+      {% elsif container == 'fullwidth' %}
+        max-width: 100%;
+      {% endif %}
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .section-{{ section.id }} .footer-content {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      padding-bottom: 40px;
+    }
+
+    .section-{{ section.id }} .footer-logo {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .section-{{ section.id }} .footer-logo h3 {
+      max-width: 150px;
+      height: auto;
+      margin: 0;
+    }
+
+    .section-{{ section.id }} .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 48px;
+    }
+
+    .section-{{ section.id }} .footer-column-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0 0 24px 0;
+      color: {{ section.settings.footer_heading_color | default: '#2c3e50' }};
+    }
+
+    .section-{{ section.id }} .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .section-{{ section.id }} .footer-links a {
+      color: {{ section.settings.footer_link_color | default: '#666666' }};
+      text-decoration: none;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+
+    .section-{{ section.id }} .footer-links a:hover {
+      color: {{ section.settings.footer_link_hover_color | default: '#4CAF50' }};
+    }
+
+    .section-{{ section.id }} .footer-contact p {
+      margin: 0 0 12px 0;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .section-{{ section.id }} .footer-contact a {
+      color: {{ section.settings.footer_link_color | default: '#666666' }};
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .section-{{ section.id }} .footer-contact a:hover {
+      color: {{ section.settings.footer_link_hover_color | default: '#4CAF50' }};
+    }
+
+    /* Newsletter Styles */
+    .section-{{ section.id }} .newsletter-input-wrapper {
+      display: flex;
+      gap: 0;
+      margin-bottom: 24px;
+    }
+
+    .section-{{ section.id }} .newsletter-input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 1px solid {{ section.settings.newsletter_border_color | default: '#ddd' }};
+      border-radius: 4px 0 0 4px;
+      font-size: 14px;
+      outline: none;
+      background: {{ section.settings.newsletter_input_bg | default: '#ffffff' }};
+    }
+
+    .section-{{ section.id }} .newsletter-input:focus {
+      border-color: {{ section.settings.footer_link_hover_color | default: '#4CAF50' }};
+    }
+
+    .section-{{ section.id }} .newsletter-button {
+      background: {{ section.settings.newsletter_button_bg | default: '#4CAF50' }};
+      color: {{ section.settings.newsletter_button_text_color | default: '#ffffff' }};
+      border: none;
+      padding: 12px 20px;
+      border-radius: 0 4px 4px 0;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-size: 14px;
+    }
+
+    .section-{{ section.id }} .newsletter-button:hover {
+      background: {{ section.settings.newsletter_button_hover | default: '#45a049' }};
+    }
+
+    .section-{{ section.id }} .social-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: {{ section.settings.footer_heading_color | default: '#2c3e50' }};
+    }
+
+    .section-{{ section.id }} .social-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .section-{{ section.id }} .social-link {
+      width: 40px;
+      height: 40px;
+      color: {{ section.settings.social_text_color | default: '#ffffff' }};
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      font-size: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-{{ section.id }} .social-link:hover {
+      background: {{ section.settings.social_hover_bg | default: '#45a049' }};
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+    }
+
+    .section-{{ section.id }} .social-link img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+
+    .section-{{ section.id }} .social-link svg {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+
+    .section-{{ section.id }} .social-text {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      line-height: 1;
+    }
+
+    /* Footer Bottom */
+    .section-{{ section.id }} .footer-bottom {
+      border-top: 1px solid {{ section.settings.footer_border_color | default: '#ddd' }};
+      padding: 24px 0;
+    }
+
+    .section-{{ section.id }} .footer-bottom-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .section-{{ section.id }} .copyright {
+      margin: 0;
+      font-size: 14px;
+      color: {{ section.settings.footer_text_color | default: '#666666' }};
+    }
+
+    .section-{{ section.id }} .footer-bottom-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .section-{{ section.id }} .footer-bottom-links a {
+      color: {{ section.settings.footer_link_color | default: '#666666' }};
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s ease;
+    }
+
+    .section-{{ section.id }} .footer-bottom-links a:hover {
+      color: {{ section.settings.footer_link_hover_color | default: '#4CAF50' }};
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 1024px) {
+      .section-{{ section.id }} {
+        padding-top: {{ mg_top_tablet }}px;
+        padding-bottom: {{ mg_bottom_tablet }}px;
+      }
+
+      .section-{{ section.id }} .cta-content {
+        gap: 40px;
+      }
+
+      .section-{{ section.id }} .cta-title {
+        font-size: 40px;
+      }
+
+      .section-{{ section.id }} .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+      }
+
+      .section-{{ section.id }} .footer-logo {
+        align-items: center;
+        text-align: center;
+      }
+
+      .section-{{ section.id }} .social-links {
+        justify-content: center;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .section-{{ section.id }} {
+        padding-top: {{ mg_top_mobile }}px;
+        padding-bottom: {{ mg_bottom_mobile }}px;
+      }
+
+      .section-{{ section.id }} .cta-section {
+        padding: 30px 0;
+      }
+
+      .section-{{ section.id }} .cta-title {
+        font-size: 32px;
+      }
+
+      .section-{{ section.id }} .cta-description {
+        font-size: 16px;
+      }
+
+      .section-{{ section.id }} .cta-button-wrapper {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+      }
+
+      .section-{{ section.id }} .cta-button,
+      .section-{{ section.id }} .whatsapp-button {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .section-{{ section.id }} .footer-grid {
+        gap: 32px;
+      }
+
+      .section-{{ section.id }} .footer-logo {
+        align-items: center;
+        text-align: center;
+      }
+
+      .section-{{ section.id }} .social-links {
+        justify-content: center;
+      }
+
+      .section-{{ section.id }} .footer-bottom-content {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+
+      .section-{{ section.id }} .footer-bottom-links {
+        justify-content: center;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .section-{{ section.id }} .cta-container,
+      .section-{{ section.id }} .footer-container {
+        padding: 0 5px;
+      }
+
+      .section-{{ section.id }} .cta-title {
+        font-size: 28px;
+      }
+
+      .section-{{ section.id }} .cta-button,
+      .section-{{ section.id }} .whatsapp-button {
+        padding: 14px 24px;
+        font-size: 14px;
+      }
+
+      .section-{{ section.id }} .cta-button-wrapper {
+        gap: 10px;
+      }
+
+      .section-{{ section.id }} .newsletter-input-wrapper {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .section-{{ section.id }} .newsletter-input,
+      .section-{{ section.id }} .newsletter-button {
+        border-radius: 4px;
+        width: 100%;
+      }
+
+      .section-{{ section.id }} .social-link {
+        width: 40px;
+        height: 40px;
+      }
+    }
+</style>
+
+{% schema %}
+{
+  "name": "TAK CTA Footer WhatsApp",
+  "class": "section-cta-footer",
+  "tag": "section",
+  "enabled_on": {
+    "templates": ["*"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "General Settings"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container Width",
+      "default": "container",
+      "options": [
+        {
+          "value": "container",
+          "label": "Default Container"
+        },
+        {
+          "value": "1170",
+          "label": "1170px"
+        },
+        {
+          "value": "1470",
+          "label": "1470px"
+        },
+        {
+          "value": "1570",
+          "label": "1570px"
+        },
+        {
+          "value": "1770",
+          "label": "1770px"
+        },
+        {
+          "value": "1920",
+          "label": "1920px"
+        },
+        {
+          "value": "fullwidth",
+          "label": "Full Width"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top Padding (Desktop)",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom Padding (Desktop)",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_tablet",
+      "label": "Top Padding (Tablet)",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_tablet",
+      "label": "Bottom Padding (Tablet)",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Top Padding (Mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Bottom Padding (Mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "CTA Section"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image",
+      "info": "Upload your almond background image. Default will use the provided URL."
+    },
+    {
+      "type": "text",
+      "id": "cta_title",
+      "label": "CTA Title",
+      "default": "Ready to Work With a Trusted <span class=\"highlight\">Agricultural Partner?</span>",
+      "info": "Use <span class=\"highlight\">text</span> for yellow highlighting"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_description",
+      "label": "CTA Description",
+      "default": "At TAK, we combine advanced infrastructure, strong farmer partnerships, and a client-first approach to deliver premium agricultural products to global markets."
+    },
+    {
+      "type": "text",
+      "id": "cta_button_text",
+      "label": "CTA Button Text",
+      "default": "Get in Touch"
+    },
+    {
+      "type": "url",
+      "id": "cta_button_link",
+      "label": "CTA Button Link"
+    },
+    {
+      "type": "header",
+      "content": "WhatsApp Button Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_whatsapp_button",
+      "label": "Show WhatsApp Button",
+      "default": true,
+      "info": "Enable WhatsApp button before the main CTA button"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_button_text",
+      "label": "WhatsApp Button Text",
+      "default": "Chat on WhatsApp",
+      "info": "Text displayed on the WhatsApp button"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_button_number",
+      "label": "WhatsApp Number",
+      "default": "+998977755500",
+      "info": "WhatsApp number with country code (e.g., +1234567890)"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_button_message",
+      "label": "Default WhatsApp Message",
+      "default": "Hello! I'm interested in TAK agricultural products.",
+      "info": "Pre-filled message when WhatsApp opens"
+    },
+    {
+      "type": "color",
+      "id": "whatsapp_button_bg",
+      "label": "WhatsApp Button Background",
+      "default": "#000000",
+      "info": "Background color for WhatsApp button"
+    },
+    {
+      "type": "color",
+      "id": "whatsapp_button_border",
+      "label": "WhatsApp Button Border",
+      "default": "#000000",
+      "info": "Border color for WhatsApp button"
+    },
+    {
+      "type": "color",
+      "id": "whatsapp_button_text_color",
+      "label": "WhatsApp Button Text Color",
+      "default": "#ffffff",
+      "info": "Text color for WhatsApp button"
+    },
+    {
+      "type": "color",
+      "id": "whatsapp_button_hover_bg",
+      "label": "WhatsApp Button Hover Background",
+      "default": "#333333",
+      "info": "Background color when hovering over WhatsApp button"
+    },
+    {
+      "type": "color",
+      "id": "whatsapp_button_hover_border",
+      "label": "WhatsApp Button Hover Border",
+      "default": "#333333",
+      "info": "Border color when hovering over WhatsApp button"
+    },
+    {
+      "type": "color",
+      "id": "whatsapp_button_hover_text",
+      "label": "WhatsApp Button Hover Text Color",
+      "default": "#ffffff",
+      "info": "Text color when hovering over WhatsApp button"
+    },
+    {
+      "type": "header",
+      "content": "Footer Content"
+    },
+    {
+      "type": "image_picker",
+      "id": "footer_logo",
+      "label": "Footer Logo"
+    },
+    {
+      "type": "text",
+      "id": "quick_links_title",
+      "label": "Quick Links Title",
+      "default": "Quick Links"
+    },
+    {
+      "type": "link_list",
+      "id": "quick_links_menu",
+      "label": "Quick Links Menu",
+      "info": "Select a menu for quick links. Create menus in Navigation settings."
+    },
+    {
+      "type": "text",
+      "id": "products_title",
+      "label": "Products Section Title",
+      "default": "TAK Products"
+    },
+    {
+      "type": "link_list",
+      "id": "products_menu",
+      "label": "Products Menu",
+      "info": "Select a menu for product links. Create menus in Navigation settings."
+    },
+    {
+      "type": "text",
+      "id": "contact_title",
+      "label": "Contact Section Title",
+      "default": "Contact us"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Contact Email",
+      "default": "office@tak.af"
+    },
+    {
+      "type": "text",
+      "id": "contact_phone",
+      "label": "Contact Phone",
+      "default": "+998977755500"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_number",
+      "label": "WhatsApp Number",
+      "default": "+998977755500"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_message",
+      "label": "WhatsApp Default Message",
+      "default": "Hello! I'm interested in TAK dry fruit products."
+    },
+    {
+      "type": "textarea",
+      "id": "contact_address",
+      "label": "Contact Address",
+      "default": "Industrial Park of Mazar-e-Sharif, Afghanistan"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Newsletter Title",
+      "default": "Subscribe Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Newsletter Placeholder",
+      "default": "Enter email"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button_text",
+      "label": "Newsletter Button Text",
+      "default": "Subscribe"
+    },
+    {
+      "type": "header",
+      "content": "🔗 Social Media Settings"
+    },
+    {
+      "type": "paragraph",
+      "content": "Configure your social media links that appear in the 'Follow Us' section below your logo. Choose from predefined platforms with built-in icons or upload custom icons."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social_media",
+      "label": "Show Social Media Section",
+      "default": true,
+      "info": "Toggle to show or hide the 'Follow Us' social media links"
+    },
+    {
+      "type": "text",
+      "id": "social_title",
+      "label": "Social Media Section Title",
+      "default": "Follow Us",
+      "info": "Heading text that appears above the social media icons"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright Text",
+      "default": "TAK © 2025. All Rights Reserved."
+    },
+    {
+      "type": "header",
+      "content": "CTA Colors"
+    },
+    {
+      "type": "color",
+      "id": "cta_bg_color",
+      "label": "CTA Background Color",
+      "default": "#4CAF50"
+    },
+    {
+      "type": "color",
+      "id": "cta_bg_color_secondary",
+      "label": "CTA Background Gradient End",
+      "default": "#45a049"
+    },
+    {
+      "type": "color",
+      "id": "cta_title_color",
+      "label": "CTA Title Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cta_highlight_color",
+      "label": "CTA Highlight Color",
+      "default": "#FFC107"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "CTA Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cta_button_border_color",
+      "label": "CTA Button Border",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cta_button_text_color",
+      "label": "CTA Button Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cta_button_hover_bg",
+      "label": "CTA Button Hover Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cta_button_hover_text",
+      "label": "CTA Button Hover Text",
+      "default": "#4CAF50"
+    },
+    {
+      "type": "header",
+      "content": "Footer Colors"
+    },
+    {
+      "type": "color",
+      "id": "footer_bg_color",
+      "label": "Footer Background Color",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "footer_text_color",
+      "label": "Footer Text Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "footer_heading_color",
+      "label": "Footer Heading Color",
+      "default": "#2c3e50"
+    },
+    {
+      "type": "color",
+      "id": "footer_link_color",
+      "label": "Footer Link Color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "footer_link_hover_color",
+      "label": "Footer Link Hover Color",
+      "default": "#4CAF50"
+    },
+    {
+      "type": "color",
+      "id": "footer_border_color",
+      "label": "Footer Border Color",
+      "default": "#ddd"
+    },
+    {
+      "type": "color",
+      "id": "newsletter_border_color",
+      "label": "Newsletter Border Color",
+      "default": "#ddd"
+    },
+    {
+      "type": "color",
+      "id": "newsletter_input_bg",
+      "label": "Newsletter Input Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "newsletter_button_bg",
+      "label": "Newsletter Button Background",
+      "default": "#4CAF50"
+    },
+    {
+      "type": "color",
+      "id": "newsletter_button_text_color",
+      "label": "Newsletter Button Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "newsletter_button_hover",
+      "label": "Newsletter Button Hover",
+      "default": "#45a049"
+    },
+    {
+      "type": "color",
+      "id": "social_bg_color",
+      "label": "Social Media Background",
+      "default": "#4CAF50"
+    },
+    {
+      "type": "color",
+      "id": "social_text_color",
+      "label": "Social Media Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "social_hover_bg",
+      "label": "Social Media Hover Background",
+      "default": "#45a049"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "social_link",
+      "name": "📱 Social Media Link",
+      "settings": [
+        {
+          "type": "select",
+          "id": "platform_select",
+          "label": "🎯 Choose Platform",
+          "default": "facebook",
+          "options": [
+            { "value": "facebook", "label": "📘 Facebook" },
+            { "value": "instagram", "label": "📷 Instagram" },
+            { "value": "twitter", "label": "🐦 Twitter" },
+            { "value": "linkedin", "label": "💼 LinkedIn" },
+            { "value": "youtube", "label": "📹 YouTube" },
+            { "value": "tiktok", "label": "🎵 TikTok" },
+            { "value": "whatsapp", "label": "💬 WhatsApp" },
+            { "value": "telegram", "label": "✈️ Telegram" },
+            { "value": "snapchat", "label": "👻 Snapchat" },
+            { "value": "pinterest", "label": "📌 Pinterest" },
+            { "value": "discord", "label": "🎮 Discord" }
+          ],
+          "info": "Select a platform to use the built-in icon. If you want a custom icon, upload it below."
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "🔗 Social Media URL",
+          "info": "Enter the complete URL to your social media profile (e.g., https://facebook.com/yourcompany)"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "🎨 Custom Icon (Optional)",
+          "info": "📋 OVERRIDE GUIDE:\n• Upload a custom icon to override the selected platform icon\n• Recommended size: 24x24px or larger (square format)\n• Supported formats: PNG, JPG, SVG\n• If uploaded, this will be used instead of the platform icon\n• Leave empty to use the built-in platform icon"
+        }
+      ]
+    },
+    {
+      "type": "footer_bottom_link",
+      "name": "Footer Bottom Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Link Label",
+          "default": "Privacy Policy"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "TAK CTA Footer with WhatsApp",
+      "blocks": [
+        {
+          "type": "social_link",
+          "settings": {
+            "platform_select": "facebook",
+            "url": "https://facebook.com/takdryfruits"
+          }
+        },
+        {
+          "type": "social_link",
+          "settings": {
+            "platform_select": "instagram",
+            "url": "https://instagram.com/takdryfruits"
+          }
+        },
+        {
+          "type": "social_link",
+          "settings": {
+            "platform_select": "whatsapp",
+            "url": "https://wa.me/998977755500"
+          }
+        },
+        {
+          "type": "social_link",
+          "settings": {
+            "platform_select": "linkedin",
+            "url": "https://linkedin.com/company/takdryfruits"
+          }
+        },
+        {
+          "type": "footer_bottom_link",
+          "settings": {
+            "label": "Privacy Policy",
+            "link": "/pages/privacy-policy"
+          }
+        },
+        {
+          "type": "footer_bottom_link",
+          "settings": {
+            "label": "Terms & Conditions",
+            "link": "/pages/terms-conditions"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

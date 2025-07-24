@@ -1,0 +1,1120 @@
+<!-- Farm to Market Section -->
+<section class="farm-to-market-section section-{{ section.id }}" id="section-{{ section.id }}">
+  <div class="farm-container">
+    <!-- Header Section -->
+    <div class="farm-header">
+      <div class="farm-content">
+        <h2 class="farm-title">
+          {%- if section.settings.title != blank -%}
+            {{ section.settings.title }}
+          {%- else -%}
+            From Farm to Global Market
+          {%- endif -%}
+        </h2>
+
+        <div class="farm-description">
+          {%- if section.settings.description != blank -%}
+            {{ section.settings.description }}
+          {%- else -%}
+            Explore how TAK brings quality agricultural products to life — from sourcing and processing to trading and
+            global delivery.
+          {%- endif -%}
+        </div>
+
+        {%- if section.settings.button_text != blank -%}
+          <a href="{{ section.settings.button_url | default: '#' }}" class="global-button">
+            {{ section.settings.button_text }}
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="20" viewBox="0 0 19 20" fill="none">
+              <path d="M9.49997 0.580078C5.11613 0.580078 1.20509 3.73104 0.288054 8.02176C-0.170106 10.1657 0.138534 12.4454 1.16069 14.3854C2.14445 16.2523 3.75725 17.7612 5.68685 18.6163C7.69397 19.506 9.99821 19.661 12.1078 19.0543C14.143 18.4692 15.9476 17.185 17.1761 15.461C19.7449 11.857 19.4014 6.7944 16.3793 3.56496C14.6081 1.67232 12.0925 0.580078 9.49997 0.580078ZM14.0189 10.5034L11.4509 13.1333C10.8008 13.7993 9.77309 12.7903 10.4206 12.1274L11.7164 10.8005H5.57573C5.13965 10.8005 4.77581 10.4364 4.77581 10.0006C4.77581 9.56472 5.13989 9.20064 5.57573 9.20064H11.6857L10.3642 7.87944C9.70757 7.2228 10.7257 6.20448 11.3823 6.86112L14.0129 9.49152C14.1469 9.62542 14.2227 9.80677 14.2238 9.99621C14.225 10.1856 14.1513 10.3679 14.0189 10.5034Z" fill="#009D03"/>
+            </svg>
+          </a>
+        {%- endif -%}
+      </div>
+
+      <div class="farm-visual">
+        {%- if section.settings.decorative_line -%}
+          <div class="decorative-line">
+            <svg viewBox="0 0 300 100" fill="none">
+              <path d="M20 50C50 20, 100 20, 150 50C200 80, 250 80, 280 50" stroke="currentColor" stroke-width="2" fill="none"></path>
+              <circle cx="280" cy="50" r="8" fill="none" stroke="currentColor" stroke-width="2"></circle>
+              <path d="M270 45L280 50L270 55" stroke="currentColor" stroke-width="2" fill="none"></path>
+            </svg>
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.hero_image != blank -%}
+          <div class="hero-image">
+            <img
+              src="{{ section.settings.hero_image | image_url: width: 800 }}"
+              alt="{{ section.settings.hero_image.alt | default: section.settings.title | escape }}"
+              width="800"
+              height="600"
+              loading="lazy"
+            >
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <!-- Services Grid/Slider -->
+    <div class="services-container">
+      <!-- Mobile Slider Controls -->
+      <div class="mobile-slider-controls mobile-only">
+        <button class="mobile-slider-btn mobile-prev-btn" aria-label="Previous slide">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button class="mobile-slider-btn mobile-next-btn" aria-label="Next slide">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="services-slider-wrapper">
+        <div
+          class="services-grid mobile-services-slider"
+          id="mobile-card-slider-{{ section.id }}"
+          data-total-slides="{{ section.blocks.size }}"
+        >
+          {%- if section.blocks.size > 0 -%}
+            {%- for block in section.blocks -%}
+              <div class="service-item mobile-slide-card" {{ block.shopify_attributes }}>
+                <!-- Background SVG -->
+                {%- if section.settings.show_background_svg -%}
+                  <div class="service-bg-svg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="68" height="88" viewBox="0 0 68 88" fill="none">
+                      <path opacity="0.1" d="M35.2972 0H57.0186L24.3913 36.5063L68 88H45.8261L0 36.5063L35.2972 0Z" fill="#009D03"/>
+                    </svg>
+                  </div>
+                {%- endif -%}
+
+                <div class="service-icon">
+                  {%- if block.settings.icon_svg != blank -%}
+                    {{ block.settings.icon_svg }}
+                  {%- else -%}
+                    <!-- Default icons based on service type -->
+                    {%- case forloop.index -%}
+                      {%- when 1 -%}
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                          <path d="M20 5C15.8579 5 12.5 8.35786 12.5 12.5C12.5 16.6421 15.8579 20 20 20C24.1421 20 27.5 16.6421 27.5 12.5C27.5 8.35786 24.1421 5 20 5Z" stroke="currentColor" stroke-width="2"/>
+                          <path d="M20 20V35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                          <path d="M15 25C15 25 17.5 22.5 20 25C22.5 22.5 25 25 25 25" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                          <path d="M10 30C10 30 12.5 27.5 15 30" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                          <path d="M25 30C25 30 27.5 27.5 30 30" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                      {%- when 2 -%}
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                          <circle cx="20" cy="20" r="15" stroke="currentColor" stroke-width="2"/>
+                          <path d="M15 15L25 25M25 15L15 25" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                          <circle cx="20" cy="20" r="7.5" stroke="currentColor" stroke-width="2"/>
+                          <circle cx="20" cy="20" r="2.5" fill="currentColor"/>
+                        </svg>
+                      {%- when 3 -%}
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                          <rect x="5" y="10" width="30" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
+                          <path d="M10 15H30M10 20H25M10 25H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                          <path d="M25 5L30 10L25 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                      {%- when 4 -%}
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                          <rect x="5" y="15" width="30" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
+                          <path d="M7.5 15V10C7.5 8.61929 8.61929 7.5 10 7.5H30C31.3807 7.5 32.5 8.61929 32.5 10V15" stroke="currentColor" stroke-width="2"/>
+                          <circle cx="15" cy="25" r="2.5" stroke="currentColor" stroke-width="2"/>
+                          <circle cx="25" cy="25" r="2.5" stroke="currentColor" stroke-width="2"/>
+                          <path d="M10 20H30" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                      {%- else -%}
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                          <circle cx="20" cy="20" r="15" stroke="currentColor" stroke-width="2"/>
+                          <path d="M20 10v20M10 20h20" stroke="currentColor" stroke-linecap="round" stroke-width="2"/>
+                        </svg>
+                    {%- endcase -%}
+                  {%- endif -%}
+                </div>
+
+                <h3 class="service-title">{{ block.settings.title | default: 'Service Name' }}</h3>
+                <p class="service-description">{{ block.settings.description | default: 'Service description' }}</p>
+              </div>
+            {%- endfor -%}
+          {%- else -%}
+            <div class="empty-state">
+              <div class="empty-message">
+                <h3>Add Service Blocks</h3>
+                <p>Click "Add block" below to add your service items to this section.</p>
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <!-- Mobile Slider Dots -->
+      {%- if section.blocks.size > 0 -%}
+        <div class="mobile-slider-dots mobile-only">
+          {%- for block in section.blocks -%}
+            <button
+              class="mobile-dot"
+              data-slide="{{ forloop.index0 }}"
+              aria-label="Go to slide {{ forloop.index }}"
+            ></button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top | default: 80 }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom | default: 80 }}px;
+    --container-width: {{ section.settings.container_width | default: 1200 }}px;
+    --background-color: {{ section.settings.background_color | default: '#f8f9fa' }};
+    --text-color: {{ section.settings.text_color | default: '#2c3e50' }};
+    --accent-color: {{ section.settings.accent_color | default: '#009D03' }};
+    --title-color: {{ section.settings.title_color | default: '#1a1a1a' }};
+    --description-color: {{ section.settings.description_color | default: '#6c757d' }};
+    --icon-bg-default: rgba(241, 237, 232, 0.3);
+
+    padding: var(--section-padding-top) 0 var(--section-padding-bottom);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }} .farm-container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .section-{{ section.id }} .farm-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    margin-bottom: 80px;
+  }
+
+  .section-{{ section.id }} .farm-content {
+    max-width: 520px;
+  }
+
+  .section-{{ section.id }} .farm-title {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0 0 24px 0;
+    color: var(--title-color);
+    letter-spacing: -0.02em;
+  }
+
+  .section-{{ section.id }} .farm-description {
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 0 0 40px 0;
+    color: var(--description-color);
+  }
+
+  .section-{{ section.id }} .farm-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 32px;
+    background-color: {{ section.settings.button_bg_color | default: 'transparent' }};
+    color: {{ section.settings.button_text_color | default: '#009D03' }};
+    border: 2px solid {{ section.settings.button_border_color | default: '#009D03' }};
+    border-radius: {{ section.settings.button_radius | default: 8 }}px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .section-{{ section.id }} .farm-button:hover {
+    background-color: {{ section.settings.button_hover_bg | default: '#009D03' }};
+    color: {{ section.settings.button_hover_text | default: '#ffffff' }};
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 157, 3, 0.25);
+  }
+
+  .section-{{ section.id }} .button-icon {
+    transition: transform 0.3s ease;
+  }
+
+  .section-{{ section.id }} .farm-button:hover .button-icon {
+    transform: scale(1.1);
+  }
+
+  .section-{{ section.id }} .farm-visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .section-{{ section.id }} .decorative-line {
+    position: absolute;
+    top: -60px;
+    right: -20px;
+    width: 300px;
+    height: 100px;
+    color: #1a1a1a;
+    opacity: 1;
+    z-index: 1;
+  }
+
+  .section-{{ section.id }} .hero-image {
+    position: relative;
+    z-index: 2;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+  }
+
+  .section-{{ section.id }} .hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Services Container */
+  .section-{{ section.id }} .services-container {
+    position: relative;
+  }
+
+  .section-{{ section.id }} .services-slider-wrapper {
+    /* No overflow hidden on desktop */
+  }
+
+  .section-{{ section.id }} .services-grid {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns_desktop | default: 4 }}, 1fr);
+    gap: 24px;
+    min-height: 200px;
+  }
+
+  /* Mobile-only controls - Hidden by default */
+  .section-{{ section.id }} .mobile-only {
+    display: none !important;
+  }
+
+  /* Mobile Slider Controls - Hidden by default */
+  .section-{{ section.id }} .mobile-slider-controls {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 10;
+    display: none !important;
+  }
+
+  .section-{{ section.id }} .mobile-slider-btn {
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #e0e0e0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    pointer-events: auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    color: #333;
+  }
+
+  .section-{{ section.id }} .mobile-slider-btn:hover {
+    background: var(--accent-color);
+    color: white;
+    transform: scale(1.05);
+  }
+
+  .section-{{ section.id }} .mobile-slider-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .section-{{ section.id }} .mobile-prev-btn {
+    margin-left: -22px;
+  }
+
+  .section-{{ section.id }} .mobile-next-btn {
+    margin-right: -22px;
+  }
+
+  /* Mobile Slider Dots */
+  .section-{{ section.id }} .mobile-slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 32px;
+  }
+
+  .section-{{ section.id }} .mobile-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #d0d0d0;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .section-{{ section.id }} .mobile-dot.active {
+    background: var(--accent-color);
+    transform: scale(1.2);
+  }
+
+  .section-{{ section.id }} .service-item {
+    background-color: {{ section.settings.card_bg_color | default: '#ffffff' }};
+    padding: 40px 32px;
+    border-radius: {{ section.settings.card_radius | default: 16 }}px;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }} .service-bg-svg, .halo-item .service-bg-svg {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 80px;
+    height: 100px;
+    opacity: 0.3;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: scale(0.8);
+    z-index: 1;
+  }
+
+  .section-{{ section.id }} .service-bg-svg svg, .halo-item .service-bg-svg svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .section-{{ section.id }} .service-bg-svg svg path, .halo-item svg path {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .section-{{ section.id }} .service-item:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    border-color: {{ section.settings.highlight_color | default: '#009D03' }};
+  }
+
+  .section-{{ section.id }} .service-item:hover .service-bg-svg, .halo-item:hover .service-bg-svg {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+
+  .section-{{ section.id }} .service-item:hover .service-bg-svg svg path, .halo-item:hover .service-bg-svg svg path {
+    opacity: 0.25;
+  }
+
+  .section-{{ section.id }} .service-icon {
+    margin: 0 auto 28px;
+    width: 80px;
+    height: 80px;
+    background-color: var(--icon-bg-default);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: {{ section.settings.icon_color | default: '#6c757d' }};
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+  }
+
+  .section-{{ section.id }} .service-icon svg {
+    width: 40px !important;
+    height: 40px !important;
+    max-width: 40px;
+    max-height: 40px;
+  }
+
+  .section-{{ section.id }} .service-item:hover .service-icon {
+    background-color: #009D03 !important;
+    color: #ffffff !important;
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(0, 157, 3, 0.3);
+  }
+
+  .section-{{ section.id }} .service-item:hover .service-icon svg {
+    color: #ffffff !important;
+  }
+
+  .section-{{ section.id }} .service-item:hover .service-icon svg * {
+    stroke: #ffffff !important;
+    fill: #ffffff !important;
+  }
+
+  .section-{{ section.id }} .service-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0 0 16px 0;
+    color: {{ section.settings.service_title_color | default: '#1a1a1a' }};
+    transition: color 0.3s ease;
+    position: relative;
+    z-index: 2;
+  }
+
+  .section-{{ section.id }} .service-item:hover .service-title {
+    color: {{ section.settings.highlight_color | default: '#009D03' }};
+  }
+
+  .section-{{ section.id }} .service-description {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
+    color: {{ section.settings.service_description_color | default: '#6c757d' }};
+    position: relative;
+    z-index: 2;
+  }
+
+  .section-{{ section.id }} .empty-state {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+  }
+
+  .section-{{ section.id }} .empty-message {
+    text-align: center;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 16px;
+    border: 2px dashed #dee2e6;
+  }
+
+  .section-{{ section.id }} .empty-message h3 {
+    margin: 0 0 12px 0;
+    color: #6c757d;
+    font-size: 24px;
+  }
+
+  .section-{{ section.id }} .empty-message p {
+    margin: 0;
+    color: #9ca3af;
+    font-size: 16px;
+  }
+
+  /* Enhanced responsive design */
+  @media screen and (max-width: 1024px) {
+    .section-{{ section.id }} .farm-header {
+      grid-template-columns: 1fr;
+      gap: 60px;
+      text-align: center;
+    }
+    .section-{{ section.id }} .farm-content {
+      max-width: 100%;
+    }
+    .section-{{ section.id }} .farm-title {
+      font-size: 40px;
+    }
+
+    .section-{{ section.id }} .services-grid {
+      grid-template-columns: repeat({{ section.settings.columns_tablet | default: 2 }}, 1fr);
+      gap: 24px;
+    }
+
+    .section-{{ section.id }} .decorative-line {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .section-{{ section.id }} {
+      --section-padding-top: 60px;
+      --section-padding-bottom: 60px;
+    }
+
+    .section-{{ section.id }} .farm-header {
+      margin-bottom: 60px;
+    }
+
+    .section-{{ section.id }} .farm-title {
+      font-size: 36px;
+    }
+
+    /* Mobile Slider Styles - Only active on mobile */
+    .section-{{ section.id }} .mobile-only {
+      display: flex !important;
+    }
+
+    .section-{{ section.id }} .mobile-slider-controls {
+      display: flex !important;
+    }
+
+    .section-{{ section.id }} .services-slider-wrapper {
+      overflow: hidden;
+      width: 100%;
+      position: relative;
+    }
+
+    .section-{{ section.id }} .mobile-services-slider {
+      display: flex !important;
+      grid-template-columns: none;
+      gap: 0;
+      transition: transform 0.4s ease;
+      /* Width will be set dynamically by JavaScript */
+    }
+
+    .section-{{ section.id }} .mobile-slide-card {
+      flex-shrink: 0;
+      padding: 32px 20px;
+      box-sizing: border-box;
+      /* Width will be set dynamically by JavaScript */
+    }
+
+    .section-{{ section.id }} .service-icon {
+      width: 70px;
+      height: 70px;
+      margin-bottom: 24px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .section-{{ section.id }} .farm-container {
+      padding: 0 16px;
+    }
+
+    .section-{{ section.id }} .farm-button {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .section-{{ section.id }} .farm-title {
+      font-size: 32px;
+    }
+
+    .section-{{ section.id }} .mobile-slide-card {
+      padding: 32px 16px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const sectionId = '{{ section.id }}';
+    const mobileSlider = document.getElementById(`mobile-card-slider-${sectionId}`);
+    const prevBtn = document.querySelector(`.section-${sectionId} .mobile-prev-btn`);
+    const nextBtn = document.querySelector(`.section-${sectionId} .mobile-next-btn`);
+    const dots = document.querySelectorAll(`.section-${sectionId} .mobile-dot`);
+    
+    // Only initialize slider functionality on mobile
+    if (!mobileSlider) return;
+    
+    let currentSlide = 0;
+    const totalSlides = parseInt(mobileSlider.getAttribute('data-total-slides')) || {{ section.blocks.size | default: 4 }};
+    let isSliderActive = false;
+    
+    function isMobileScreen() {
+      return window.innerWidth <= 768;
+    }
+    
+    function setupMobileSliderDimensions() {
+      if (!isMobileScreen()) return;
+      
+      const cards = mobileSlider.querySelectorAll('.mobile-slide-card');
+      const containerWidth = mobileSlider.parentElement.offsetWidth;
+      
+      // Set slider total width based on number of cards
+      mobileSlider.style.width = `${totalSlides * 100}%`;
+      
+      // Each card takes full container width when visible
+      cards.forEach(card => {
+        card.style.width = `${containerWidth}px`;
+      });
+    }
+    
+    function updateMobileSlider() {
+      if (!isMobileScreen()) return;
+      
+      const containerWidth = mobileSlider.parentElement.offsetWidth;
+      // Move by full container width for each slide
+      const translateX = -currentSlide * containerWidth;
+      mobileSlider.style.transform = `translateX(${translateX}px)`;
+      
+      // Update dots
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+      });
+      
+      // Update button states
+      if (prevBtn) prevBtn.disabled = currentSlide === 0;
+      if (nextBtn) nextBtn.disabled = currentSlide === totalSlides - 1;
+    }
+    
+    function goToMobileSlide(slideIndex) {
+      if (!isMobileScreen()) return;
+      currentSlide = Math.max(0, Math.min(slideIndex, totalSlides - 1));
+      updateMobileSlider();
+    }
+    
+    function nextMobileSlide() {
+      if (!isMobileScreen()) return;
+      if (currentSlide < totalSlides - 1) {
+        goToMobileSlide(currentSlide + 1);
+      }
+    }
+    
+    function prevMobileSlide() {
+      if (!isMobileScreen()) return;
+      if (currentSlide > 0) {
+        goToMobileSlide(currentSlide - 1);
+      }
+    }
+    
+    function initializeMobileSlider() {
+      if (!isMobileScreen()) return;
+      
+      // Set up dimensions first
+      setupMobileSliderDimensions();
+      
+      // Add event listeners
+      if (prevBtn) {
+        prevBtn.removeEventListener('click', prevMobileSlide);
+        prevBtn.addEventListener('click', prevMobileSlide);
+      }
+      if (nextBtn) {
+        nextBtn.removeEventListener('click', nextMobileSlide);
+        nextBtn.addEventListener('click', nextMobileSlide);
+      }
+      
+      dots.forEach((dot, index) => {
+        dot.removeEventListener('click', () => goToMobileSlide(index));
+        dot.addEventListener('click', () => goToMobileSlide(index));
+      });
+      
+      // Touch events for swipe functionality
+      let startX = 0;
+      let startY = 0;
+      let isDragging = false;
+      
+      function handleTouchStart(e) {
+        if (!isMobileScreen()) return;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        isDragging = false;
+      }
+      
+      function handleTouchMove(e) {
+        if (!isMobileScreen() || !startX || !startY) return;
+        
+        const currentX = e.touches[0].clientX;
+        const currentY = e.touches[0].clientY;
+        const diffX = startX - currentX;
+        const diffY = startY - currentY;
+        
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 10) {
+          isDragging = true;
+          e.preventDefault();
+        }
+      }
+      
+      function handleTouchEnd(e) {
+        if (!isMobileScreen() || !startX || !isDragging) return;
+        
+        const endX = e.changedTouches[0].clientX;
+        const diffX = startX - endX;
+        
+        if (Math.abs(diffX) > 50) {
+          if (diffX > 0) {
+            nextMobileSlide();
+          } else {
+            prevMobileSlide();
+          }
+        }
+        
+        startX = 0;
+        startY = 0;
+        isDragging = false;
+      }
+      
+      mobileSlider.removeEventListener('touchstart', handleTouchStart);
+      mobileSlider.removeEventListener('touchmove', handleTouchMove);
+      mobileSlider.removeEventListener('touchend', handleTouchEnd);
+      
+      mobileSlider.addEventListener('touchstart', handleTouchStart);
+      mobileSlider.addEventListener('touchmove', handleTouchMove);
+      mobileSlider.addEventListener('touchend', handleTouchEnd);
+      
+      isSliderActive = true;
+      updateMobileSlider();
+    }
+    
+    function destroyMobileSlider() {
+      if (mobileSlider) {
+        mobileSlider.style.transform = '';
+        mobileSlider.style.width = '';
+        const cards = mobileSlider.querySelectorAll('.mobile-slide-card');
+        cards.forEach(card => {
+          card.style.width = '';
+        });
+      }
+      currentSlide = 0;
+      isSliderActive = false;
+    }
+    
+    // Resize handler
+    function handleResize() {
+      if (isMobileScreen() && !isSliderActive) {
+        initializeMobileSlider();
+      } else if (!isMobileScreen() && isSliderActive) {
+        destroyMobileSlider();
+      } else if (isMobileScreen() && isSliderActive) {
+        // Recalculate dimensions on mobile resize
+        setupMobileSliderDimensions();
+        updateMobileSlider();
+      }
+    }
+    
+    // Debounced resize handler
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(handleResize, 150);
+    });
+    
+    // Initialize on load
+    if (isMobileScreen()) {
+      initializeMobileSlider();
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Farm to Global Market",
+  "class": "section-farm-to-market",
+  "tag": "section",
+  "max_blocks": 6,
+  "enabled_on": {
+    "templates": ["*"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "General Settings"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container Max Width",
+      "min": 1000,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Section Top Padding",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Section Bottom Padding",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#2c3e50"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#009D03"
+    },
+    {
+      "type": "header",
+      "content": "Header Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "From Farm to Global Market"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Explore how TAK brings quality agricultural products to life — from sourcing and processing to trading and global delivery."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Get in Touch"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "decorative_line",
+      "label": "Show Decorative Line",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "#6c757d"
+    },
+    {
+      "type": "header",
+      "content": "Button Styling"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#009D03"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button Border Color",
+      "default": "#009D03"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg",
+      "label": "Button Hover Background",
+      "default": "#009D03"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text",
+      "label": "Button Hover Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Button Border Radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Services Grid"
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Columns (Desktop)",
+      "options": [
+        { "value": "2", "label": "2 Columns" },
+        { "value": "3", "label": "3 Columns" },
+        { "value": "4", "label": "4 Columns" }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "select",
+      "id": "columns_tablet",
+      "label": "Columns (Tablet)",
+      "options": [
+        { "value": "1", "label": "1 Column" },
+        { "value": "2", "label": "2 Columns" },
+        { "value": "3", "label": "3 Columns" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns (Mobile)",
+      "options": [
+        { "value": "1", "label": "1 Column" },
+        { "value": "2", "label": "2 Columns" }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Service Card Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card Border Radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "highlight_color",
+      "label": "Hover Highlight Color",
+      "default": "#009D03"
+    },
+    {
+      "type": "header",
+      "content": "Service Items Colors"
+    },
+    {
+      "type": "color",
+      "id": "service_title_color",
+      "label": "Service Title Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "service_description_color",
+      "label": "Service Description Color",
+      "default": "#6c757d"
+    },
+    {
+      "type": "color",
+      "id": "icon_bg_color",
+      "label": "Icon Background Color",
+      "default": "#F1EDE8",
+      "info": "Note: Default uses #F1EDE8 at 30% opacity with shadow"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon Color",
+      "default": "#6c757d"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_background_svg",
+      "label": "Show Background SVG",
+      "default": true,
+      "info": "Display decorative background shape on service cards"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "service",
+      "name": "Service Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Service Title",
+          "default": "Service Name"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Service Description",
+          "default": "Describe your service offering and its benefits to customers."
+        },
+        {
+          "type": "html",
+          "id": "icon_svg",
+          "label": "Custom SVG Icon",
+          "info": "Paste your complete SVG icon code here. Leave empty to use default icons. The icon will automatically turn white on hover."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Farm to Global Market",
+      "blocks": [
+        {
+          "type": "service",
+          "settings": {
+            "title": "Sourcing",
+            "description": "Partnering directly with trusted Afghan farmers to source the finest dry fruits and agricultural products from rich, fertile lands."
+          }
+        },
+        {
+          "type": "service",
+          "settings": {
+            "title": "Processing",
+            "description": "Our products are processed in a modern factory equipped with advanced machinery and quality control systems to meet global standards."
+          }
+        },
+        {
+          "type": "service",
+          "settings": {
+            "title": "Trading",
+            "description": "Our experienced team monitors markets and negotiates the best deals, ensuring clients receive top-quality products at competitive prices."
+          }
+        },
+        {
+          "type": "service",
+          "settings": {
+            "title": "Logistics",
+            "description": "With spacious warehouses and cold storage facilities, we offer fast, reliable deliveries tailored to meet high-volume demands worldwide."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

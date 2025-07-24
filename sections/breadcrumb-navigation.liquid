@@ -1,0 +1,570 @@
+{%- liquid
+  assign padding_top = section.settings.mg_top_desktop | append: 'px'
+  assign padding_bottom = section.settings.mg_bottom_desktop | append: 'px'
+  assign padding_top_tablet = section.settings.mg_top_tablet | append: 'px'
+  assign padding_bottom_tablet = section.settings.mg_bottom_tablet | append: 'px'
+  assign padding_top_mobile = section.settings.mg_top_mobile | append: 'px'
+  assign padding_bottom_mobile = section.settings.mg_bottom_mobile | append: 'px'
+  assign show_breadcrumbs = true
+  if template.name == 'index' or template.name == '404'
+    assign show_breadcrumbs = false
+  endif
+  assign show_home_link = section.settings.show_home_link
+  assign home_text = section.settings.home_text
+  assign breadcrumb_alignment = section.settings.breadcrumb_alignment
+  assign breadcrumb_bg = section.settings.breadcrumb_bg
+  assign breadcrumb_gradient = section.settings.breadcrumb_gradient
+  assign breadcrumb_bg_mb = section.settings.breadcrumb_bg_mb
+  assign breadcrumb_gradient_mb = section.settings.breadcrumb_gradient_mb
+  assign container = section.settings.container
+  assign padding_full_width = section.settings.padding_full_width
+  assign text_color = section.settings.text_color
+  assign link_color = section.settings.link_color
+  assign link_hover_color = section.settings.link_hover_color
+  assign separator_color = section.settings.separator_color
+  assign separator_icon = section.settings.separator_icon
+  assign font_size = section.settings.font_size
+  assign show_on_mobile = section.settings.show_on_mobile
+-%}
+
+{% if show_breadcrumbs %}
+  <div
+    data-section-id="{{ section.id }}"
+    data-section-type="breadcrumb"
+    id="BreadcrumbSection-{{ section.id }}"
+    data-section="{{ section.id }}"
+  >
+    <div class="breadcrumb-container {% if container == '1170' %}container-1170{% elsif container == '1770' %}container-1770{% elsif container == 'fullwidth'%}container-full{% else %}container{% endif %}">
+      <nav
+        aria-label="Breadcrumb"
+        class="custom-breadcrumb text-{{ breadcrumb_alignment }}{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}"
+      >
+        {%- if show_home_link -%}
+          <div class="breadcrumb-item">
+            <a href="{{ routes.root_url }}">{{ home_text }}</a>
+          </div>
+          <div class="breadcrumb-separator">
+            {% if separator_icon != blank %}{{ separator_icon }}{% else %}>{% endif %}
+          </div>
+        {%- endif -%}
+
+        {%- case template.name -%}
+          {%- when 'product' -%}
+            {%- if collection -%}
+              <div class="breadcrumb-item">
+                <a href="{{ collection.url }}">{{ collection.title }}</a>
+              </div>
+              <div class="breadcrumb-separator">
+                {% if separator_icon != blank %}{{ separator_icon }}{% else %}>{% endif %}
+              </div>
+            {%- elsif product.collections.first -%}
+              <div class="breadcrumb-item">
+                <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a>
+              </div>
+              <div class="breadcrumb-separator">
+                {% if separator_icon != blank %}{{ separator_icon }}{% else %}>{% endif %}
+              </div>
+            {%- else -%}
+              <div class="breadcrumb-item">
+                <a href="{{ routes.all_products_collection_url }}">All Products</a>
+              </div>
+              <div class="breadcrumb-separator">
+                {% if separator_icon != blank %}{{ separator_icon }}{% else %}>{% endif %}
+              </div>
+            {%- endif -%}
+            <div class="breadcrumb-item">
+              <span class="breadcrumb-current">{{ product.title }}</span>
+            </div>
+
+          {%- when 'collection' -%}
+            <div class="breadcrumb-item">
+              <a href="{{ routes.all_products_collection_url }}">All Products</a>
+            </div>
+            <div class="breadcrumb-separator">
+              {% if separator_icon != blank %}{{ separator_icon }}{% else %}>{% endif %}
+            </div>
+            <div class="breadcrumb-item">
+              <span class="breadcrumb-current">{{ collection.title }}</span>
+            </div>
+
+          {%- when 'blog' -%}
+            <div class="breadcrumb-item">
+              <span class="breadcrumb-current">{{ blog.title }}</span>
+            </div>
+
+          {%- when 'article' -%}
+            <div class="breadcrumb-item">
+              <a href="{{ blog.url }}">{{ blog.title }}</a>
+            </div>
+            <div class="breadcrumb-separator">
+              {% if separator_icon != blank %}{{ separator_icon }}{% else %}>{% endif %}
+            </div>
+            <div class="breadcrumb-item">
+              <span class="breadcrumb-current">{{ article.title }}</span>
+            </div>
+
+          {%- when 'page' -%}
+            <div class="breadcrumb-item">
+              <span class="breadcrumb-current">{{ page.title }}</span>
+            </div>
+
+          {%- when 'search' -%}
+            <div class="breadcrumb-item">
+              <span class="breadcrumb-current">{{ 'general.search.title' | t }}</span>
+            </div>
+
+          {%- when 'customers/account' -%}
+            <div class="breadcrumb-item">
+              <span class="breadcrumb-current">{{ 'customer.account.title' | t }}</span>
+            </div>
+
+          {%- when 'customers/login' -%}
+            <div class="breadcrumb-item">
+              <span class="breadcrumb-current">{{ 'customer.login_page.title' | t }}</span>
+            </div>
+
+          {%- when 'customers/register' -%}
+            <div class="breadcrumb-item">
+              <span class="breadcrumb-current">{{ 'customer.register.title' | t }}</span>
+            </div>
+
+          {%- when 'cart' -%}
+            <div class="breadcrumb-item">
+              <span class="breadcrumb-current">{{ 'sections.cart.title' | t }}</span>
+            </div>
+
+          {%- else -%}
+            {%- if page_title -%}
+              <div class="breadcrumb-item">
+                <span class="breadcrumb-current">{{ page_title }}</span>
+              </div>
+            {%- endif -%}
+        {%- endcase -%}
+      </nav>
+    </div>
+  </div>
+{% endif %}
+
+<style type="text/css" media="screen">
+  #BreadcrumbSection-{{ section.id }} {
+    padding-top: {{ padding_top }};
+    padding-bottom: {{ padding_bottom }};
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    {% if breadcrumb_gradient != blank and breadcrumb_gradient != 'rgba(0,0,0,0)' %}
+      background: {{ breadcrumb_gradient }};
+    {% elsif breadcrumb_bg != blank and breadcrumb_bg != 'rgba(0,0,0,0)' %}
+      background-color: {{ breadcrumb_bg }};
+    {% else %}
+      background-color: {{ section.settings.background_color }};
+    {% endif %}
+  }
+
+  /* Container Settings */
+  #BreadcrumbSection-{{ section.id }} .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  #BreadcrumbSection-{{ section.id }} .container-1170 {
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  #BreadcrumbSection-{{ section.id }} .container-1770 {
+    max-width: 1770px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  #BreadcrumbSection-{{ section.id }} .container-full {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  /* Breadcrumb Navigation */
+  #BreadcrumbSection-{{ section.id }} .custom-breadcrumb {
+    display: flex;
+    align-items: center;
+    font-size: {{ font_size }}px;
+    color: {{ text_color }};
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  #BreadcrumbSection-{{ section.id }} .text-left { text-align: left; }
+  #BreadcrumbSection-{{ section.id }} .text-center { text-align: center; }
+  #BreadcrumbSection-{{ section.id }} .text-right { text-align: right; }
+
+  #BreadcrumbSection-{{ section.id }} .breadcrumb-item {
+    display: flex;
+    align-items: center;
+  }
+
+  #BreadcrumbSection-{{ section.id }} .breadcrumb-item a {
+    color: {{ link_color }};
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  #BreadcrumbSection-{{ section.id }} .breadcrumb-item a:hover {
+    color: {{ link_hover_color }};
+  }
+
+  #BreadcrumbSection-{{ section.id }} .breadcrumb-separator {
+    margin: 0 12px;
+    color: {{ separator_color }};
+    font-size: 16px;
+    font-weight: normal;
+  }
+
+  #BreadcrumbSection-{{ section.id }} .breadcrumb-current {
+    color: {{ text_color }};
+    font-weight: 400;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1024px) and (min-width: 769px) {
+    #BreadcrumbSection-{{ section.id }} {
+      padding-top: {{ padding_top_tablet }};
+      padding-bottom: {{ padding_bottom_tablet }};
+    }
+
+    {% if breadcrumb_gradient_mb != blank and breadcrumb_gradient_mb != 'rgba(0,0,0,0)' %}
+    #BreadcrumbSection-{{ section.id }} {
+      background: {{ breadcrumb_gradient_mb }};
+    }
+    {% elsif breadcrumb_bg_mb != blank and breadcrumb_bg_mb != 'rgba(0,0,0,0)' %}
+    #BreadcrumbSection-{{ section.id }} {
+      background-color: {{ breadcrumb_bg_mb }};
+    }
+    {% endif %}
+  }
+
+  @media (max-width: 768px) {
+    #BreadcrumbSection-{{ section.id }} {
+      padding-top: {{ padding_top_mobile }};
+      padding-bottom: {{ padding_bottom_mobile }};
+    }
+
+    #BreadcrumbSection-{{ section.id }} .custom-breadcrumb {
+      font-size: {{ font_size | minus: 2 }}px;
+    }
+
+    #BreadcrumbSection-{{ section.id }} .breadcrumb-separator {
+      margin: 0 8px;
+    }
+
+    {% if breadcrumb_gradient_mb != blank and breadcrumb_gradient_mb != 'rgba(0,0,0,0)' %}
+    #BreadcrumbSection-{{ section.id }} {
+      background: {{ breadcrumb_gradient_mb }};
+    }
+    {% elsif breadcrumb_bg_mb != blank and breadcrumb_bg_mb != 'rgba(0,0,0,0)' %}
+    #BreadcrumbSection-{{ section.id }} {
+      background-color: {{ breadcrumb_bg_mb }};
+    }
+    {% endif %}
+
+    {% unless show_on_mobile %}
+    #BreadcrumbSection-{{ section.id }} {
+      display: none;
+    }
+    {% endunless %}
+  }
+
+  @media (min-width: 1025px) {
+    {% if container == 'fullwidth' %}
+      #BreadcrumbSection-{{ section.id }} > .container-full {
+        padding-left: {{ padding_full_width | append: 'px' }};
+        padding-right: {{ padding_full_width | append: 'px' }};
+      }
+    {% endif %}
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Breadcrumb Navigation",
+  "class": "section-breadcrumb",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Dynamic breadcrumb navigation that automatically adapts to different page types with full customization options and responsive design."
+    },
+    {
+      "type": "header",
+      "content": "Container Settings"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container Width",
+      "default": "container",
+      "options": [
+        {
+          "value": "container",
+          "label": "Container (1200px)"
+        },
+        {
+          "value": "1170",
+          "label": "Container 1170px"
+        },
+        {
+          "value": "1770",
+          "label": "Container 1770px"
+        },
+        {
+          "value": "fullwidth",
+          "label": "Full Width"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_full_width",
+      "label": "Full Width Horizontal Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20,
+      "info": "Only applies when Container Width is set to Full Width"
+    },
+    {
+      "type": "header",
+      "content": "Breadcrumb Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_home_link",
+      "label": "Show Home Link",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "home_text",
+      "label": "Home Link Text",
+      "default": "Home"
+    },
+    {
+      "type": "select",
+      "id": "breadcrumb_alignment",
+      "label": "Breadcrumb Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_on_mobile",
+      "label": "Show Breadcrumbs on Mobile",
+      "default": true,
+      "info": "Uncheck to hide breadcrumbs on mobile devices"
+    },
+    {
+      "type": "header",
+      "content": "Background - Desktop"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Default Background Color",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "breadcrumb_bg",
+      "label": "Custom Background Color (Desktop)",
+      "info": "Overrides default background on desktop if set"
+    },
+    {
+      "type": "color_background",
+      "id": "breadcrumb_gradient",
+      "label": "Background Gradient (Desktop)",
+      "info": "Overrides background color if set"
+    },
+    {
+      "type": "header",
+      "content": "Background - Mobile & Tablet"
+    },
+    {
+      "type": "color",
+      "id": "breadcrumb_bg_mb",
+      "label": "Background Color (Mobile/Tablet)",
+      "default": "#f6f6f6",
+      "info": "Separate background color for mobile and tablet devices"
+    },
+    {
+      "type": "color_background",
+      "id": "breadcrumb_gradient_mb",
+      "label": "Background Gradient (Mobile/Tablet)",
+      "info": "Overrides mobile background color if set"
+    },
+    {
+      "type": "header",
+      "content": "Typography & Colors"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link Hover Color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "separator_color",
+      "label": "Separator Color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "separator_icon",
+      "label": "Separator Style",
+      "options": [
+        {
+          "value": ">",
+          "label": "Greater Than (>)"
+        },
+        {
+          "value": "›",
+          "label": "Right Chevron (›)"
+        },
+        {
+          "value": "→",
+          "label": "Right Arrow (→)"
+        },
+        {
+          "value": "/",
+          "label": "Forward Slash (/)"
+        },
+        {
+          "value": "|",
+          "label": "Vertical Pipe (|)"
+        },
+        {
+          "value": "•",
+          "label": "Bullet Point (•)"
+        },
+        {
+          "value": "·",
+          "label": "Middle Dot (·)"
+        }
+      ],
+      "default": ">"
+    },
+    {
+      "type": "header",
+      "content": "Spacing - Desktop"
+    },
+    {
+      "type": "range",
+      "id": "mg_top_desktop",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom_desktop",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Spacing - Tablet"
+    },
+    {
+      "type": "range",
+      "id": "mg_top_tablet",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom_tablet",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Spacing - Mobile"
+    },
+    {
+      "type": "range",
+      "id": "mg_top_mobile",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom_mobile",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 10
+    }
+  ],
+  "presets": [
+    {
+      "name": "Breadcrumb Navigation",
+      "category": "Navigation"
+    }
+  ]
+}
+{% endschema %}

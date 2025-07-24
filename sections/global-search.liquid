@@ -1,0 +1,1311 @@
+to
+{%- liquid
+  assign container = section.settings.container
+  assign section_title = section.settings.section_title
+  assign section_description = section.settings.section_description
+  assign layout_direction = section.settings.layout_direction
+  assign content_alignment = section.settings.content_alignment
+
+  assign title_color = section.settings.title_color
+  assign title_font_size = section.settings.title_font_size
+  assign title_font_size_mobile = section.settings.title_font_size_mobile
+  assign title_font_weight = section.settings.title_font_weight
+  assign title_margin_bottom = section.settings.title_margin_bottom
+
+  assign desc_color = section.settings.desc_color
+  assign desc_font_size = section.settings.desc_font_size
+  assign desc_font_size_mobile = section.settings.desc_font_size_mobile
+  assign desc_line_height = section.settings.desc_line_height
+  assign desc_margin_bottom = section.settings.desc_margin_bottom
+
+  assign country_bg_color = section.settings.country_bg_color
+  assign country_text_color = section.settings.country_text_color
+  assign country_border_color = section.settings.country_border_color
+  assign country_bg_hover = section.settings.country_bg_hover
+  assign country_text_hover = section.settings.country_text_hover
+  assign country_border_hover = section.settings.country_border_hover
+
+  assign map_default_color = section.settings.map_default_color
+  assign map_highlight_color = section.settings.map_highlight_color
+  assign map_hover_color = section.settings.map_hover_color
+  assign map_bg_color = section.settings.map_bg_color
+
+  assign section_bg_color = section.settings.section_bg_color
+  assign section_bg_gradient = section.settings.section_bg_gradient
+  assign content_bg_color = section.settings.content_bg_color
+  assign content_bg_gradient = section.settings.content_bg_gradient
+
+  assign mg_top_desktop = section.settings.mg_top_desktop
+  assign mg_top_tablet = section.settings.mg_top_tablet
+  assign mg_top_mobile = section.settings.mg_top_mobile
+  assign mg_bottom_desktop = section.settings.mg_bottom_desktop
+  assign mg_bottom_tablet = section.settings.mg_bottom_tablet
+  assign mg_bottom_mobile = section.settings.mg_bottom_mobile
+
+  assign padding_top = section.settings.padding_top
+  assign padding_bottom = section.settings.padding_bottom
+  assign padding_left = section.settings.padding_left
+  assign padding_right = section.settings.padding_right
+
+  assign mobile_padding_top = section.settings.mobile_padding_top
+  assign mobile_padding_bottom = section.settings.mobile_padding_bottom
+  assign mobile_padding_left = section.settings.mobile_padding_left
+  assign mobile_padding_right = section.settings.mobile_padding_right
+
+  assign content_width_desktop = section.settings.content_width_desktop
+  assign map_width_desktop = section.settings.map_width_desktop
+  assign content_width_tablet = section.settings.content_width_tablet
+  assign map_width_tablet = section.settings.map_width_tablet
+
+  assign enable_animation = section.settings.enable_animation
+  assign animation_type = section.settings.animation_type
+
+  assign custom_map_svg = section.settings.custom_map_svg
+  assign use_custom_map = section.settings.use_custom_map
+-%}
+
+<style>
+    #global-reach-{{ section.id }} {
+      margin-top: var(--mg-top-desktop);
+      margin-bottom: var(--mg-bottom-desktop);
+      {% if section_bg_gradient != blank %}
+        background: {{ section_bg_gradient }};
+      {% elsif section_bg_color != blank %}
+        background-color: {{ section_bg_color }};
+      {% endif %}
+    }
+
+    #global-reach-{{ section.id }} .global-reach-wrapper {
+      padding: {{ padding_top }}px {{ padding_right }}px {{ padding_bottom }}px {{ padding_left }}px;
+      {% if content_bg_gradient != blank %}
+        background: {{ content_bg_gradient }};
+      {% elsif content_bg_color != blank %}
+        background-color: {{ content_bg_color }};
+      {% endif %}
+    }
+
+    #global-reach-{{ section.id }} .global-reach-content {
+      flex: 0 0 {{ content_width_desktop }}%;
+      max-width: {{ content_width_desktop }}%;
+    }
+
+    #global-reach-{{ section.id }} .global-reach-map {
+      flex: 0 0 {{ map_width_desktop }}%;
+      max-width: {{ map_width_desktop }}%;
+    }
+
+    #global-reach-{{ section.id }} .section-title {
+      color: {{ title_color }};
+      font-size: {{ title_font_size }}px;
+      font-weight: {{ title_font_weight }};
+      margin-bottom: {{ title_margin_bottom }}px;
+      margin-top: 0;
+      line-height: 1.2;
+    }
+
+    #global-reach-{{ section.id }} .section-description {
+      color: {{ desc_color }};
+      font-size: {{ desc_font_size }}px;
+      line-height: {{ desc_line_height }};
+      margin-bottom: {{ desc_margin_bottom }}px;
+      margin-top: 0;
+    }
+
+    #global-reach-{{ section.id }} .country-tag {
+      display: inline-block;
+      padding: 8px 16px;
+      margin: 4px 8px 4px 0;
+      background-color: {{ country_bg_color }};
+      color: {{ country_text_color }};
+      border: 2px solid {{ country_border_color }};
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    #global-reach-{{ section.id }} .country-tag:hover {
+      background-color: {{ country_bg_hover }};
+      color: {{ country_text_hover }};
+      border-color: {{ country_border_hover }};
+      transform: translateY(-2px);
+    }
+
+    #global-reach-{{ section.id }} .world-map-container {
+      {% if map_bg_color != blank %}
+        background-color: {{ map_bg_color }};
+      {% endif %}
+      border-radius: 10px;
+      padding: 20px;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #global-reach-{{ section.id }} .world-map {
+      width: 100%;
+      height: auto;
+      max-width: 700px;
+      display: flex;
+      justify-content: center;
+    }
+
+    #global-reach-{{ section.id }} .world-map .country {
+      fill: {{ map_default_color }};
+      stroke: #fff;
+      stroke-width: 0.5;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    #global-reach-{{ section.id }} .world-map .country.background {
+      fill: {{ map_default_color }};
+      cursor: default;
+    }
+
+    #global-reach-{{ section.id }} .world-map .country.highlighted {
+      fill: {{ map_highlight_color }};
+    }
+
+    #global-reach-{{ section.id }} .world-map .country.hover-active {
+      fill: {{ map_hover_color }};
+      stroke-width: 1;
+      filter: brightness(1.1);
+      transform: scale(1.02);
+      transform-origin: center;
+    }
+
+    #global-reach-{{ section.id }} .global-reach-row {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    /* Enhanced hover effects for the detailed map */
+    #global-reach-{{ section.id }} .world-map .country:hover {
+      stroke-width: 1.5;
+      filter: brightness(1.05);
+    }
+
+    /* Tooltip styling */
+    #global-reach-{{ section.id }} .map-tooltip {
+      position: absolute;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      pointer-events: none;
+      transform: translate(-50%, -100%);
+      margin-top: -8px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1000;
+    }
+
+    #global-reach-{{ section.id }} .map-tooltip.show {
+      opacity: 1;
+    }
+    #global-reach-{{ section.id }} .world-map.gif-map img {
+    display: block;
+    max-width: 85% !important;
+    height: auto;
+  }
+
+
+    /* Tablet Responsive (768px - 1199px) */
+    @media (max-width: 1199px) and (min-width: 768px) {
+      #global-reach-{{ section.id }} {
+        margin-top: var(--mg-top-tablet);
+        margin-bottom: var(--mg-bottom-tablet);
+      }
+
+      #global-reach-{{ section.id }} .global-reach-content {
+        flex: 0 0 {{ content_width_tablet }}%;
+        max-width: {{ content_width_tablet }}%;
+      }
+
+      #global-reach-{{ section.id }} .global-reach-map {
+        flex: 0 0 {{ map_width_tablet }}%;
+        max-width: {{ map_width_tablet }}%;
+      }
+    }
+
+    /* Mobile Responsive (767px and below) */
+    @media (max-width: 767px) {
+      #global-reach-{{ section.id }} {
+        margin-top: var(--mg-top-mobile);
+        margin-bottom: var(--mg-bottom-mobile);
+      }
+
+      #global-reach-{{ section.id }} .global-reach-wrapper {
+        padding: {{ mobile_padding_top }}px {{ mobile_padding_right }}px {{ mobile_padding_bottom }}px {{ mobile_padding_left }}px;
+      }
+
+      #global-reach-{{ section.id }} .section-title {
+        font-size: {{ title_font_size_mobile }}px;
+      }
+
+      #global-reach-{{ section.id }} .section-description {
+        font-size: {{ desc_font_size_mobile }}px;
+      }
+
+      #global-reach-{{ section.id }} .global-reach-row {
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      #global-reach-{{ section.id }} .global-reach-content,
+      #global-reach-{{ section.id }} .global-reach-map {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+
+      #global-reach-{{ section.id }} .world-map-container {
+        height: 300px;
+        padding: 15px;
+      }
+
+      #global-reach-{{ section.id }} .country-tag {
+        padding: 6px 12px;
+        font-size: 13px;
+        margin: 3px 6px 3px 0;
+      }
+    }
+
+    /* Small Mobile (480px and below) */
+    @media (max-width: 480px) {
+      #global-reach-{{ section.id }} .global-reach-wrapper {
+        padding: {{ mobile_padding_top | divided_by: 1.5 | round }}px {{ mobile_padding_right | divided_by: 1.5 | round }}px {{ mobile_padding_bottom | divided_by: 1.5 | round }}px {{ mobile_padding_left | divided_by: 1.5 | round }}px;
+      }
+
+      #global-reach-{{ section.id }} .world-map-container {
+        height: 250px;
+        padding: 10px;
+      }
+
+      #global-reach-{{ section.id }} .section-title {
+        font-size: {{ title_font_size_mobile | minus: 4 }}px;
+      }
+
+      #global-reach-{{ section.id }} .country-tag {
+        padding: 5px 10px;
+        font-size: 12px;
+        margin: 2px 4px 2px 0;
+      }
+    }
+</style>
+
+<div
+  class="halo-block global-reach{% if enable_animation %} scroll-trigger animate--{{ animation_type }}{% endif %}"
+  id="global-reach-{{ section.id }}"
+  style="--mg-top-desktop: {{ mg_top_desktop }}px; --mg-top-tablet: {{ mg_top_tablet }}px; --mg-top-mobile: {{ mg_top_mobile }}px; --mg-bottom-desktop: {{ mg_bottom_desktop }}px; --mg-bottom-tablet: {{ mg_bottom_tablet }}px; --mg-bottom-mobile: {{ mg_bottom_mobile }}px;"
+>
+  <div class="{% if container == '1170' %}container-1170{% elsif container == '1470' %}container-1470{% elsif container == '1570' %}container-1570{% elsif container == '1770' %}container-1770{% elsif container == '1920' %}container-1920{% elsif container == 'fullwidth' %}container-full{% else %}container{% endif %}">
+    <div class="global-reach-wrapper">
+      <div class="global-reach-row{% if layout_direction == 'map-first' %} flex-row-reverse{% endif %}">
+        <div class="global-reach-content text-{{ content_alignment }}">
+          {%- if section_title != blank -%}
+            <h2
+              class="section-title{% if enable_animation %} scroll-trigger animate--slide-in{% endif %}"
+              {% if enable_animation %}
+                style="--animation-order: 1;"
+              {% endif %}
+            >
+              {{ section_title }}
+            </h2>
+          {%- endif -%}
+
+          {%- if section_description != blank -%}
+            <p
+              class="section-description{% if enable_animation %} scroll-trigger animate--slide-in{% endif %}"
+              {% if enable_animation %}
+                style="--animation-order: 2;"
+              {% endif %}
+            >
+              {{ section_description }}
+            </p>
+          {%- endif -%}
+
+          {%- if section.blocks.size > 0 -%}
+            <div
+              class="countries-list{% if enable_animation %} scroll-trigger animate--slide-in{% endif %}"
+              {% if enable_animation %}
+                style="--animation-order: 3;"
+              {% endif %}
+            >
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'country' -%}
+                  <span
+                    class="country-tag"
+                    data-country="{{ block.settings.country_code | default: block.settings.country_name | handle }}"
+                    data-country-name="{{ block.settings.country_name }}"
+                    {% if block.settings.country_link != blank %}
+                      onclick="window.open('{{ block.settings.country_link }}', '{{ block.settings.link_target | default: '_self' }}')"
+                    {% endif %}
+                  >
+                    {{ block.settings.country_name }}
+                  </span>
+                {%- elsif block.type == 'more_button' -%}
+                  <a
+                    class="country-tag"
+                    {% if block.settings.more_link == blank %}
+                      role="link" aria-disabled="true"
+                    {% else %}
+                      href="{{ block.settings.more_link }}"
+                    {% endif %}
+                    {% if block.settings.link_target != '_self' %}
+                      target="{{ block.settings.link_target }}"
+                    {% endif %}
+                  >
+                    {{ block.settings.button_text | default: '30+ more' }}
+                  </a>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
+
+        <div
+          class="global-reach-map{% if enable_animation %} scroll-trigger animate--slide-in{% endif %}"
+          {% if enable_animation %}
+            style="--animation-order: 4;"
+          {% endif %}
+        >
+          <div class="world-map-container">
+            {%- if use_custom_map and custom_map_svg != blank -%}
+              <div class="world-map custom-map">
+                {{ custom_map_svg }}
+              </div>
+            {%- elsif section.settings.map_gif_image != blank -%}
+              <div class="world-map gif-map">
+                <img
+                  src="{{ section.settings.map_gif_image | image_url }}"
+                  alt="Global Reach Map"
+                  loading="lazy"
+                  style="max-width: 100%; height: auto;"
+                >
+              </div>
+            {%- else -%}
+              <!-- Default SVG map -->
+              <svg class="world-map detailed-map" ...>
+                <!-- existing SVG content -->
+              </svg>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const section = document.getElementById('global-reach-{{ section.id }}');
+  if (!section) return;
+  
+  const countryTags = section.querySelectorAll('.country-tag[data-country]');
+  const mapCountries = section.querySelectorAll('.world-map .country:not(.background)');
+  const tooltip = document.createElement('div');
+  
+  // Create tooltip
+  tooltip.className = 'map-tooltip';
+  tooltip.id = 'map-tooltip-{{ section.id }}';
+  section.appendChild(tooltip);
+  
+  // Initialize highlighted countries
+  countryTags.forEach(tag => {
+    const countryCode = tag.dataset.country;
+    const mapCountry = section.querySelector(`.world-map .country[data-country="${countryCode}"]`);
+    if (mapCountry) {
+      mapCountry.classList.add('highlighted');
+    }
+  });
+  
+  // Country tag hover interactions (affects map)
+  countryTags.forEach(tag => {
+    const countryCode = tag.dataset.country;
+    const countryName = tag.dataset.countryName || tag.textContent.trim();
+    const mapCountry = section.querySelector(`.world-map .country[data-country="${countryCode}"]`);
+    
+    if (mapCountry) {
+      // Tag hover affects map
+      tag.addEventListener('mouseenter', () => {
+        mapCountry.classList.add('hover-active');
+      });
+      
+      tag.addEventListener('mouseleave', () => {
+        mapCountry.classList.remove('hover-active');
+      });
+    }
+  });
+  
+  // Map hover interactions (shows tooltip)
+  mapCountries.forEach(country => {
+    const countryCode = country.dataset.country;
+    const matchingTag = section.querySelector(`.country-tag[data-country="${countryCode}"]`);
+    
+    if (matchingTag) {
+      const countryName = matchingTag.dataset.countryName || matchingTag.textContent.trim();
+      
+      country.addEventListener('mouseenter', (e) => {
+        // Show tooltip
+        tooltip.textContent = countryName;
+        tooltip.classList.add('show');
+        
+        // Highlight corresponding tag
+        matchingTag.style.transform = 'translateY(-2px)';
+        matchingTag.style.backgroundColor = '{{ country_bg_hover }}';
+        matchingTag.style.color = '{{ country_text_hover }}';
+      });
+      
+      country.addEventListener('mousemove', (e) => {
+        // Update tooltip position
+        const rect = section.getBoundingClientRect();
+        tooltip.style.left = (e.clientX - rect.left) + 'px';
+        tooltip.style.top = (e.clientY - rect.top) + 'px';
+      });
+      
+      country.addEventListener('mouseleave', () => {
+        // Hide tooltip
+        tooltip.classList.remove('show');
+        
+        // Reset tag styling
+        matchingTag.style.transform = '';
+        matchingTag.style.backgroundColor = '';
+        matchingTag.style.color = '';
+      });
+      
+      // Click to open link if tag has one
+      country.addEventListener('click', () => {
+        if (matchingTag.onclick) {
+          matchingTag.onclick();
+        }
+      });
+    }
+  });
+  
+  // Enhanced visual feedback
+  mapCountries.forEach(country => {
+    country.addEventListener('mouseenter', () => {
+      country.style.cursor = 'pointer';
+    });
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Global Reach Map",
+  "class": "section-global-reach",
+  "settings": [
+    {
+      "type": "header",
+      "content": "General Settings"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container Width",
+      "default": "container",
+      "options": [
+        {
+          "value": "container",
+          "label": "Default Container"
+        },
+        {
+          "value": "1170",
+          "label": "1170px"
+        },
+        {
+          "value": "1470",
+          "label": "1470px"
+        },
+        {
+          "value": "1570",
+          "label": "1570px"
+        },
+        {
+          "value": "1770",
+          "label": "1770px"
+        },
+        {
+          "value": "1920",
+          "label": "1920px"
+        },
+        {
+          "value": "fullwidth",
+          "label": "Full Width"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "select",
+      "id": "layout_direction",
+      "label": "Layout Direction",
+      "default": "content-first",
+      "options": [
+        {
+          "value": "content-first",
+          "label": "Content First, Map Second"
+        },
+        {
+          "value": "map-first",
+          "label": "Map First, Content Second"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content Alignment",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Column Widths"
+    },
+    {
+      "type": "range",
+      "id": "content_width_desktop",
+      "label": "Content Width - Desktop (%)",
+      "min": 30,
+      "max": 70,
+      "step": 5,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "map_width_desktop",
+      "label": "Map Width - Desktop (%)",
+      "min": 30,
+      "max": 70,
+      "step": 5,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "content_width_tablet",
+      "label": "Content Width - Tablet (%)",
+      "min": 30,
+      "max": 70,
+      "step": 5,
+      "unit": "%",
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "map_width_tablet",
+      "label": "Map Width - Tablet (%)",
+      "min": 30,
+      "max": 70,
+      "step": 5,
+      "unit": "%",
+      "default": 55
+    },
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Our Global Reach"
+    },
+    {
+      "type": "textarea",
+      "id": "section_description",
+      "label": "Section Description",
+      "default": "With our strategically located offices and warehouses, you're never far away from our products and services."
+    },
+    {
+      "type": "header",
+      "content": "Title Typography"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#202020"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "label": "Title Font Size (Desktop)",
+      "min": 20,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_mobile",
+      "label": "Title Font Size (Mobile)",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "select",
+      "id": "title_font_weight",
+      "label": "Title Font Weight",
+      "default": "700",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal (400)"
+        },
+        {
+          "value": "500",
+          "label": "Medium (500)"
+        },
+        {
+          "value": "600",
+          "label": "Semi Bold (600)"
+        },
+        {
+          "value": "700",
+          "label": "Bold (700)"
+        },
+        {
+          "value": "800",
+          "label": "Extra Bold (800)"
+        },
+        {
+          "value": "900",
+          "label": "Black (900)"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "title_margin_bottom",
+      "label": "Title Margin Bottom",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Description Typography"
+    },
+    {
+      "type": "color",
+      "id": "desc_color",
+      "label": "Description Color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "desc_font_size",
+      "label": "Description Font Size (Desktop)",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "desc_font_size_mobile",
+      "label": "Description Font Size (Mobile)",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "desc_line_height",
+      "label": "Description Line Height",
+      "min": 1.0,
+      "max": 2.5,
+      "step": 0.1,
+      "default": 1.6
+    },
+    {
+      "type": "range",
+      "id": "desc_margin_bottom",
+      "label": "Description Margin Bottom",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Country Tags Styling"
+    },
+    {
+      "type": "color",
+      "id": "country_bg_color",
+      "label": "Country Tag Background",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "country_text_color",
+      "label": "Country Tag Text Color",
+      "default": "#22c55e"
+    },
+    {
+      "type": "color",
+      "id": "country_border_color",
+      "label": "Country Tag Border Color",
+      "default": "#22c55e"
+    },
+    {
+      "type": "color",
+      "id": "country_bg_hover",
+      "label": "Country Tag Background (Hover)",
+      "default": "#22c55e"
+    },
+    {
+      "type": "color",
+      "id": "country_text_hover",
+      "label": "Country Tag Text Color (Hover)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "country_border_hover",
+      "label": "Country Tag Border Color (Hover)",
+      "default": "#22c55e"
+    },
+    {
+      "type": "header",
+      "content": "Map Colors"
+    },
+    {
+      "type": "color",
+      "id": "map_bg_color",
+      "label": "Map Background Color",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "color",
+      "id": "map_default_color",
+      "label": "Default Country Color",
+      "default": "#e5e7eb"
+    },
+    {
+      "type": "color",
+      "id": "map_highlight_color",
+      "label": "Highlighted Country Color",
+      "default": "#22c55e"
+    },
+    {
+      "type": "color",
+      "id": "map_hover_color",
+      "label": "Country Hover Color",
+      "default": "#16a34a"
+    },
+    {
+      "type": "header",
+      "content": "Background Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section Background Color"
+    },
+    {
+      "type": "color_background",
+      "id": "section_bg_gradient",
+      "label": "Section Background Gradient"
+    },
+    {
+      "type": "color",
+      "id": "content_bg_color",
+      "label": "Content Background Color"
+    },
+    {
+      "type": "color_background",
+      "id": "content_bg_gradient",
+      "label": "Content Background Gradient"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "label": "Padding Left",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "label": "Padding Right",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Mobile Padding"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile Padding Top",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile Padding Bottom",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_left",
+      "label": "Mobile Padding Left",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_right",
+      "label": "Mobile Padding Right",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Section Margins"
+    },
+    {
+      "type": "range",
+      "id": "mg_top_desktop",
+      "label": "Top Margin (Desktop)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "mg_top_tablet",
+      "label": "Top Margin (Tablet)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mg_top_mobile",
+      "label": "Top Margin (Mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom_desktop",
+      "label": "Bottom Margin (Desktop)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom_tablet",
+      "label": "Bottom Margin (Tablet)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mg_bottom_mobile",
+      "label": "Bottom Margin (Mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Animation Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animation",
+      "label": "Enable Animations",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "animation_type",
+      "label": "Animation Type",
+      "default": "fade-in",
+      "options": [
+        {
+          "value": "fade-in",
+          "label": "Fade In"
+        },
+        {
+          "value": "slide-in",
+          "label": "Slide In"
+        },
+        {
+          "value": "slide-up",
+          "label": "Slide Up"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Custom Map Settings"
+    },
+    {
+  "type": "checkbox",
+  "id": "use_custom_map",
+  "label": "Use Custom Map",
+  "default": false,
+  "info": "Enable this to upload your own SVG map"
+},
+{
+  "type": "html",
+  "id": "custom_map_svg",
+  "label": "Custom Map SVG",
+  "info": "Paste your SVG map code here. Make sure your SVG paths have data-country attributes matching your country codes."
+},
+{
+  "type": "image_picker",
+  "id": "map_gif_image",
+  "label": "Map GIF Image (Optional)"
+}
+
+  ],
+  "blocks": [
+    {
+      "type": "country",
+      "name": "Country",
+      "settings": [
+        {
+          "type": "text",
+          "id": "country_name",
+          "label": "Country Name",
+          "default": "United States"
+        },
+        {
+          "type": "select",
+          "id": "country_code",
+          "label": "Country Code (for map highlighting)",
+          "default": "united-states",
+          "options": [
+            {
+              "value": "united-states",
+              "label": "United States"
+            },
+            {
+              "value": "canada",
+              "label": "Canada"
+            },
+            {
+              "value": "united-kingdom",
+              "label": "United Kingdom"
+            },
+            {
+              "value": "france",
+              "label": "France"
+            },
+            {
+              "value": "germany",
+              "label": "Germany"
+            },
+            {
+              "value": "spain",
+              "label": "Spain"
+            },
+            {
+              "value": "italy",
+              "label": "Italy"
+            },
+            {
+              "value": "netherlands",
+              "label": "Netherlands"
+            },
+            {
+              "value": "poland",
+              "label": "Poland"
+            },
+            {
+              "value": "turkey",
+              "label": "Turkey"
+            },
+            {
+              "value": "russia",
+              "label": "Russia"
+            },
+            {
+              "value": "china",
+              "label": "China"
+            },
+            {
+              "value": "india",
+              "label": "India"
+            },
+            {
+              "value": "pakistan",
+              "label": "Pakistan"
+            },
+            {
+              "value": "japan",
+              "label": "Japan"
+            },
+            {
+              "value": "united-arab-emirates",
+              "label": "United Arab Emirates"
+            },
+            {
+              "value": "saudi-arabia",
+              "label": "Saudi Arabia"
+            },
+            {
+              "value": "australia",
+              "label": "Australia"
+            },
+            {
+              "value": "new-zealand",
+              "label": "New Zealand"
+            },
+            {
+              "value": "indonesia",
+              "label": "Indonesia"
+            },
+            {
+              "value": "thailand",
+              "label": "Thailand"
+            },
+            {
+              "value": "malaysia",
+              "label": "Malaysia"
+            },
+            {
+              "value": "brazil",
+              "label": "Brazil"
+            },
+            {
+              "value": "south-africa",
+              "label": "South Africa"
+            },
+            {
+              "value": "egypt",
+              "label": "Egypt"
+            }
+          ]
+        },
+        {
+          "type": "url",
+          "id": "country_link",
+          "label": "Country Link (Optional)"
+        },
+        {
+          "type": "select",
+          "id": "link_target",
+          "label": "Link Target",
+          "default": "_self",
+          "options": [
+            {
+              "value": "_self",
+              "label": "Same Window"
+            },
+            {
+              "value": "_blank",
+              "label": "New Window"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "more_button",
+      "name": "More Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "30+ more"
+        },
+        {
+          "type": "url",
+          "id": "more_link",
+          "label": "More Button Link"
+        },
+        {
+          "type": "select",
+          "id": "link_target",
+          "label": "Link Target",
+          "default": "_self",
+          "options": [
+            {
+              "value": "_self",
+              "label": "Same Window"
+            },
+            {
+              "value": "_blank",
+              "label": "New Window"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Global Reach Map",
+      "settings": {
+        "section_title": "Our Global Reach",
+        "section_description": "With our strategically located offices and warehouses, you're never far away from our products and services.",
+        "mobile_padding_top": 40,
+        "mobile_padding_bottom": 40,
+        "mobile_padding_left": 20,
+        "mobile_padding_right": 20
+      },
+      "blocks": [
+        {
+          "type": "country",
+          "settings": {
+            "country_name": "United States",
+            "country_code": "united-states"
+          }
+        },
+        {
+          "type": "country",
+          "settings": {
+            "country_name": "Canada",
+            "country_code": "canada"
+          }
+        },
+        {
+          "type": "country",
+          "settings": {
+            "country_name": "United Kingdom",
+            "country_code": "united-kingdom"
+          }
+        },
+        {
+          "type": "country",
+          "settings": {
+            "country_name": "France",
+            "country_code": "france"
+          }
+        },
+        {
+          "type": "country",
+          "settings": {
+            "country_name": "Germany",
+            "country_code": "germany"
+          }
+        },
+        {
+          "type": "country",
+          "settings": {
+            "country_name": "Australia",
+            "country_code": "australia"
+          }
+        },
+        {
+          "type": "country",
+          "settings": {
+            "country_name": "India",
+            "country_code": "india"
+          }
+        },
+        {
+          "type": "more_button",
+          "settings": {
+            "button_text": "25+ more"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

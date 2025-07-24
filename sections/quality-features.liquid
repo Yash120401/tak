@@ -1,0 +1,943 @@
+{%- liquid
+  assign container = section.settings.container
+  assign section_bg_color = section.settings.background_color
+
+  # Padding settings
+  assign padding_top_desktop = section.settings.padding_top
+  assign padding_top_tablet = section.settings.padding_top_tablet
+  assign padding_top_mobile = section.settings.padding_top_mobile
+  assign padding_bottom_desktop = section.settings.padding_bottom
+  assign padding_bottom_tablet = section.settings.padding_bottom_tablet
+  assign padding_bottom_mobile = section.settings.padding_bottom_mobile
+
+  # Margin settings
+  assign margin_top_desktop = section.settings.margin_top
+  assign margin_top_tablet = section.settings.margin_top_tablet
+  assign margin_top_mobile = section.settings.margin_top_mobile
+  assign margin_bottom_desktop = section.settings.margin_bottom
+  assign margin_bottom_tablet = section.settings.margin_bottom_tablet
+  assign margin_bottom_mobile = section.settings.margin_bottom_mobile
+-%}
+
+<!-- Quality Features Banner Section -->
+<section class="quality-features-banner section-{{ section.id }}" id="section-{{ section.id }}">
+  <div class="quality-banner-container">
+    <div
+      class="quality-features-overlay"
+      style="
+        --banner-bg-color: {{ section.settings.banner_bg_color | default: '#2E5903' }};
+        --banner-bg-gradient: {% if section.settings.banner_bg_gradient != blank %}{{ section.settings.banner_bg_gradient }}{% else %}{{ section.settings.banner_bg_color | default: '#2E5903' }}{% endif %};
+        --banner-border-radius: {{ section.settings.banner_border_radius | default: 15 }}px;
+        --banner-padding: {{ section.settings.banner_padding | default: 40 }}px;
+        --banner-offset-top: {{ section.settings.banner_offset_top | default: -60 }}px;
+        --banner-max-width: {{ section.settings.banner_max_width | default: 90 }}%;
+        --pattern-opacity: {{ section.settings.pattern_opacity | default: 15 | divided_by: 100.0 }};
+      "
+    >
+      <div class="quality-banner-content">
+        {%- if section.settings.main_title != blank -%}
+          <h2 class="quality-main-title">{{ section.settings.main_title }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.subtitle != blank -%}
+          <p class="quality-subtitle">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+
+        {%- if section.blocks.size > 0 -%}
+          <div class="quality-features-grid">
+            {%- for block in section.blocks -%}
+              {%- case block.type -%}
+                {%- when 'feature_item' -%}
+                  <div class="quality-feature-item" {{ block.shopify_attributes }}>
+                    {%- if block.settings.feature_title != blank -%}
+                      <h3 class="feature-title">{{ block.settings.feature_title }}</h3>
+                    {%- endif -%}
+
+                    {%- if block.settings.feature_description != blank -%}
+                      <p class="feature-description">{{ block.settings.feature_description }}</p>
+                    {%- endif -%}
+                  </div>
+              {%- endcase -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-{{ section.id }} {
+    margin-top: {{ margin_top_desktop }}px;
+    margin-bottom: {{ margin_bottom_desktop }}px;
+    padding-top: {{ padding_top_desktop }}px;
+    padding-bottom: {{ padding_bottom_desktop }}px;
+    {% if section_bg_color != blank %}
+      background-color: {{ section_bg_color }};
+    {% endif %}
+    font-family: 'Kumbh Sans', sans-serif;
+    position: relative;
+  }
+
+  .section-{{ section.id }} .quality-banner-container {
+    {% if container == 'container' %}
+      max-width: 1200px;
+    {% elsif container == '1170' %}
+      max-width: 1170px;
+    {% elsif container == '1470' %}
+      max-width: 1470px;
+    {% elsif container == '1570' %}
+      max-width: 1570px;
+    {% elsif container == '1770' %}
+      max-width: 1770px;
+    {% elsif container == '1920' %}
+      max-width: 1920px;
+    {% elsif container == 'fullwidth' %}
+      max-width: 100%;
+    {% endif %}
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+  }
+
+  /* Main Banner Overlay - Like WhatsApp Banner */
+  .section-{{ section.id }} .quality-features-overlay {
+    position: relative;
+    top: var(--banner-offset-top);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--banner-bg-gradient);
+    border-radius: var(--banner-border-radius);
+    padding: var(--banner-padding);
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+    max-width: var(--banner-max-width);
+    width: 100%;
+    min-width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-family: 'Kumbh Sans', sans-serif;
+    overflow: hidden;
+  }
+
+  /* Background Pattern for Banner */
+  .section-{{ section.id }} .quality-features-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M26 1h-7a3 3 0 00-3 3v7a3 3 0 003 3h7a3 3 0 003-3V4a3 3 0 00-3-3zM56 1h-7a3 3 0 00-3 3v7a3 3 0 003 3h7a3 3 0 003-3V4a3 3 0 00-3-3zM11 31H4a3 3 0 00-3 3v7a3 3 0 003 3h7a3 3 0 003-3v-7a3 3 0 00-3-3zM26 31h-7a3 3 0 00-3 3v7a3 3 0 003 3h7a3 3 0 003-3v-7a3 3 0 00-3-3zM41 31h-7a3 3 0 00-3 3v7a3 3 0 003 3h7a3 3 0 003-3v-7a3 3 0 00-3-3zM11 16H4a3 3 0 00-3 3v7a3 3 0 003 3h7a3 3 0 003-3v-7a3 3 0 00-3-3zM41 16h-7a3 3 0 00-3 3v7a3 3 0 003 3h7a3 3 0 003-3v-7a3 3 0 00-3-3zM56 16h-7a3 3 0 00-3 3v7a3 3 0 003 3h7a3 3 0 003-3v-7a3 3 0 00-3-3zM26 46h-7a3 3 0 00-3 3v7a3 3 0 003 3h7a3 3 0 003-3v-7a3 3 0 00-3-3zM56 46h-7a3 3 0 00-3 3v7a3 3 0 003 3h7a3 3 0 003-3v-7a3 3 0 00-3-3z' fill='rgba(255,255,255,0.1)'/%3E%3C/svg%3E");
+    background-size: 60px 60px;
+    opacity: var(--pattern-opacity);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .section-{{ section.id }} .quality-features-overlay:hover {
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  .section-{{ section.id }} .quality-banner-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Main Title */
+  .section-{{ section.id }} .quality-main-title {
+    font-family: 'Kumbh Sans', sans-serif;
+    font-size: {{ section.settings.main_title_font_size_desktop | default: 48 }}px;
+    font-weight: {{ section.settings.main_title_font_weight | default: 700 }};
+    line-height: 1.1;
+    margin: 0 0 16px 0;
+    color: {{ section.settings.main_title_color | default: '#FFFFFF' }};
+    letter-spacing: -0.02em;
+  }
+
+  /* Subtitle */
+  .section-{{ section.id }} .quality-subtitle {
+    font-family: 'Kumbh Sans', sans-serif;
+    font-size: {{ section.settings.subtitle_font_size_desktop | default: 18 }}px;
+    font-weight: {{ section.settings.subtitle_font_weight | default: 400 }};
+    line-height: 1.4;
+    margin: 0 0 32px 0;
+    color: {{ section.settings.subtitle_color | default: 'rgba(255, 255, 255, 0.9)' }};
+  }
+
+  /* Features Grid */
+  .section-{{ section.id }} .quality-features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .section-{{ section.id }} .quality-feature-item {
+    padding: 24px 20px;
+    text-align: center;
+    position: relative;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease;
+  }
+
+  .section-{{ section.id }} .quality-feature-item:last-child {
+    border-right: none;
+  }
+
+  .section-{{ section.id }} .quality-feature-item:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Feature Title */
+  .section-{{ section.id }} .feature-title {
+    font-family: 'Kumbh Sans', sans-serif;
+    font-size: {{ section.settings.feature_title_font_size_desktop | default: 20 }}px;
+    font-weight: {{ section.settings.feature_title_font_weight | default: 600 }};
+    line-height: 1.3;
+    margin: 0 0 8px 0;
+    color: {{ section.settings.feature_title_color | default: '#FFFFFF' }};
+    letter-spacing: -0.01em;
+  }
+
+  /* Feature Description */
+  .section-{{ section.id }} .feature-description {
+    font-family: 'Kumbh Sans', sans-serif;
+    font-size: {{ section.settings.feature_description_font_size_desktop | default: 14 }}px;
+    font-weight: {{ section.settings.feature_description_font_weight | default: 400 }};
+    line-height: 1.5;
+    margin: 0;
+    color: {{ section.settings.feature_description_color | default: 'rgba(255, 255, 255, 0.8)' }};
+  }
+
+  /* Responsive Design */
+  @media screen and (max-width: 1024px) {
+    .section-{{ section.id }} {
+      margin-top: {{ margin_top_tablet }}px;
+      margin-bottom: {{ margin_bottom_tablet }}px;
+      padding-top: {{ padding_top_tablet }}px;
+      padding-bottom: {{ padding_bottom_tablet }}px;
+    }
+
+    .section-{{ section.id }} .quality-features-overlay {
+      max-width: 94%;
+      min-width: 280px;
+      padding: calc(var(--banner-padding) - 8px);
+    }
+
+    .section-{{ section.id }} .quality-main-title {
+      font-size: {{ section.settings.main_title_font_size_tablet | default: 40 }}px;
+    }
+
+    .section-{{ section.id }} .quality-subtitle {
+      font-size: {{ section.settings.subtitle_font_size_tablet | default: 16 }}px;
+      margin-bottom: 24px;
+    }
+
+    .section-{{ section.id }} .feature-title {
+      font-size: {{ section.settings.feature_title_font_size_tablet | default: 18 }}px;
+    }
+
+    .section-{{ section.id }} .feature-description {
+      font-size: {{ section.settings.feature_description_font_size_tablet | default: 13 }}px;
+    }
+
+    .section-{{ section.id }} .quality-feature-item {
+      padding: 20px 16px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .section-{{ section.id }} {
+      margin-top: {{ margin_top_mobile }}px;
+      margin-bottom: {{ margin_bottom_mobile }}px;
+      padding-top: {{ padding_top_mobile }}px;
+      padding-bottom: {{ padding_bottom_mobile }}px;
+    }
+
+    .section-{{ section.id }} .quality-features-overlay {
+      max-width: 90%;
+      min-width: 250px;
+      padding: calc(var(--banner-padding) - 12px);
+      top: calc(var(--banner-offset-top) + 10px);
+    }
+
+    .section-{{ section.id }} .quality-main-title {
+      font-size: {{ section.settings.main_title_font_size_mobile | default: 32 }}px;
+      margin-bottom: 12px;
+    }
+
+    .section-{{ section.id }} .quality-subtitle {
+      font-size: {{ section.settings.subtitle_font_size_mobile | default: 15 }}px;
+      margin-bottom: 20px;
+    }
+
+    .section-{{ section.id }} .quality-features-grid {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .section-{{ section.id }} .quality-feature-item {
+      padding: 16px 12px;
+      border-right: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .section-{{ section.id }} .quality-feature-item:last-child {
+      border-bottom: none;
+    }
+
+    .section-{{ section.id }} .feature-title {
+      font-size: {{ section.settings.feature_title_font_size_mobile | default: 16 }}px;
+    }
+
+    .section-{{ section.id }} .feature-description {
+      font-size: {{ section.settings.feature_description_font_size_mobile | default: 12 }}px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .section-{{ section.id }} .quality-banner-container {
+      padding: 0 16px;
+    }
+
+    .section-{{ section.id }} .quality-features-overlay {
+      max-width: 95%;
+      min-width: 200px;
+      padding: calc(var(--banner-padding) - 16px);
+      border-radius: calc(var(--banner-border-radius) - 2px);
+      top: calc(var(--banner-offset-top) + 8px);
+    }
+
+    .section-{{ section.id }} .quality-main-title {
+      font-size: {{ section.settings.main_title_font_size_mobile | default: 32 | minus: 4 }}px;
+    }
+
+    .section-{{ section.id }} .quality-feature-item {
+      padding: 14px 10px;
+    }
+  }
+
+  /* Ultra-small screens */
+  @media screen and (max-width: 360px) {
+    .section-{{ section.id }} .quality-features-overlay {
+      max-width: 98%;
+      min-width: 180px;
+      padding: calc(var(--banner-padding) - 18px);
+      border-radius: calc(var(--banner-border-radius) - 4px);
+    }
+
+    .section-{{ section.id }} .quality-feature-item {
+      padding: 12px 8px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .section-{{ section.id }} .quality-feature-item {
+      transition: none;
+    }
+
+    .section-{{ section.id }} .quality-feature-item:hover {
+      transform: none;
+    }
+
+    .section-{{ section.id }} .quality-features-overlay {
+      transition: none;
+    }
+
+    .section-{{ section.id }} .quality-features-overlay:hover {
+      transform: translateX(-50%);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Quality Features Banner",
+  "class": "section-quality-features-banner",
+  "tag": "section",
+  "enabled_on": {
+    "templates": ["*"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "General Settings"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container Width",
+      "default": "container",
+      "options": [
+        {
+          "value": "container",
+          "label": "Default Container"
+        },
+        {
+          "value": "1170",
+          "label": "1170px"
+        },
+        {
+          "value": "1470",
+          "label": "1470px"
+        },
+        {
+          "value": "1570",
+          "label": "1570px"
+        },
+        {
+          "value": "1770",
+          "label": "1770px"
+        },
+        {
+          "value": "1920",
+          "label": "1920px"
+        },
+        {
+          "value": "fullwidth",
+          "label": "Full Width"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Top Margin (Desktop)",
+      "min": -200,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "default": -80,
+      "info": "Use negative values to overlap with sections above"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Bottom Margin (Desktop)",
+      "min": -200,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "default": -80,
+      "info": "Use negative values to overlap with sections below"
+    },
+    {
+      "type": "range",
+      "id": "margin_top_tablet",
+      "label": "Top Margin (Tablet)",
+      "min": -150,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": -60
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_tablet",
+      "label": "Bottom Margin (Tablet)",
+      "min": -150,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": -60
+    },
+    {
+      "type": "range",
+      "id": "margin_top_mobile",
+      "label": "Top Margin (Mobile)",
+      "min": -120,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": -40
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_mobile",
+      "label": "Bottom Margin (Mobile)",
+      "min": -120,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": -40
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top Padding (Desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom Padding (Desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_top_tablet",
+      "label": "Top Padding (Tablet)",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_tablet",
+      "label": "Bottom Padding (Tablet)",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Top Padding (Mobile)",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Bottom Padding (Mobile)",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section Background Color",
+      "info": "Background color for the section container (usually transparent)"
+    },
+    {
+      "type": "header",
+      "content": "Banner Design"
+    },
+    {
+      "type": "range",
+      "id": "banner_offset_top",
+      "label": "Banner Vertical Position",
+      "min": -200,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": -60,
+      "info": "Negative values position banner higher, positive values lower"
+    },
+    {
+      "type": "range",
+      "id": "banner_max_width",
+      "label": "Banner Width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 90,
+      "info": "Maximum width of the banner relative to container"
+    },
+    {
+      "type": "color",
+      "id": "banner_bg_color",
+      "label": "Banner Background Color",
+      "default": "#2E5903"
+    },
+    {
+      "type": "color_background",
+      "id": "banner_bg_gradient",
+      "label": "Banner Background Gradient",
+      "info": "Optional gradient background (overrides solid color)"
+    },
+    {
+      "type": "range",
+      "id": "banner_border_radius",
+      "label": "Banner Border Radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "banner_padding",
+      "label": "Banner Padding",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "pattern_opacity",
+      "label": "Pattern Opacity",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "%",
+      "default": 15,
+      "info": "Opacity of the background pattern"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "main_title",
+      "label": "Main Title",
+      "default": "Quality"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Your Trusted Source For Bulk Food Ingredients"
+    },
+    {
+      "type": "header",
+      "content": "Main Title Typography"
+    },
+    {
+      "type": "range",
+      "id": "main_title_font_size_desktop",
+      "label": "Main Title Font Size (Desktop)",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "main_title_font_size_tablet",
+      "label": "Main Title Font Size (Tablet)",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "main_title_font_size_mobile",
+      "label": "Main Title Font Size (Mobile)",
+      "min": 18,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "select",
+      "id": "main_title_font_weight",
+      "label": "Main Title Font Weight",
+      "default": "700",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular (400)"
+        },
+        {
+          "value": "500",
+          "label": "Medium (500)"
+        },
+        {
+          "value": "600",
+          "label": "Semi Bold (600)"
+        },
+        {
+          "value": "700",
+          "label": "Bold (700)"
+        },
+        {
+          "value": "800",
+          "label": "Extra Bold (800)"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Subtitle Typography"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_font_size_desktop",
+      "label": "Subtitle Font Size (Desktop)",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "subtitle_font_size_tablet",
+      "label": "Subtitle Font Size (Tablet)",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "subtitle_font_size_mobile",
+      "label": "Subtitle Font Size (Mobile)",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "select",
+      "id": "subtitle_font_weight",
+      "label": "Subtitle Font Weight",
+      "default": "400",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light (300)"
+        },
+        {
+          "value": "400",
+          "label": "Regular (400)"
+        },
+        {
+          "value": "500",
+          "label": "Medium (500)"
+        },
+        {
+          "value": "600",
+          "label": "Semi Bold (600)"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Feature Typography"
+    },
+    {
+      "type": "range",
+      "id": "feature_title_font_size_desktop",
+      "label": "Feature Title Font Size (Desktop)",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "feature_title_font_size_tablet",
+      "label": "Feature Title Font Size (Tablet)",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "feature_title_font_size_mobile",
+      "label": "Feature Title Font Size (Mobile)",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "feature_title_font_weight",
+      "label": "Feature Title Font Weight",
+      "default": "600",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular (400)"
+        },
+        {
+          "value": "500",
+          "label": "Medium (500)"
+        },
+        {
+          "value": "600",
+          "label": "Semi Bold (600)"
+        },
+        {
+          "value": "700",
+          "label": "Bold (700)"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "feature_description_font_size_desktop",
+      "label": "Feature Description Font Size (Desktop)",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "feature_description_font_size_tablet",
+      "label": "Feature Description Font Size (Tablet)",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "feature_description_font_size_mobile",
+      "label": "Feature Description Font Size (Mobile)",
+      "min": 10,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "feature_description_font_weight",
+      "label": "Feature Description Font Weight",
+      "default": "400",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light (300)"
+        },
+        {
+          "value": "400",
+          "label": "Regular (400)"
+        },
+        {
+          "value": "500",
+          "label": "Medium (500)"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "main_title_color",
+      "label": "Main Title Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle Color",
+      "default": "rgba(255, 255, 255, 0.9)"
+    },
+    {
+      "type": "color",
+      "id": "feature_title_color",
+      "label": "Feature Title Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "feature_description_color",
+      "label": "Feature Description Color",
+      "default": "rgba(255, 255, 255, 0.8)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature_item",
+      "name": "Feature Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature_title",
+          "label": "Feature Title",
+          "default": "Top-Notch Quality"
+        },
+        {
+          "type": "text",
+          "id": "feature_description",
+          "label": "Feature Description",
+          "default": "BRC AA grade company"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quality Features Banner",
+      "settings": {
+        "main_title": "Quality",
+        "subtitle": "Your Trusted Source For Bulk Food Ingredients",
+        "banner_bg_color": "#2E5903",
+        "main_title_color": "#FFFFFF",
+        "subtitle_color": "rgba(255, 255, 255, 0.9)",
+        "feature_title_color": "#FFFFFF",
+        "feature_description_color": "rgba(255, 255, 255, 0.8)",
+        "banner_border_radius": 15,
+        "banner_padding": 40,
+        "banner_max_width": 90,
+        "banner_offset_top": -60,
+        "margin_top": -80,
+        "margin_bottom": -80
+      },
+      "blocks": [
+        {
+          "type": "feature_item",
+          "settings": {
+            "feature_title": "Top-Notch Quality",
+            "feature_description": "BRC AA grade company"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "feature_title": "No-Nonsense Business",
+            "feature_description": "Full traceability"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "feature_title": "24/7 Support",
+            "feature_description": "We take away the worry"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

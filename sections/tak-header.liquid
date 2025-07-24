@@ -1,0 +1,2166 @@
+{{ 'component-megamenu.css' | asset_url | stylesheet_tag: preload: true }}
+
+{%- comment -%} Import Google Fonts with Cyrillic support {%- endcomment -%}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&family=PT+Sans:wght@400;700&family=Noto+Sans:wght@300;400;500;600;700&display=swap&subset=latin,latin-ext,cyrillic"
+  rel="stylesheet"
+>
+
+<style>
+        @media screen and (min-width: 1025px) {
+            .header-navigation-wrapper {
+                padding: 15px 20px 0;
+                transition: all 0.3s ease;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+                pointer-events: none;
+            }
+
+            .header-nav-utility {
+                {%- if section.settings.header_navigation_bg_gradient != 'rgba(0,0,0,0)' and section.settings.header_navigation_bg_gradient != blank -%}
+                     background: {{ section.settings.header_navigation_bg_gradient }}
+                {%- else -%}
+                    {%- if section.settings.header_navigation_bg != 'rgba(0,0,0,0)' and section.settings.header_navigation_bg != blank -%}
+                       background: {{ section.settings.header_navigation_bg }}
+                    {%- endif -%}
+                {%- endif -%}
+                border-radius: 16px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+                margin: 0 auto;
+                background: #fff;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                pointer-events: all;
+            }
+            {%- if section.settings.header_navigation_bg_gradient == 'rgba(0,0,0,0)' or section.settings.header_navigation_bg_gradient == blank -%}
+                {%- if section.settings.header_navigation_bg == '#ffffff' -%}
+                    .scrolled-past-header .header-nav-utility {box-shadow: 0 12px 40px rgba(30, 30, 30, 0.15)}
+                {%- endif -%}
+            {%- endif -%}
+
+            /* MEGA MENU STYLES - Exact Match to Your Design */
+            .header__inline-menu .list-menu--inline > li {
+                position: relative;
+                display: flex;
+                padding: 15px 0px;
+            }
+          /* Regular dropdown submenu styles */
+  .header__inline-menu .list-menu--inline > li .sub-menu {
+    position: absolute;
+    top: 49px;
+    left: 0;
+    background: #fff;
+    min-width: 200px;
+    padding: 10px 0;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 999;
+  }
+
+  .header__inline-menu .list-menu--inline > li:hover .sub-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .sub-menu li {
+    position: relative;
+  }
+
+  .sub-menu li a {
+    display: block;
+    padding: 10px 20px;
+    color: #222;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  .sub-menu li a:hover {
+    background-color: #f5f5f5;
+    color: #009D03;
+  }
+
+  /* Support for third-level submenus */
+  .sub-sub-menu {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    background: #fff;
+    min-width: 200px;
+    padding: 10px 0;
+    border-radius: 0 10px 10px 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+  }
+
+  .sub-menu li:hover > .sub-sub-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+
+            .products-mega-menu {
+              position: absolute;
+              top: 49px;
+              left: -400px;
+              right: 0;
+              background: #fff;
+              border-radius: 0 0 20px 20px;
+              box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15);
+              opacity: 0;
+              visibility: hidden;
+              transform: translateY(-10px);
+              transition: all 0.3s ease;
+              z-index: 1000;
+              border-bottom-left-radius: 25px;
+              max-width: 100%;
+            }
+
+            .products-mega-menu.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            .mega-menu-content {
+                background: linear-gradient(135deg, #009D03 0%, #8fbc4a 100%);
+                display: flex;
+                min-height: 450px;
+                width: 1100px;
+                border-bottom-left-radius: 25px;
+            }
+
+            .mega-menu-left-content {
+                flex: 1;
+                padding: 10px;
+                background: linear-gradient(135deg, #009D03 0%, #8fbc4a 100%);
+              border-bottom-left-radius: 25px !important;
+            }
+
+            .mega-menu-heading {
+                color: rgba(255, 255, 255, 0.9);
+                font-size: 26px;
+                font-weight: 300;
+                margin: 0 0 30px 0;
+                border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+                padding-bottom: 15px;
+                padding-top: 15px;
+            }
+
+            .mega-menu-categories {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+
+            .mega-menu-category {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                text-decoration: none;
+                color: #fff;
+                transition: all 0.3s ease;
+                padding: 8px;
+                border-radius: 8px;
+            }
+
+            .mega-menu-category:hover {
+                background: rgba(255, 255, 255, 0.1);
+                transform: translateX(5px);
+            }
+
+            .mega-menu-image {
+          flex-shrink: 0;
+          width: 45px;
+          height: 45px;
+          border-radius: 8px;
+          overflow: hidden;
+          margin-top: 2px;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          background: rgba(255, 255, 255, 0.1);
+      }
+
+      .mega-menu-image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 6px;
+      }
+
+            .mega-menu-category-info {
+                flex: 1;
+            }
+
+            .mega-menu-category-title {
+                font-size: 16px;
+                font-weight: 700;
+                color: #fff;
+                margin: 0 0 6px 0;
+                line-height: 1.2;
+            }
+
+            .mega-menu-category-desc {
+                font-size: 13px;
+                color: rgba(255, 255, 255, 0.8);
+                margin: 0;
+                line-height: 1.4;
+                font-weight: 400;
+            }
+
+            .mega-menu-sidebar {
+                width: 350px;
+                background: #fff;
+                padding: 40px 30px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                position: relative;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .mega-menu-brand-image {
+                width: 100%;
+                max-width: 280px;
+                height: 200px;
+                object-fit: cover;
+                border-radius: 12px;
+                margin-bottom: 25px;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            }
+
+            .mega-menu-brand-title {
+                font-size: 26px;
+                font-weight: 700;
+                color: #2c2c2c;
+                margin: 0 0 8px 0;
+                line-height: 1.2;
+            }
+
+            .mega-menu-brand-subtitle {
+                font-size: 14px;
+                color: #666;
+                margin: 0 0 8px 0;
+                font-weight: 500;
+            }
+
+            .mega-menu-brand-btn {
+                background: linear-gradient(135deg, #6b8e23 0%, #8fbc4a 100%);
+                color: #fff;
+                padding: 14px 28px;
+                border-radius: 25px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 14px;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                transition: all 0.3s ease;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                box-shadow: 0 4px 15px rgba(107, 142, 35, 0.3);
+                margin-top: 15px;
+            }
+
+            .mega-menu-brand-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(107, 142, 35, 0.4);
+            }
+
+            .mega-menu-brand-btn svg {
+                width: 16px;
+                height: 16px;
+                fill: currentColor;
+            }
+
+            /* Show mega menu on hover */
+            .header__inline-menu .list-menu--inline > li:hover .products-mega-menu {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            /* Sticky Header Animations */
+            .shopify-section-header-sticky {
+                position: fixed !important;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+                transform: translateY(0);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .shopify-section-header-sticky .header-navigation-wrapper {
+                padding: 8px 20px;
+                position: relative;
+            }
+
+            .shopify-section-header-sticky .header-nav-utility {
+                background: #fff;
+            }
+
+            .shopify-section-header-hidden {
+                transform: translateY(-100%) !important;
+            }
+
+            .shopify-section-header-show {
+                transform: translateY(0) !important;
+            }
+
+            .shopify-section-header-sticky.animate {
+                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            /* Reset body padding - content should flow underneath header */
+            body {
+                padding-top: 0 !important;
+            }
+
+            .main-content,
+            main,
+            #MainContent {
+                padding-top: 0 !important;
+                margin-top: 0 !important;
+            }
+            {%- if section.settings.container == 'fullwidth' -%}
+                .header-nav-utility > .container-full {padding-left: {{ section.settings.padding_full_width | plus: 20 | append: 'px' }};padding-right: {{ section.settings.padding_full_width | plus: 20 | append: 'px' }}}
+            {%- endif -%}
+
+            .header-nav-utility .container {
+                padding: 0px;
+            }
+            .header-nav-utility .main-menu .container{width:100%}.header-nav-utility .header-icons{gap:18px}.header-nav-utility .header__icon--account .customer-links{font-size:var(--text_font_size);font-weight:var(--font-weight-medium);color:var(--header_icons_color);margin-top:1px}.header-nav-utility .header__icon--account:hover .customer-links{color:var(--header_icons_color_hover)}.header-nav-utility .header__search .icon-search{margin:2px auto 0}.header-nav-utility .header__icon--cart .cart-count-bubble{margin-left:6px}.header-nav-utility .header-icons .link-effect>span:after{background:var(--header_icons_color_hover)}.header-nav-utility .header-icons .link-effect:hover>span:after{background:var(--header_icons_color_hover)}.header-nav-utility .currency-dropdown .dropdown-label{display:inline-block;margin-top:1px}.header-nav-utility .top-language-currency .dropdown-label .text{font-size:var(--text_font_size);margin-left:5px;vertical-align:middle}.header-nav-utility .halo-top-language .disclosure__button>.icon{width:30px;height:22px;position:relative;margin-top:1px}.header-nav-utility .halo-top-language .disclosure__button>.icon svg{width:30px;height:22px}.header-nav-utility .enable-currency .halo-top-language .text+svg,.header-nav-utility .halo-top-currency .dropdown-label .icon,.header-nav-utility .halo-top-language .disclosure__button .text-language,.header-nav-utility .halo-top-language .disclosure__button .text-language+svg{display:none}.sticky-search-menu-open .header-nav-utility .search-modal__form{background-color:var(--bg-white);border-bottom:1px solid #e8e8e8;max-width:100%;border-radius: 0}.sticky-search-menu-open .header-nav-utility .search-modal__content{background-color:var(--bg-white);padding:20px 0}.sticky-search-menu-open .header-nav-utility .search__input{padding:7px 10px 7px 0}.sticky-search-menu-open .header-nav-utility .header-search-close svg,.sticky-search-menu-open .header-nav-utility .search__button svg{width:20px;height:20px;fill:var(--text-color)}.sticky-search-menu-open .header-nav-utility .quickSearchResultsWrap{right:0;left:0;top:calc(100% + 1px);width:100%;box-shadow:none}.sticky-search-menu-open .header-nav-utility .quickSearchResults .container{padding-left:15px;padding-right:15px}.sticky-search-menu-open .header-nav-utility details>.search-modal{padding:0 0 10vh;background:rgba(35,35,35,.8);animation:animateMenuOpen var(--duration-default) ease}.sticky-search-menu-open .header-nav-utility .header-search-close{height:36px}.header-nav-utility .header-item--side {min-width: 200px}.header-nav-utility .header-item:first-child {justify-content: flex-start}.header-nav-utility .header-item:nth-child(2){justify-content: center}.header-nav-utility .header-item:nth-child(3) {justify-content: flex-end}
+                .header-nav-utility .header__icon--wishlist .wishlist-count-bubble{top: -7px;right: -9px;min-width: 19px;min-height: 18px;line-height: 18px;font-size: var(--cart_count_bubble_font_size);background-color: var(--wishlist-bg-item);color: var(--wishlist-color-item);}
+            {%- if settings.enable_layout_rtl -%}
+                .layout_rtl .header-nav-utility .header__icon--cart .cart-count-bubble {margin-left: 0;margin-right: 6px}.layout_rtl .header-nav-utility .customer-links {margin-right: 0}
+            {%- endif -%}
+
+            /* App Widget Styles */
+            .header-app-widget {
+                display: inline-block;
+                margin: 0 8px;
+                vertical-align: middle;
+            }
+
+            .header-app-widget .app-embed {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            /* Translation App Compatibility Styles */
+            .header-nav-utility .translation-app-container {
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            /* Weglot Compatibility */
+            .header-nav-utility .weglot-container,
+            .header-nav-utility .wg-element {
+                display: inline-block !important;
+                vertical-align: middle;
+                font-family: 'Roboto', 'PT Sans', 'Noto Sans', sans-serif !important;
+            }
+
+            .header-nav-utility .weglot-dropdown {
+                position: relative !important;
+                z-index: 1000 !important;
+            }
+
+            .header-nav-utility .weglot-dropdown .weglot-dropdown-content {
+                background: white !important;
+                border: 1px solid #e0e0e0 !important;
+                border-radius: 6px !important;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+                font-family: 'Roboto', 'PT Sans', 'Noto Sans', sans-serif !important;
+            }
+
+            /* Langify Compatibility */
+            .header-nav-utility .langify-language-picker,
+            .header-nav-utility .langify-select {
+                display: inline-block !important;
+                vertical-align: middle;
+                font-size: var(--text_font_size) !important;
+                color: var(--header_icons_color) !important;
+                font-family: 'Roboto', 'PT Sans', 'Noto Sans', sans-serif !important;
+            }
+
+            .header-nav-utility .langify-language-picker:hover {
+                color: var(--header_icons_color_hover) !important;
+            }
+
+            /* GTranslate App Compatibility */
+            .header-nav-utility .gtranslate {
+                display: inline-block !important;
+                vertical-align: middle;
+            }
+
+            .header-nav-utility .gtranslate .gt_selector {
+                background: white !important;
+                border: 1px solid #e0e0e0 !important;
+                border-radius: 6px !important;
+                font-size: var(--text_font_size) !important;
+                color: var(--header_icons_color) !important;
+                font-family: 'Roboto', 'PT Sans', 'Noto Sans', sans-serif !important;
+            }
+
+            /* ConveyThis Compatibility */
+            .header-nav-utility .conveythis-widget {
+                display: inline-block !important;
+                vertical-align: middle;
+                font-family: 'Roboto', 'PT Sans', 'Noto Sans', sans-serif !important;
+            }
+
+            /* General Translation App Styles */
+            .header-nav-utility .translation-widget,
+            .header-nav-utility .language-switcher,
+            .header-nav-utility .locale-selector {
+                display: inline-block !important;
+                vertical-align: middle;
+                font-size: var(--text_font_size) !important;
+                color: var(--header_icons_color) !important;
+                font-family: 'Roboto', 'PT Sans', 'Noto Sans', sans-serif !important;
+            }
+
+            .header-nav-utility .translation-widget:hover,
+            .header-nav-utility .language-switcher:hover,
+            .header-nav-utility .locale-selector:hover {
+                color: var(--header_icons_color_hover) !important;
+            }
+
+            /* Hide default Google Translate styles */
+            .header-nav-utility .goog-te-gadget {
+                font-family: 'Roboto', 'PT Sans', 'Noto Sans', sans-serif !important;
+                font-size: var(--text_font_size) !important;
+            }
+
+            .header-nav-utility .goog-te-combo {
+                border: 1px solid #e0e0e0 !important;
+                border-radius: 6px !important;
+                padding: 6px 12px !important;
+                background: white !important;
+                color: var(--header_icons_color) !important;
+                font-size: var(--text_font_size) !important;
+                font-family: 'Roboto', 'PT Sans', 'Noto Sans', sans-serif !important;
+            }
+
+            /* WhatsApp Icon Styles */
+            .header-nav-utility .header__icon--whatsapp {
+                color: var(--header_icons_color);
+                transition: color 0.3s ease;
+            }
+            .header-nav-utility .header__icon--whatsapp:hover svg{
+                fill: #25D366;
+            }
+            .header-nav-utility .header__icon--whatsapp svg {
+                width: 26px;
+                height: 26px;
+                fill: currentColor;
+                stroke: none;
+            }
+
+            /* Enhanced Typography Styles - Updated with Multilingual Support */
+            .header__inline-menu {
+                /* Main Menu Level 1 Typography with Cyrillic support */
+                --menu-lv1-font-family: 'Kumbh Sans', 'Roboto', 'PT Sans', 'Noto Sans', sans-serif;
+                --menu-lv1-font-size: var(--menu_lv1_font_size, 16px);
+                --menu-lv1-font-weight: var(--menu_lv1_font_weight, 600);
+                --menu-lv1-text-transform: var(--menu_lv1_text_transform, uppercase);
+                --menu-lv1-letter-spacing: var(--menu_lv1_letter_spacing, 0);
+                --menu-lv1-line-height: var(--menu_lv1_line_height, 1.4);
+
+                /* Dropdown Level 2 Typography with Cyrillic support */
+                --menu-lv2-font-family: 'Kumbh Sans', 'Roboto', 'PT Sans', 'Noto Sans', sans-serif;
+                --menu-lv2-font-size: var(--dropdown_lv2_font_size, 15px);
+                --menu-lv2-font-weight: var(--dropdown_lv2_font_weight, 600);
+                --menu-lv2-text-transform: var(--dropdown_lv2_text_transform, uppercase);
+                --menu-lv2-letter-spacing: var(--dropdown_lv2_letter_spacing, 0);
+                --menu-lv2-line-height: var(--dropdown_lv2_line_height, 1.4);
+
+                /* Dropdown Level 3 Typography with Cyrillic support */
+                --menu-lv3-font-family: 'Kumbh Sans', 'Roboto', 'PT Sans', 'Noto Sans', sans-serif;
+                --menu-lv3-font-size: var(--dropdown_lv3_font_size, 14px);
+                --menu-lv3-font-weight: var(--dropdown_lv3_font_weight, 600);
+                --menu-lv3-text-transform: var(--dropdown_lv3_text_transform, uppercase);
+                --menu-lv3-letter-spacing: var(--dropdown_lv3_letter_spacing, 0);
+                --menu-lv3-line-height: var(--dropdown_lv3_line_height, 1.4);
+            }
+
+            /* Apply typography to menu levels */
+            .header__inline-menu .list-menu--inline > li > a {
+                font-family: var(--menu-lv1-font-family);
+                font-size: var(--menu-lv1-font-size);
+                font-weight: var(--menu-lv1-font-weight);
+                text-transform: var(--menu-lv1-text-transform);
+                letter-spacing: var(--menu-lv1-letter-spacing);
+                line-height: var(--menu-lv1-line-height);
+            }
+
+            /* Level 2 Dropdown Items */
+            .header__inline-menu .mega-menu .list-menu li > a,
+            .header__inline-menu .list-menu .list-menu > li > a {
+                font-family: var(--menu-lv2-font-family);
+                font-size: var(--menu-lv2-font-size);
+                font-weight: var(--menu-lv2-font-weight);
+                text-transform: var(--menu-lv2-text-transform);
+                letter-spacing: var(--menu-lv2-letter-spacing);
+                line-height: var(--menu-lv2-line-height);
+            }
+
+            /* Level 3 Dropdown Items */
+            .header__inline-menu .mega-menu .list-menu .list-menu li > a,
+            .header__inline-menu .list-menu .list-menu .list-menu > li > a {
+                font-family: var(--menu-lv3-font-family);
+                font-size: var(--menu-lv3-font-size);
+                font-weight: var(--menu-lv3-font-weight);
+                text-transform: var(--menu-lv3-text-transform);
+                letter-spacing: var(--menu-lv3-letter-spacing);
+                line-height: var(--menu-lv3-line-height);
+            }
+
+            /* Mega Menu Typography */
+            .header__inline-menu .mega-menu h3,
+            .header__inline-menu .mega-menu .mega-menu__title {
+                font-family: var(--menu-lv2-font-family);
+                font-size: var(--menu-lv2-font-size);
+                font-weight: var(--menu-lv2-font-weight);
+                text-transform: var(--menu-lv2-text-transform);
+                letter-spacing: var(--menu-lv2-letter-spacing);
+                line-height: var(--menu-lv2-line-height);
+            }
+
+            .header__inline-menu .mega-menu .mega-menu__link {
+                font-family: var(--menu-lv3-font-family);
+                font-size: var(--menu-lv3-font-size);
+                font-weight: var(--menu-lv3-font-weight);
+                text-transform: var(--menu-lv3-text-transform);
+                letter-spacing: var(--menu-lv3-letter-spacing);
+                line-height: var(--menu-lv3-line-height);
+            }
+
+            /* Dropdown Background and Spacing */
+            .header__inline-menu .mega-menu,
+            .header__inline-menu .dropdown-menu {
+                font-family: 'Kumbh Sans', 'Roboto', 'PT Sans', 'Noto Sans', sans-serif;
+            }
+
+            /* Language-specific font handling for better Cyrillic support */
+            .header__inline-menu [lang="ru"],
+            .header__inline-menu .lang-ru,
+            .header-nav-utility [lang="ru"],
+            .header-nav-utility .russian-text,
+            body[data-language="ru"] .header__inline-menu,
+            html[lang="ru"] .header__inline-menu {
+                font-family: 'Roboto', 'PT Sans', 'Noto Sans', 'Arial', sans-serif !important;
+            }
+
+            .header__inline-menu [lang="tr"],
+            .header__inline-menu .lang-tr,
+            .header-nav-utility [lang="tr"],
+            body[data-language="tr"] .header__inline-menu,
+            html[lang="tr"] .header__inline-menu {
+                font-family: 'Kumbh Sans', 'Roboto', 'Noto Sans', sans-serif !important;
+            }
+
+            /* Force font for all translation app elements */
+            .header-nav-utility .weglot-flags span,
+            .header-nav-utility .weglot-dropdown a,
+            .header-nav-utility .langify-select option,
+            .header-nav-utility .gtranslate option,
+            .header-nav-utility .conveythis-widget a,
+            .header-nav-utility .translation-widget a {
+                font-family: 'Roboto', 'PT Sans', 'Noto Sans', sans-serif !important;
+                -webkit-font-feature-settings: "kern" 1;
+                font-feature-settings: "kern" 1;
+                text-rendering: optimizeLegibility;
+            }
+
+            /* NEW CSS RULES - Show Language Names Instead of Flags */
+
+            /* Hide flags and show text for Weglot */
+            .header-nav-utility .weglot-flags img,
+            .header-nav-utility .weglot-flags .weglot-flag,
+            .header-nav-utility .weglot-container img,
+            .header-nav-utility .wg-element img {
+                display: none !important;
+            }
+
+            .header-nav-utility .weglot-flags span,
+            .header-nav-utility .weglot-flags .weglot-lang,
+            .header-nav-utility .weglot-dropdown a span {
+                display: inline-block !important;
+                font-family: 'Roboto', 'PT Sans', 'Noto Sans', sans-serif !important;
+                font-size: var(--text_font_size) !important;
+                color: var(--header_icons_color) !important;
+            }
+
+            /* Hide flags and show text for Langify */
+            .header-nav-utility .langify-language-picker img,
+            .header-nav-utility .langify-select img,
+            .header-nav-utility .langify-flag {
+                display: none !important;
+            }
+
+            .header-nav-utility .langify-language-picker span,
+            .header-nav-utility .langify-select span,
+            .header-nav-utility .langify-language-name {
+                display: inline-block !important;
+                font-family: 'Roboto', 'PT Sans', 'Noto Sans', sans-serif !important;
+                font-size: var(--text_font_size) !important;
+                color: var(--header_icons_color) !important;
+            }
+
+            /* Hide flags and show text for GTranslate */
+            .header-nav-utility .gtranslate img,
+            .header-nav-utility .gt_selector img,
+            .header-nav-utility .gt_flag {
+                display: none !important;
+            }
+
+            .header-nav-utility .gtranslate .gt_selector,
+            .header-nav-utility .gtranslate option {
+                background-image: none !important;
+                padding-left: 8px !important;
+                font-family: 'Roboto', 'PT Sans', 'Noto Sans', sans-serif !important;
+                font-size: var(--text_font_size) !important;
+                color: var(--header_icons_color) !important;
+            }
+
+            /* Hide flags and show text for ConveyThis */
+            .header-nav-utility .conveythis-widget img,
+            .header-nav-utility .conveythis-flag {
+                display: none !important;
+            }
+
+            .header-nav-utility .conveythis-widget span,
+            .header-nav-utility .conveythis-language-name {
+                display: inline-block !important;
+                font-family: 'Roboto', 'PT Sans', 'Noto Sans', sans-serif !important;
+                font-size: var(--text_font_size) !important;
+                color: var(--header_icons_color) !important;
+            }
+
+            /* Hide flags for Google Translate */
+            .header-nav-utility .goog-te-gadget img,
+            .header-nav-utility .goog-te-combo img {
+                display: none !important;
+            }
+
+            /* General flag hiding for any translation app */
+            .header-nav-utility .translation-widget img,
+            .header-nav-utility .language-switcher img,
+            .header-nav-utility .locale-selector img,
+            .header-nav-utility [class*="flag"],
+            .header-nav-utility [class*="Flag"] {
+                display: none !important;
+            }
+
+            /* Ensure language text is visible */
+            .header-nav-utility .translation-widget span,
+            .header-nav-utility .language-switcher span,
+            .header-nav-utility .locale-selector span,
+            .header-nav-utility [class*="lang"],
+            .header-nav-utility [class*="Lang"],
+            .header-nav-utility [class*="language"],
+            .header-nav-utility [class*="Language"] {
+                display: inline-block !important;
+                font-family: 'Roboto', 'PT Sans', 'Noto Sans', sans-serif !important;
+                font-size: var(--text_font_size) !important;
+                color: var(--header_icons_color) !important;
+                font-weight: 500 !important;
+            }
+
+            /* Hover effects for language text */
+            .header-nav-utility .translation-widget:hover span,
+            .header-nav-utility .language-switcher:hover span,
+            .header-nav-utility .locale-selector:hover span,
+            .header-nav-utility .weglot-flags:hover span,
+            .header-nav-utility .langify-language-picker:hover span {
+                color: var(--header_icons_color_hover) !important;
+            }
+
+            /* Specific styling for popular translation apps */
+
+            /* Weglot - Show language names */
+            .header-nav-utility .weglot-container .weglot-flags {
+                font-size: var(--text_font_size) !important;
+            }
+
+            .header-nav-utility .weglot-container .weglot-flags > a {
+                display: inline-flex !important;
+                align-items: center !important;
+                gap: 4px !important;
+            }
+
+            /* Langify - Show language names */
+            .header-nav-utility .langify-language-picker {
+                font-size: var(--text_font_size) !important;
+                font-weight: 500 !important;
+            }
+
+            /* Additional styling for dropdowns */
+            .header-nav-utility .translation-dropdown,
+            .header-nav-utility .language-dropdown {
+                min-width: 120px !important;
+            }
+
+            .header-nav-utility .translation-dropdown a,
+            .header-nav-utility .language-dropdown a {
+                padding: 8px 12px !important;
+                font-size: var(--text_font_size) !important;
+                color: var(--header_icons_color) !important;
+                text-decoration: none !important;
+            }
+
+            .header-nav-utility .translation-dropdown a:hover,
+            .header-nav-utility .language-dropdown a:hover {
+                color: var(--header_icons_color_hover) !important;
+                background-color: rgba(0, 0, 0, 0.05) !important;
+            }
+        }
+
+        @media screen and (max-width: 1024px) {
+        /* Hide mega menu completely on mobile */
+        .products-mega-menu {
+            display: none !important;
+        }
+
+        /* Ensure mobile menu items are visible */
+        .header__inline-menu .list-menu--inline {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 10px !important;
+        }
+
+        .header__inline-menu .list-menu--inline > li {
+            display: block !important;
+            width: 100% !important;
+        }
+
+        .header__inline-menu .list-menu--inline > li > a {
+            display: block !important;
+            padding: 12px 15px !important;
+            color: #333 !important;
+            text-decoration: none !important;
+            font-size: 16px !important;
+            font-weight: 500 !important;
+            border-bottom: 1px solid #eee !important;
+        }
+
+        /* Mobile dropdown styling */
+        .header__inline-menu .list-menu {
+            display: none;
+            position: static !important;
+            background: #f8f8f8 !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            box-shadow: none !important;
+            border: none !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+        }
+
+        .header__inline-menu .list-menu--inline > li.has-submenu:hover .list-menu,
+        .header__inline-menu .list-menu--inline > li.active .list-menu {
+            display: block !important;
+        }
+
+        .header__inline-menu .list-menu li {
+            display: block !important;
+            width: 100% !important;
+        }
+
+        .header__inline-menu .list-menu li a {
+            display: block !important;
+            padding: 10px 25px !important;
+            color: #666 !important;
+            font-size: 14px !important;
+            border-bottom: 1px solid #eee !important;
+        }
+
+        .header__inline-menu .list-menu li a:hover {
+            background: #e9e9e9 !important;
+            color: #009D03 !important;
+        }
+    }
+
+        /* Hide Google Translate banner globally */
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
+        }
+        body {
+            top: 0px !important;
+        }
+        .goog-te-balloon-frame {
+            display: none !important;
+        }
+        .goog-tooltip {
+            display: none !important;
+        }
+        .goog-tooltip:hover {
+            display: none !important;
+        }
+        .goog-text-highlight {
+            background-color: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        /* App Widget Responsive Display */
+        @media screen and (max-width: 768px) {
+            .header-app-widget.desktop-only {
+                display: none !important;
+            }
+        }
+
+        @media screen and (min-width: 769px) {
+            .header-app-widget.mobile-only {
+                display: none !important;
+            }
+        }
+
+        /* Additional Cyrillic font support for all translation apps */
+        .weglot-flags,
+        .langify-language-picker,
+        .gtranslate,
+        .conveythis-widget,
+        .translation-widget,
+        .language-switcher,
+        .locale-selector {
+            font-family: 'Roboto', 'PT Sans', 'Noto Sans', 'Arial', sans-serif !important;
+            font-display: swap;
+        }
+
+        /* Ensure proper character rendering for Cyrillic */
+        [lang="ru"] *,
+        .lang-ru *,
+        .russian-text * {
+            font-family: 'Roboto', 'PT Sans', 'Noto Sans', 'Arial', sans-serif !important;
+            unicode-bidi: embed;
+            direction: ltr;
+        }
+</style>
+
+{%- if section.settings.sticky_header_type != 'none' -%}
+  <sticky-header
+    data-sticky-type="{{ section.settings.sticky_header_type }}"
+    class="header-navigation-wrapper desktop-only"
+    {% if settings.enable_following_cursor and settings.following_cursor_style == 'default' %}
+      no-effect-cursor
+    {% endif %}
+  >
+{%- else -%}
+  <div
+    class="header-navigation-wrapper"
+    {% if settings.enable_following_cursor and settings.following_cursor_style == 'default' %}
+      no-effect-cursor
+    {% endif %}
+  >
+{%- endif -%}
+<div class="header-navigation header-nav-utility container container-{{ section.settings.container }}">
+  <div class="container container-{{ section.settings.container }} d-flex flex-jc-between flex-align-center p-static o-unset{% if section.settings.sticky_header_width == 'full' %} sticky-container-full{% endif %}">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'logo' -%}
+          <div
+            class="header-logo header-item header-item--side d-flex flex-align-center fs-0 fg-0{% if block.settings.logo_position == 'main_menu'%} show-main-menu{% elsif block.settings.logo_position == 'sticky_menu'%} hide-main-menu{% else %}{% endif %}"
+            style="--logo_font_size: {{block.settings.logo_font_size | append: 'px'}};--logo_font_weight: {{block.settings.logo_font_weight}};--logo_text_transform: {{block.settings.logo_text_transform}};--logo_text_color: {{block.settings.logo_color}};--logo_width: {{block.settings.logo_width | append: 'px'}};--logo_width_sticky: {{block.settings.logo_width_fixed | append: '%'}}"
+          >
+            {%- if request.page_type == 'index' -%}
+              <h1 class="header__heading">
+            {%- else -%}
+              <div class="header__heading">
+            {%- endif -%}
+            <a href="{{ routes.root_url }}" class="header__heading-link focus-inset">
+              {%- if block.settings.logo != blank -%}
+                {%- assign logo = block.settings.logo -%}
+                {%- assign logo_width = block.settings.logo_width -%}
+                {%- assign logo_width_img = logo_width | append: 'x' -%}
+                {%- assign logo_width_retina = logo_width | times: 2 | append: 'x' -%}
+                {%- assign logo_height = logo_width | divided_by: logo.aspect_ratio | round -%}
+                <img
+                  srcset="{{ logo | img_url: logo_width_img }}, {{ logo | img_url: logo_width_retina }} 2x"
+                  src="{{ logo | img_url: logo_width_img }}"
+                  loading="lazy"
+                  class="header__heading-logo w-100 h-auto ver-alg-mid d-inline-block"
+                  alt="{{ logo.alt | default: shop.name | escape }}"
+                  width="{{ logo_width }}"
+                  height="{{ logo_height }}"
+                >
+              {%- elsif block.settings.logo_text != blank -%}
+                <span class="header__heading-text {{ block.settings.logo_text_transform }} d-block">
+                  {{- block.settings.logo_text -}}
+                </span>
+              {%- else -%}
+                <span class="header__heading-text {{ block.settings.logo_text_transform }} d-block">
+                  {{- shop.name -}}
+                </span>
+              {%- endif -%}
+            </a>
+            {%- if request.page_type == 'index' -%}
+              </h1>
+            {%- else -%}
+              </div>
+            {%- endif -%}
+          </div>
+
+        {%- when 'mega_menu_products' -%}
+          {%- comment -%} This block is handled within the main_menu rendering {%- endcomment -%}
+
+        {%- when 'main_menu' -%}
+          <div class="main-menu header-item p-static w-100{% if block.settings.label_position == 'none' %} label-none{% elsif block.settings.label_position == 'main_menu' %} label-main-menu{% if block.settings.new_label_1 != blank or block.settings.sale_label_1 != blank or block.settings.hot_label_1 != blank%} main-menu-hasLabel{% endif %}{% else %}{% endif %}{% if block.settings.menu_top_spacing <= 16 %} label-small{% endif %}">
+            <div class="p-static container container-{{ section.settings.container }} o-unset">
+              <div class="main-menu--wrapper" id="HeaderNavigation">
+                {%- if block.settings.menu != blank -%}
+                  <nav
+                    class="header__inline-menu"
+                    data-navigation
+                    role="navigation"
+                    style="--lv_1_color: {{ block.settings.lv_1_color }}; --lv_1_color_hover: {{ block.settings.lv_1_color_hover }};--lv_2_color: {{ block.settings.lv_2_color }};--lv_2_color_hover: {{ block.settings.lv_2_color_hover }};--lv_3_color: {{ block.settings.lv_3_color }};--lv_3_color_hover: {{ block.settings.lv_3_color_hover }};--menu_margin_left: -{{block.settings.grid_gap_menu_item | append: 'px'}};--menu_top_spacing: {{block.settings.menu_top_spacing | append: 'px'}};--menu_top_spacing_sticky: {% if block.settings.menu_top_spacing >= 19 %} -19px{% else %}-{{block.settings.menu_top_spacing | plus: 1 | append: 'px'}}{% endif %};--menu_bottom_spacing: {{block.settings.menu_bottom_spacing | append: 'px'}};--grid_gap_menu_item: {{block.settings.grid_gap_menu_item | append: 'px'}};--bg_mega_menu: {% if block.settings.bg_mega_menu_gradient != blank %}{{ block.settings.bg_mega_menu_gradient }}{% else %}{{ block.settings.bg_mega_menu }}{% endif %};--sale_item_color: {{block.settings.sale_item_color}};--new_label_color: {{ block.settings.new_label_color }};--new_label_border: {{ block.settings.new_label_bg }};--new_label_bg: {% if block.settings.new_label_bg_gradient != blank %}{{ block.settings.new_label_bg_gradient }}{% else %}{{ block.settings.new_label_bg }}{% endif %};--sale_label_color: {{ block.settings.sale_label_color }};--sale_label_border: {{ block.settings.sale_label_bg }};--sale_label_bg: {% if block.settings.sale_label_bg_gradient != blank %}{{ block.settings.sale_label_bg_gradient }}{% else %}{{ block.settings.sale_label_bg }}{% endif %};--hot_label_color: {{ block.settings.hot_label_color }};--hot_label_border: {{ block.settings.hot_label_bg }};--hot_label_bg: {% if block.settings.hot_label_bg_gradient != blank %}{{ block.settings.hot_label_bg_gradient }}{% else %}{{ block.settings.hot_label_bg }}{% endif %};--menu_lv1_font_size: {{ block.settings.menu_lv1_font_size | default: 16 | append: 'px' }};--menu_lv1_font_weight: {{ block.settings.menu_lv1_font_weight | default: 600 }};--menu_lv1_text_transform: {{ block.settings.menu_lv1_text_transform | default: 'uppercase' }};--menu_lv1_letter_spacing: {{ block.settings.menu_lv1_letter_spacing | default: 0 | append: 'px' }};--menu_lv1_line_height: {{ block.settings.menu_lv1_line_height | default: 1.4 }};--dropdown_lv2_font_size: {{ block.settings.dropdown_lv2_font_size | default: 15 | append: 'px' }};--dropdown_lv2_font_weight: {{ block.settings.dropdown_lv2_font_weight | default: 600 }};--dropdown_lv2_text_transform: {{ block.settings.dropdown_lv2_text_transform | default: 'uppercase' }};--dropdown_lv2_letter_spacing: {{ block.settings.dropdown_lv2_letter_spacing | default: 0 | append: 'px' }};--dropdown_lv2_line_height: {{ block.settings.dropdown_lv2_line_height | default: 1.4 }};--dropdown_lv3_font_size: {{ block.settings.dropdown_lv3_font_size | default: 14 | append: 'px' }};--dropdown_lv3_font_weight: {{ block.settings.dropdown_lv3_font_weight | default: 600 }};--dropdown_lv3_text_transform: {{ block.settings.dropdown_lv3_text_transform | default: 'uppercase' }};--dropdown_lv3_letter_spacing: {{ block.settings.dropdown_lv3_letter_spacing | default: 0 | append: 'px' }};--dropdown_lv3_line_height: {{ block.settings.dropdown_lv3_line_height | default: 1.4 }};"
+                  >
+                    {%- assign mega_menu_block = blank -%}
+                    {%- for section_block in section.blocks -%}
+                      {%- if section_block.type == 'mega_menu_products' -%}
+                        {%- assign mega_menu_block = section_block -%}
+                        {%- break -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+
+                    <ul
+                      class="list-menu list-menu--inline"
+                      role="list"
+                      style="justify-content: {{ block.settings.alignment }};"
+                    >
+                      {%- for link in block.settings.menu.links -%}
+                        <li class="menu-lv-item menu-lv-1{% if link.links != blank %} has-submenu{% endif %}">
+                          <a href="{{ link.url }}" class="header__menu-item">
+                            {{ link.title | escape }}
+                          </a>
+
+                          {%- if mega_menu_block
+                            and mega_menu_block.settings.show_product
+                            and link.title == mega_menu_block.settings.item
+                          -%}
+                            <!-- Products Mega Menu -->
+                            <div class="products-mega-menu">
+                              <div class="mega-menu-content">
+                                <div class="mega-menu-left-content">
+                                  <h2 class="mega-menu-heading">
+                                    {{ mega_menu_block.settings.product_title | default: 'See All Products' }}
+                                  </h2>
+                                  <div class="mega-menu-categories">
+                                    {%- if link.links != blank -%}
+                                      {%- for child_link in link.links -%}
+                                        <a href="{{ child_link.url }}" class="mega-menu-category">
+                                          <div class="mega-menu-image">
+                                            {%- if child_link.url contains '/collections/' -%}
+                                              {%- assign collection_handle = child_link.url
+                                                | remove: '/collections/'
+                                                | split: '/'
+                                                | first
+                                              -%}
+                                              {%- assign collection = collections[collection_handle] -%}
+                                              {%- if collection.featured_image -%}
+                                                <img
+                                                  src="{{ collection.featured_image | image_url: width: 90 }}"
+                                                  alt="{{ collection.title }}"
+                                                  loading="lazy"
+                                                >
+                                              {%- elsif collection.products.first.featured_image -%}
+                                                <img
+                                                  src="{{ collection.products.first.featured_image | image_url: width: 90 }}"
+                                                  alt="{{ collection.products.first.title }}"
+                                                  loading="lazy"
+                                                >
+                                              {%- else -%}
+                                                <img
+                                                  src="{{ 'product-placeholder.svg' | asset_url }}"
+                                                  alt="{{ child_link.title }}"
+                                                  loading="lazy"
+                                                >
+                                              {%- endif -%}
+                                            {%- elsif child_link.url contains '/products/' -%}
+                                              {%- assign product_handle = child_link.url
+                                                | remove: '/products/'
+                                                | split: '/'
+                                                | first
+                                              -%}
+                                              {%- assign product = all_products[product_handle] -%}
+                                              {%- if product.featured_image -%}
+                                                <img
+                                                  src="{{ product.featured_image | image_url: width: 90 }}"
+                                                  alt="{{ product.title }}"
+                                                  loading="lazy"
+                                                >
+                                              {%- else -%}
+                                                <img
+                                                  src="{{ 'product-placeholder.svg' | asset_url }}"
+                                                  alt="{{ child_link.title }}"
+                                                  loading="lazy"
+                                                >
+                                              {%- endif -%}
+                                            {%- else -%}
+                                              <img
+                                                src="{{ 'product-placeholder.svg' | asset_url }}"
+                                                alt="{{ child_link.title }}"
+                                                loading="lazy"
+                                              >
+                                            {%- endif -%}
+                                          </div>
+                                          <div class="mega-menu-category-info">
+                                            <h3 class="mega-menu-category-title">{{ child_link.title }}</h3>
+                                            {%- if child_link.links != blank -%}
+                                              <p class="mega-menu-category-desc">
+                                                {{ child_link.links.size }} subcategories
+                                              </p>
+                                            {%- endif -%}
+                                          </div>
+                                        </a>
+                                      {%- endfor -%}
+                                    {%- else -%}
+                                      <div class="mega-menu-no-items">
+                                        <p>
+                                          No submenu items found. Please add submenu items to your "{{ link.title }}"
+                                          menu item in your Shopify admin.
+                                        </p>
+                                      </div>
+                                    {%- endif -%}
+                                  </div>
+                                </div>
+
+                                {%- if mega_menu_block.settings.show_az_brand -%}
+                                  <div class="mega-menu-sidebar">
+                                    {%- if mega_menu_block.settings.banner_1 -%}
+                                      <img
+                                        src="{{ mega_menu_block.settings.banner_1 | image_url: width: 280 }}"
+                                        alt="{{ mega_menu_block.settings.az_brand_title }}"
+                                        class="mega-menu-brand-image"
+                                      >
+                                    {%- else -%}
+                                      <img
+                                        src="https://via.placeholder.com/280x200/6B8E23/ffffff?text=Your+Brand"
+                                        alt="Brand Image"
+                                        class="mega-menu-brand-image"
+                                      >
+                                    {%- endif -%}
+                                    <h3 class="mega-menu-brand-title">
+                                      {{ mega_menu_block.settings.az_brand_title | default: 'Industrial Chocolate' }}
+                                    </h3>
+                                    <p class="mega-menu-brand-subtitle">
+                                      {{ mega_menu_block.settings.az_brand_subtitle | default: 'Altinmarka Brand' }}
+                                    </p>
+                                    <p class="mega-menu-brand-subtitle">
+                                      {{
+                                        mega_menu_block.settings.az_brand_desc
+                                        | default: 'Distributed by Bata Food USA UM'
+                                      }}
+                                    </p>
+                                    <a
+                                      href="{{ mega_menu_block.settings.az_brand_url | default: '/collections/all' }}"
+                                      class="mega-menu-brand-btn"
+                                    >
+                                      {{ mega_menu_block.settings.az_brand_link_text | default: 'View Products' }}
+                                      <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/>
+                                      </svg>
+                                    </a>
+                                  </div>
+                                {%- endif -%}
+                              </div>
+                            </div>
+
+                          {%- elsif link.links != blank -%}
+                            <!-- Regular Dropdown Menu -->
+                            <ul class="sub-menu list-menu--disclosure" role="list">
+                              {%- for child_link in link.links -%}
+                                <li class="menu-lv-item menu-lv-2{% if child_link.links != blank %} has-sub-submenu{% endif %}">
+                                  <a href="{{ child_link.url }}" class="header__submenu-item">
+                                    {{ child_link.title }}
+                                  </a>
+
+                                  {%- if child_link.links != blank -%}
+                                    <ul class="sub-sub-menu list-menu--disclosure" role="list">
+                                      {%- for grandchild_link in child_link.links -%}
+                                        <li class="menu-lv-item menu-lv-3">
+                                          <a href="{{ grandchild_link.url }}" class="header__submenu-item">
+                                            {{ grandchild_link.title }}
+                                          </a>
+                                        </li>
+                                      {%- endfor -%}
+                                    </ul>
+                                  {%- endif -%}
+                                </li>
+                              {%- endfor -%}
+                            </ul>
+                          {%- endif -%}
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  </nav>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+
+        {%- when 'header_icons' -%}
+          <div
+            class="header-icons header-item header-item--side d-flex flex-align-center flex-wrap fs-0 pt-2 pb-5{% if block.settings.show_search_sticky == false and block.settings.show_customer_sticky == false and block.settings.show_wishlist_sticky == false and block.settings.show_cart_sticky == false and block.settings.show_language_currency_sticky == false and block.settings.show_whatsapp_sticky == false %} show-main-menu{% endif %}{% if block.settings.show_language_currency == false and block.settings.show_search == false and block.settings.show_customer == false and block.settings.show_wishlist == false and block.settings.show_cart == false and block.settings.show_whatsapp == false %} hide-main-menu{% endif %}"
+            style="--header_icons_color: {{block.settings.header_icons_color}};--header_icons_color_hover: {{block.settings.header_icons_color_hover}};--cart_count_bubble_bg: {% if block.settings.cart_count_bubble_bg_gradient != blank %}{{ block.settings.cart_count_bubble_bg_gradient }}{% else %}{{ block.settings.cart_count_bubble_bg }}{% endif %};--cart_count_bubble_color: {{block.settings.cart_count_bubble_color}};--cart_count_bubble_font_size: {% if block.settings.text_font_size <= 12 %}{{block.settings.text_font_size | append: 'px'}}{% else %} {{block.settings.text_font_size | minus: 2 | append: 'px'}}{% endif %};--text_font_size: {{block.settings.text_font_size | append: 'px' }}"
+          >
+            {%- if block.settings.show_language_currency or block.settings.show_language_currency_sticky -%}
+              <div class="header-language_currency language_currency_style_1 d-inline-block{% if block.settings.show_language_currency_sticky %}{% if block.settings.show_language_currency %}{% else %} hide-main-menu{% endif %}{% else %}{% if block.settings.show_language_currency %} show-main-menu{% endif %}{% endif %}">
+                <div class="top-language-currency ft-0 d-flex sticky_effect{% if settings.enable_currencies %} enable-currency{% endif %}">
+                  {%- if settings.enable_multilang_shopify -%}
+                    {% render 'halo-top-language' %}
+                  {%- endif -%}
+                  {%- if settings.enable_currencies -%}
+                    {% render 'halo-top-currency' %}
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endif -%}
+
+            {%- if shop.customer_accounts_enabled -%}
+              {%- if block.settings.show_customer or block.settings.show_customer_sticky -%}
+                {% if routes.account_login_url contains '/account/login' %}
+                  {% assign is_contained = true %}
+                {% else %}
+                  {% assign is_contained = false %}
+                {% endif %}
+                <a
+                  href="{{ routes.account_login_url }}"
+                  class="header__icon header__icon--account link link--text link-effect{% if block.settings.show_customer_sticky%}{% if block.settings.show_customer %}{% else %} hide-main-menu{% endif %}{% else %}{% if block.settings.show_customer %} show-main-menu{% endif %}{% endif %} text-center"
+                  {% if is_contained %}
+                    data-open-auth-sidebar
+                  {% endif %}
+                >
+                </a>
+              {%- endif -%}
+            {%- endif -%}
+
+            {%- if block.settings.show_whatsapp or block.settings.show_whatsapp_sticky -%}
+              {%- if block.settings.whatsapp_number != blank -%}
+                <a
+                  href="https://wa.me/{{ block.settings.whatsapp_number }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="header__icon header__icon--whatsapp link link--text{% if block.settings.show_whatsapp_sticky%}{% if block.settings.show_whatsapp %}{% else %} hide-main-menu{% endif %}{% else %}{% if block.settings.show_whatsapp %} show-main-menu{% endif %}{% endif %} text-center"
+                  aria-label="Contact us on WhatsApp"
+                >
+                  <span class="text-center">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.465 3.488"/>
+                    </svg>
+                  </span>
+                </a>
+              {%- endif -%}
+            {%- endif -%}
+
+            {%- if block.settings.show_search or block.settings.show_search_sticky -%}
+              <details-modal class="header__iconItem header__search ml-0{% if block.settings.show_search_sticky%}{% if block.settings.show_search %}{% else %} hide-main-menu{% endif %}{% else %}{% if block.settings.show_search %} show-main-menu{% endif %}{% endif %}">
+                <details class="search_details search_details--popup">
+                  <summary
+                    class="header__icon header__icon--search header__icon--summary link link--text focus-inset modal__toggle"
+                    aria-haspopup="dialog"
+                    aria-label="{{ 'general.search.search' | t }}"
+                    data-search-menu-sticky-form
+                    data-search-menu
+                  >
+                    <span class="text-center">
+                      {%- render 'icon-search', class: 'modal__toggle-open icon icon-search w-h-26' -%}
+                    </span>
+                  </summary>
+                  <div
+                    class="search-modal modal__content p-fixed top-0 bottom-0 left-0 right-0 w-100 h-100v m-zero zi-101{% if settings.show_quick_search %} quickSearch{% endif %}"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label="{{ 'general.search.search' | t }}"
+                  >
+                    <div
+                      class="search-modal__content search-modal__content-bottom d-block p-relative maw-100 text-center"
+                      tabindex="-1"
+                    >
+                      <div class="container">
+                        <button
+                          type="button"
+                          class="header-search-close button-effect search-modal__close-button link--text focus-inset d-block p-zero float-r text-right"
+                          aria-label="{{ 'accessibility.close' | t }}"
+                        >
+                          {% render 'icon-close', class: 'icon icon-close' %}
+                        </button>
+                        {%- if settings.show_quick_search -%}
+                          <predictive-search
+                            class="search-modal__form w-100"
+                            data-loading-text="{{ 'accessibility.loading' | t }}"
+                            data-product-to-show="{{ settings.quick_search_to_show }}"
+                          >
+                        {%- endif -%}
+                        <form
+                          action="{{ routes.search_url }}"
+                          method="get"
+                          role="search"
+                          class="search search-modal__form w-100"
+                        >
+                          <div class="field">
+                            <input
+                              class="search__input field__input form-input-placeholder"
+                              id="Search-In-Modal-Menu-Utility"
+                              type="search"
+                              name="q"
+                              value="{{ search.terms | escape }}"
+                              placeholder="{{ 'general.search.search' | t }}"
+                              autocomplete="off"
+                              {%- if settings.show_quick_search -%}
+                                role="combobox" aria-expanded="false" aria-owns="predictive-search-results-list"
+                                aria-controls="predictive-search-results-list" aria-haspopup="listbox"
+                                aria-autocomplete="list" autocorrect="off" autocomplete="off" autocapitalize="off"
+                                spellcheck="false"
+                              {%- endif -%}
+                            >
+                            <input type="hidden" name="options[prefix]" value="last">
+                            <input type="hidden" name="type" value="product">
+                            <label class="field__label hiddenLabels" for="Search-In-Modal-Menu-Utility">
+                              {{- 'general.search.search' | t -}}
+                            </label>
+                            <button
+                              class="button search__button field__button focus-inset pr-0 text-right"
+                              aria-label="{{ 'general.search.search' | t }}"
+                            >
+                              {% render 'icon-search' %}
+                            </button>
+                          </div>
+                          {%- if settings.show_quick_search -%}
+                            {%- if settings.show_search_trending or settings.show_search_product -%}
+                              {%- render 'quick-searching-trending-products', sectionId: 'nav-utility-list-result' -%}
+                            {%- endif -%}
+                            {%- render 'predictive-search-results' -%}
+                          {%- endif -%}
+                        </form>
+                        {%- if settings.show_quick_search -%}
+                          </predictive-search>
+                        {%- endif -%}
+                      </div>
+                    </div>
+                  </div>
+                </details>
+              </details-modal>
+            {%- endif -%}
+          </div>
+
+        {%- when 'translation_app' -%}
+          <div
+            class="header-app-widget translation-app-container header-item{% if block.settings.show_on_mobile == false %} desktop-only{% endif %}{% if block.settings.show_on_desktop == false %} mobile-only{% endif %}"
+            style="--header_icons_color: {{section.blocks[1].settings.header_icons_color | default: '#232323'}};--header_icons_color_hover: {{section.blocks[1].settings.header_icons_color_hover | default: '#232323'}};--text_font_size: {{section.blocks[1].settings.text_font_size | default: 14 | append: 'px' }}"
+            {{ block.shopify_attributes }}
+          >
+            <div class="translation-widget" data-translation-app>
+              <!-- Your translation app will automatically embed here -->
+              <!-- This supports Weglot, Langify, ConveyThis, GTranslate, and other translation apps -->
+            </div>
+          </div>
+
+        {%- when '@app' -%}
+          <div
+            class="header-app-widget header-item{% if block.settings.show_on_mobile == false %} desktop-only{% endif %}{% if block.settings.show_on_desktop == false %} mobile-only{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            <div class="app-embed">
+              <!-- Shopify apps will automatically render their content here -->
+            </div>
+          </div>
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</div>
+{%- if section.settings.sticky_header_type != 'none' -%}
+  </sticky-header>
+{%- else -%}
+  </div>
+{%- endif -%}
+
+<!-- JavaScript for Mega Menu Hover -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      // Mega menu hover functionality
+      const menuItems = document.querySelectorAll('.header__inline-menu .list-menu--inline > li');
+
+      menuItems.forEach(menuItem => {
+          const megaMenu = menuItem.querySelector('.products-mega-menu');
+
+          if (megaMenu) {
+              let hoverTimeout;
+
+              menuItem.addEventListener('mouseenter', function() {
+                  clearTimeout(hoverTimeout);
+                  megaMenu.classList.add('active');
+              });
+
+              menuItem.addEventListener('mouseleave', function() {
+                  hoverTimeout = setTimeout(() => {
+                      megaMenu.classList.remove('active');
+                  }, 300);
+              });
+
+              megaMenu.addEventListener('mouseenter', function() {
+                  clearTimeout(hoverTimeout);
+              });
+
+              megaMenu.addEventListener('mouseleave', function() {
+                  hoverTimeout = setTimeout(() => {
+                      megaMenu.classList.remove('active');
+                  }, 300);
+              });
+          }
+      });
+  });
+</script>
+
+{% javascript %}
+var sticky = document.getElementsByTagName('sticky-header')[0]?.querySelector('.header-nav-utility');
+if (sticky != undefined && sticky != null) {
+    class StickyHeader extends HTMLElement {
+        constructor() {
+          super();
+        }
+
+        connectedCallback() {
+          this.header = document.querySelector('.section-header-navigation');
+          this.headerIsAlwaysSticky = this.getAttribute('data-sticky-type');
+
+          this.headerBounds = {};
+
+          this.setHeaderHeight();
+
+          window.matchMedia('(max-width: 990px)').addEventListener('change', this.setHeaderHeight.bind(this));
+
+          if (this.headerIsAlwaysSticky) {
+            this.header.classList.add('shopify-section-header-sticky');
+          };
+
+          this.currentScrollTop = 0;
+          this.preventReveal = false;
+          this.predictiveSearch = this.querySelector('predictive-search');
+          this.onScrollHandler = this.onScroll.bind(this);
+          this.hideHeaderOnScrollUp = () => this.preventReveal = true;
+
+          this.addEventListener('preventHeaderReveal', this.hideHeaderOnScrollUp);
+          window.addEventListener('scroll', this.onScrollHandler, false);
+
+          this.createObserver();
+        }
+
+        setHeaderHeight() {
+          document.documentElement.style.setProperty('--header-height', `${this.header.offsetHeight}px`);
+        }
+
+        disconnectedCallback() {
+          this.removeEventListener('preventHeaderReveal', this.hideHeaderOnScrollUp);
+          window.removeEventListener('scroll', this.onScrollHandler);
+        }
+
+        createObserver() {
+          let observer = new IntersectionObserver((entries, observer) => {
+            this.headerBounds = entries[0].intersectionRect;
+            observer.disconnect();
+          });
+
+          observer.observe(this.header);
+        }
+
+        onScroll() {
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          if (this.predictiveSearch && this.predictiveSearch.isOpen) return;
+          if (scrollTop > this.currentScrollTop && scrollTop > this.headerBounds.bottom) {
+            if (this.preventHide) return;
+            this.header.classList.add('scrolled-past-header');
+            requestAnimationFrame(this.hide.bind(this));
+          } else if (scrollTop < this.currentScrollTop && scrollTop > this.headerBounds.bottom) {
+            this.header.classList.add('scrolled-past-header');
+
+            if (!this.preventReveal) {
+              requestAnimationFrame(this.reveal.bind(this));
+            } else {
+              window.clearTimeout(this.isScrolling);
+
+              this.isScrolling = setTimeout(() => {
+                this.preventReveal = false;
+              }, 66);
+
+              requestAnimationFrame(this.hide.bind(this));
+            }
+          } else if (scrollTop <= this.headerBounds.top) {
+            this.header.classList.remove('scrolled-past-header');
+            requestAnimationFrame(this.reset.bind(this));
+          }
+
+          this.currentScrollTop = scrollTop;
+        }
+
+        hide() {
+            if (this.headerIsAlwaysSticky != null) {
+                if (this.headerIsAlwaysSticky === 'always') {
+                    this.header.classList.add('shopify-section-header-sticky');
+                    return
+                } else {
+                    this.header.classList.add('shopify-section-header-hidden', 'shopify-section-header-sticky');
+                    this.header.classList.remove('shopify-section-header-show');
+                    // Add smooth transition
+                    setTimeout(() => {
+                        this.header.classList.add('animate');
+                    }, 10);
+                }
+            }
+          this.closeMenuDisclosure();
+        }
+
+        reveal() {
+            if (this.headerIsAlwaysSticky != null) {
+              if (this.headerIsAlwaysSticky === 'always') {
+                    this.header.classList.add('shopify-section-header-sticky', 'animate');
+                    return
+                } else {
+                  this.header.classList.add('shopify-section-header-sticky', 'shopify-section-header-show', 'animate');
+                  this.header.classList.remove('shopify-section-header-hidden');
+              }
+            }
+        }
+
+        reset() {
+            if (this.headerIsAlwaysSticky != null) {
+              if (this.headerIsAlwaysSticky === 'always') {
+                    this.header.classList.add('shopify-section-header-sticky', 'animate');
+                    return
+                } else {
+                  this.header.classList.remove('shopify-section-header-hidden', 'shopify-section-header-show', 'shopify-section-header-sticky', 'animate');
+              }
+            }
+        }
+
+        closeMenuDisclosure() {
+          this.disclosures = this.disclosures || this.header.querySelectorAll('details-disclosure');
+          this.disclosures.forEach(disclosure => disclosure.close());
+        }
+    }
+
+    customElements.define('sticky-header', StickyHeader);
+}
+{% endjavascript %}
+
+<script type="application/ld+json">
+  {
+      "@context": "http://schema.org",
+      "@type": "Organization",
+      "name": {{ shop.name | json }},
+      {% if logo %}
+          "logo": {{ logo | image_url: width: 500 | prepend: "https:" | json }},
+      {% endif %}
+      "sameAs": [
+          {{ settings.social_twitter_link | json }},
+          {{ settings.social_facebook_link | json }},
+          {{ settings.social_pinterest_link | json }},
+          {{ settings.social_instagram_link | json }},
+          {{ settings.social_tumblr_link | json }},
+          {{ settings.social_snapchat_link | json }},
+          {{ settings.social_youtube_link | json }},
+          {{ settings.social_vimeo_link | json }}
+      ],
+      "url": {{ request.origin | append: page.url | json }}
+  }
+</script>
+
+{% schema %}
+{
+    "name": "Enhanced Header",
+    "limit": 1,
+    "class": "section-header-navigation",
+    "settings": [
+        {
+            "type": "paragraph",
+            "content": "Enhanced header with customizable mega menu for products category navigation."
+        },
+        {
+            "type": "select",
+            "id": "container",
+            "label": "Container Width",
+            "default": "1770",
+            "options": [
+                {"value": "1170", "label": "1170px"},
+                {"value": "1370", "label": "1370px"},
+                {"value": "1470", "label": "1470px"},
+                {"value": "1570", "label": "1570px"},
+                {"value": "1770", "label": "1770px"},
+                {"value": "full", "label": "Full Width"}
+            ]
+        },
+        {
+            "type": "range",
+            "id": "padding_full_width",
+            "label": "Full Width Padding",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "default": 25
+        },
+        {
+            "type": "color",
+            "id": "header_navigation_bg",
+            "label": "Background Color",
+            "default": "#ffffff"
+        },
+        {
+            "type": "color_background",
+            "id": "header_navigation_bg_gradient",
+            "label": "Background Gradient"
+        },
+        {
+            "type": "header",
+            "content": "Sticky Header Settings"
+        },
+        {
+            "type": "select",
+            "id": "sticky_header_type",
+            "label": "Sticky Header Type",
+            "default": "on_scroll",
+            "options": [
+                {"value": "none", "label": "None"},
+                {"value": "always", "label": "Always Sticky"},
+                {"value": "on_scroll", "label": "On Scroll"}
+            ]
+        },
+        {
+            "type": "select",
+            "id": "sticky_header_width",
+            "label": "Sticky Header Width",
+            "default": "default",
+            "options": [
+                {"value": "default", "label": "Default"},
+                {"value": "full", "label": "Full Width"}
+            ]
+        }
+    ],
+    "blocks": [
+        {
+            "type": "logo",
+            "name": "Logo",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "select",
+                    "id": "logo_position",
+                    "label": "Logo Position",
+                    "default": "always",
+                    "options": [
+                        {"value": "main_menu", "label": "Main Menu Only"},
+                        {"value": "sticky_menu", "label": "Sticky Menu Only"},
+                        {"value": "always", "label": "Always Show"}
+                    ]
+                },
+                {
+                    "type": "image_picker",
+                    "id": "logo",
+                    "label": "Logo Image"
+                },
+                {
+                    "type": "range",
+                    "id": "logo_width",
+                    "min": 50,
+                    "max": 300,
+                    "step": 5,
+                    "unit": "px",
+                    "label": "Logo Width",
+                    "default": 70
+                },
+                {
+                    "type": "range",
+                    "id": "logo_width_fixed",
+                    "min": 10,
+                    "max": 100,
+                    "step": 5,
+                    "unit": "%",
+                    "label": "Logo Width (Sticky)",
+                    "default": 100
+                },
+                {
+                    "type": "textarea",
+                    "id": "logo_text",
+                    "label": "Logo Text"
+                },
+                {
+                    "type": "range",
+                    "id": "logo_font_size",
+                    "label": "Logo Font Size",
+                    "min": 15,
+                    "max": 50,
+                    "step": 1,
+                    "unit": "px",
+                    "default": 20
+                },
+                {
+                    "type": "select",
+                    "id": "logo_font_weight",
+                    "label": "Logo Font Weight",
+                    "default": "900",
+                    "options": [
+                        {"value": "400", "label": "Regular"},
+                        {"value": "500", "label": "Medium"},
+                        {"value": "600", "label": "Semi Bold"},
+                        {"value": "700", "label": "Bold"},
+                        {"value": "800", "label": "Extra Bold"},
+                        {"value": "900", "label": "Black"}
+                    ]
+                },
+                {
+                    "type": "select",
+                    "id": "logo_text_transform",
+                    "label": "Text Transform",
+                    "default": "uppercase",
+                    "options": [
+                        {"value": "none", "label": "None"},
+                        {"value": "capitalize", "label": "Capitalize"},
+                        {"value": "uppercase", "label": "Uppercase"},
+                        {"value": "lowercase", "label": "Lowercase"}
+                    ]
+                },
+                {
+                    "type": "color",
+                    "id": "logo_color",
+                    "label": "Logo Color",
+                    "default": "#000000"
+                }
+            ]
+        },
+        {
+            "type": "mega_menu_products",
+            "name": "Mega Menu - Products",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "item",
+                    "label": "Menu item name (must match exactly)",
+                    "default": "Products",
+                    "info": "This must match exactly with your menu item name"
+                },
+                {
+                    "type": "text",
+                    "id": "product_title",
+                    "label": "Mega Menu Heading",
+                    "default": "See All Products"
+                },
+                {
+                    "type": "header",
+                    "content": "Category 1"
+                },
+                {
+                    "type": "text",
+                    "id": "category_1_title",
+                    "label": "Category 1 Title",
+                    "default": "Dried Fruits"
+                },
+                {
+                    "type": "text",
+                    "id": "category_1_desc",
+                    "label": "Category 1 Description",
+                    "default": "Bulk Sun Dried Fruits"
+                },
+                {
+                    "type": "url",
+                    "id": "category_1_url",
+                    "label": "Category 1 Link"
+                },
+                {
+                    "type": "header",
+                    "content": "Category 2"
+                },
+                {
+                    "type": "text",
+                    "id": "category_2_title",
+                    "label": "Category 2 Title",
+                    "default": "Cocoa Products"
+                },
+                {
+                    "type": "text",
+                    "id": "category_2_desc",
+                    "label": "Category 2 Description",
+                    "default": "Nibs, powder, butter, liquor"
+                },
+                {
+                    "type": "url",
+                    "id": "category_2_url",
+                    "label": "Category 2 Link"
+                },
+                {
+                    "type": "header",
+                    "content": "Category 3"
+                },
+                {
+                    "type": "text",
+                    "id": "category_3_title",
+                    "label": "Category 3 Title",
+                    "default": "Plant Protein"
+                },
+                {
+                    "type": "text",
+                    "id": "category_3_desc",
+                    "label": "Category 3 Description",
+                    "default": "Bulk organic plant proteins"
+                },
+                {
+                    "type": "url",
+                    "id": "category_3_url",
+                    "label": "Category 3 Link"
+                },
+                {
+                    "type": "header",
+                    "content": "Category 4"
+                },
+                {
+                    "type": "text",
+                    "id": "category_4_title",
+                    "label": "Category 4 Title",
+                    "default": "Dried Vegetables"
+                },
+                {
+                    "type": "text",
+                    "id": "category_4_desc",
+                    "label": "Category 4 Description",
+                    "default": "Sun Dried / Semi Dry Tomatoes"
+                },
+                {
+                    "type": "url",
+                    "id": "category_4_url",
+                    "label": "Category 4 Link"
+                },
+                {
+                    "type": "header",
+                    "content": "Category 5"
+                },
+                {
+                    "type": "text",
+                    "id": "category_5_title",
+                    "label": "Category 5 Title",
+                    "default": "Paste & Spreads"
+                },
+                {
+                    "type": "text",
+                    "id": "category_5_desc",
+                    "label": "Category 5 Description",
+                    "default": "100% Nut Paste and Tahini"
+                },
+                {
+                    "type": "url",
+                    "id": "category_5_url",
+                    "label": "Category 5 Link"
+                },
+                {
+                    "type": "header",
+                    "content": "Category 6"
+                },
+                {
+                    "type": "text",
+                    "id": "category_6_title",
+                    "label": "Category 6 Title",
+                    "default": "Oils & Fats"
+                },
+                {
+                    "type": "text",
+                    "id": "category_6_desc",
+                    "label": "Category 6 Description",
+                    "default": "Cold Pressed & Refined"
+                },
+                {
+                    "type": "url",
+                    "id": "category_6_url",
+                    "label": "Category 6 Link"
+                },
+                {
+                    "type": "header",
+                    "content": "Category 7"
+                },
+                {
+                    "type": "text",
+                    "id": "category_7_title",
+                    "label": "Category 7 Title",
+                    "default": "Nuts"
+                },
+                {
+                    "type": "text",
+                    "id": "category_7_desc",
+                    "label": "Category 7 Description",
+                    "default": "Hazelnuts, cashews and more"
+                },
+                {
+                    "type": "url",
+                    "id": "category_7_url",
+                    "label": "Category 7 Link"
+                },
+                {
+                    "type": "header",
+                    "content": "Category 8"
+                },
+                {
+                    "type": "text",
+                    "id": "category_8_title",
+                    "label": "Category 8 Title",
+                    "default": "Herbs & Spices"
+                },
+                {
+                    "type": "text",
+                    "id": "category_8_desc",
+                    "label": "Category 8 Description",
+                    "default": "Bulk organic herbs and spices"
+                },
+                {
+                    "type": "url",
+                    "id": "category_8_url",
+                    "label": "Category 8 Link"
+                },
+                {
+                    "type": "header",
+                    "content": "Category 9"
+                },
+                {
+                    "type": "text",
+                    "id": "category_9_title",
+                    "label": "Category 9 Title",
+                    "default": "Puree & Concentrates"
+                },
+                {
+                    "type": "text",
+                    "id": "category_9_desc",
+                    "label": "Category 9 Description",
+                    "default": "Apricots, peach, apple and more"
+                },
+                {
+                    "type": "url",
+                    "id": "category_9_url",
+                    "label": "Category 9 Link"
+                },
+                {
+                    "type": "header",
+                    "content": "Category 10"
+                },
+                {
+                    "type": "text",
+                    "id": "category_10_title",
+                    "label": "Category 10 Title",
+                    "default": "Coconuts"
+                },
+                {
+                    "type": "text",
+                    "id": "category_10_desc",
+                    "label": "Category 10 Description",
+                    "default": "Bulk coconut derivatives"
+                },
+                {
+                    "type": "url",
+                    "id": "category_10_url",
+                    "label": "Category 10 Link"
+                },
+                {
+                    "type": "header",
+                    "content": "Category 11"
+                },
+                {
+                    "type": "text",
+                    "id": "category_11_title",
+                    "label": "Category 11 Title",
+                    "default": "Seeds & Grains"
+                },
+                {
+                    "type": "text",
+                    "id": "category_11_desc",
+                    "label": "Category 11 Description",
+                    "default": "Chia, poppy, hemp seeds"
+                },
+                {
+                    "type": "url",
+                    "id": "category_11_url",
+                    "label": "Category 11 Link"
+                },
+                {
+                    "type": "header",
+                    "content": "Category 12"
+                },
+                {
+                    "type": "text",
+                    "id": "category_12_title",
+                    "label": "Category 12 Title",
+                    "default": "Superfoods"
+                },
+                {
+                    "type": "text",
+                    "id": "category_12_desc",
+                    "label": "Category 12 Description",
+                    "default": "Bulk organic superfoods"
+                },
+                {
+                    "type": "url",
+                    "id": "category_12_url",
+                    "label": "Category 12 Link"
+                },
+                {
+                    "type": "header",
+                    "content": "Sidebar Settings"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "banner_1",
+                    "label": "Sidebar Image"
+                },
+                {
+                    "type": "url",
+                    "id": "banner_url_1",
+                    "label": "Sidebar Link"
+                },
+                {
+                    "type": "text",
+                    "id": "az_brand_title",
+                    "label": "Sidebar Brand Title",
+                    "default": "Industrial Chocolate"
+                },
+                {
+                    "type": "text",
+                    "id": "az_brand_subtitle",
+                    "label": "Sidebar Brand Subtitle",
+                    "default": "Altinmarka Brand"
+                },
+                {
+                    "type": "text",
+                    "id": "az_brand_desc",
+                    "label": "Sidebar Description",
+                    "default": "Distributed by Bata Food USA UM"
+                },
+                {
+                    "type": "text",
+                    "id": "az_brand_link_text",
+                    "label": "Sidebar Button Text",
+                    "default": "View Products"
+                },
+                {
+                    "type": "url",
+                    "id": "az_brand_url",
+                    "label": "Sidebar Button Link"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "show_product",
+                    "label": "Enable Product Mega Menu",
+                    "default": true
+                },
+                {
+                    "type": "checkbox",
+                    "id": "show_az_brand",
+                    "label": "Show Brand in Sidebar",
+                    "default": true
+                }
+            ]
+        },
+        {
+            "type": "main_menu",
+            "name": "Main Menu",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "link_list",
+                    "id": "menu",
+                    "label": "Menu",
+                    "default": "main-menu"
+                },
+                {
+                    "type": "range",
+                    "id": "menu_lv1_font_size",
+                    "label": "Main Menu Font Size",
+                    "min": 12,
+                    "max": 24,
+                    "step": 1,
+                    "unit": "px",
+                    "default": 16
+                },
+                {
+                    "type": "select",
+                    "id": "menu_lv1_font_weight",
+                    "label": "Main Menu Font Weight",
+                    "default": "600",
+                    "options": [
+                        {"value": "300", "label": "Light"},
+                        {"value": "400", "label": "Regular"},
+                        {"value": "500", "label": "Medium"},
+                        {"value": "600", "label": "Semi Bold"},
+                        {"value": "700", "label": "Bold"}
+                    ]
+                },
+                {
+                    "type": "header",
+                    "content": "Colors"
+                },
+                {
+                    "type": "color",
+                    "id": "bg_mega_menu",
+                    "label": "Dropdown Background",
+                    "default": "#fff"
+                },
+                {
+                    "type": "color",
+                    "id": "lv_1_color",
+                    "label": "Menu Color",
+                    "default": "#232323"
+                },
+                {
+                    "type": "color",
+                    "id": "lv_1_color_hover",
+                    "label": "Menu Hover Color",
+                    "default": "#232323"
+                }
+            ]
+        },
+        {
+            "type": "header_icons",
+            "name": "Header Icons",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "checkbox",
+                    "id": "show_language_currency",
+                    "label": "Show Built-in Language/Currency",
+                    "default": false,
+                    "info": "Turn this off if you're using a translation app below"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "show_whatsapp",
+                    "label": "Show WhatsApp",
+                    "default": true
+                },
+                {
+                    "type": "checkbox",
+                    "id": "show_search",
+                    "label": "Show Search",
+                    "default": true
+                },
+                {
+                    "type": "checkbox",
+                    "id": "show_customer",
+                    "label": "Show Customer Account",
+                    "default": true
+                },
+                {
+                    "type": "range",
+                    "id": "text_font_size",
+                    "label": "Font Size",
+                    "min": 10,
+                    "max": 50,
+                    "step": 1,
+                    "unit": "px",
+                    "default": 14
+                },
+                {
+                    "type": "header",
+                    "content": "Sticky Header Settings"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "show_language_currency_sticky",
+                    "label": "Show Language/Currency (Sticky)",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "show_whatsapp_sticky",
+                    "label": "Show WhatsApp (Sticky)",
+                    "default": true
+                },
+                {
+                    "type": "checkbox",
+                    "id": "show_search_sticky",
+                    "label": "Show Search (Sticky)",
+                    "default": true
+                },
+                {
+                    "type": "checkbox",
+                    "id": "show_customer_sticky",
+                    "label": "Show Customer (Sticky)",
+                    "default": true
+                },
+                {
+                    "type": "text",
+                    "id": "whatsapp_number",
+                    "label": "WhatsApp Number",
+                    "info": "Enter with country code (e.g., 998977755500)",
+                    "default": "998977755500"
+                },
+                {
+                    "type": "header",
+                    "content": "Colors"
+                },
+                {
+                    "type": "color",
+                    "id": "header_icons_color",
+                    "label": "Icons Color",
+                    "default": "#232323"
+                },
+                {
+                    "type": "color",
+                    "id": "header_icons_color_hover",
+                    "label": "Icons Hover Color",
+                    "default": "#232323"
+                }
+            ]
+        },
+        {
+            "type": "translation_app",
+            "name": "Translation App",
+            "settings": [
+                {
+                    "type": "paragraph",
+                    "content": "Add this block and your translation app (Weglot, Langify, ConveyThis, etc.) will automatically appear here with your selected languages."
+                },
+                {
+                    "type": "checkbox",
+                    "id": "show_on_desktop",
+                    "label": "Show on Desktop",
+                    "default": true
+                },
+                {
+                    "type": "checkbox",
+                    "id": "show_on_mobile",
+                    "label": "Show on Mobile",
+                    "default": true
+                }
+            ]
+        },
+        {
+            "type": "@app"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Enhanced Header with Mega Menu",
+            "blocks": [
+                { "type": "logo" },
+                { "type": "main_menu" },
+                { "type": "header_icons" },
+                { "type": "translation_app" },
+                { "type": "mega_menu_products" }
+            ]
+        }
+    ],
+    "enabled_on": {
+        "groups": ["header"]
+    }
+}
+{% endschema %}

@@ -1,0 +1,1839 @@
+{%- liquid
+  assign container = section.settings.container
+  assign section_bg_color = section.settings.background_color
+
+  # Padding settings
+  assign mg_top_desktop = section.settings.padding_top
+  assign mg_top_tablet = section.settings.padding_top_tablet
+  assign mg_top_mobile = section.settings.padding_top_mobile
+  assign mg_bottom_desktop = section.settings.padding_bottom
+  assign mg_bottom_tablet = section.settings.padding_bottom_tablet
+  assign mg_bottom_mobile = section.settings.padding_bottom_mobile
+
+  # NEW: Margin settings
+  assign margin_top_desktop = section.settings.margin_top
+  assign margin_top_tablet = section.settings.margin_top_tablet
+  assign margin_top_mobile = section.settings.margin_top_mobile
+  assign margin_bottom_desktop = section.settings.margin_bottom
+  assign margin_bottom_tablet = section.settings.margin_bottom_tablet
+  assign margin_bottom_mobile = section.settings.margin_bottom_mobile
+
+  # Typography settings - All using Kumbh Sans
+  assign title_font_size_desktop = section.settings.title_font_size_desktop
+  assign title_font_size_tablet = section.settings.title_font_size_tablet
+  assign title_font_size_mobile = section.settings.title_font_size_mobile
+  assign title_font_weight = section.settings.title_font_weight
+
+  assign description_font_size_desktop = section.settings.description_font_size_desktop
+  assign description_font_size_tablet = section.settings.description_font_size_tablet
+  assign description_font_size_mobile = section.settings.description_font_size_mobile
+
+  assign contact_title_font_size = section.settings.contact_title_font_size
+  assign contact_title_font_weight = section.settings.contact_title_font_weight
+
+  assign contact_text_font_size = section.settings.contact_text_font_size
+
+  assign form_label_font_size = section.settings.form_label_font_size
+  assign form_label_font_weight = section.settings.form_label_font_weight
+
+  assign form_input_font_size = section.settings.form_input_font_size
+-%}
+
+<!-- Contact Form Home Section -->
+<section class="contact-form-home section-{{ section.id }}" id="section-{{ section.id }}">
+  <div class="contact-container">
+    <div class="contact-grid">
+      <!-- Left Side - Contact Info -->
+      <div class="contact-info">
+        <div class="contact-content">
+          <h2 class="contact-title">
+            {%- if section.settings.title != blank -%}
+              {{ section.settings.title }}
+            {%- else -%}
+              Let's Connect with TAK
+            {%- endif -%}
+          </h2>
+
+          <p class="contact-description">
+            {%- if section.settings.description != blank -%}
+              {{ section.settings.description }}
+            {%- else -%}
+              We'd love to hear from you! Whether you're a potential partner, buyer, or supplier, our team is ready to
+              assist you with your agricultural needs.
+            {%- endif -%}
+          </p>
+
+          <div class="contact-details">
+            {%- for block in section.blocks -%}
+              {%- case block.type -%}
+                {%- when 'office_hours' -%}
+                  {%- if block.settings.show_item and block.settings.office_hours != blank -%}
+                    <div class="contact-item" {{ block.shopify_attributes }}>
+                      <div class="contact-icon">
+                        {%- if block.settings.icon != blank -%}
+                          <img
+                            src="{{ block.settings.icon | image_url: width: 48 }}"
+                            alt="{{ block.settings.label | default: 'Office Hours' }}"
+                            width="48"
+                            height="48"
+                            loading="lazy"
+                          >
+                        {%- else -%}
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                            <polyline points="12,6 12,12 16,14" stroke="currentColor" stroke-width="2"/>
+                          </svg>
+                        {%- endif -%}
+                      </div>
+                      <div class="contact-item-content">
+                        <h4>{{ block.settings.label | default: 'Office Hours' }}</h4>
+                        <p>{{ block.settings.office_hours }}</p>
+                      </div>
+                    </div>
+                  {%- endif -%}
+
+                {%- when 'phone' -%}
+                  {%- if block.settings.show_item and block.settings.phone != blank -%}
+                    <div class="contact-item" {{ block.shopify_attributes }}>
+                      <div class="contact-icon">
+                        {%- if block.settings.icon != blank -%}
+                          <img
+                            src="{{ block.settings.icon | image_url: width: 48 }}"
+                            alt="{{ block.settings.label | default: 'Phone' }}"
+                            width="48"
+                            height="48"
+                            loading="lazy"
+                          >
+                        {%- else -%}
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2"/>
+                          </svg>
+                        {%- endif -%}
+                      </div>
+                      <div class="contact-item-content">
+                        <h4>{{ block.settings.label | default: 'Phone' }}</h4>
+                        <p>
+                          <a href="tel:{{ block.settings.phone | replace: ' ', '' | replace: '(', '' | replace: ')', '' | replace: '-', '' }}">
+                            {{- block.settings.phone -}}
+                          </a>
+                        </p>
+                      </div>
+                    </div>
+                  {%- endif -%}
+
+                {%- when 'email' -%}
+                  {%- if block.settings.show_item and block.settings.email != blank -%}
+                    <div class="contact-item" {{ block.shopify_attributes }}>
+                      <div class="contact-icon">
+                        {%- if block.settings.icon != blank -%}
+                          <img
+                            src="{{ block.settings.icon | image_url: width: 48 }}"
+                            alt="{{ block.settings.label | default: 'Email' }}"
+                            width="48"
+                            height="48"
+                            loading="lazy"
+                          >
+                        {%- else -%}
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2"/>
+                            <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2"/>
+                          </svg>
+                        {%- endif -%}
+                      </div>
+                      <div class="contact-item-content">
+                        <h4>{{ block.settings.label | default: 'Email' }}</h4>
+                        <p>
+                          <a href="mailto:{{ block.settings.email }}">{{ block.settings.email }}</a>
+                        </p>
+                      </div>
+                    </div>
+                  {%- endif -%}
+
+                {%- when 'address' -%}
+                  {%- if block.settings.show_item and block.settings.address != blank -%}
+                    <div class="contact-item" {{ block.shopify_attributes }}>
+                      <div class="contact-icon">
+                        {%- if block.settings.icon != blank -%}
+                          <img
+                            src="{{ block.settings.icon | image_url: width: 48 }}"
+                            alt="{{ block.settings.label | default: 'Address' }}"
+                            width="48"
+                            height="48"
+                            loading="lazy"
+                          >
+                        {%- else -%}
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="currentColor" stroke-width="2"/>
+                            <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2"/>
+                          </svg>
+                        {%- endif -%}
+                      </div>
+                      <div class="contact-item-content">
+                        <h4>{{ block.settings.label | default: 'Address' }}</h4>
+                        <p>{{ block.settings.address }}</p>
+                      </div>
+                    </div>
+                  {%- endif -%}
+
+                {%- when 'custom' -%}
+                  {%- if block.settings.show_item and block.settings.content != blank -%}
+                    <div class="contact-item" {{ block.shopify_attributes }}>
+                      <div class="contact-icon">
+                        {%- if block.settings.icon != blank -%}
+                          <img
+                            src="{{ block.settings.icon | image_url: width: 48 }}"
+                            alt="{{ block.settings.label | default: 'Custom' }}"
+                            width="48"
+                            height="48"
+                            loading="lazy"
+                          >
+                        {%- else -%}
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                            <line x1="12" y1="16" x2="12" y2="12" stroke="currentColor" stroke-width="2"/>
+                            <line x1="12" y1="8" x2="12.01" y2="8" stroke="currentColor" stroke-width="2"/>
+                          </svg>
+                        {%- endif -%}
+                      </div>
+                      <div class="contact-item-content">
+                        <h4>{{ block.settings.label | default: 'Information' }}</h4>
+                        <p>{{ block.settings.content }}</p>
+                      </div>
+                    </div>
+                  {%- endif -%}
+              {%- endcase -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side - Contact Form -->
+      <div class="contact-form-wrapper">
+        {%- form 'contact', class: 'contact-form' -%}
+          {%- if form.posted_successfully? -%}
+            <div class="form-success">
+              <p>
+                {{
+                  section.settings.success_message
+                  | default: 'Thank you for your message! We will get back to you soon.'
+                }}
+              </p>
+            </div>
+          {%- endif -%}
+
+          {%- if form.errors -%}
+            <div class="form-errors">
+              <p>{{ 'contact.form.error_heading' | t }}</p>
+              <ul>
+                {%- for field in form.errors -%}
+                  <li>
+                    {%- if field == 'form' -%}
+                      {{ form.errors.messages[field] }}
+                    {%- else -%}
+                      {{ form.errors.translated_fields[field] | capitalize }}
+                      {{ form.errors.messages[field] }}
+                    {%- endif -%}
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="ContactForm-name-{{ section.id }}">
+                {{- section.settings.name_label | default: 'Full name' }}*</label
+              >
+              <input
+                type="text"
+                id="ContactForm-name-{{ section.id }}"
+                name="contact[name]"
+                value="{% if form.name %}{{ form.name }}{% endif %}"
+                placeholder="{{ section.settings.name_placeholder | default: 'Enter your full name' }}"
+                required
+              >
+            </div>
+            <div class="form-group">
+              <label for="ContactForm-company-{{ section.id }}">
+                {{- section.settings.company_label | default: 'Company name' }}*</label
+              >
+              <input
+                type="text"
+                id="ContactForm-company-{{ section.id }}"
+                name="contact[company]"
+                value="{% if form.company %}{{ form.company }}{% endif %}"
+                placeholder="{{ section.settings.company_placeholder | default: 'Enter your company name' }}"
+                required
+              >
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="ContactForm-phone-{{ section.id }}">
+                {{- section.settings.phone_field_label | default: 'Phone' }}*</label
+              >
+              <input
+                type="tel"
+                id="ContactForm-phone-{{ section.id }}"
+                name="contact[phone]"
+                value="{% if form.phone %}{{ form.phone }}{% endif %}"
+                placeholder="{{ section.settings.phone_placeholder | default: 'Enter your phone number' }}"
+                required
+              >
+            </div>
+            <div class="form-group">
+              <label for="ContactForm-email-{{ section.id }}">
+                {{- section.settings.email_field_label | default: 'Email' }}*</label
+              >
+              <input
+                type="email"
+                id="ContactForm-email-{{ section.id }}"
+                name="contact[email]"
+                value="{% if form.email %}{{ form.email }}{% endif %}"
+                placeholder="{{ section.settings.email_placeholder | default: 'Enter your email address' }}"
+                required
+              >
+            </div>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="ContactForm-subject-{{ section.id }}">
+              {{- section.settings.subject_label | default: 'Subject' }}*</label
+            >
+            <input
+              type="text"
+              id="ContactForm-subject-{{ section.id }}"
+              name="contact[subject]"
+              value="{% if form.subject %}{{ form.subject }}{% endif %}"
+              placeholder="{{ section.settings.subject_placeholder | default: 'Enter the subject' }}"
+              required
+            >
+          </div>
+
+          <div class="form-group full-width">
+            <label for="ContactForm-body-{{ section.id }}">
+              {{- section.settings.message_label | default: 'Message' }}*</label
+            >
+            <textarea
+              rows="6"
+              id="ContactForm-body-{{ section.id }}"
+              name="contact[body]"
+              placeholder="{{ section.settings.message_placeholder | default: 'Enter your message here...' }}"
+              required
+            >{% if form.body %}{{ form.body }}{% endif %}</textarea>
+          </div>
+
+          <div class="form-submit">
+            <button type="submit" class="global-button">
+              {{ section.settings.submit_text | default: 'Submit' }}
+              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="20" viewBox="0 0 19 20" fill="none">
+                <path d="M9.49997 0.580078C5.11613 0.580078 1.20509 3.73104 0.288054 8.02176C-0.170106 10.1657 0.138534 12.4454 1.16069 14.3854C2.14445 16.2523 3.75725 17.7612 5.68685 18.6163C7.69397 19.506 9.99821 19.661 12.1078 19.0543C14.143 18.4692 15.9476 17.185 17.1761 15.461C19.7449 11.857 19.4014 6.7944 16.3793 3.56496C14.6081 1.67232 12.0925 0.580078 9.49997 0.580078ZM14.0189 10.5034L11.4509 13.1333C10.8008 13.7993 9.77309 12.7903 10.4206 12.1274L11.7164 10.8005H5.57573C5.13965 10.8005 4.77581 10.4364 4.77581 10.0006C4.77581 9.56472 5.13989 9.20064 5.57573 9.20064H11.6857L10.3642 7.87944C9.70757 7.2228 10.7257 6.20448 11.3823 6.86112L14.0129 9.49152C14.1469 9.62542 14.2227 9.80677 14.2238 9.99621C14.225 10.1856 14.1513 10.3679 14.0189 10.5034Z" fill="#009D03"/>
+              </svg>
+            </button>
+          </div>
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+
+  <!-- WhatsApp Inquiry Floating Banner -->
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'whatsapp_inquiry' and block.settings.show_item -%}
+      <div
+        class="whatsapp-inquiry-overlay"
+        {{ block.shopify_attributes }}
+        style="
+          --wa-bg-color: {{ block.settings.bg_color | default: '#FEC62D' }};
+          --wa-bg-gradient: {% if block.settings.bg_gradient != blank %}{{ block.settings.bg_gradient }}{% else %}{{ block.settings.bg_color | default: '#FEC62D' }}{% endif %};
+          --wa-text-color: {{ block.settings.text_color | default: '#0E0F13' }};
+          --wa-link-color: {{ block.settings.link_color | default: '#009D03' }};
+          --wa-link-hover-color: {{ block.settings.link_hover_color | default: '#0E0F13' }};
+          --wa-border-radius: {{ block.settings.border_radius | default: 15 }}px;
+          --wa-padding: {{ block.settings.padding | default: 20 }}px;
+          --wa-font-size: {{ block.settings.font_size | default: 18 }}px;
+          --wa-font-weight: {{ block.settings.font_weight | default: 500 }};
+          --wa-offset-top: {{ block.settings.offset_top | default: -60 }}px;
+          --wa-max-width: {{ block.settings.max_width | default: 90 }}%;
+        "
+      >
+        <div class="whatsapp-inquiry-content">
+          <div class="whatsapp-inquiry-text">
+            {%- if block.settings.custom_text != blank -%}
+              {{ block.settings.custom_text }}
+            {%- else -%}
+              Speak To Our Experts
+            {%- endif -%}
+
+            {%- if block.settings.phone_number != blank -%}
+              <a
+                href="https://wa.me/{{ block.settings.phone_number | replace: ' ', '' | replace: '+', '' | replace: '(', '' | replace: ')', '' | replace: '-', '' }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="whatsapp-phone-link"
+              >
+                <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.465 3.488"/>
+                </svg>
+                {{ block.settings.phone_number }}
+              </a>
+            {%- endif -%}
+
+            {%- if block.settings.separator_text != blank -%}
+              <span class="whatsapp-separator">{{ block.settings.separator_text }}</span>
+            {%- else -%}
+              <span class="whatsapp-separator"></span>
+            {%- endif -%}
+
+            {%- if block.settings.quote_text != blank -%}
+              <span class="whatsapp-quote-text">{{ block.settings.quote_text }}</span>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+</section>
+
+<style>
+  /* All typography uses Kumbh Sans */
+  .section-{{ section.id }} {
+    --title-font: 'Kumbh Sans', sans-serif;
+    --title-font-weight: {{ title_font_weight | default: 700 }};
+    --title-font-size-desktop: {{ title_font_size_desktop | default: 48 }}px;
+    --title-font-size-tablet: {{ title_font_size_tablet | default: 40 }}px;
+    --title-font-size-mobile: {{ title_font_size_mobile | default: 36 }}px;
+
+    --description-font: 'Kumbh Sans', sans-serif;
+    --description-font-size-desktop: {{ description_font_size_desktop | default: 18 }}px;
+    --description-font-size-tablet: {{ description_font_size_tablet | default: 17 }}px;
+    --description-font-size-mobile: {{ description_font_size_mobile | default: 16 }}px;
+
+    --contact-title-font: 'Kumbh Sans', sans-serif;
+    --contact-title-font-weight: {{ contact_title_font_weight | default: 600 }};
+    --contact-title-font-size: {{ contact_title_font_size | default: 18 }}px;
+
+    --contact-text-font: 'Kumbh Sans', sans-serif;
+    --contact-text-font-size: {{ contact_text_font_size | default: 16 }}px;
+
+    --form-label-font: 'Kumbh Sans', sans-serif;
+    --form-label-font-weight: {{ form_label_font_weight | default: 500 }};
+    --form-label-font-size: {{ form_label_font_size | default: 16 }}px;
+
+    --form-input-font: 'Kumbh Sans', sans-serif;
+    --form-input-font-size: {{ form_input_font_size | default: 16 }}px;
+  }
+
+  .section-{{ section.id }} {
+    /* UPDATED: Added margin properties */
+    margin-top: {{ margin_top_desktop }}px;
+    margin-bottom: {{ margin_bottom_desktop }}px;
+    padding-top: {{ mg_top_desktop }}px;
+    padding-bottom: {{ mg_bottom_desktop }}px;
+    {% if section_bg_color != blank %}
+      background-color: {{ section_bg_color }};
+    {% else %}
+      background-color: #FEC62D;
+    {% endif %}
+    color: {{ section.settings.text_color | default: '#0E0F13' }};
+    font-family: 'Kumbh Sans', sans-serif;
+  }
+
+  .section-{{ section.id }} .contact-container {
+    {% if container == 'container' %}
+      max-width: 1200px;
+    {% elsif container == '1170' %}
+      max-width: 1170px;
+    {% elsif container == '1470' %}
+      max-width: 1470px;
+    {% elsif container == '1570' %}
+      max-width: 1570px;
+    {% elsif container == '1770' %}
+      max-width: 1770px;
+    {% elsif container == '1920' %}
+      max-width: 1920px;
+    {% elsif container == 'fullwidth' %}
+      max-width: 100%;
+    {% endif %}
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .section-{{ section.id }} .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  /* Left Side - Contact Info */
+  .section-{{ section.id }} .contact-info {
+    padding-right: 40px;
+  }
+
+  .section-{{ section.id }} .contact-title {
+    font-family: var(--title-font);
+    font-size: var(--title-font-size-desktop);
+    font-weight: var(--title-font-weight);
+    line-height: 1.2;
+    margin: 0 0 24px 0;
+    color: {{ section.settings.title_color | default: '#0E0F13' }};
+    letter-spacing: -0.02em;
+  }
+
+  .section-{{ section.id }} .contact-description {
+    font-family: var(--description-font);
+    font-size: var(--description-font-size-desktop);
+    line-height: 1.6;
+    margin: 0 0 48px 0;
+    color: {{ section.settings.description_color | default: '#666666' }};
+  }
+
+  .section-{{ section.id }} .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .section-{{ section.id }} .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    position: relative;
+  }
+
+  .section-{{ section.id }} .contact-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    bottom: -16px;
+    left: 62px;
+    right: 0;
+    height: 1px;
+    background: #009D03;
+    opacity: 0.3;
+  }
+
+  /* Enhanced WhatsApp Inquiry Floating Overlay - Auto Responsive */
+  .section-{{ section.id }} .whatsapp-inquiry-overlay {
+    position: absolute;
+    top: var(--wa-offset-top);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--wa-bg-gradient);
+    border-radius: var(--wa-border-radius);
+    padding: var(--wa-padding);
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+    max-width: var(--wa-max-width);
+    width: 100%;
+    min-width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-family: 'Kumbh Sans', sans-serif;
+  }
+
+  .section-{{ section.id }} .whatsapp-inquiry-overlay:hover {
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  .section-{{ section.id }} .whatsapp-inquiry-content {
+    width: 100%;
+  }
+
+  .section-{{ section.id }} .whatsapp-inquiry-text {
+    font-family: var(--contact-title-font);
+    font-size: var(--wa-font-size);
+    font-weight: var(--wa-font-weight);
+    color: var(--wa-text-color);
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .section-{{ section.id }} .whatsapp-phone-link {
+    color: var(--wa-link-color);
+    text-decoration: underline;
+    font-weight: 600;
+    transition: color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-{{ section.id }} .whatsapp-phone-link:hover {
+    color: var(--wa-link-hover-color);
+  }
+
+  .section-{{ section.id }} .whatsapp-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    stroke: none;
+    transition: transform 0.3s ease;
+  }
+
+  .section-{{ section.id }} .whatsapp-phone-link:hover .whatsapp-icon {
+    transform: scale(1.1);
+  }
+
+  .section-{{ section.id }} .whatsapp-separator {
+    color: var(--wa-text-color);
+    font-weight: 400;
+    opacity: 0.9;
+  }
+
+  .section-{{ section.id }} .whatsapp-quote-text {
+    color: var(--wa-link-color);
+    font-weight: 600;
+  }
+
+  /* Ensure main section has relative positioning for overlay */
+  .section-{{ section.id }} {
+    position: relative;
+  }
+
+  .section-{{ section.id }} .contact-icon svg,
+  .section-{{ section.id }} .contact-icon img {
+    width: 40px !important;
+    height: 40px !important;
+    max-width: 40px;
+    max-height: 40px;
+    object-fit: contain;
+  }
+
+  .section-{{ section.id }} .contact-item-content h4 {
+    font-family: var(--contact-title-font);
+    font-size: var(--contact-title-font-size);
+    font-weight: var(--contact-title-font-weight);
+    margin: 0 0 8px 0;
+    color: {{ section.settings.title_color | default: '#0E0F13' }};
+  }
+
+  .section-{{ section.id }} .contact-item-content p {
+    font-family: var(--contact-text-font);
+    font-size: var(--contact-text-font-size);
+    line-height: 1.5;
+    margin: 0;
+    color: {{ section.settings.description_color | default: '#666666' }};
+  }
+
+  .section-{{ section.id }} .contact-item-content a {
+    color: {{ section.settings.link_color | default: '#009D03' }};
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .section-{{ section.id }} .contact-item-content a:hover {
+    color: {{ section.settings.link_hover_color | default: '#0E0F13' }};
+  }
+
+  /* Right Side - Contact Form */
+  .section-{{ section.id }} .contact-form-wrapper {
+    background-color: {{ section.settings.form_bg_color | default: 'transparent' }};
+    padding: 0;
+  }
+
+  .section-{{ section.id }} .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .section-{{ section.id }} .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .section-{{ section.id }} .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .section-{{ section.id }} .form-group.full-width {
+    grid-column: 1 / -1;
+  }
+
+  .section-{{ section.id }} .form-group label {
+    font-family: var(--form-label-font);
+    font-size: var(--form-label-font-size);
+    font-weight: var(--form-label-font-weight);
+    margin-bottom: 8px;
+    color: {{ section.settings.title_color | default: '#0E0F13' }};
+  }
+
+  .section-{{ section.id }} .form-group input,
+  .section-{{ section.id }} .form-group textarea {
+    font-family: var(--form-input-font);
+    font-size: var(--form-input-font-size);
+    background-color: {{ section.settings.input_bg_color | default: 'transparent' }};
+    border: none;
+    border-bottom: 2px solid {{ section.settings.input_border_color | default: '#ddd' }};
+    padding: 16px 0;
+    color: {{ section.settings.text_color | default: '#0E0F13' }};
+    transition: border-color 0.3s ease;
+    outline: none;
+  }
+
+  .section-{{ section.id }} .form-group input:focus,
+  .section-{{ section.id }} .form-group textarea:focus {
+    border-bottom-color: {{ section.settings.button_bg_color | default: '#009D03' }};
+  }
+
+  .section-{{ section.id }} .form-group input::placeholder,
+  .section-{{ section.id }} .form-group textarea::placeholder {
+    color: #999;
+    opacity: 1;
+  }
+
+  .section-{{ section.id }} .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .section-{{ section.id }} .form-submit {
+    margin-top: 16px;
+    text-align: center;
+  }
+
+  /* Form Status Messages */
+  .section-{{ section.id }} .form-success {
+    padding: 16px 20px;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    border-radius: 8px;
+    color: #155724;
+    margin-bottom: 24px;
+    font-family: 'Kumbh Sans', sans-serif;
+  }
+
+  .section-{{ section.id }} .form-success p {
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .section-{{ section.id }} .form-errors {
+    padding: 16px 20px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 8px;
+    color: #721c24;
+    margin-bottom: 24px;
+    font-family: 'Kumbh Sans', sans-serif;
+  }
+
+  .section-{{ section.id }} .form-errors p {
+    margin: 0 0 8px 0;
+    font-weight: 600;
+  }
+
+  .section-{{ section.id }} .form-errors ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+
+  .section-{{ section.id }} .form-errors li {
+    margin-bottom: 4px;
+  }
+
+  /* Enhanced Responsive Design for WhatsApp Banner */
+  @media screen and (max-width: 1024px) {
+    .section-{{ section.id }} {
+      /* UPDATED: Added tablet margin styles */
+      margin-top: {{ margin_top_tablet }}px;
+      margin-bottom: {{ margin_bottom_tablet }}px;
+      padding-top: {{ mg_top_tablet }}px;
+      padding-bottom: {{ mg_bottom_tablet }}px;
+    }
+
+    .section-{{ section.id }} .contact-grid {
+      gap: 60px;
+    }
+
+    .section-{{ section.id }} .contact-info {
+      padding-right: 0;
+    }
+
+    .section-{{ section.id }} .contact-title {
+      font-size: var(--title-font-size-tablet);
+    }
+
+    .section-{{ section.id }} .contact-description {
+      font-size: var(--description-font-size-tablet);
+    }
+
+    .section-{{ section.id }} .whatsapp-inquiry-overlay {
+      max-width: 94%;
+      min-width: 280px;
+      padding: calc(var(--wa-padding) - 2px);
+    }
+
+    .section-{{ section.id }} .whatsapp-inquiry-text {
+      font-size: calc(var(--wa-font-size) - 1px);
+    }
+
+    .section-{{ section.id }} .whatsapp-phone-link {
+      gap: 7px;
+    }
+
+    .section-{{ section.id }} .whatsapp-icon {
+      width: 19px;
+      height: 19px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .section-{{ section.id }} {
+      /* UPDATED: Added mobile margin styles */
+      margin-top: {{ margin_top_mobile }}px;
+      margin-bottom: {{ margin_bottom_mobile }}px;
+      padding-top: {{ mg_top_mobile }}px;
+      padding-bottom: {{ mg_bottom_mobile }}px;
+    }
+
+    .section-{{ section.id }} .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+
+    .section-{{ section.id }} .contact-title {
+      font-size: var(--title-font-size-mobile);
+    }
+
+    .section-{{ section.id }} .contact-description {
+      font-size: var(--description-font-size-mobile);
+      margin-bottom: 32px;
+    }
+
+    .section-{{ section.id }} .contact-details {
+      gap: 24px;
+    }
+
+    .section-{{ section.id }} .whatsapp-inquiry-text {
+      font-size: calc(var(--wa-font-size) - 0px);
+      flex-direction: row;
+      gap: 6px;
+    }
+
+    .section-{{ section.id }} .whatsapp-inquiry-overlay {
+      max-width: 90%;
+      min-width: 250px;
+      padding: calc(var(--wa-padding) - 6px);
+      top: calc(var(--wa-offset-top) + 10px);
+    }
+
+    .section-{{ section.id }} .form-row {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .section-{{ section.id }} .form-submit {
+      text-align: center;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .section-{{ section.id }} .contact-container {
+      padding: 0 16px;
+    }
+
+    .section-{{ section.id }} .contact-icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    .section-{{ section.id }} .contact-icon svg,
+    .section-{{ section.id }} .contact-icon img {
+      width: 20px !important;
+      height: 20px !important;
+      max-width: 20px;
+      max-height: 20px;
+    }
+
+    .section-{{ section.id }} .contact-item {
+      gap: 16px;
+    }
+
+    .section-{{ section.id }} .contact-item:not(:last-child)::after {
+      left: 56px;
+    }
+
+    .section-{{ section.id }} .whatsapp-inquiry-text {
+      font-size: calc(var(--wa-font-size) - 5px);
+    }
+
+    .section-{{ section.id }} .whatsapp-inquiry-overlay {
+      max-width: 95%;
+      min-width: 200px;
+      padding: calc(var(--wa-padding) - 15px);
+      border-radius: calc(var(--wa-border-radius) - 2px);
+      stop: calc(var(--wa-offset-top) + 8px);
+    }
+
+    /* Enhanced mobile responsiveness for WhatsApp text */
+    .section-{{ section.id }} .whatsapp-inquiry-text {
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .section-{{ section.id }} .whatsapp-phone-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin: 2px 0;
+    }
+
+    .section-{{ section.id }} .whatsapp-icon {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  /* Ultra-small screens */
+  @media screen and (max-width: 360px) {
+    .section-{{ section.id }} .whatsapp-inquiry-overlay {
+      max-width: 98%;
+      min-width: 180px;
+      padding: calc(var(--wa-padding) - 8px);
+      border-radius: calc(var(--wa-border-radius) - 4px);
+    }
+
+    .section-{{ section.id }} .whatsapp-inquiry-text {
+      font-size: calc(var(--wa-font-size) - 6px);
+      gap: 4px;
+    }
+
+    .section-{{ section.id }} .whatsapp-phone-link {
+      gap: 5px;
+    }
+
+    .section-{{ section.id }} .whatsapp-icon {
+      width: 16px;
+      height: 16px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Contact Form Home",
+  "class": "section-contact-form-home",
+  "tag": "section",
+  "enabled_on": {
+    "templates": ["*"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "General Settings"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container Width",
+      "default": "container",
+      "options": [
+        {
+          "value": "container",
+          "label": "Default Container"
+        },
+        {
+          "value": "1170",
+          "label": "1170px"
+        },
+        {
+          "value": "1470",
+          "label": "1470px"
+        },
+        {
+          "value": "1570",
+          "label": "1570px"
+        },
+        {
+          "value": "1770",
+          "label": "1770px"
+        },
+        {
+          "value": "1920",
+          "label": "1920px"
+        },
+        {
+          "value": "fullwidth",
+          "label": "Full Width"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Margin Settings"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Top Margin (Desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "default": 0,
+      "info": "Space above the section"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Bottom Margin (Desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "default": 0,
+      "info": "Space below the section"
+    },
+    {
+      "type": "range",
+      "id": "margin_top_tablet",
+      "label": "Top Margin (Tablet)",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 0,
+      "info": "Space above the section on tablet"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_tablet",
+      "label": "Bottom Margin (Tablet)",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 0,
+      "info": "Space below the section on tablet"
+    },
+    {
+      "type": "range",
+      "id": "margin_top_mobile",
+      "label": "Top Margin (Mobile)",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 0,
+      "info": "Space above the section on mobile"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_mobile",
+      "label": "Bottom Margin (Mobile)",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 0,
+      "info": "Space below the section on mobile"
+    },
+    {
+      "type": "header",
+      "content": "Padding Settings"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top Padding (Desktop)",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 80,
+      "info": "Inner spacing from top of section"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom Padding (Desktop)",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 80,
+      "info": "Inner spacing from bottom of section"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_tablet",
+      "label": "Top Padding (Tablet)",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_tablet",
+      "label": "Bottom Padding (Tablet)",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Top Padding (Mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Bottom Padding (Mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#FEC62D"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Let's Connect with TAK"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "We'd love to hear from you! Whether you're a potential partner, buyer, or supplier, our team is ready to assist you with your agricultural needs."
+    },
+    {
+      "type": "header",
+      "content": "Typography - All Kumbh Sans"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_desktop",
+      "label": "Title Font Size (Desktop)",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_tablet",
+      "label": "Title Font Size (Tablet)",
+      "min": 18,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_mobile",
+      "label": "Title Font Size (Mobile)",
+      "min": 16,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "select",
+      "id": "title_font_weight",
+      "label": "Title Font Weight",
+      "default": "700",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light (300)"
+        },
+        {
+          "value": "400",
+          "label": "Regular (400)"
+        },
+        {
+          "value": "500",
+          "label": "Medium (500)"
+        },
+        {
+          "value": "600",
+          "label": "Semi Bold (600)"
+        },
+        {
+          "value": "700",
+          "label": "Bold (700)"
+        },
+        {
+          "value": "800",
+          "label": "Extra Bold (800)"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "description_font_size_desktop",
+      "label": "Description Font Size (Desktop)",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "description_font_size_tablet",
+      "label": "Description Font Size (Tablet)",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 17
+    },
+    {
+      "type": "range",
+      "id": "description_font_size_mobile",
+      "label": "Description Font Size (Mobile)",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "contact_title_font_size",
+      "label": "Contact Item Title Font Size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "select",
+      "id": "contact_title_font_weight",
+      "label": "Contact Item Title Font Weight",
+      "default": "600",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular (400)"
+        },
+        {
+          "value": "500",
+          "label": "Medium (500)"
+        },
+        {
+          "value": "600",
+          "label": "Semi Bold (600)"
+        },
+        {
+          "value": "700",
+          "label": "Bold (700)"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "contact_text_font_size",
+      "label": "Contact Item Text Font Size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "form_label_font_size",
+      "label": "Form Label Font Size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "form_label_font_weight",
+      "label": "Form Label Font Weight",
+      "default": "500",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular (400)"
+        },
+        {
+          "value": "500",
+          "label": "Medium (500)"
+        },
+        {
+          "value": "600",
+          "label": "Semi Bold (600)"
+        },
+        {
+          "value": "700",
+          "label": "Bold (700)"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "form_input_font_size",
+      "label": "Form Input Font Size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Form Labels & Placeholders"
+    },
+    {
+      "type": "text",
+      "id": "name_label",
+      "label": "Name Field Label",
+      "default": "Full name"
+    },
+    {
+      "type": "text",
+      "id": "name_placeholder",
+      "label": "Name Field Placeholder",
+      "default": "Enter your full name"
+    },
+    {
+      "type": "text",
+      "id": "company_label",
+      "label": "Company Field Label",
+      "default": "Company name"
+    },
+    {
+      "type": "text",
+      "id": "company_placeholder",
+      "label": "Company Field Placeholder",
+      "default": "Enter your company name"
+    },
+    {
+      "type": "text",
+      "id": "phone_field_label",
+      "label": "Phone Field Label",
+      "default": "Phone"
+    },
+    {
+      "type": "text",
+      "id": "phone_placeholder",
+      "label": "Phone Field Placeholder",
+      "default": "Enter your phone number"
+    },
+    {
+      "type": "text",
+      "id": "email_field_label",
+      "label": "Email Field Label",
+      "default": "Email"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email Field Placeholder",
+      "default": "Enter your email address"
+    },
+    {
+      "type": "text",
+      "id": "subject_label",
+      "label": "Subject Field Label",
+      "default": "Subject"
+    },
+    {
+      "type": "text",
+      "id": "subject_placeholder",
+      "label": "Subject Field Placeholder",
+      "default": "Enter the subject"
+    },
+    {
+      "type": "text",
+      "id": "message_label",
+      "label": "Message Field Label",
+      "default": "Message"
+    },
+    {
+      "type": "text",
+      "id": "message_placeholder",
+      "label": "Message Field Placeholder",
+      "default": "Enter your message here..."
+    },
+    {
+      "type": "text",
+      "id": "submit_text",
+      "label": "Submit Button Text",
+      "default": "Submit"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success Message",
+      "default": "Thank you for your message! We will get back to you soon."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#0E0F13"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#0E0F13"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link Color",
+      "default": "#009D03"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link Hover Color",
+      "default": "#0E0F13"
+    },
+    {
+      "type": "color",
+      "id": "icon_bg_color",
+      "label": "Icon Background Color",
+      "default": "#FEC62D"
+    },
+    {
+      "type": "color",
+      "id": "form_bg_color",
+      "label": "Form Background Color",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "input_bg_color",
+      "label": "Input Background Color",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input Border Color",
+      "default": "#ddd"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Submit Button Background",
+      "default": "#009D03"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Submit Button Text",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "office_hours",
+      "name": "Office Hours",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_item",
+          "label": "Show Office Hours",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Office Hours"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Custom Icon",
+          "info": "Select an icon from your media library. Leave empty to use default clock icon."
+        },
+        {
+          "type": "textarea",
+          "id": "office_hours",
+          "label": "Office Hours",
+          "default": "Sunday – Thursday: 9:00 AM – 5:00 PM\nFriday & Saturday: Closed"
+        }
+      ]
+    },
+    {
+      "type": "phone",
+      "name": "Phone",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_item",
+          "label": "Show Phone",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Phone"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Custom Icon",
+          "info": "Select an icon from your media library. Leave empty to use default phone icon."
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone Number",
+          "default": "+91 998977755500"
+        }
+      ]
+    },
+    {
+      "type": "email",
+      "name": "Email",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_item",
+          "label": "Show Email",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Email"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Custom Icon",
+          "info": "Select an icon from your media library. Leave empty to use default email icon."
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email Address",
+          "default": "info@tak.af"
+        }
+      ]
+    },
+    {
+      "type": "address",
+      "name": "Address",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_item",
+          "label": "Show Address",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Address"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Custom Icon",
+          "info": "Select an icon from your media library. Leave empty to use default location icon."
+        },
+        {
+          "type": "textarea",
+          "id": "address",
+          "label": "Address",
+          "default": "Block A, No: 199&200, Shadian Industrial Park, district 6, Mazar I Sharif, Balkh, Afghanistan."
+        }
+      ]
+    },
+    {
+      "type": "custom",
+      "name": "Custom Contact Item",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_item",
+          "label": "Show Custom Item",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Information"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Custom Icon",
+          "info": "Select an icon from your media library. Leave empty to use default info icon."
+        },
+        {
+          "type": "textarea",
+          "id": "content",
+          "label": "Content",
+          "default": "Enter your custom content here"
+        }
+      ]
+    },
+    {
+      "type": "whatsapp_inquiry",
+      "name": "WhatsApp Inquiry Banner",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_item",
+          "label": "Show WhatsApp Inquiry Banner",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Content Settings"
+        },
+        {
+          "type": "text",
+          "id": "custom_text",
+          "label": "Custom Text",
+          "default": "Speak To Our Experts",
+          "info": "Main text before phone number"
+        },
+        {
+          "type": "text",
+          "id": "phone_number",
+          "label": "WhatsApp Phone Number",
+          "default": "+90 216 326 36 77",
+          "info": "Include country code (e.g., +90 216 326 36 77)"
+        },
+        {
+          "type": "text",
+          "id": "separator_text",
+          "label": "Separator Text",
+          "default": "Or",
+          "info": "Text between phone and quote link"
+        },
+        {
+          "type": "text",
+          "id": "quote_text",
+          "label": "Quote Text",
+          "default": "Request A Quote",
+          "info": "Additional text to display"
+        },
+        {
+          "type": "header",
+          "content": "Positioning"
+        },
+        {
+          "type": "range",
+          "id": "offset_top",
+          "label": "Vertical Position",
+          "min": -200,
+          "max": 100,
+          "step": 5,
+          "unit": "px",
+          "default": -60,
+          "info": "Negative values position banner above section, positive values position below"
+        },
+        {
+          "type": "range",
+          "id": "max_width",
+          "label": "Banner Width",
+          "min": 50,
+          "max": 100,
+          "step": 5,
+          "unit": "%",
+          "default": 90,
+          "info": "Maximum width of the banner relative to container"
+        },
+        {
+          "type": "header",
+          "content": "Styling"
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background Color",
+          "default": "#FEC62D"
+        },
+        {
+          "type": "color_background",
+          "id": "bg_gradient",
+          "label": "Background Gradient",
+          "info": "Optional gradient background (overrides solid color)"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text Color",
+          "default": "#0E0F13"
+        },
+        {
+          "type": "color",
+          "id": "link_color",
+          "label": "Link Color",
+          "default": "#009D03"
+        },
+        {
+          "type": "color",
+          "id": "link_hover_color",
+          "label": "Link Hover Color",
+          "default": "#0E0F13"
+        },
+        {
+          "type": "range",
+          "id": "border_radius",
+          "label": "Border Radius",
+          "min": 0,
+          "max": 50,
+          "step": 1,
+          "unit": "px",
+          "default": 15
+        },
+        {
+          "type": "range",
+          "id": "padding",
+          "label": "Padding",
+          "min": 10,
+          "max": 40,
+          "step": 2,
+          "unit": "px",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "font_size",
+          "label": "Font Size",
+          "min": 14,
+          "max": 28,
+          "step": 1,
+          "unit": "px",
+          "default": 18
+        },
+        {
+          "type": "select",
+          "id": "font_weight",
+          "label": "Font Weight",
+          "default": "500",
+          "options": [
+            {
+              "value": "400",
+              "label": "Regular (400)"
+            },
+            {
+              "value": "500",
+              "label": "Medium (500)"
+            },
+            {
+              "value": "600",
+              "label": "Semi Bold (600)"
+            },
+            {
+              "value": "700",
+              "label": "Bold (700)"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Form Home",
+      "blocks": [
+        {
+          "type": "office_hours",
+          "settings": {
+            "show_item": true,
+            "label": "Office Hours",
+            "office_hours": "Sunday – Thursday: 9:00 AM – 5:00 PM\nFriday & Saturday: Closed"
+          }
+        },
+        {
+          "type": "phone",
+          "settings": {
+            "show_item": true,
+            "label": "Phone",
+            "phone": "+91 998977755500"
+          }
+        },
+        {
+          "type": "email",
+          "settings": {
+            "show_item": true,
+            "label": "Email",
+            "email": "info@tak.af"
+          }
+        },
+        {
+          "type": "address",
+          "settings": {
+            "show_item": true,
+            "label": "Address",
+            "address": "Block A, No: 199&200, Shadian Industrial Park, district 6, Mazar I Sharif, Balkh, Afghanistan."
+          }
+        },
+        {
+          "type": "whatsapp_inquiry",
+          "settings": {
+            "show_item": true,
+            "custom_text": "Speak To Our Experts",
+            "phone_number": "+90 216 326 36 77",
+            "separator_text": "Or",
+            "quote_text": "Request A Quote",
+            "bg_color": "#FEC62D",
+            "text_color": "#0E0F13",
+            "link_color": "#009D03",
+            "link_hover_color": "#0E0F13",
+            "border_radius": 15,
+            "padding": 20,
+            "font_size": 18
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

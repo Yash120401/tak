@@ -1,0 +1,1187 @@
+{%- if section.blocks.size > 0 -%}
+  {%- liquid
+    assign swipe = section.settings.partnership_swipe_on_mobile
+    assign grid_gap = section.settings.grid_gap | times: 0.5 | append: 'px'
+    assign content_alignment = section.settings.content_alignment | default: 'center'
+  -%}
+  <link
+    rel="stylesheet"
+    href="{{ 'component-tak-partnership.css' | asset_url }}"
+    media="print"
+    onload="this.media='all'"
+  >
+  <noscript>{{ 'component-tak-partnership.css' | asset_url | stylesheet_tag }}</noscript>
+
+  <style>
+    {%- liquid
+        assign partnership_bg = section.settings.partnership_bg
+        assign partnership_bg_gradient = section.settings.partnership_bg_gradient
+        assign partnership_bg_image = section.settings.partnership_bg_image
+
+        assign color_title = section.settings.color_title
+        assign mg_bottom_title = section.settings.mg_bottom_title
+        assign mg_bottom_title_mb = section.settings.mg_bottom_title_mb
+        assign fontsize_title = section.settings.fontsize_title
+        assign fontsize_title_mb = section.settings.fontsize_title_mb
+
+        assign color_des = section.settings.color_des
+        assign fontsize_des = section.settings.fontsize_des
+        assign mg_top_des = section.settings.mg_top_des
+        assign mg_bottom_des = section.settings.mg_bottom_des
+
+        assign mg_top_desktop = section.settings.mg_top_desktop
+        assign mg_top_tablet = section.settings.mg_top_tablet
+        assign mg_top_mobile = section.settings.mg_top_mobile
+
+        assign mg_bottom_desktop = section.settings.mg_bottom_desktop
+        assign mg_bottom_tablet = section.settings.mg_bottom_tablet
+        assign mg_bottom_mobile = section.settings.mg_bottom_mobile
+
+        assign color_icon_slider = section.settings.color_icon_slider
+        assign padding_full_width = section.settings.padding_full_width
+    -%}
+
+    /* TAK Partnership Section Styles */
+    .tak-partnership-section {
+        background: {% if partnership_bg_gradient != blank %}{{ partnership_bg_gradient }}{% else %}{{ partnership_bg }}{% endif %};
+        {% if partnership_bg_image != blank %}
+            background-image: url({{ partnership_bg_image | img_url: '1920x' }});
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        {% endif %}
+    }
+
+    .section-partnership-{{section.id}} {
+        {%- if section.settings.display_border_top -%}
+            border-top: 1px solid {{ section.settings.border_color }};
+        {%- endif -%}
+        {%- if section.settings.display_border_bottom -%}
+            border-bottom: 1px solid {{ section.settings.border_color }};
+        {%- endif -%}
+    }
+
+    .section-partnership-{{section.id}} .partnership-wrapper {
+        position: relative;
+    }
+
+    .section-partnership-{{section.id}} .slider-button .icon {
+        fill: {{ color_icon_slider }};
+    }
+
+    .section-partnership-{{section.id}} .slider-button--prev .icon {
+        margin-top: 2px;
+    }
+
+    .section-partnership-{{section.id}} .halo-block-header .title:before {
+        background-color: {{ color_title }};
+        {%- unless section.settings.enable_border_title -%}
+            display: none;
+        {%- endunless -%}
+    }
+
+    .section-partnership-{{section.id}} .halo-block-header .title {
+        color: {{ color_title }};
+        font-size: {{ fontsize_title | append: 'px' }};
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: {{ mg_bottom_title | append: 'px' }};
+        line-height: 1.2;
+    }
+
+    .section-partnership-{{section.id}} .halo-block-header .rte {
+        color: {{ color_des }};
+        font-size: {{ fontsize_des | append: 'px' }};
+    }
+
+    .section-partnership-{{section.id}} .rte {
+        color: {{ color_des }};
+        font-size: {{ fontsize_des | append: 'px' }};
+        margin-top: {{ mg_top_des | append: 'px' }};
+        margin-bottom: {{ mg_bottom_des | append: 'px' }};
+    }
+
+    /* Partnership Grid Layout */
+    .section-partnership-{{section.id}} .partnership-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: {{ grid_gap }} {{ grid_gap }};
+        align-items: stretch;
+    }
+
+    /* Content Alignment Classes */
+    .section-partnership-{{section.id}} .partnership-grid.align-left {
+        justify-content: flex-start;
+    }
+
+    .section-partnership-{{section.id}} .partnership-grid.align-center {
+        justify-content: center;
+    }
+
+    .section-partnership-{{section.id}} .partnership-grid.align-right {
+        justify-content: flex-end;
+    }
+
+    /* When content alignment is left/right and there are fewer items, adjust grid */
+    .section-partnership-{{section.id}} .partnership-grid.align-left,
+    .section-partnership-{{section.id}} .partnership-grid.align-right {
+        grid-template-columns: repeat(auto-fit, minmax(280px, max-content));
+    }
+
+    .section-partnership-{{section.id}} .partnership-item {
+        background: {{ section.settings.card_bg_color }};
+        border: {{ section.settings.card_border_width }}px solid {{ section.settings.card_border_color }};
+        border-radius: {{ section.settings.card_radius | append: 'px' }};
+        padding: {{ section.settings.card_padding_top | append: 'px' }} {{ section.settings.card_padding_left_right | append: 'px' }} {{ section.settings.card_padding_bottom | append: 'px' }};
+        text-align: center;
+        transition: all 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Individual card background colors */
+    {%- for block in section.blocks -%}
+        {%- if block.settings.card_background != blank -%}
+            .section-partnership-{{section.id}} .partnership-item-{{ forloop.index }} {
+                background: {{ block.settings.card_background }} !important;
+            }
+        {%- endif -%}
+    {%- endfor -%}
+
+    .section-partnership-{{section.id}} .partnership-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-partnership-{{section.id}} .partnership-item a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        width: 100%;
+        height: 100%;
+        color: inherit;
+    }
+
+    .section-partnership-{{section.id}} .partnership-logo {
+        margin-bottom: {{ section.settings.logo_margin_bottom | append: 'px' }};
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: {{ section.settings.logo_width | append: 'px' }};
+        height: {{ section.settings.logo_height | append: 'px' }};
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .section-partnership-{{section.id}} .partnership-logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        transition: all 0.3s ease;
+    }
+
+    .section-partnership-{{section.id}} .partnership-logo svg {
+        width: 100%;
+        height: 100%;
+        fill: {{ section.settings.default_logo_color }};
+        transition: all 0.3s ease;
+    }
+
+    .section-partnership-{{section.id}} .partnership-name {
+        font-size: {{ section.settings.partner_name_font_size | append: 'px' }};
+        font-weight: {{ section.settings.partner_name_font_weight }};
+        color: {{ section.settings.partner_name_color }};
+        line-height: 1.4;
+        margin: 0;
+        text-align: center;
+    }
+
+    .section-partnership-{{section.id}} .partnership-description {
+        font-size: {{ section.settings.partner_description_font_size | append: 'px' }};
+        color: {{ section.settings.partner_description_color }};
+        line-height: 1.6;
+        margin-top: {{ section.settings.description_margin_top | append: 'px' }};
+        margin-bottom: 0;
+        text-align: center;
+    }
+
+    /* Responsive Design */
+    @media (min-width: 1200px) {
+        .section-partnership-{{section.id}} {
+            {%- if section.settings.display_border_top or section.settings.display_border_bottom -%}
+                margin-top: {{ mg_top_desktop | append: 'px' }};
+                margin-bottom: {{ mg_bottom_desktop | append: 'px' }};
+            {%- else -%}
+                padding-top: {{ mg_top_desktop | append: 'px' }};
+                padding-bottom: {{ mg_bottom_desktop | append: 'px' }};
+            {%- endif -%}
+        }
+
+        .section-partnership-{{section.id}} .partnership-grid {
+            grid-template-columns: repeat({{ section.settings.items_per_row_desktop }}, 1fr);
+            gap: {{ section.settings.gap_desktop | append: 'px' }};
+        }
+
+        .section-partnership-{{section.id}} .partnership-grid.align-left,
+        .section-partnership-{{section.id}} .partnership-grid.align-right {
+            grid-template-columns: repeat({{ section.settings.items_per_row_desktop }}, max-content);
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 1199px) {
+        .section-partnership-{{section.id}} {
+            {%- if section.settings.display_border_top or section.settings.display_border_bottom -%}
+                margin-top: {{ mg_top_tablet | append: 'px' }};
+                margin-bottom: {{ mg_bottom_tablet | append: 'px' }};
+            {%- else -%}
+                padding-top: {{ mg_top_tablet | append: 'px' }};
+                padding-bottom: {{ mg_bottom_tablet | append: 'px' }};
+            {%- endif -%}
+        }
+
+        .section-partnership-{{section.id}} .partnership-grid {
+            grid-template-columns: repeat({{ section.settings.items_per_row_tablet }}, 1fr);
+            gap: {{ section.settings.gap_tablet | append: 'px' }};
+        }
+
+        .section-partnership-{{section.id}} .partnership-grid.align-left,
+        .section-partnership-{{section.id}} .partnership-grid.align-right {
+            grid-template-columns: repeat({{ section.settings.items_per_row_tablet }}, max-content);
+        }
+
+        .section-partnership-{{section.id}} .partnership-name {
+            font-size: {{ section.settings.partner_name_font_size | minus: 2 | append: 'px' }};
+        }
+
+        .section-partnership-{{section.id}} .partnership-description {
+            font-size: {{ section.settings.partner_description_font_size | minus: 1 | append: 'px' }};
+        }
+    }
+
+    @media (max-width: 767px) {
+        .section-partnership-{{section.id}} {
+            {%- if section.settings.display_border_top or section.settings.display_border_bottom -%}
+                margin-top: {{ mg_top_mobile | append: 'px' }};
+                margin-bottom: {{ mg_bottom_mobile | append: 'px' }};
+            {%- else -%}
+                padding-top: {{ mg_top_mobile | append: 'px' }};
+                padding-bottom: {{ mg_bottom_mobile | append: 'px' }};
+            {%- endif -%}
+        }
+
+        .section-partnership-{{section.id}} .halo-block-header .title {
+            font-size: {{ fontsize_title_mb | append: 'px' }};
+            margin-bottom: {{ mg_bottom_title_mb | append: 'px' }};
+        }
+
+        .section-partnership-{{section.id}} .partnership-grid {
+            grid-template-columns: repeat({{ section.settings.items_per_row_mobile }}, 1fr);
+            gap: {{ section.settings.gap_mobile | append: 'px' }};
+        }
+
+        .section-partnership-{{section.id}} .partnership-grid.align-left,
+        .section-partnership-{{section.id}} .partnership-grid.align-right {
+            grid-template-columns: repeat({{ section.settings.items_per_row_mobile }}, max-content);
+        }
+
+        .section-partnership-{{section.id}} .partnership-item {
+            padding: {{ section.settings.card_padding_top | minus: 10 | append: 'px' }} {{ section.settings.card_padding_left_right | minus: 10 | append: 'px' }} {{ section.settings.card_padding_bottom | minus: 10 | append: 'px' }};
+        }
+
+        .section-partnership-{{section.id}} .partnership-logo {
+            width: {{ section.settings.logo_width | minus: 20 | append: 'px' }};
+            height: {{ section.settings.logo_height | minus: 20 | append: 'px' }};
+        }
+
+        .section-partnership-{{section.id}} .partnership-name {
+            font-size: {{ section.settings.partner_name_font_size | minus: 4 | append: 'px' }};
+        }
+
+        .section-partnership-{{section.id}} .partnership-description {
+            font-size: {{ section.settings.partner_description_font_size | minus: 2 | append: 'px' }};
+        }
+
+        {%- if section.settings.container == 'fullwidth' -%}
+            .section-partnership-{{section.id}} .container-full {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+        {%- endif -%}
+    }
+
+    @media (min-width: 1025px) {
+        {%- if section.settings.container == 'fullwidth' -%}
+            .section-partnership-{{section.id}} .container-full {
+                padding-left: {{ padding_full_width | append: 'px' }};
+                padding-right: {{ padding_full_width | append: 'px' }};
+            }
+        {%- endif -%}
+    }
+
+    /* Slider styles for mobile if enabled */
+    {%- if swipe == 'slider' -%}
+        @media (max-width: 1024px) {
+            .section-partnership-{{section.id}} .partnership-grid.slider {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                gap: 30px;
+                padding-bottom: 20px;
+            }
+
+            .section-partnership-{{section.id}} .partnership-grid.slider .partnership-item {
+                flex: 0 0 280px;
+                scroll-snap-align: start;
+            }
+
+            /* Override alignment for slider mode */
+            .section-partnership-{{section.id}} .partnership-grid.slider.align-left {
+                justify-content: flex-start;
+            }
+
+            .section-partnership-{{section.id}} .partnership-grid.slider.align-center {
+                justify-content: flex-start; /* Keep flex-start for slider to work properly */
+            }
+
+            .section-partnership-{{section.id}} .partnership-grid.slider.align-right {
+                justify-content: flex-start; /* Keep flex-start for slider to work properly */
+            }
+        }
+
+        @media (max-width: 767px) {
+            .section-partnership-{{section.id}} .partnership-grid.slider .partnership-item {
+                flex: 0 0 250px;
+            }
+        }
+    {%- endif -%}
+
+    {%- if swipe == 'scroll' -%}
+        @media (max-width: 1024px) {
+            .section-partnership-{{section.id}} .partnership-grid.scroll-snap-mobile {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                gap: 30px;
+                padding-bottom: 20px;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+
+            .section-partnership-{{section.id}} .partnership-grid.scroll-snap-mobile::-webkit-scrollbar {
+                display: none;
+            }
+
+            .section-partnership-{{section.id}} .partnership-grid.scroll-snap-mobile .partnership-item {
+                flex: 0 0 280px;
+                scroll-snap-align: start;
+            }
+
+            /* Override alignment for scroll mode */
+            .section-partnership-{{section.id}} .partnership-grid.scroll-snap-mobile.align-left {
+                justify-content: flex-start;
+            }
+
+            .section-partnership-{{section.id}} .partnership-grid.scroll-snap-mobile.align-center {
+                justify-content: flex-start; /* Keep flex-start for scroll to work properly */
+            }
+
+            .section-partnership-{{section.id}} .partnership-grid.scroll-snap-mobile.align-right {
+                justify-content: flex-start; /* Keep flex-start for scroll to work properly */
+            }
+        }
+    {%- endif -%}
+  </style>
+
+  <div
+    class="tak-partnership-section section-partnership-{{ section.id }}{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}"
+    style="--grid-gap: {{ grid_gap }}"
+    {% if section.settings.id_section != blank %}
+      id="{{ section.settings.id_section }}"
+    {% endif %}
+  >
+    <div class="{% if section.settings.container == 'fullwidth' %}container-full{% elsif section.settings.container == '1770' %}container_1770{% elsif section.settings.container == '1170' %}container_1170{% else %}container{% endif %}">
+      <div class="partnership-wrapper">
+        {%- if section.settings.partnership_title != blank -%}
+          <div class="halo-block-header text-{{ section.settings.title_align }}{% if section.settings.partnership_des != blank and section.settings.partnership_des_pos == 'top' %} has-des{% endif %}">
+            <h2 class="title">
+              <span class="text">{{ section.settings.partnership_title }}</span>
+            </h2>
+            {%- if section.settings.partnership_des != blank and section.settings.partnership_des_pos == 'top' -%}
+              <div class="rte subtext-spotlight">{{ section.settings.partnership_des }}</div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if swipe == 'slider' -%}
+          <banner-slider-component>
+            <div class="partnership-block-wrapper">
+        {%- endif -%}
+
+        <div class="partnership-grid{% if swipe == 'slider' %} slider slider--tablet{% endif %}{% if swipe == 'scroll' %} scroll-snap-mobile disable-srollbar{% endif %} align-{{ content_alignment }}">
+          {%- for block in section.blocks -%}
+            <div
+              class="partnership-item{% if swipe == 'slider' %} slider__slide{% endif %}{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}"
+              {% if settings.banner_animation == 'effect_fade_up' %}
+                data-cascade style="--animation-order: {{ forloop.index }};"
+              {% endif %}
+            >
+              <a
+                {% if block.settings.partner_link == blank %}
+                  role="link" aria-disabled="true"
+                {% else %}
+                  href="{{ block.settings.partner_link }}"
+                {% endif %}
+                title="{{ block.settings.partner_name }}"
+              >
+                {%- if block.settings.logo_type == 'image' -%}
+                  {%- if block.settings.partner_logo != blank -%}
+                    <div class="partnership-logo">
+                      {%- assign preview_img = block.settings.partner_logo -%}
+                      <img
+                        src="{{ preview_img | img_url: '200x200' }}"
+                        alt="{{ block.settings.partner_name }}"
+                        loading="lazy"
+                      >
+                    </div>
+                  {%- endif -%}
+                {%- else -%}
+                  {%- if block.settings.partner_logo_svg != blank -%}
+                    <div class="partnership-logo">
+                      {{ block.settings.partner_logo_svg }}
+                    </div>
+                  {%- endif -%}
+                {%- endif -%}
+
+                {%- if block.settings.partner_name != blank -%}
+                  <h3 class="partnership-name">{{ block.settings.partner_name }}</h3>
+                {%- endif -%}
+
+                {%- if block.settings.partner_description != blank -%}
+                  <p class="partnership-description">{{ block.settings.partner_description }}</p>
+                {%- endif -%}
+              </a>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        {%- if swipe == 'slider' and section.blocks.size > 1 -%}
+          <div class="slider-buttons no-js-hidden slider-arrows">
+            <div class="slider-action {% if section.blocks.size == 2 %}count_2{% endif %}">
+              <button
+                type="button"
+                class="slider-button slider-button--prev"
+                name="previous"
+                aria-label="{{ 'accessibility.previous_slide' | t }}"
+              >
+                {% render 'icon-caret' %}
+              </button>
+              <button
+                type="button"
+                class="slider-button slider-button--next"
+                name="next"
+                aria-label="{{ 'accessibility.next_slide' | t }}"
+              >
+                {% render 'icon-caret' %}
+              </button>
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- if swipe == 'slider' -%}
+          </div>
+          </banner-slider-component>
+        {%- endif -%}
+
+        {%- if section.settings.partnership_des != blank and section.settings.partnership_des_pos == 'bottom' -%}
+          <div class="rte subtext-spotlight text-{{ section.settings.title_align }}{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}">
+            {{ section.settings.partnership_des }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+    "name": "TAK Partnership",
+    "class": "sections-tak-partnership",
+    "max_blocks": 12,
+    "settings": [
+        {
+            "type": "header",
+            "content": "General Settings"
+        },
+        {
+            "type": "text",
+            "id": "id_section",
+            "label": "Section ID",
+            "info": "Add a custom ID for this section"
+        },
+        {
+            "type": "select",
+            "id": "container",
+            "label": "Container Width",
+            "default": "container",
+            "options": [
+                {
+                    "value": "container",
+                    "label": "Default Container"
+                },
+                {
+                    "value": "1170",
+                    "label": "1170px"
+                },
+                {
+                    "value": "1770",
+                    "label": "1770px"
+                },
+                {
+                    "value": "fullwidth",
+                    "label": "Full Width"
+                }
+            ]
+        },
+        {
+            "type": "range",
+            "id": "padding_full_width",
+            "label": "Full Width Padding",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "px",
+            "default": 0
+        },
+        {
+            "type": "checkbox",
+            "id": "display_border_top",
+            "label": "Show Top Border",
+            "default": false
+        },
+        {
+            "type": "checkbox",
+            "id": "display_border_bottom",
+            "label": "Show Bottom Border",
+            "default": false
+        },
+        {
+            "type": "color",
+            "id": "border_color",
+            "label": "Border Color",
+            "default": "#d0d0d0"
+        },
+        {
+            "type": "select",
+            "id": "partnership_swipe_on_mobile",
+            "label": "Mobile Layout",
+            "default": "list",
+            "options": [
+                {
+                    "value": "list",
+                    "label": "Grid Layout"
+                },
+                {
+                    "value": "scroll",
+                    "label": "Horizontal Scroll"
+                },
+                {
+                    "value": "slider",
+                    "label": "Slider with Arrows"
+                }
+            ]
+        },
+        {
+            "type": "color",
+            "id": "color_icon_slider",
+            "label": "Slider Arrow Color",
+            "default": "#212121",
+            "info": "Only applies when mobile layout is set to slider"
+        },
+        {
+            "type": "header",
+            "content": "Background Settings"
+        },
+        {
+            "type": "color",
+            "id": "partnership_bg",
+            "label": "Background Color",
+            "default": "#ffffff"
+        },
+        {
+            "type": "color_background",
+            "id": "partnership_bg_gradient",
+            "label": "Background Gradient"
+        },
+        {
+            "type": "image_picker",
+            "id": "partnership_bg_image",
+            "label": "Background Image"
+        },
+        {
+            "type": "header",
+            "content": "Content Alignment"
+        },
+        {
+            "type": "select",
+            "id": "content_alignment",
+            "label": "Items Alignment",
+            "default": "center",
+            "options": [
+                {
+                    "value": "left",
+                    "label": "Left"
+                },
+                {
+                    "value": "center",
+                    "label": "Center"
+                },
+                {
+                    "value": "right",
+                    "label": "Right"
+                }
+            ],
+            "info": "Control how partnership items are aligned within the section"
+        },
+        {
+            "type": "header",
+            "content": "Title & Description"
+        },
+        {
+            "type": "text",
+            "id": "partnership_title",
+            "label": "Section Title",
+            "default": "TAK Partnership"
+        },
+        {
+            "type": "checkbox",
+            "id": "enable_border_title",
+            "label": "Show Title Border",
+            "default": false
+        },
+        {
+            "type": "color",
+            "id": "color_title",
+            "label": "Title Color",
+            "default": "#333333"
+        },
+        {
+            "type": "range",
+            "id": "fontsize_title",
+            "label": "Title Font Size",
+            "min": 24,
+            "max": 60,
+            "step": 1,
+            "unit": "px",
+            "default": 42
+        },
+        {
+            "type": "range",
+            "id": "fontsize_title_mb",
+            "label": "Title Font Size Mobile",
+            "min": 20,
+            "max": 40,
+            "step": 1,
+            "unit": "px",
+            "default": 32
+        },
+        {
+            "type": "range",
+            "id": "mg_bottom_title",
+            "label": "Title Bottom Margin",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "default": 60
+        },
+        {
+            "type": "range",
+            "id": "mg_bottom_title_mb",
+            "label": "Title Bottom Margin Mobile",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "px",
+            "default": 40
+        },
+        {
+            "type": "textarea",
+            "id": "partnership_des",
+            "label": "Section Description"
+        },
+        {
+            "type": "select",
+            "id": "partnership_des_pos",
+            "label": "Description Position",
+            "default": "bottom",
+            "options": [
+                {
+                    "value": "top",
+                    "label": "Above Title"
+                },
+                {
+                    "value": "bottom",
+                    "label": "Below Content"
+                }
+            ]
+        },
+        {
+            "type": "color",
+            "id": "color_des",
+            "label": "Description Color",
+            "default": "#666666"
+        },
+        {
+            "type": "range",
+            "id": "fontsize_des",
+            "label": "Description Font Size",
+            "min": 12,
+            "max": 24,
+            "step": 1,
+            "unit": "px",
+            "default": 16
+        },
+        {
+            "type": "range",
+            "id": "mg_top_des",
+            "label": "Description Top Margin",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "px",
+            "default": 20
+        },
+        {
+            "type": "range",
+            "id": "mg_bottom_des",
+            "label": "Description Bottom Margin",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "px",
+            "default": 0
+        },
+        {
+            "type": "select",
+            "id": "title_align",
+            "label": "Text Alignment",
+            "options": [
+                {
+                    "value": "left",
+                    "label": "Left"
+                },
+                {
+                    "value": "center",
+                    "label": "Center"
+                },
+                {
+                    "value": "right",
+                    "label": "Right"
+                }
+            ],
+            "default": "center"
+        },
+        {
+            "type": "header",
+            "content": "Card Design"
+        },
+        {
+            "type": "color",
+            "id": "card_bg_color",
+            "label": "Card Background Color",
+            "default": "#f0f8f0"
+        },
+        {
+            "type": "color",
+            "id": "card_border_color",
+            "label": "Card Border Color",
+            "default": "#e0e0e0"
+        },
+        {
+            "type": "range",
+            "id": "card_border_width",
+            "label": "Card Border Width",
+            "min": 0,
+            "max": 5,
+            "step": 1,
+            "unit": "px",
+            "default": 1
+        },
+        {
+            "type": "range",
+            "id": "card_radius",
+            "label": "Card Border Radius",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "unit": "px",
+            "default": 12
+        },
+        {
+            "type": "range",
+            "id": "card_padding_top",
+            "label": "Card Top Padding",
+            "min": 20,
+            "max": 80,
+            "step": 2,
+            "unit": "px",
+            "default": 40
+        },
+        {
+            "type": "range",
+            "id": "card_padding_bottom",
+            "label": "Card Bottom Padding",
+            "min": 20,
+            "max": 80,
+            "step": 2,
+            "unit": "px",
+            "default": 40
+        },
+        {
+            "type": "range",
+            "id": "card_padding_left_right",
+            "label": "Card Side Padding",
+            "min": 16,
+            "max": 60,
+            "step": 2,
+            "unit": "px",
+            "default": 30
+        },
+        {
+            "type": "header",
+            "content": "Logo Settings"
+        },
+        {
+            "type": "range",
+            "id": "logo_width",
+            "label": "Logo Width",
+            "min": 60,
+            "max": 150,
+            "step": 5,
+            "unit": "px",
+            "default": 80
+        },
+        {
+            "type": "range",
+            "id": "logo_height",
+            "label": "Logo Height",
+            "min": 60,
+            "max": 150,
+            "step": 5,
+            "unit": "px",
+            "default": 80
+        },
+        {
+            "type": "range",
+            "id": "logo_margin_bottom",
+            "label": "Logo Bottom Margin",
+            "min": 10,
+            "max": 50,
+            "step": 2,
+            "unit": "px",
+            "default": 20
+        },
+        {
+            "type": "color",
+            "id": "default_logo_color",
+            "label": "Default Logo Color",
+            "default": "#4CAF50",
+            "info": "Only applies to SVG logos"
+        },
+        {
+            "type": "header",
+            "content": "Partner Name Settings"
+        },
+        {
+            "type": "range",
+            "id": "partner_name_font_size",
+            "label": "Partner Name Font Size",
+            "min": 16,
+            "max": 30,
+            "step": 1,
+            "unit": "px",
+            "default": 20
+        },
+        {
+            "type": "select",
+            "id": "partner_name_font_weight",
+            "label": "Partner Name Font Weight",
+            "default": "600",
+            "options": [
+                {
+                    "value": "400",
+                    "label": "Normal"
+                },
+                {
+                    "value": "500",
+                    "label": "Medium"
+                },
+                {
+                    "value": "600",
+                    "label": "Semi-bold"
+                },
+                {
+                    "value": "700",
+                    "label": "Bold"
+                }
+            ]
+        },
+        {
+            "type": "color",
+            "id": "partner_name_color",
+            "label": "Partner Name Color",
+            "default": "#333333"
+        },
+        {
+            "type": "header",
+            "content": "Partner Description Settings"
+        },
+        {
+            "type": "range",
+            "id": "partner_description_font_size",
+            "label": "Description Font Size",
+            "min": 12,
+            "max": 18,
+            "step": 1,
+            "unit": "px",
+            "default": 14
+        },
+        {
+            "type": "color",
+            "id": "partner_description_color",
+            "label": "Description Color",
+            "default": "#666666"
+        },
+        {
+            "type": "range",
+            "id": "description_margin_top",
+            "label": "Description Top Margin",
+            "min": 5,
+            "max": 25,
+            "step": 1,
+            "unit": "px",
+            "default": 10
+        },
+        {
+            "type": "header",
+            "content": "Grid Layout"
+        },
+        {
+            "type": "range",
+            "id": "items_per_row_desktop",
+            "label": "Items Per Row (Desktop)",
+            "min": 2,
+            "max": 6,
+            "step": 1,
+            "default": 3
+        },
+        {
+            "type": "range",
+            "id": "items_per_row_tablet",
+            "label": "Items Per Row (Tablet)",
+            "min": 2,
+            "max": 4,
+            "step": 1,
+            "default": 2
+        },
+        {
+            "type": "range",
+            "id": "items_per_row_mobile",
+            "label": "Items Per Row (Mobile)",
+            "min": 1,
+            "max": 3,
+            "step": 1,
+            "default": 1
+        },
+        {
+            "type": "range",
+            "id": "gap_desktop",
+            "label": "Gap Between Items (Desktop)",
+            "min": 20,
+            "max": 60,
+            "step": 5,
+            "unit": "px",
+            "default": 40
+        },
+        {
+            "type": "range",
+            "id": "gap_tablet",
+            "label": "Gap Between Items (Tablet)",
+            "min": 15,
+            "max": 50,
+            "step": 5,
+            "unit": "px",
+            "default": 30
+        },
+        {
+            "type": "range",
+            "id": "gap_mobile",
+            "label": "Gap Between Items (Mobile)",
+            "min": 10,
+            "max": 40,
+            "step": 5,
+            "unit": "px",
+            "default": 20
+        },
+        {
+            "type": "range",
+            "id": "grid_gap",
+            "label": "Grid Gap",
+            "min": 10,
+            "max": 60,
+            "step": 5,
+            "unit": "px",
+            "default": 40
+        },
+        {
+            "type": "header",
+            "content": "Spacing"
+        },
+        {
+            "type": "range",
+            "id": "mg_top_desktop",
+            "label": "Top Margin Desktop",
+            "min": 0,
+            "max": 200,
+            "step": 5,
+            "unit": "px",
+            "default": 80
+        },
+        {
+            "type": "range",
+            "id": "mg_top_tablet",
+            "label": "Top Margin Tablet",
+            "min": 0,
+            "max": 200,
+            "step": 5,
+            "unit": "px",
+            "default": 60
+        },
+        {
+            "type": "range",
+            "id": "mg_top_mobile",
+            "label": "Top Margin Mobile",
+            "min": 0,
+            "max": 200,
+            "step": 5,
+            "unit": "px",
+            "default": 50
+        },
+        {
+            "type": "range",
+            "id": "mg_bottom_desktop",
+            "label": "Bottom Margin Desktop",
+            "min": 0,
+            "max": 200,
+            "step": 5,
+            "unit": "px",
+            "default": 80
+        },
+        {
+            "type": "range",
+            "id": "mg_bottom_tablet",
+            "label": "Bottom Margin Tablet",
+            "min": 0,
+            "max": 200,
+            "step": 5,
+            "unit": "px",
+            "default": 60
+        },
+        {
+            "type": "range",
+            "id": "mg_bottom_mobile",
+            "label": "Bottom Margin Mobile",
+            "min": 0,
+            "max": 200,
+            "step": 5,
+            "unit": "px",
+            "default": 50
+        }
+    ],
+    "blocks": [
+        {
+            "type": "partner",
+            "name": "Partner",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "partner_name",
+                    "label": "Partner Name",
+                    "default": "Partner Company"
+                },
+                {
+                    "type": "radio",
+                    "id": "logo_type",
+                    "label": "Logo Type",
+                    "options": [
+                        {
+                            "value": "image",
+                            "label": "Image"
+                        },
+                        {
+                            "value": "svg",
+                            "label": "SVG Code"
+                        }
+                    ],
+                    "default": "image"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "partner_logo",
+                    "label": "Partner Logo Image"
+                },
+                {
+                    "type": "textarea",
+                    "id": "partner_logo_svg",
+                    "label": "Partner Logo SVG Code",
+                    "info": "Paste your SVG code here. Only used if Logo Type is set to SVG Code."
+                },
+                {
+                    "type": "textarea",
+                    "id": "partner_description",
+                    "label": "Partner Description",
+                    "info": "Optional short description of the partner"
+                },
+                {
+                    "type": "url",
+                    "id": "partner_link",
+                    "label": "Partner Link",
+                    "info": "Optional link to partner website or page"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "TAK Partnership",
+            "blocks": [
+                {
+                    "type": "partner",
+                    "settings": {
+                        "partner_name": "Aryana Trading Company"
+                    }
+                },
+                {
+                    "type": "partner",
+                    "settings": {
+                        "partner_name": "Sawadagar Trade"
+                    }
+                },
+                {
+                    "type": "partner",
+                    "settings": {
+                        "partner_name": "Agrofirma Ovoshnoy Alyans"
+                    }
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

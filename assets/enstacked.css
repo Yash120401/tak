@@ -1,0 +1,35 @@
+/*body,h1,h2,h3,h4,h5,h6,p,span {font-family: 'Kumbh', sans-serif !important;} */
+.content-box--absolute{padding:5px !important;}
+.slide-text{margin-left:0 !important;width:60%;}
+.bg-policies-block .halo-row { flex-wrap: nowrap !important;}
+.multilayer-image-block .image-carousel .image-item{padding:0 12px !important }
+.multilayer-image-block .image-carousel .image-item{height: 80vh !important;}
+.halo-block-header .title{text-transform: capitalize !important;}
+.multilayer-image-block .halo-block-header .title{width:50% !important;}
+.multilayer-image-block .halo-block-header .title .text{line-height: 40px;}
+.review__item-content{max-width:80% !important}
+.review__item-image{max-width: 63px;}
+.customer-review__content{font-style: normal !important;font-weight: 600 !important;}
+/*.lookbook-image-item{width:330px !important;}*/
+.large-lookbook-banner .halo-block-header.lookbook__left{max-width:500px !important;margin-left: 0 !important;}
+.lookbook-image-item.slick-slide{width:300px !important;}
+#spotlight-template--19216083747043__163221535239da03ba .block-layout-grid{margin:-10px !important;}
+.marquee__item p{-webkit-text-stroke: 1px #FEC62D;}
+.marquee__list::after {
+    background-image: url('https://cdn.shopify.com/s/files/1/0744/3234/8387/files/small-icon_1.png?v=1752062872');
+    width: 90px;
+    height: 90px;
+    content: '';
+    background-repeat: no-repeat;
+    background-position: center;
+    object-fit: none;
+    display: block;
+    margin-left: 30px;}
+
+#tak-partnership .halo-item a {
+  text-align: center !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-content: center !important;
+  align-items: center !important;
+}

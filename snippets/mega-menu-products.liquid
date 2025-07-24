@@ -1,0 +1,47 @@
+<div class="mega-menu">
+  <div class="menu-content">
+    <h3>See All Products</h3>
+    <div class="menu-columns">
+      {% assign product_list = section.blocks | where: 'type', 'product_item' %}
+      {% assign blocks_per_column = 4 %}
+      {% assign column_count = product_list.size | divided_by: blocks_per_column | ceil %}
+
+      {% for i in (0..column_count) %}
+        <div class="column">
+          <ul>
+            {% for block in product_list %}
+              {% assign index = forloop.index0 %}
+              {% if index >= i | times: blocks_per_column and index < (i | plus: 1) | times: blocks_per_column %}
+                {% assign product = all_products[block.settings.product] %}
+                {% if product %}
+                  <li>
+                    <span>🛍️</span>
+                    <strong>{{ product.title }}</strong><br>
+                    <small>{{ product.description | strip_html | truncate: 60 }}</small>
+                  </li>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="menu-brand">
+    <h4>{{ section.settings.highlight_title }}</h4>
+    {% if section.settings.highlight_image %}
+      <img
+        src="{{ section.settings.highlight_image | img_url: 'medium' }}"
+        alt="{{ section.settings.highlight_title }}"
+      >
+    {% endif %}
+    <div class="brand-details">
+      <strong>{{ section.settings.highlight_brand }}</strong>
+      <p>{{ section.settings.highlight_distributor }}</p>
+      {% if section.settings.highlight_link %}
+        <a href="{{ section.settings.highlight_link }}">View Products →</a>
+      {% endif %}
+    </div>
+  </div>
+</div>

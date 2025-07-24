@@ -1,0 +1,380 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    --banner-bg-image: url({{ section.settings.banner_image | image_url: width: 2400 }});
+    --banner-bg-size: {{ section.settings.bg_size }};
+    --banner-bg-position: {{ section.settings.bg_position_horizontal }} {{ section.settings.bg_position_vertical }};
+    --banner-height-desktop: {{ section.settings.banner_height_desktop }}px;
+    --banner-height-tablet: {{ section.settings.banner_height_tablet }}px;
+    --banner-height-mobile: {{ section.settings.banner_height_mobile }}px;
+    --overlay-color: {{ section.settings.overlay_color }};
+    --overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --font-size-desktop: {{ section.settings.font_size_desktop }}px;
+    --font-size-tablet: {{ section.settings.font_size_tablet }}px;
+    --font-size-mobile: {{ section.settings.font_size_mobile }}px;
+    --font-weight: {{ section.settings.font_weight }};
+    --font-color: {{ section.settings.font_color }};
+    --text-align: {{ section.settings.heading_align }};
+    --padding-top-desktop: {{ section.settings.padding_top_desktop }}px;
+    --padding-bottom-desktop: {{ section.settings.padding_bottom_desktop }}px;
+    --padding-mobile: {{ section.settings.padding_mobile }}px;
+    --padding-horizontal: {{ section.settings.padding_horizontal }}px;
+  }
+
+  .custom-page-banner-wrapper {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .custom-page-banner {
+    position: relative;
+    width: 100%;
+    height: var(--banner-height-desktop);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: var(--banner-bg-image);
+    background-size: var(--banner-bg-size);
+    background-position: var(--banner-bg-position);
+    background-repeat: no-repeat;
+  }
+
+  .banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--overlay-color);
+    opacity: var(--overlay-opacity);
+    pointer-events: none;
+  }
+
+  .banner-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1200px;
+    padding: var(--padding-top-desktop) var(--padding-horizontal) var(--padding-bottom-desktop);
+  }
+
+  .custom-page-banner h1 {
+    margin: 0;
+    font-family: 'Kumbh Sans', sans-serif;
+    font-size: var(--font-size-desktop);
+    font-weight: var(--font-weight);
+    color: var(--font-color);
+    text-align: var(--text-align);
+    line-height: 1.2;
+    word-wrap: break-word;
+    letter-spacing: 0;
+  }
+
+  /* Tablet styles */
+  @media (max-width: 1024px) and (min-width: 769px) {
+    .custom-page-banner {
+      height: var(--banner-height-tablet);
+    }
+
+    .custom-page-banner h1 {
+      font-size: var(--font-size-tablet);
+    }
+
+    .banner-content {
+      padding: calc(var(--padding-top-desktop) * 0.75) var(--padding-horizontal) calc(var(--padding-bottom-desktop) * 0.75);
+    }
+  }
+
+  /* Mobile styles */
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} {
+      --banner-bg-image: url({{ section.settings.banner_image | image_url: width: 1200 }});
+    }
+
+    .custom-page-banner {
+      height: var(--banner-height-mobile);
+    }
+
+    .custom-page-banner h1 {
+      font-size: var(--font-size-mobile);
+    }
+
+    .banner-content {
+      padding: var(--padding-mobile) calc(var(--padding-horizontal) * 0.5);
+      max-width: 100%;
+    }
+  }
+
+  /* High resolution displays */
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    #shopify-section-{{ section.id }} {
+      --banner-bg-image: url({{ section.settings.banner_image | image_url: width: 3200 }});
+    }
+  }
+
+  /* Landscape mobile */
+  @media (max-width: 768px) and (orientation: landscape) {
+    .custom-page-banner {
+      height: calc(var(--banner-height-mobile) * 0.8);
+    }
+  }
+
+  /* Extra small devices */
+  @media (max-width: 480px) {
+    .custom-page-banner h1 {
+      font-size: calc(var(--font-size-mobile) * 0.9);
+    }
+
+    .banner-content {
+      padding: calc(var(--padding-mobile) * 0.75) calc(var(--padding-horizontal) * 0.4);
+    }
+  }
+</style>
+
+<div class="custom-page-banner-wrapper">
+  <div class="custom-page-banner">
+    {% if section.settings.bg_overlay %}
+      <div class="banner-overlay"></div>
+    {% endif %}
+
+    <div class="banner-content">
+      {% if section.settings.show_heading %}
+        <h1>{{ section.settings.heading_text }}</h1>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "header",
+      "content": "Banner Height"
+    },
+    {
+      "type": "range",
+      "id": "banner_height_desktop",
+      "min": 200,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "label": "Desktop Height",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "banner_height_tablet",
+      "min": 150,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "label": "Tablet Height",
+      "default": 300
+    },
+    {
+      "type": "range",
+      "id": "banner_height_mobile",
+      "min": 100,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "label": "Mobile Height",
+      "default": 200
+    },
+    {
+      "type": "header",
+      "content": "Background Image Settings"
+    },
+    {
+      "type": "select",
+      "id": "bg_position_horizontal",
+      "label": "Horizontal Position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "bg_position_vertical",
+      "label": "Vertical Position",
+      "options": [
+        { "value": "top", "label": "Top" },
+        { "value": "center", "label": "Center" },
+        { "value": "bottom", "label": "Bottom" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "bg_size",
+      "label": "Background Size",
+      "options": [
+        { "value": "cover", "label": "Cover" },
+        { "value": "contain", "label": "Contain" },
+        { "value": "100% 100%", "label": "Stretch" }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "checkbox",
+      "id": "bg_overlay",
+      "label": "Enable Overlay",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay Opacity",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Heading Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show Heading",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "heading_text",
+      "label": "Heading Text",
+      "default": "About Us"
+    },
+    {
+      "type": "select",
+      "id": "heading_align",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Font Size"
+    },
+    {
+      "type": "range",
+      "id": "font_size_desktop",
+      "label": "Desktop Font Size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "font_size_tablet",
+      "label": "Tablet Font Size",
+      "min": 20,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile",
+      "label": "Mobile Font Size",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font Weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "color",
+      "id": "font_color",
+      "label": "Font Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop Padding Top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop Padding Bottom",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile Padding (Top/Bottom)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Horizontal Padding",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dynamic Page Banner",
+      "category": "Custom Sections"
+    }
+  ]
+}
+{% endschema %}
