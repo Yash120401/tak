@@ -1,36 +1,40 @@
 # Yacht Affair · Concept B "Deep Water"
 
-Static HTML pages for the Yacht Affair website, built on the approved Concept B design and filled with the client's supplied content (About Us, legal documents, contact details and YA logo).
+Static HTML pages for the Yacht Affair website, built on the approved Concept B design and laid out to the internal Website Design Brief (October 2026). Placeholder data is used where the client has not supplied content yet, as the brief allows.
 
 This folder is self-contained and does not touch the Shopify theme files in the rest of the repository.
 
-## Pages
+## Pages in the brief (section 6)
 
-| File | Page | Content source |
+| File | Page | Notes |
 | --- | --- | --- |
-| `index.html` | Home (Concept B) | Concept B, wired to the new pages, with the real logo, contact details and footer |
-| `about.html` | About Us | About Us.pdf |
-| `contact.html` | Contact | Information.docx, plus the topic e-mail addresses named in the legal documents |
-| `privacy-policy.html` | Privacy Policy | Privacy Policy.pdf |
-| `terms-of-use.html` | Terms of Use | Terms of Use.pdf |
-| `cookie-policy.html` | Cookie Policy | Cookie Policy.pdf |
-| `advertiser-agreement.html` | Advertiser Agreement | Advertiser Agreement.pdf |
-| `yachts.html` | Yachts for sale (results with filters) | Sample listings from Concept B |
-| `yacht.html` | Single yacht for sale | Sample listing; safety notes from the Terms of Use |
-| `charter.html` | Yachts for charter (results with filters) | Sample listings |
-| `charter-yacht.html` | Single charter yacht, with rates | Sample listing; charter notes from the Terms of Use |
-| `advertiser.html` | Advertiser (brokerage) profile | Sample brokerage; disclosure from the Terms of Use |
-| `market-intelligence.html` | Article list | Concept B articles plus sample titles |
-| `article.html` | Single article (buyer's checklist) | Written for the prototype from the Terms' buyer advice |
-| `advertise.html` | Advertise with us (List With Us) | Advertiser Agreement and Terms of Use (prices to be confirmed) |
-| `register.html`, `sign-in.html` | Create account, sign in | Advertiser Agreement "I agree" step |
-| `404.html` | Page not found | |
+| `index.html` | Home | Concept B, with the real logo and both offices |
+| `yachts.html` | Yachts for Sale | Filter bar (type, keyword, sort), card grid, pagination |
+| `yacht.html` | Yacht Detail | Gallery with thumbnails and enlarge, price and status, summary strip, Request Full Specs / Deck Plans / Brochure (each opens a form), Listed for sale by panel, description, grouped specification, video, More from this broker, enquiry form |
+| `broker.html` | Broker Profile | Logo, description, call / email / website, every listed yacht, enquiry form |
+| `market-intelligence.html` | Market Intelligence | Category filter, article cards, pagination |
+| `article.html` | Article | Headings, image, quote, list and table in the body, share buttons, related articles |
+| `about.html` | About Us | Company story (client copy), team, both offices |
+| `services.html` | Services | A block per service with image, description and enquiry link |
+| `contact.html` | Contact | Form, both offices, map, social links |
 
-Listings, the brokerage profile and the article bodies are sample content for the design. Yachts, specifications, prices and "Example Yacht Brokers" are placeholders to be replaced with real data.
+Design deliverables (brief section 10):
 
-Legal text is reproduced word for word from the PDFs. The only edits are spacing fixes ("referrals.Third", "STRIPE,LLC"), links for e-mail addresses and section cross-references, and highlighting.
+- `design-direction.html`: colour palette with hex values and reasoning, typography, imagery treatment, grid and logo use
+- `components.html`: the components in brief section 7, with their states
 
-## Preview
+Also on the site, outside the brief's design scope: `privacy-policy.html`, `terms-of-use.html`, `cookie-policy.html`, `advertiser-agreement.html` (client's legal text, word for word) and `404.html`.
+
+## Placeholder content
+
+- Yachts, specifications, prices and the brokerage "Example Yacht Brokers" are sample data. The detail page uses a 38-character name, Price on Application, Under Offer and missing specification fields on purpose, to show the layout holds up (brief section 8).
+- Team names, photos and biographies are placeholders.
+- The Dubai office address and phone number are placeholders until confirmed (brief section 5).
+- Services copy follows Concept B's four services; the client's own services content is still to come.
+- Article text is written for the prototype.
+- Photography is the Concept B Unsplash set.
+
+## Preview and Figma
 
 Open `index.html` in a browser, or serve the folder:
 
@@ -38,24 +42,19 @@ Open `index.html` in a browser, or serve the folder:
 python3 -m http.server --directory yacht-affair 8000
 ```
 
-Add `?figma=1` to any page URL for the static, animation-free mode used for html.to.design imports.
+Add `?figma=1` to any page for the static, animation-free mode used for html.to.design imports. The single-file Figma export (desktop, mobile and sheets) is generated from these pages.
 
 ## Structure
 
-- `assets/css/site.css`: design tokens, header, footer and every shared or inner-page component
-- `assets/css/home.css`: home page sections (hero, search, listings, insights, partners)
-- `assets/js/site.js`: header, mobile menu, legal contents tracking and contact-form topic (`contact.html?topic=advertising`, `privacy`, `report` and so on)
-- `assets/img/`: supplied YA logo (`ya-logo.svg`, `ya-logo.png`) and favicon
-
-Photography is the same Unsplash placeholder set as Concept B.
+- `assets/css/site.css`: tokens and every shared component
+- `assets/css/home.css`: home page sections
+- `assets/js/site.js`: header, menu, gallery and enlarged view, request form, office map, contact topic, legal contents
+- `assets/img/`: supplied YA logo and favicon
 
 ## Open points for the client
 
-1. **Legal drafts.** Text in square brackets in the PDFs (for example `[2]` business days, `[$100 / $500]`, `[EMAIL]`, `[insert link]`, "(add a web form)") is highlighted in amber on the pages, under a "Draft for review" note. These need confirming with counsel before launch, and the note removing.
-2. **Positioning.** The Terms of Use and Advertiser Agreement state Yacht Affair is not a broker and gives no brokerage advice. The home page headline ("A new course for yacht brokerage") and the Services section (Yacht Sales & Acquisition, Owner Advisory) still carry Concept B's placeholder brokerage copy. Only the hero label was changed (to "Yacht marketplace · Sale & charter").
-3. **Location.** The legal documents say Yacht Affair is based in Calgary, Alberta. The contact address supplied is in Vancouver. Concept B's Dubai office was removed because no Dubai details were supplied.
-4. **Dates and addresses.** The Terms are dated October 12, 2026 and the other documents October 8, 2026. The Terms use contact@yachtaffair.com once, while every other reference is info@yachtaffair.com.
-5. **Charter in the navigation.** A Charter item was added to the main navigation (the content describes a marketplace for sale and charter), and "List With Us" now opens the Advertise page.
-6. **Package prices.** The Advertise page shows `[Price]` placeholders for the four packages until pricing is confirmed.
-7. **Not built yet.** A Services page (its copy needs the client's real services, see point 2), the cookie consent banner and "Cookie settings" link the Cookie Policy describes, and the signed-in account area for managing listings.
-8. **Forms.** The contact forms are front-end only and show a "prototype" message on submit.
+1. **Dubai office.** Address and phone number to confirm. The legal documents also say the company is based in Calgary, Alberta.
+2. **Positioning.** The home page and Services describe brokerage services; the Terms of Use and Advertiser Agreement say Yacht Affair is not a broker. The wording needs to line up.
+3. **Legal drafts.** Bracketed items in the legal PDFs are highlighted in amber on those pages for counsel to confirm.
+4. **Content still to come.** Team, services copy, real listings and brokerage profiles.
+5. **Forms.** Front-end only; they show a "prototype" message on submit.

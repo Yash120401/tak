@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Market Intelligence · Yacht Affair</title>
-<meta name="description" content="Market reports, destination guides and practical advice for yacht buyers, sellers and charterers.">
+<meta name="description" content="Market reports, destination guides and practical advice for yacht buyers and sellers.">
 <meta name="theme-color" content="#0A0F1A">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <script>if (new URLSearchParams(location.search).has('figma')) document.documentElement.classList.add('figma');</script>
@@ -54,6 +54,8 @@
   <symbol id="i-camera" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="6.5" width="18" height="13" rx="2.5"/><path d="M8.5 6.5 10 4h4l1.5 2.5"/><circle cx="12" cy="13" r="3.5"/></g></symbol>
   <symbol id="i-globe" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.6 3.5 5.4 3.5 8.5s-1 5.9-3.5 8.5c-2.5-2.6-3.5-5.4-3.5-8.5s1-5.9 3.5-8.5Z"/></g></symbol>
   <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4h11l-2 4 2 4H5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+  <symbol id="i-person" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8.5" r="4"/><path d="M4 21c.9-4.4 4-7 8-7s7.1 2.6 8 7"/></g></symbol>
+  <symbol id="i-expand" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-key" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="15.5" r="4"/><path d="m11 12.5 8.5-8.5M16 7.5l2.2 2.2M13.6 9.9l1.8 1.8"/></g></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></g></symbol>
   <symbol id="i-tt" viewBox="0 0 24 24"><path d="M14 3.5v11.25a3.75 3.75 0 1 1-3.75-3.75" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M14 3.5c.4 2.9 2.4 4.9 5.5 5.1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
@@ -65,15 +67,14 @@
     <a href="index.html" aria-label="Yacht Affair home"><svg class="mark" aria-hidden="true"><use href="#ya"/></svg></a>
     <nav class="nav" aria-label="Main">
       <a href="yachts.html">Yachts for Sale</a>
-      <a href="charter.html">Charter</a>
       <a class="active" aria-current="page" href="market-intelligence.html">Market Intelligence</a>
-      <a href="index.html#services">Services</a>
+      <a href="services.html">Services</a>
       <a href="about.html">About Us</a>
       <a href="contact.html">Contact</a>
     </nav>
     <div class="header-actions">
       <a class="icon-btn phone" href="tel:+13689998223" aria-label="Call us on +1 368-999-8223"><svg aria-hidden="true"><use href="#i-phone"/></svg></a>
-      <a class="btn btn-sm btn-primary btn-head" href="advertise.html">List With Us</a>
+      <a class="btn btn-sm btn-primary btn-head" href="contact.html?topic=listing">List With Us</a>
       <button class="icon-btn burger" id="burger" aria-label="Open menu" aria-controls="menu" aria-expanded="false"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
     </div>
   </div>
@@ -86,14 +87,13 @@
   </div>
   <nav aria-label="Mobile">
     <a href="yachts.html">Yachts for Sale</a>
-    <a href="charter.html">Charter</a>
     <a class="active" href="market-intelligence.html">Market Intelligence</a>
-    <a href="index.html#services">Services</a>
+    <a href="services.html">Services</a>
     <a href="about.html">About Us</a>
     <a href="contact.html">Contact</a>
   </nav>
   <div class="menu-foot">
-    <a class="btn btn-primary" href="advertise.html">List With Us</a>
+    <a class="btn btn-primary" href="contact.html?topic=listing">List With Us</a>
     <span><a href="tel:+13689998223">+1 368-999-8223</a> · <a href="mailto:info@yachtaffair.com">info@yachtaffair.com</a></span>
   </div>
 </div>
@@ -104,8 +104,8 @@
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">Market Intelligence</span></nav>
     <h1>Insight from the water</h1>
-    <p class="intro">Market reports, destination guides and practical advice for buyers, sellers and charterers.</p>
-    <div class="tabs mode" role="tablist" style="width:max-content;max-width:100%"><button class="tab active" type="button">All</button><button class="tab" type="button">Market Reports</button><button class="tab" type="button">Destinations</button><button class="tab" type="button">Buyer Guides</button><button class="tab" type="button">Seller Guides</button><button class="tab" type="button">Charter</button></div>
+    <p class="intro">Market reports, destination guides and practical advice for buyers and sellers.</p>
+    <div class="tabs mode" role="tablist" aria-label="Category" style="width:max-content;max-width:100%"><button class="tab active" type="button">All</button><button class="tab" type="button">Market Reports</button><button class="tab" type="button">Destinations</button><button class="tab" type="button">Buyer Guides</button><button class="tab" type="button">Seller Guides</button></div>
   </div>
 </section>
 
@@ -114,75 +114,61 @@
     <a class="feat-post" href="article.html">
       <div class="post-media"><img src="https://images.unsplash.com/photo-1740482881421-f4592b6575fe?auto=format&fit=crop&w=1600&q=80" alt=""></div>
       <div class="fp-body">
-        <div class="post-meta"><span class="cat">Market Report</span><span>24 Sep 2026</span><span>·</span><span>6 min read</span></div>
+        <div class="post-meta"><span class="cat">Market Report</span><span>24 Sep 2026</span></div>
         <h2>Q3 2026 Superyacht Market Report: Pre-owned Prices Hold Firm</h2>
         <p>What the latest quarter tells buyers and sellers about pricing, demand and time on market for 30 to 50 metre yachts.</p>
-        <span class="link">Read the report <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        <span class="link">Read article <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
       </div>
     </a>
     <div class="post-grid">
     <a class="post-card" href="article.html">
       <div class="post-media"><img src="https://images.unsplash.com/photo-1611577810610-642f8ac05c32?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy"></div>
-      <div class="post-meta"><span class="cat">Destinations</span><span>17 Sep 2026</span><span>·</span><span>4 min read</span></div>
+      <div class="post-meta"><span class="cat">Destinations</span><span>17 Sep 2026</span></div>
       <h3>Why Dubai Is Becoming a Year-Round Yachting Hub</h3>
       <p>New marinas, easier berthing and winter sunshine are drawing owners to the Gulf.</p>
       <span class="link">Read article <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
     </a>
 <a class="post-card" href="article.html">
       <div class="post-media"><img src="https://images.unsplash.com/photo-1600812703042-38e573598898?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy"></div>
-      <div class="post-meta"><span class="cat">Buyer Guides</span><span>09 Sep 2026</span><span>·</span><span>8 min read</span></div>
+      <div class="post-meta"><span class="cat">Buyer Guides</span><span>09 Sep 2026</span></div>
       <h3>Buying Your First 30m Yacht: A Practical Checklist</h3>
       <p>From survey and sea trial to crew and running costs, the steps that matter before you sign.</p>
       <span class="link">Read article <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
     </a>
 <a class="post-card" href="article.html">
       <div class="post-media"><img src="https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy"></div>
-      <div class="post-meta"><span class="cat">Buyer Guides</span><span>02 Sep 2026</span><span>·</span><span>5 min read</span></div>
+      <div class="post-meta"><span class="cat">Buyer Guides</span><span>02 Sep 2026</span></div>
       <h3>How to Spot a Fraudulent Yacht Listing</h3>
       <p>The warning signs worth knowing, from prices that look too good to be true to requests to pay unfamiliar accounts.</p>
       <span class="link">Read article <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
     </a>
 <a class="post-card" href="article.html">
-      <div class="post-media"><img src="https://images.unsplash.com/photo-1634242210756-6759f2d2ff03?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy"></div>
-      <div class="post-meta"><span class="cat">Charter</span><span>26 Aug 2026</span><span>·</span><span>5 min read</span></div>
-      <h3>Charter or Buy? Questions to Ask Before You Decide</h3>
-      <p>How you plan to use a yacht, and how often, shapes whether owning or chartering makes more sense.</p>
+      <div class="post-media"><img src="https://images.unsplash.com/photo-1759135695910-0a6aaaab6b14?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy"></div>
+      <div class="post-meta"><span class="cat">Market Report</span><span>26 Aug 2026</span></div>
+      <h3>Explorer Yachts: Why Range Is Back in Demand</h3>
+      <p>Longer itineraries and remote cruising grounds are shaping what buyers ask for in the 40 to 60 metre range.</p>
       <span class="link">Read article <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
     </a>
 <a class="post-card" href="article.html">
       <div class="post-media"><img src="https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy"></div>
-      <div class="post-meta"><span class="cat">Seller Guides</span><span>19 Aug 2026</span><span>·</span><span>6 min read</span></div>
+      <div class="post-meta"><span class="cat">Seller Guides</span><span>19 Aug 2026</span></div>
       <h3>Listing a Yacht for Sale: What Buyers Look For</h3>
       <p>Clear photos, complete specifications and an honest history help a listing earn serious enquiries.</p>
       <span class="link">Read article <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
     </a>
 <a class="post-card" href="article.html">
-      <div class="post-media"><img src="https://images.unsplash.com/photo-1674606878551-f424ad6ce965?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy"></div>
-      <div class="post-meta"><span class="cat">Charter</span><span>12 Aug 2026</span><span>·</span><span>4 min read</span></div>
-      <h3>Planning a Mediterranean Charter for Summer 2027</h3>
-      <p>When to start looking, how charter rates are structured, and what to ask the charter company.</p>
+      <div class="post-media"><img src="https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy"></div>
+      <div class="post-meta"><span class="cat">Destinations</span><span>12 Aug 2026</span></div>
+      <h3>Cruising the Pacific Northwest: A Season Guide</h3>
+      <p>From the Gulf Islands to Desolation Sound, how to plan a summer on British Columbia’s coast.</p>
       <span class="link">Read article <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
     </a>
     </div>
-    <div class="load-more"><button class="btn btn-glass" type="button">Load More Articles</button></div>
-  </div>
-</section>
-
-<section class="sec" style="padding-top:0">
-  <div class="wrap">
-    <div class="cta-panel">
-      <div class="grid">
-        <div class="cta-copy">
-          <span class="label">Newsletter</span>
-          <h2 class="h2">Market intelligence, in your inbox.</h2>
-          <p>Market reports, buyer guides and new listings from Yacht Affair. You can unsubscribe at any time.</p>
-        </div>
-        <div class="cta-side">
-          <form class="nl-form form-lite" aria-label="Newsletter sign-up"><input type="email" placeholder="you@email.com" aria-label="Email address" required><button class="btn btn-primary" type="submit">Subscribe</button></form>
-          <p class="nl-note">By subscribing you agree to receive emails from Yacht Affair. Every email includes an unsubscribe link. See our <a href="privacy-policy.html">Privacy Policy</a>.</p>
-        </div>
-      </div>
-    </div>
+    <nav class="pager" aria-label="Pages">
+        <a class="prev" href="#" aria-label="Previous page"><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="on" href="#" aria-current="page">1</a><a href="#">2</a><a href="#">3</a><span class="gap">…</span><a href="#">6</a>
+        <a href="#" aria-label="Next page"><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </nav>
   </div>
 </section>
 </main>
@@ -202,14 +188,14 @@
           <a href="https://www.tiktok.com/@yachtaffair" target="_blank" rel="noopener" aria-label="Yacht Affair on TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
         </div>
       </div>
-      <div class="f-col c1"><h4>Yachts</h4><ul><li><a href="yachts.html">Yachts for Sale</a></li><li><a href="charter.html">Yachts for Charter</a></li><li><a href="yachts.html?type=motor">Motor Yachts</a></li><li><a href="yachts.html?type=sailing">Sailing Yachts</a></li><li><a href="advertiser.html">Partner Brokerages</a></li></ul></div>
-      <div class="f-col c2"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="advertise.html">Advertise With Us</a></li><li><a href="index.html#services">Services</a></li><li><a href="market-intelligence.html" aria-current="page">Market Intelligence</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="f-col c1"><h4>Yachts</h4><ul><li><a href="yachts.html">Yachts for Sale</a></li><li><a href="yachts.html?type=motor">Motor Yachts</a></li><li><a href="yachts.html?type=sailing">Sailing Yachts</a></li><li><a href="broker.html">Partner Brokerages</a></li></ul></div>
+      <div class="f-col c2"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="services.html">Services</a></li><li><a href="market-intelligence.html" aria-current="page">Market Intelligence</a></li><li><a href="contact.html">Contact</a></li></ul></div>
       <div class="f-col c3"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms-of-use.html">Terms of Use</a></li><li><a href="cookie-policy.html">Cookie Policy</a></li><li><a href="advertiser-agreement.html">Advertiser Agreement</a></li></ul></div>
     </div>
     <div class="f-offices">
-      <div class="f-office"><div class="k">Office</div><address>800-525 West 8th Avenue<br>Vancouver, BC V5Z 1C6<br>Canada</address><a href="https://www.google.com/maps/search/?api=1&query=800-525+West+8th+Avenue+Vancouver+BC+V5Z+1C6" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-pin"/></svg>Get directions</a></div>
-      <div class="f-office"><div class="k">General enquiries</div><a href="tel:+13689998223"><svg aria-hidden="true"><use href="#i-phone"/></svg>+1 368-999-8223</a><a href="mailto:info@yachtaffair.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>info@yachtaffair.com</a></div>
-      <div class="f-office"><div class="k">Advertise with us</div><a href="mailto:advertise@yachtaffair.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>advertise@yachtaffair.com</a><a href="sign-in.html"><svg aria-hidden="true"><use href="#i-users"/></svg>Advertiser sign in</a></div>
+      <div class="f-office"><div class="k">Dubai office</div><address>Office address to be confirmed<br>Dubai, United Arab Emirates</address><a href="tel:+97140000000"><svg aria-hidden="true"><use href="#i-phone"/></svg>+971 4 000 0000</a><a href="mailto:info@yachtaffair.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>info@yachtaffair.com</a></div>
+      <div class="f-office"><div class="k">Vancouver office</div><address>800-525 West 8th Avenue<br>Vancouver, BC V5Z 1C6, Canada</address><a href="tel:+13689998223"><svg aria-hidden="true"><use href="#i-phone"/></svg>+1 368-999-8223</a><a href="mailto:info@yachtaffair.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>info@yachtaffair.com</a></div>
+      <div class="f-office"><div class="k">General enquiries</div><a href="mailto:info@yachtaffair.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>info@yachtaffair.com</a><a href="mailto:advertise@yachtaffair.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>advertise@yachtaffair.com</a><a href="contact.html"><svg aria-hidden="true"><use href="#i-chat"/></svg>Contact form</a></div>
     </div>
     <svg class="f-giant" viewBox="0 0 343 229" aria-hidden="true" style="margin-inline:auto"><defs><mask id="behindY-foot" maskUnits="userSpaceOnUse" x="-10" y="-10" width="363" height="249"><rect x="-10" y="-10" width="363" height="249" fill="#fff"/><path d="M120.79 111.33L186.78 0.53L240.51 0.53L146.82 155.15L147.12 155.15L147.12 228.14L96.80 228.14L96.80 159.35L0.39 0.53L58.64 0.53Z"/></mask></defs><path pathLength="1" d="M292.03 227.15L277.49 197.51L170.48 197.51L156.24 227.15L108.81 227.15L225.32 2.44L342.14 227.15Z M223.54 87.22L190.34 156L257.34 156Z" mask="url(#behindY-foot)"/><path pathLength="1" d="M122.55 112.39L187.96 2.59L236.85 2.59L145.05 154.08L145.05 226.08L98.86 226.08L98.86 158.28L4.07 2.59L57.46 2.59Z"/></svg>
     <div class="f-bottom">

@@ -70,18 +70,66 @@ if (docTab && docTabs.scrollWidth > docTabs.clientWidth) {
   docTabs.scrollLeft += t.left - c.left - (c.width - t.width) / 2;
 }
 
-// Listing pages: filter drawer on small screens, filter pills and grid or list view
-const filters = document.getElementById('filters');
-if (filters) {
-  const setFilters = open => { filters.classList.toggle('open', open); document.documentElement.style.overflow = open ? 'hidden' : ''; };
-  document.querySelectorAll('[data-filters-open]').forEach(b => b.addEventListener('click', () => setFilters(true)));
-  filters.querySelectorAll('[data-filters-close]').forEach(b => b.addEventListener('click', () => setFilters(false)));
-  addEventListener('keydown', e => { if (e.key === 'Escape' && filters.classList.contains('open')) setFilters(false); });
+// Yacht page: gallery with thumbnails, swipe and an enlarged view
+const gallery = document.querySelector('[data-gallery]');
+if (gallery) {
+  const thumbs = [...gallery.querySelectorAll('.thumb[data-src]')], main = gallery.querySelector('[data-gal-img]');
+  const count = gallery.querySelector('[data-gal-n]'), lightbox = document.getElementById('lightbox'), lbImg = lightbox.querySelector('[data-lb-img]');
+  let at = 0;
+  const show = i => {
+    at = (i + thumbs.length) % thumbs.length;
+    main.src = thumbs[at].dataset.src; lbImg.src = main.src;
+    thumbs.forEach((t, k) => t.classList.toggle('on', k === at));
+    count.textContent = at + 1;
+  };
+  thumbs.forEach((t, k) => t.addEventListener('click', () => show(k)));
+  document.querySelectorAll('[data-gal-prev]').forEach(b => b.addEventListener('click', () => show(at - 1)));
+  document.querySelectorAll('[data-gal-next]').forEach(b => b.addEventListener('click', () => show(at + 1)));
+  let x0 = null;
+  main.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive:true});
+  main.addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) show(at + (dx < 0 ? 1 : -1)); x0 = null; });
+  const setLb = open => { lightbox.hidden = !open; document.documentElement.style.overflow = open ? 'hidden' : ''; if (open) lbImg.src = main.src; };
+  main.addEventListener('click', () => setLb(true));
+  gallery.querySelectorAll('[data-gal-zoom]').forEach(b => b.addEventListener('click', () => setLb(true)));
+  lightbox.querySelector('[data-lb-close]').addEventListener('click', () => setLb(false));
+  addEventListener('keydown', e => {
+    if (lightbox.hidden) return;
+    if (e.key === 'Escape') setLb(false);
+    if (e.key === 'ArrowRight') show(at + 1);
+    if (e.key === 'ArrowLeft') show(at - 1);
+  });
 }
-document.querySelectorAll('.pill-opt').forEach(p => p.addEventListener('click', () => p.classList.toggle('on')));
-document.querySelectorAll('.view-tg button').forEach(b => b.addEventListener('click', () => {
-  b.parentNode.querySelectorAll('button').forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', String(x === b)); });
-  document.querySelector('.results .cards').classList.toggle('as-list', b.dataset.view === 'list');
+
+// Yacht page: Request Full Specs / Deck Plans / Brochure open a short form
+const reqModal = document.getElementById('reqModal');
+if (reqModal) {
+  const setReq = (open, doc) => {
+    reqModal.hidden = !open;
+    document.documentElement.style.overflow = open ? 'hidden' : '';
+    if (open) {
+      reqModal.querySelector('[data-req-title]').textContent = 'Request ' + doc;
+      reqModal.querySelector('form').classList.remove('sent');
+      reqModal.querySelector('input').focus();
+    }
+  };
+  document.querySelectorAll('[data-request]').forEach(b => b.addEventListener('click', () => setReq(true, b.dataset.request)));
+  reqModal.querySelectorAll('[data-req-close]').forEach(b => b.addEventListener('click', () => setReq(false)));
+  addEventListener('keydown', e => { if (e.key === 'Escape' && !reqModal.hidden) setReq(false); });
+}
+
+// Contact page: switch the map between the two offices
+const OFFICES = {
+  vancouver: {k: 'Vancouver office', v: '800-525 West 8th Avenue', href: 'https://www.google.com/maps/search/?api=1&query=800-525+West+8th+Avenue+Vancouver+BC+V5Z+1C6', x: '58%', y: '48%'},
+  dubai: {k: 'Dubai office', v: 'Address to be confirmed', href: 'https://www.google.com/maps/search/?api=1&query=Dubai+United+Arab+Emirates', x: '36%', y: '62%'}
+};
+document.querySelectorAll('.map-tabs [data-office]').forEach(b => b.addEventListener('click', () => {
+  const o = OFFICES[b.dataset.office], map = document.querySelector('.map-lg');
+  b.parentNode.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t === b));
+  map.querySelector('.map-label .k').textContent = o.k;
+  map.querySelector('.map-label .v').textContent = o.v;
+  map.querySelector('.map-label a').href = o.href;
+  map.querySelector('.pin').style.left = o.x; map.querySelector('.pin').style.top = o.y;
+  map.setAttribute('aria-label', 'Map showing the ' + o.k);
 }));
 
 // Save buttons on listings
@@ -89,9 +137,6 @@ document.querySelectorAll('[data-save]').forEach(b => b.addEventListener('click'
   const on = b.getAttribute('aria-pressed') !== 'true';
   document.querySelectorAll('[data-save]').forEach(x => x.setAttribute('aria-pressed', String(on)));
 }));
-
-// Prototype forms (newsletter, account) don't submit anywhere yet
-document.querySelectorAll('form.form-lite').forEach(f => f.addEventListener('submit', e => e.preventDefault()));
 
 // Year in the footer
 document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());

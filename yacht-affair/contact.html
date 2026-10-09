@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Contact · Yacht Affair</title>
-<meta name="description" content="Contact Yacht Affair by phone, email or online form. Office: 800-525 West 8th Avenue, Vancouver, BC.">
+<meta name="description" content="Contact Yacht Affair in Dubai or Vancouver by phone, email or online form.">
 <meta name="theme-color" content="#0A0F1A">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <script>if (new URLSearchParams(location.search).has('figma')) document.documentElement.classList.add('figma');</script>
@@ -54,6 +54,8 @@
   <symbol id="i-camera" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="6.5" width="18" height="13" rx="2.5"/><path d="M8.5 6.5 10 4h4l1.5 2.5"/><circle cx="12" cy="13" r="3.5"/></g></symbol>
   <symbol id="i-globe" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.6 3.5 5.4 3.5 8.5s-1 5.9-3.5 8.5c-2.5-2.6-3.5-5.4-3.5-8.5s1-5.9 3.5-8.5Z"/></g></symbol>
   <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4h11l-2 4 2 4H5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+  <symbol id="i-person" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8.5" r="4"/><path d="M4 21c.9-4.4 4-7 8-7s7.1 2.6 8 7"/></g></symbol>
+  <symbol id="i-expand" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-key" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="15.5" r="4"/><path d="m11 12.5 8.5-8.5M16 7.5l2.2 2.2M13.6 9.9l1.8 1.8"/></g></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></g></symbol>
   <symbol id="i-tt" viewBox="0 0 24 24"><path d="M14 3.5v11.25a3.75 3.75 0 1 1-3.75-3.75" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M14 3.5c.4 2.9 2.4 4.9 5.5 5.1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
@@ -65,15 +67,14 @@
     <a href="index.html" aria-label="Yacht Affair home"><svg class="mark" aria-hidden="true"><use href="#ya"/></svg></a>
     <nav class="nav" aria-label="Main">
       <a href="yachts.html">Yachts for Sale</a>
-      <a href="charter.html">Charter</a>
       <a href="market-intelligence.html">Market Intelligence</a>
-      <a href="index.html#services">Services</a>
+      <a href="services.html">Services</a>
       <a href="about.html">About Us</a>
       <a class="active" aria-current="page" href="contact.html">Contact</a>
     </nav>
     <div class="header-actions">
       <a class="icon-btn phone" href="tel:+13689998223" aria-label="Call us on +1 368-999-8223"><svg aria-hidden="true"><use href="#i-phone"/></svg></a>
-      <a class="btn btn-sm btn-primary btn-head" href="advertise.html">List With Us</a>
+      <a class="btn btn-sm btn-primary btn-head" href="contact.html?topic=listing">List With Us</a>
       <button class="icon-btn burger" id="burger" aria-label="Open menu" aria-controls="menu" aria-expanded="false"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
     </div>
   </div>
@@ -86,14 +87,13 @@
   </div>
   <nav aria-label="Mobile">
     <a href="yachts.html">Yachts for Sale</a>
-    <a href="charter.html">Charter</a>
     <a href="market-intelligence.html">Market Intelligence</a>
-    <a href="index.html#services">Services</a>
+    <a href="services.html">Services</a>
     <a href="about.html">About Us</a>
     <a class="active" href="contact.html">Contact</a>
   </nav>
   <div class="menu-foot">
-    <a class="btn btn-primary" href="advertise.html">List With Us</a>
+    <a class="btn btn-primary" href="contact.html?topic=listing">List With Us</a>
     <span><a href="tel:+13689998223">+1 368-999-8223</a> · <a href="mailto:info@yachtaffair.com">info@yachtaffair.com</a></span>
   </div>
 </div>
@@ -107,36 +107,40 @@
     <div class="ph-copy">
       <span class="label">Contact</span>
       <h1 class="display">Get in <em>touch.</em></h1>
-      <p class="sub">Questions about advertising, a listing or your account? Reach the Yacht Affair team by phone, by email or with the form below.</p>
+      <p class="sub">Looking to buy, sell or list a yacht? Speak with our team in Dubai or Vancouver by phone, by email or with the form below.</p>
       <div class="hero-ctas">
-        <a class="btn btn-primary" href="tel:+13689998223"><svg aria-hidden="true"><use href="#i-phone"/></svg>Call +1 368-999-8223</a>
+        <a class="btn btn-primary" href="#form">Send a Message <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
         <a class="btn btn-glass" href="mailto:info@yachtaffair.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>info@yachtaffair.com</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ Details + form ============ -->
+<!-- ============ Offices + form ============ -->
 <section class="sec" id="form" style="padding-top:64px">
   <div class="wrap contact-grid">
     <div class="contact-info">
       <div class="c-card">
-        <div class="k">Office</div>
-        <address>800-525 West 8th Avenue<br>Vancouver, BC V5Z 1C6<br>Canada</address>
-        <div class="row"><a class="btn btn-sm btn-glass" href="https://www.google.com/maps/search/?api=1&query=800-525+West+8th+Avenue+Vancouver+BC+V5Z+1C6" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-pin"/></svg>Get Directions</a></div>
+        <div class="k">Dubai office</div>
+        <address>Office address to be confirmed<br>Dubai, United Arab Emirates</address>
+        <ul class="mail-list">
+          <li><a href="tel:+97140000000"><span><span class="t">Phone</span><span class="e">+971 4 000 0000</span></span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a href="mailto:info@yachtaffair.com"><span><span class="t">Email</span><span class="e">info@yachtaffair.com</span></span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+        </ul>
       </div>
       <div class="c-card">
-        <div class="k">Phone</div>
-        <a class="big" href="tel:+13689998223">+1 368-999-8223</a>
-        <p class="s">Speak with the Yacht Affair team.</p>
+        <div class="k">Vancouver office</div>
+        <address>800-525 West 8th Avenue<br>Vancouver, BC V5Z 1C6<br>Canada</address>
+        <ul class="mail-list">
+          <li><a href="tel:+13689998223"><span><span class="t">Phone</span><span class="e">+1 368-999-8223</span></span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a href="mailto:info@yachtaffair.com"><span><span class="t">Email</span><span class="e">info@yachtaffair.com</span></span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+        </ul>
       </div>
       <div class="c-card wide">
-        <div class="k">Email</div>
+        <div class="k">By topic</div>
         <ul class="mail-list">
-          <li><a href="mailto:info@yachtaffair.com"><span><span class="t">General enquiries</span><span class="e">info@yachtaffair.com</span></span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
-          <li><a href="mailto:advertise@yachtaffair.com"><span><span class="t">Advertising</span><span class="e">advertise@yachtaffair.com</span></span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a href="mailto:advertise@yachtaffair.com"><span><span class="t">Listing yachts with us</span><span class="e">advertise@yachtaffair.com</span></span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
           <li><a href="mailto:subscriptions@yachtaffair.com"><span><span class="t">Subscriptions &amp; billing</span><span class="e">subscriptions@yachtaffair.com</span></span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
-          <li><a href="mailto:data@yachtaffair.com"><span><span class="t">API &amp; data-feed access</span><span class="e">data@yachtaffair.com</span></span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
         </ul>
       </div>
       <div class="c-card wide">
@@ -156,9 +160,9 @@
       <p class="lead">Tell us what you need and the Yacht Affair team will get back to you.</p>
       <label class="in"><span>Full name</span><input name="name" autocomplete="name" placeholder="Your name" required></label>
       <label class="in"><span>Email</span><input name="email" type="email" autocomplete="email" placeholder="you@email.com" required></label>
-      <label class="in"><span>Phone</span><input name="phone" type="tel" autocomplete="tel" placeholder="+1"></label>
-      <label class="in"><span>Company <i style="font-style:normal;opacity:.6">(optional)</i></span><input name="company" autocomplete="organization" placeholder="Brokerage or company"></label>
-      <label class="in full"><span>I’m getting in touch about</span><select name="topic"><option value="advertising">Advertising on Yacht Affair</option><option value="listing">A listing or enquiry</option><option value="billing">Subscriptions and billing</option><option value="privacy">A privacy request</option><option value="report">Reporting a listing</option><option value="data">API or data-feed access</option><option value="other">Something else</option></select></label>
+      <label class="in"><span>Phone</span><input name="phone" type="tel" autocomplete="tel" placeholder="+971 or +1"></label>
+      <label class="in"><span>Preferred office</span><select name="office"><option>Dubai</option><option>Vancouver</option><option>No preference</option></select></label>
+      <label class="in full"><span>I’m getting in touch about</span><select name="topic"><option value="enquiry">A yacht for sale</option><option value="listing">Listing yachts with Yacht Affair</option><option value="services">Our services</option><option value="intelligence">Market intelligence</option><option value="privacy">A privacy request</option><option value="report">Reporting a listing</option><option value="other">Something else</option></select></label>
       <label class="in full"><span>Message</span><textarea name="message" placeholder="Tell us how we can help" required></textarea></label>
       <button class="btn btn-primary" type="submit">Send Message <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
       <p class="form-ok" role="status">Thank you. This is a design prototype, so the form isn’t connected yet. On the live site your message will go straight to the Yacht Affair team.</p>
@@ -167,42 +171,21 @@
   </div>
 </section>
 
-<!-- ============ Documents ============ -->
-<section class="sec" style="padding-top:0">
+<!-- ============ Map ============ -->
+<section class="sec" id="map" style="padding-top:0">
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <span class="label">Policies &amp; agreements</span>
-        <h2 class="h2">How Yacht Affair works</h2>
+        <span class="label">Find us</span>
+        <h2 class="h2">Our offices on the map</h2>
       </div>
-      <p class="aside">How we work with advertisers and visitors, and how we handle your information.</p>
+      <div class="tabs map-tabs" role="tablist"><button class="tab" type="button" data-office="dubai">Dubai</button><button class="tab active" type="button" data-office="vancouver">Vancouver</button></div>
     </div>
-    <div class="doc-cards">
-  <a class="doc-card" href="privacy-policy.html">
-    <span class="ic"><svg aria-hidden="true"><use href="#i-doc"/></svg></span>
-    <h3>Privacy Policy</h3>
-    <p>What personal information Yacht Affair collects, how we use and share it, how long we keep it, and your rights.</p>
-    <span class="link">Read policy <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
-  </a>
-  <a class="doc-card" href="terms-of-use.html">
-    <span class="ic"><svg aria-hidden="true"><use href="#i-doc"/></svg></span>
-    <h3>Terms of Use</h3>
-    <p>The binding agreement that applies to your use of yachtaffair.com, our related websites and our mobile apps.</p>
-    <span class="link">Read terms <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
-  </a>
-  <a class="doc-card" href="cookie-policy.html">
-    <span class="ic"><svg aria-hidden="true"><use href="#i-doc"/></svg></span>
-    <h3>Cookie Policy</h3>
-    <p>What cookies and similar technologies Yacht Affair uses, why we use them, and how you can control them.</p>
-    <span class="link">Read policy <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
-  </a>
-  <a class="doc-card" href="advertiser-agreement.html">
-    <span class="ic"><svg aria-hidden="true"><use href="#i-doc"/></svg></span>
-    <h3>Advertiser Agreement</h3>
-    <p>The terms on which brokers, dealers, private sellers, and charter companies may advertise on Yacht Affair.</p>
-    <span class="link">Read agreement <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
-  </a>
-</div>
+    <div class="map map-lg" role="img" aria-label="Map showing the Vancouver office at 800-525 West 8th Avenue">
+      <svg class="land" viewBox="0 0 800 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M0 0H800V96C760 104 730 126 688 122C650 118 628 96 584 100C538 104 526 140 480 144C440 148 418 126 380 130C332 136 318 182 268 190C224 198 184 180 148 194C112 208 70 236 0 230Z"/><path d="M560 340C570 300 606 282 646 276C686 270 720 282 756 270C774 264 788 254 800 244V340Z"/></svg><span class="pin" aria-hidden="true"></span>
+      <div class="map-label"><div class="k">Vancouver office</div><div class="v">800-525 West 8th Avenue</div><a class="link" href="https://www.google.com/maps/search/?api=1&query=800-525+West+8th+Avenue+Vancouver+BC+V5Z+1C6" target="_blank" rel="noopener" style="margin-top:10px;font-size:14px">Open in Google Maps <svg aria-hidden="true"><use href="#i-ext"/></svg></a></div>
+      <span class="map-note">Embedded Google Map in the live build</span>
+    </div>
   </div>
 </section>
 </main>
@@ -222,14 +205,14 @@
           <a href="https://www.tiktok.com/@yachtaffair" target="_blank" rel="noopener" aria-label="Yacht Affair on TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
         </div>
       </div>
-      <div class="f-col c1"><h4>Yachts</h4><ul><li><a href="yachts.html">Yachts for Sale</a></li><li><a href="charter.html">Yachts for Charter</a></li><li><a href="yachts.html?type=motor">Motor Yachts</a></li><li><a href="yachts.html?type=sailing">Sailing Yachts</a></li><li><a href="advertiser.html">Partner Brokerages</a></li></ul></div>
-      <div class="f-col c2"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="advertise.html">Advertise With Us</a></li><li><a href="index.html#services">Services</a></li><li><a href="market-intelligence.html">Market Intelligence</a></li><li><a href="contact.html" aria-current="page">Contact</a></li></ul></div>
+      <div class="f-col c1"><h4>Yachts</h4><ul><li><a href="yachts.html">Yachts for Sale</a></li><li><a href="yachts.html?type=motor">Motor Yachts</a></li><li><a href="yachts.html?type=sailing">Sailing Yachts</a></li><li><a href="broker.html">Partner Brokerages</a></li></ul></div>
+      <div class="f-col c2"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="services.html">Services</a></li><li><a href="market-intelligence.html">Market Intelligence</a></li><li><a href="contact.html" aria-current="page">Contact</a></li></ul></div>
       <div class="f-col c3"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms-of-use.html">Terms of Use</a></li><li><a href="cookie-policy.html">Cookie Policy</a></li><li><a href="advertiser-agreement.html">Advertiser Agreement</a></li></ul></div>
     </div>
     <div class="f-offices">
-      <div class="f-office"><div class="k">Office</div><address>800-525 West 8th Avenue<br>Vancouver, BC V5Z 1C6<br>Canada</address><a href="https://www.google.com/maps/search/?api=1&query=800-525+West+8th+Avenue+Vancouver+BC+V5Z+1C6" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-pin"/></svg>Get directions</a></div>
-      <div class="f-office"><div class="k">General enquiries</div><a href="tel:+13689998223"><svg aria-hidden="true"><use href="#i-phone"/></svg>+1 368-999-8223</a><a href="mailto:info@yachtaffair.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>info@yachtaffair.com</a></div>
-      <div class="f-office"><div class="k">Advertise with us</div><a href="mailto:advertise@yachtaffair.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>advertise@yachtaffair.com</a><a href="sign-in.html"><svg aria-hidden="true"><use href="#i-users"/></svg>Advertiser sign in</a></div>
+      <div class="f-office"><div class="k">Dubai office</div><address>Office address to be confirmed<br>Dubai, United Arab Emirates</address><a href="tel:+97140000000"><svg aria-hidden="true"><use href="#i-phone"/></svg>+971 4 000 0000</a><a href="mailto:info@yachtaffair.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>info@yachtaffair.com</a></div>
+      <div class="f-office"><div class="k">Vancouver office</div><address>800-525 West 8th Avenue<br>Vancouver, BC V5Z 1C6, Canada</address><a href="tel:+13689998223"><svg aria-hidden="true"><use href="#i-phone"/></svg>+1 368-999-8223</a><a href="mailto:info@yachtaffair.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>info@yachtaffair.com</a></div>
+      <div class="f-office"><div class="k">General enquiries</div><a href="mailto:info@yachtaffair.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>info@yachtaffair.com</a><a href="mailto:advertise@yachtaffair.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>advertise@yachtaffair.com</a><a href="contact.html"><svg aria-hidden="true"><use href="#i-chat"/></svg>Contact form</a></div>
     </div>
     <svg class="f-giant" viewBox="0 0 343 229" aria-hidden="true" style="margin-inline:auto"><defs><mask id="behindY-foot" maskUnits="userSpaceOnUse" x="-10" y="-10" width="363" height="249"><rect x="-10" y="-10" width="363" height="249" fill="#fff"/><path d="M120.79 111.33L186.78 0.53L240.51 0.53L146.82 155.15L147.12 155.15L147.12 228.14L96.80 228.14L96.80 159.35L0.39 0.53L58.64 0.53Z"/></mask></defs><path pathLength="1" d="M292.03 227.15L277.49 197.51L170.48 197.51L156.24 227.15L108.81 227.15L225.32 2.44L342.14 227.15Z M223.54 87.22L190.34 156L257.34 156Z" mask="url(#behindY-foot)"/><path pathLength="1" d="M122.55 112.39L187.96 2.59L236.85 2.59L145.05 154.08L145.05 226.08L98.86 226.08L98.86 158.28L4.07 2.59L57.46 2.59Z"/></svg>
     <div class="f-bottom">

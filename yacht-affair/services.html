@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Create Account · Yacht Affair</title>
-<meta name="description" content="Create a Yacht Affair account to save yachts or advertise.">
+<title>Services · Yacht Affair</title>
+<meta name="description" content="Yacht sales and acquisition, listing and marketing for brokerages, market intelligence and owner advisory.">
 <meta name="theme-color" content="#0A0F1A">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <script>if (new URLSearchParams(location.search).has('figma')) document.documentElement.classList.add('figma');</script>
@@ -54,6 +54,8 @@
   <symbol id="i-camera" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="6.5" width="18" height="13" rx="2.5"/><path d="M8.5 6.5 10 4h4l1.5 2.5"/><circle cx="12" cy="13" r="3.5"/></g></symbol>
   <symbol id="i-globe" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.6 3.5 5.4 3.5 8.5s-1 5.9-3.5 8.5c-2.5-2.6-3.5-5.4-3.5-8.5s1-5.9 3.5-8.5Z"/></g></symbol>
   <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4h11l-2 4 2 4H5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+  <symbol id="i-person" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8.5" r="4"/><path d="M4 21c.9-4.4 4-7 8-7s7.1 2.6 8 7"/></g></symbol>
+  <symbol id="i-expand" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-key" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="15.5" r="4"/><path d="m11 12.5 8.5-8.5M16 7.5l2.2 2.2M13.6 9.9l1.8 1.8"/></g></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></g></symbol>
   <symbol id="i-tt" viewBox="0 0 24 24"><path d="M14 3.5v11.25a3.75 3.75 0 1 1-3.75-3.75" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M14 3.5c.4 2.9 2.4 4.9 5.5 5.1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
@@ -65,15 +67,14 @@
     <a href="index.html" aria-label="Yacht Affair home"><svg class="mark" aria-hidden="true"><use href="#ya"/></svg></a>
     <nav class="nav" aria-label="Main">
       <a href="yachts.html">Yachts for Sale</a>
-      <a href="charter.html">Charter</a>
       <a href="market-intelligence.html">Market Intelligence</a>
-      <a href="index.html#services">Services</a>
+      <a class="active" aria-current="page" href="services.html">Services</a>
       <a href="about.html">About Us</a>
       <a href="contact.html">Contact</a>
     </nav>
     <div class="header-actions">
       <a class="icon-btn phone" href="tel:+13689998223" aria-label="Call us on +1 368-999-8223"><svg aria-hidden="true"><use href="#i-phone"/></svg></a>
-      <a class="btn btn-sm btn-primary btn-head" href="advertise.html">List With Us</a>
+      <a class="btn btn-sm btn-primary btn-head" href="contact.html?topic=listing">List With Us</a>
       <button class="icon-btn burger" id="burger" aria-label="Open menu" aria-controls="menu" aria-expanded="false"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
     </div>
   </div>
@@ -86,46 +87,103 @@
   </div>
   <nav aria-label="Mobile">
     <a href="yachts.html">Yachts for Sale</a>
-    <a href="charter.html">Charter</a>
     <a href="market-intelligence.html">Market Intelligence</a>
-    <a href="index.html#services">Services</a>
+    <a class="active" href="services.html">Services</a>
     <a href="about.html">About Us</a>
     <a href="contact.html">Contact</a>
   </nav>
   <div class="menu-foot">
-    <a class="btn btn-primary" href="advertise.html">List With Us</a>
+    <a class="btn btn-primary" href="contact.html?topic=listing">List With Us</a>
     <span><a href="tel:+13689998223">+1 368-999-8223</a> · <a href="mailto:info@yachtaffair.com">info@yachtaffair.com</a></span>
   </div>
 </div>
 
 <main id="main">
-<section class="auth">
-  <div class="auth-media">
-    <img src="https://images.unsplash.com/photo-1559385301-0187cb6eff46?auto=format&fit=crop&w=1600&q=80" alt="">
-    <svg class="ph-mark" viewBox="0 0 343 229" aria-hidden="true"><defs><mask id="behindY-hero" maskUnits="userSpaceOnUse" x="-10" y="-10" width="363" height="249"><rect x="-10" y="-10" width="363" height="249" fill="#fff"/><path d="M120.79 111.33L186.78 0.53L240.51 0.53L146.82 155.15L147.12 155.15L147.12 228.14L96.80 228.14L96.80 159.35L0.39 0.53L58.64 0.53Z"/></mask></defs><path pathLength="1" d="M292.03 227.15L277.49 197.51L170.48 197.51L156.24 227.15L108.81 227.15L225.32 2.44L342.14 227.15Z M223.54 87.22L190.34 156L257.34 156Z" mask="url(#behindY-hero)"/><path pathLength="1" d="M122.55 112.39L187.96 2.59L236.85 2.59L145.05 154.08L145.05 226.08L98.86 226.08L98.86 158.28L4.07 2.59L57.46 2.59Z"/></svg>
-    <span class="label">Join Yacht Affair</span>
-    <h2>Connecting the yachting world.</h2>
-    <ul><li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Present yachts, boats and charters to a broad audience</span></li><li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Receive enquiries directly from interested buyers and guests</span></li><li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Transparent pricing and straightforward terms</span></li></ul>
+<section class="page-hero short">
+  <img src="https://images.unsplash.com/photo-1674606867042-2aa3581c1bb5?auto=format&fit=crop&w=2400&q=80" alt="" fetchpriority="high">
+  <svg class="ph-mark" viewBox="0 0 343 229" aria-hidden="true"><defs><mask id="behindY-hero" maskUnits="userSpaceOnUse" x="-10" y="-10" width="363" height="249"><rect x="-10" y="-10" width="363" height="249" fill="#fff"/><path d="M120.79 111.33L186.78 0.53L240.51 0.53L146.82 155.15L147.12 155.15L147.12 228.14L96.80 228.14L96.80 159.35L0.39 0.53L58.64 0.53Z"/></mask></defs><path pathLength="1" d="M292.03 227.15L277.49 197.51L170.48 197.51L156.24 227.15L108.81 227.15L225.32 2.44L342.14 227.15Z M223.54 87.22L190.34 156L257.34 156Z" mask="url(#behindY-hero)"/><path pathLength="1" d="M122.55 112.39L187.96 2.59L236.85 2.59L145.05 154.08L145.05 226.08L98.86 226.08L98.86 158.28L4.07 2.59L57.46 2.59Z"/></svg>
+  <div class="wrap">
+    <div class="ph-copy">
+      <span class="label">What we do</span>
+      <h1 class="display">Services built for buyers, sellers and <em>brokerages.</em></h1>
+      <p class="sub">One team across Dubai and Vancouver, combining market data with hands-on yacht experience.</p>
+      <nav class="tabs svc-jump" aria-label="Services"><a class="tab" href="#service-1">Yacht Sales &amp; Acquisition</a><a class="tab" href="#service-2">Listing &amp; Marketing for Brokerages</a><a class="tab" href="#service-3">Market Intelligence &amp; Valuation</a><a class="tab" href="#service-4">Owner Advisory</a></nav>
+    </div>
   </div>
-  <div class="auth-panel"><div class="auth-box">
-      <span class="label">Create account</span>
-      <h1>Create your account</h1>
-      <p class="lead">Already have an account? <a href="sign-in.html">Sign in</a></p>
-      <form class="auth-form form-lite" aria-label="Create account">
-        <div class="acct-type" style="grid-template-columns:repeat(2,minmax(0,1fr))" role="radiogroup" aria-label="Account type"><label><input type="radio" name="type"><svg aria-hidden="true"><use href="#i-search"/></svg><b>Buyer or charterer</b>Save yachts and searches</label><label><input type="radio" name="type" checked><svg aria-hidden="true"><use href="#i-users"/></svg><b>Broker or dealer</b>List on behalf of owners</label><label><input type="radio" name="type"><svg aria-hidden="true"><use href="#i-key"/></svg><b>Private seller</b>Sell your own yacht</label><label><input type="radio" name="type"><svg aria-hidden="true"><use href="#i-globe"/></svg><b>Charter company</b>Offer yachts for charter</label></div>
-        <label class="in"><span>First name</span><input autocomplete="given-name" required></label>
-        <label class="in"><span>Last name</span><input autocomplete="family-name" required></label>
-        <label class="in full"><span>Company <i style="font-style:normal;opacity:.6">(brokers, dealers and charter companies)</i></span><input autocomplete="organization"></label>
-        <label class="in"><span>Email</span><input type="email" autocomplete="email" required></label>
-        <label class="in"><span>Phone</span><input type="tel" autocomplete="tel"></label>
-        <label class="in full"><span>Country</span><select><option>Canada</option><option>United States</option><option>United Kingdom</option><option>United Arab Emirates</option><option>France</option><option>Other</option></select></label>
-        <label class="in full"><span>Password</span><input type="password" autocomplete="new-password" placeholder="At least 12 characters" required></label>
-        <label class="chk"><input type="checkbox" required><span>I am at least 18 and I agree to the <a href="terms-of-use.html">Terms of Use</a> and <a href="privacy-policy.html">Privacy Policy</a>, and, if I advertise, the <a href="advertiser-agreement.html">Advertiser Agreement</a>.</span></label>
-        <label class="chk"><input type="checkbox"><span>Send me market intelligence and news from Yacht Affair. You can unsubscribe at any time.</span></label>
-        <button class="btn btn-primary" type="submit">Create Account <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
-      </form>
-      <p class="auth-alt">Questions about advertising? Email <a href="mailto:advertise@yachtaffair.com">advertise@yachtaffair.com</a>.</p>
-  </div></div>
+</section>
+
+<section class="sec">
+  <div class="wrap svc-rows">
+    <article class="svc-row" id="service-1">
+      <div class="media"><img src="https://images.unsplash.com/photo-1559385301-0187cb6eff46?auto=format&fit=crop&w=1600&q=80" alt="" loading="lazy"><span class="svc-n">01</span></div>
+      <div class="body">
+        <span class="label">Service 01</span>
+        <h2 class="h2">Yacht Sales &amp; Acquisition</h2>
+        <p>Find and secure the right yacht with expert guidance from shortlist to handover.</p>
+        <ul><li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Shortlists matched to your brief from partner brokerage listings</span></li><li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Viewings and sea trials arranged with the listing broker</span></li><li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Support through survey, negotiation and handover</span></li></ul>
+        <a class="btn btn-glass" href="contact.html?topic=services">Enquire About This Service <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+    </article>
+<article class="svc-row flip" id="service-2">
+      <div class="media"><img src="https://images.unsplash.com/photo-1672939113905-b02ef5db7203?auto=format&fit=crop&w=1600&q=80" alt="" loading="lazy"><span class="svc-n">02</span></div>
+      <div class="body">
+        <span class="label">Service 02</span>
+        <h2 class="h2">Listing &amp; Marketing for Brokerages</h2>
+        <p>Showcase partner listings to qualified buyers with photography-led presentation.</p>
+        <ul><li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Large-format photography and full specifications on every listing</span></li><li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Your brokerage logo and profile on each yacht you list</span></li><li><svg aria-hidden="true"><use href="#i-check"/></svg><span>A featured slot on the home page for videos and walkthroughs</span></li></ul>
+        <a class="btn btn-glass" href="contact.html?topic=services">Enquire About This Service <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+    </article>
+<article class="svc-row" id="service-3">
+      <div class="media"><img src="https://images.unsplash.com/photo-1459787915554-b34915863013?auto=format&fit=crop&w=1600&q=80" alt="" loading="lazy"><span class="svc-n">03</span></div>
+      <div class="body">
+        <span class="label">Service 03</span>
+        <h2 class="h2">Market Intelligence &amp; Valuation</h2>
+        <p>Data-led insight on pricing, demand and time on market.</p>
+        <ul><li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Quarterly market reports</span></li><li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Comparable sales and asking-price analysis</span></li><li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Time-on-market tracking by size and builder</span></li></ul>
+        <a class="btn btn-glass" href="contact.html?topic=services">Enquire About This Service <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+    </article>
+<article class="svc-row flip" id="service-4">
+      <div class="media"><img src="https://images.unsplash.com/photo-1674606878551-f424ad6ce965?auto=format&fit=crop&w=1600&q=80" alt="" loading="lazy"><span class="svc-n">04</span></div>
+      <div class="body">
+        <span class="label">Service 04</span>
+        <h2 class="h2">Owner Advisory</h2>
+        <p>Support from survey and sea trial to crew, refit and resale.</p>
+        <ul><li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Survey and sea trial coordination</span></li><li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Introductions for crew, refit and management</span></li><li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Resale planning and timing</span></li></ul>
+        <a class="btn btn-glass" href="contact.html?topic=services">Enquire About This Service <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="sec" id="contact" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-panel">
+      <div class="grid">
+        <div class="cta-copy">
+          <span class="label">Get in touch</span>
+          <h2 class="h2">Looking to buy, sell or list a yacht?</h2>
+          <p>Speak with our team in Dubai or Vancouver.</p>
+          <div class="office-row">
+            <div class="office"><div class="k">Dubai</div><a class="v" href="tel:+97140000000">+971 4 000 0000</a><a class="s" href="mailto:info@yachtaffair.com">info@yachtaffair.com</a></div>
+            <div class="office"><div class="k">Vancouver</div><a class="v" href="tel:+13689998223">+1 368-999-8223</a><a class="s" href="mailto:info@yachtaffair.com">info@yachtaffair.com</a></div>
+          </div>
+        </div>
+        <form class="form" aria-labelledby="svcForm">
+          <h3 id="svcForm">Start a conversation</h3>
+          <label class="in"><span>Full name</span><input autocomplete="name" placeholder="Your name"></label>
+          <label class="in"><span>Email</span><input type="email" autocomplete="email" placeholder="you@email.com"></label>
+          <label class="in"><span>Phone</span><input type="tel" autocomplete="tel" placeholder="+971 or +1"></label>
+          <label class="in"><span>Service</span><select><option>Yacht Sales &amp; Acquisition</option><option>Listing &amp; Marketing for Brokerages</option><option>Market Intelligence &amp; Valuation</option><option>Owner Advisory</option></select></label>
+          <label class="in full"><span>Message</span><textarea placeholder="Tell us what you’re looking for"></textarea></label>
+          <button class="btn btn-primary" type="submit">Send Enquiry <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <p class="form-ok" role="status">Thank you. This is a design prototype, so the form isn’t connected yet.</p>
+          <p class="note">By sending this form you agree to our <a href="privacy-policy.html">Privacy Policy</a>.</p>
+        </form>
+      </div>
+    </div>
+  </div>
 </section>
 </main>
 
@@ -144,14 +202,14 @@
           <a href="https://www.tiktok.com/@yachtaffair" target="_blank" rel="noopener" aria-label="Yacht Affair on TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
         </div>
       </div>
-      <div class="f-col c1"><h4>Yachts</h4><ul><li><a href="yachts.html">Yachts for Sale</a></li><li><a href="charter.html">Yachts for Charter</a></li><li><a href="yachts.html?type=motor">Motor Yachts</a></li><li><a href="yachts.html?type=sailing">Sailing Yachts</a></li><li><a href="advertiser.html">Partner Brokerages</a></li></ul></div>
-      <div class="f-col c2"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="advertise.html">Advertise With Us</a></li><li><a href="index.html#services">Services</a></li><li><a href="market-intelligence.html">Market Intelligence</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="f-col c1"><h4>Yachts</h4><ul><li><a href="yachts.html">Yachts for Sale</a></li><li><a href="yachts.html?type=motor">Motor Yachts</a></li><li><a href="yachts.html?type=sailing">Sailing Yachts</a></li><li><a href="broker.html">Partner Brokerages</a></li></ul></div>
+      <div class="f-col c2"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="services.html" aria-current="page">Services</a></li><li><a href="market-intelligence.html">Market Intelligence</a></li><li><a href="contact.html">Contact</a></li></ul></div>
       <div class="f-col c3"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms-of-use.html">Terms of Use</a></li><li><a href="cookie-policy.html">Cookie Policy</a></li><li><a href="advertiser-agreement.html">Advertiser Agreement</a></li></ul></div>
     </div>
     <div class="f-offices">
-      <div class="f-office"><div class="k">Office</div><address>800-525 West 8th Avenue<br>Vancouver, BC V5Z 1C6<br>Canada</address><a href="https://www.google.com/maps/search/?api=1&query=800-525+West+8th+Avenue+Vancouver+BC+V5Z+1C6" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-pin"/></svg>Get directions</a></div>
-      <div class="f-office"><div class="k">General enquiries</div><a href="tel:+13689998223"><svg aria-hidden="true"><use href="#i-phone"/></svg>+1 368-999-8223</a><a href="mailto:info@yachtaffair.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>info@yachtaffair.com</a></div>
-      <div class="f-office"><div class="k">Advertise with us</div><a href="mailto:advertise@yachtaffair.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>advertise@yachtaffair.com</a><a href="sign-in.html"><svg aria-hidden="true"><use href="#i-users"/></svg>Advertiser sign in</a></div>
+      <div class="f-office"><div class="k">Dubai office</div><address>Office address to be confirmed<br>Dubai, United Arab Emirates</address><a href="tel:+97140000000"><svg aria-hidden="true"><use href="#i-phone"/></svg>+971 4 000 0000</a><a href="mailto:info@yachtaffair.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>info@yachtaffair.com</a></div>
+      <div class="f-office"><div class="k">Vancouver office</div><address>800-525 West 8th Avenue<br>Vancouver, BC V5Z 1C6, Canada</address><a href="tel:+13689998223"><svg aria-hidden="true"><use href="#i-phone"/></svg>+1 368-999-8223</a><a href="mailto:info@yachtaffair.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>info@yachtaffair.com</a></div>
+      <div class="f-office"><div class="k">General enquiries</div><a href="mailto:info@yachtaffair.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>info@yachtaffair.com</a><a href="mailto:advertise@yachtaffair.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>advertise@yachtaffair.com</a><a href="contact.html"><svg aria-hidden="true"><use href="#i-chat"/></svg>Contact form</a></div>
     </div>
     <svg class="f-giant" viewBox="0 0 343 229" aria-hidden="true" style="margin-inline:auto"><defs><mask id="behindY-foot" maskUnits="userSpaceOnUse" x="-10" y="-10" width="363" height="249"><rect x="-10" y="-10" width="363" height="249" fill="#fff"/><path d="M120.79 111.33L186.78 0.53L240.51 0.53L146.82 155.15L147.12 155.15L147.12 228.14L96.80 228.14L96.80 159.35L0.39 0.53L58.64 0.53Z"/></mask></defs><path pathLength="1" d="M292.03 227.15L277.49 197.51L170.48 197.51L156.24 227.15L108.81 227.15L225.32 2.44L342.14 227.15Z M223.54 87.22L190.34 156L257.34 156Z" mask="url(#behindY-foot)"/><path pathLength="1" d="M122.55 112.39L187.96 2.59L236.85 2.59L145.05 154.08L145.05 226.08L98.86 226.08L98.86 158.28L4.07 2.59L57.46 2.59Z"/></svg>
     <div class="f-bottom">
