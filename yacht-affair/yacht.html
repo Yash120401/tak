@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Yacht Affair · Yachts for Sale & Charter</title>
-<meta name="description" content="Yacht Affair is an online marketplace for yachts and boats for sale and for charter.">
+<title>Azure Meridian · Benetti Oasis 40M for Sale · Yacht Affair</title>
+<meta name="description" content="Azure Meridian, a Benetti Oasis 40M for sale on Yacht Affair.">
 <meta name="theme-color" content="#0A0F1A">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <script>if (new URLSearchParams(location.search).has('figma')) document.documentElement.classList.add('figma');</script>
@@ -12,7 +12,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/site.css">
-<link rel="stylesheet" href="assets/css/home.css">
 </head>
 <body id="top">
 <a class="skip" href="#main">Skip to content</a>
@@ -65,7 +64,7 @@
   <div class="wrap">
     <a href="index.html" aria-label="Yacht Affair home"><svg class="mark" aria-hidden="true"><use href="#ya"/></svg></a>
     <nav class="nav" aria-label="Main">
-      <a href="yachts.html">Yachts for Sale</a>
+      <a class="active" aria-current="page" href="yachts.html">Yachts for Sale</a>
       <a href="charter.html">Charter</a>
       <a href="market-intelligence.html">Market Intelligence</a>
       <a href="index.html#services">Services</a>
@@ -86,7 +85,7 @@
     <button class="icon-btn" id="menuClose" aria-label="Close menu"><svg aria-hidden="true"><use href="#i-close"/></svg></button>
   </div>
   <nav aria-label="Mobile">
-    <a href="yachts.html">Yachts for Sale</a>
+    <a class="active" href="yachts.html">Yachts for Sale</a>
     <a href="charter.html">Charter</a>
     <a href="market-intelligence.html">Market Intelligence</a>
     <a href="index.html#services">Services</a>
@@ -100,160 +99,169 @@
 </div>
 
 <main id="main">
-<!-- ============ Hero ============ -->
-<section class="hero" id="hero">
-  <video class="hero-media" id="heroVideo" autoplay muted loop playsinline preload="auto"
-    poster="https://images.unsplash.com/photo-1674606867042-2aa3581c1bb5?auto=format&fit=crop&w=2400&q=80">
-    <source src="https://videos.pexels.com/video-files/31735552/13521457_1920_1080_30fps.mp4" type="video/mp4">
-  </video>
-  <img class="hero-poster" src="https://images.unsplash.com/photo-1674606867042-2aa3581c1bb5?auto=format&fit=crop&w=2400&q=80" alt="">
-
-  <!-- Logo effect: the scene is dimmed everywhere except inside the YA letterforms -->
-  <svg class="hero-veil" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <defs>
-      <mask id="yaHole" maskUnits="userSpaceOnUse" x="0" y="0" width="1920" height="1080">
-        <rect width="1920" height="1080" fill="#fff"/>
-        <g class="ya-g"><path fill-rule="evenodd" d="M292.03 227.15L277.49 197.51L170.48 197.51L156.24 227.15L108.81 227.15L225.32 2.44L342.14 227.15Z M223.54 87.22L190.34 156L257.34 156Z"/><path d="M122.55 112.39L187.96 2.59L236.85 2.59L145.05 154.08L145.05 226.08L98.86 226.08L98.86 158.28L4.07 2.59L57.46 2.59Z"/></g>
-      </mask>
-      <mask id="behindY-veil" maskUnits="userSpaceOnUse" x="-10" y="-10" width="363" height="249"><rect x="-10" y="-10" width="363" height="249" fill="#fff"/><path d="M120.79 111.33L186.78 0.53L240.51 0.53L146.82 155.15L147.12 155.15L147.12 228.14L96.80 228.14L96.80 159.35L0.39 0.53L58.64 0.53Z"/></mask>
-    </defs>
-    <rect class="veil-fill" width="1920" height="1080" mask="url(#yaHole)"/>
-    <g class="ya-g ya-outline"><path pathLength="1" d="M292.03 227.15L277.49 197.51L170.48 197.51L156.24 227.15L108.81 227.15L225.32 2.44L342.14 227.15Z M223.54 87.22L190.34 156L257.34 156Z" mask="url(#behindY-veil)"/><path pathLength="1" d="M122.55 112.39L187.96 2.59L236.85 2.59L145.05 154.08L145.05 226.08L98.86 226.08L98.86 158.28L4.07 2.59L57.46 2.59Z"/></g>
-  </svg>
-  <div class="hero-fade"></div>
-
-  <div class="hero-inner grid">
-    <div class="hero-copy">
-      <span class="label">Yacht marketplace · Sale &amp; charter</span>
-      <h1 class="display">A new course for <em>yacht brokerage.</em></h1>
-      <p class="sub">Curated yachts from trusted partner brokerages, with the clarity, data and speed today’s buyers expect.</p>
-      <div class="hero-ctas">
-        <a class="btn btn-primary" href="yachts.html">Explore Yachts for Sale <svg><use href="#i-arrow"/></svg></a>
-        <a class="btn btn-glass" href="#contact">Talk to Our Team</a>
+<section class="lst">
+  <div class="wrap">
+    <div class="lst-top">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><a href="yachts.html">Yachts for Sale</a><span aria-hidden="true">/</span><a href="yachts.html">Benetti</a><span aria-hidden="true">/</span><span aria-current="page">Azure Meridian</span></nav>
+      <div class="lst-actions">
+        <button class="btn btn-sm btn-glass" type="button" data-save aria-pressed="false"><svg aria-hidden="true"><use href="#i-heart"/></svg>Save</button>
+        <button class="btn btn-sm btn-glass" type="button"><svg aria-hidden="true"><use href="#i-share"/></svg>Share</button>
       </div>
     </div>
-    <div class="hero-side">
-      <button class="ring" id="playToggle" aria-label="Pause video"><svg id="playIcon"><use href="#i-pause"/></svg></button>
-      <span>Now showing<br><b style="color:#fff;font-weight:500">Azure Meridian · Benetti</b></span>
+    <div class="gallery">
+      <figure><img src="https://images.unsplash.com/photo-1634242210756-6759f2d2ff03?auto=format&fit=crop&w=1600&q=80" alt="Azure Meridian, photo 1" fetchpriority="high"></figure>
+      <figure><img src="https://images.unsplash.com/photo-1559385301-0187cb6eff46?auto=format&fit=crop&w=800&q=80" alt="Azure Meridian, photo 2" loading="lazy"></figure>
+      <figure><img src="https://images.unsplash.com/photo-1674606878551-f424ad6ce965?auto=format&fit=crop&w=800&q=80" alt="Azure Meridian, photo 3" loading="lazy"></figure>
+      <figure><img src="https://images.unsplash.com/photo-1672939113905-b02ef5db7203?auto=format&fit=crop&w=800&q=80" alt="Azure Meridian, photo 4" loading="lazy"></figure>
+      <figure><img src="https://images.unsplash.com/photo-1459787915554-b34915863013?auto=format&fit=crop&w=800&q=80" alt="Azure Meridian, photo 5" loading="lazy"></figure>
+      <div class="g-badges"><span class="badge badge-feat static">Featured</span></div>
+      <button class="btn btn-sm btn-glass g-all" type="button"><svg aria-hidden="true"><use href="#i-camera"/></svg>Show all 32 photos</button>
+      <span class="g-count"><svg aria-hidden="true"><use href="#i-camera"/></svg>1 / 32</span>
     </div>
 
-    <form class="search" action="yachts.html" aria-label="Search yachts">
-      <label class="field"><span class="k">Yacht type</span><span class="v">All yachts <svg><use href="#i-down"/></svg></span></label>
-      <label class="field"><span class="k">Length</span><span class="v">Any length <svg><use href="#i-down"/></svg></span></label>
-      <label class="field"><span class="k">Location</span><span class="v">Anywhere <svg><use href="#i-down"/></svg></span></label>
-      <label class="field"><span class="k">Keyword</span><span class="v ph">Name, builder or model <svg><use href="#i-search"/></svg></span></label>
-      <button class="btn btn-primary" type="submit"><svg><use href="#i-search"/></svg>Search Yachts</button>
-    </form>
-  </div>
-</section>
-
-<!-- ============ Featured partner ============ -->
-<section class="sec" id="featured">
-  <div class="wrap">
-    <a class="feature" href="yacht.html">
-      <img class="bg" src="https://images.unsplash.com/photo-1559385301-0187cb6eff46?auto=format&fit=crop&w=2400&q=80" alt="Superyacht aft deck">
-      <span class="dur">Partner film · 02:45</span>
-      <span class="big-play"><svg><use href="#i-play"/></svg></span>
-      <div class="feature-panel">
-        <span class="label">Featured partner</span>
-        <div class="logo-box" data-logo="wide"></div>
-        <h2 class="h3">Inside the Benetti Oasis 40M: a walkthrough</h2>
-        <p>The layout, the beach club and the details that set this 40-metre yacht apart, presented by one of our partner brokerages.</p>
-        <div class="row">
-          <span class="btn btn-primary"><svg><use href="#i-play"/></svg>Watch Video</span>
-          <span class="btn btn-glass">View Their Listings</span>
+    <div class="detail">
+      <div class="d-main">
+        <div class="d-title">
+          <span class="card-builder">Benetti Oasis 40M</span>
+          <h1>Azure Meridian</h1>
+          <p class="d-loc"><span><svg aria-hidden="true"><use href="#i-pin"/></svg>Dubai, UAE</span><span><svg aria-hidden="true"><use href="#i-users"/></svg>Listed by <a href="advertiser.html" style="text-decoration:underline;text-underline-offset:3px">Example Yacht Brokers</a></span></p>
         </div>
-      </div>
-    </a>
-  </div>
-</section>
+        <div class="keyspecs"><div><div class="k"><svg aria-hidden="true"><use href="#i-ruler"/></svg>Length</div><div class="v">40.0 m</div></div><div><div class="k"><svg aria-hidden="true"><use href="#i-cal"/></svg>Year</div><div class="v">2020</div></div><div><div class="k"><svg aria-hidden="true"><use href="#i-users"/></svg>Guests</div><div class="v">10</div></div><div><div class="k"><svg aria-hidden="true"><use href="#i-bed"/></svg>Cabins</div><div class="v">5</div></div><div><div class="k"><svg aria-hidden="true"><use href="#i-gauge"/></svg>Cruising</div><div class="v">14 kn</div></div></div>
 
-<!-- ============ Available in the market ============ -->
-<section class="sec" id="market" style="padding-top:0">
-  <div class="wrap">
-    <div class="sec-head">
-      <div>
-        <span class="label">Available in the market</span>
-        <h2 class="h2">Yachts for sale now</h2>
-      </div>
-      <div class="tabs" role="tablist">
-        <button class="tab active">All</button>
-        <button class="tab">Motor Yachts</button>
-        <button class="tab">Superyachts 30m+</button>
-        <button class="tab">Sailing</button>
-        <button class="tab">New to Market</button>
-      </div>
-    </div>
-    <div class="cards" id="cards"></div>
-    <div class="market-foot"><span>Showing 8 of 124 yachts</span><a class="btn btn-glass" href="yachts.html">View All Yachts <svg><use href="#i-arrow"/></svg></a></div>
-  </div>
-</section>
+        <section class="d-sec" aria-labelledby="ov">
+          <h2 id="ov">Overview</h2>
+          <div class="d-text"><p>Azure Meridian is a 40-metre Benetti Oasis delivered in 2020 and based in Dubai. Her signature fold-down beach club opens the stern to the water on three sides, creating one of the most generous outdoor spaces in her class.</p><p>Ten guests are accommodated in five cabins, including a full-beam main-deck owner’s suite. A crew of seven is accommodated forward, with separate guest and crew circulation throughout.</p><p>She has had one owner since delivery and is offered with her maintenance history. Viewings can be arranged through the listing broker.</p></div>
+        </section>
+        
+        <section class="d-sec" aria-labelledby="specs">
+          <h2 id="specs">Specifications</h2>
+          <div class="spec-groups"><div class="spec-card"><h3>Dimensions</h3><dl><div><dt>Length overall</dt><dd>40.0 m</dd></div><div><dt>Beam</dt><dd>8.4 m</dd></div><div><dt>Draft</dt><dd>2.2 m</dd></div><div><dt>Gross tonnage</dt><dd>300 GT</dd></div></dl></div><div class="spec-card"><h3>Accommodation</h3><dl><div><dt>Guests</dt><dd>10</dd></div><div><dt>Cabins</dt><dd>5</dd></div><div><dt>Crew</dt><dd>7</dd></div><div><dt>Owner’s suite</dt><dd>Main deck</dd></div></dl></div><div class="spec-card"><h3>Performance</h3><dl><div><dt>Maximum speed</dt><dd>15.5 kn</dd></div><div><dt>Cruising speed</dt><dd>14 kn</dd></div><div><dt>Range</dt><dd>3,000 nm</dd></div><div><dt>Engines</dt><dd>2 × MTU</dd></div></dl></div><div class="spec-card"><h3>Build</h3><dl><div><dt>Builder</dt><dd>Benetti</dd></div><div><dt>Model</dt><dd>Oasis 40M</dd></div><div><dt>Year built</dt><dd>2020</dd></div><div><dt>Hull</dt><dd>GRP</dd></div></dl></div></div>
+        </section>
 
-<!-- ============ Services ============ -->
-<section class="sec services" id="services">
-  <div class="wrap">
-    <div class="sec-head">
-      <div>
-        <span class="label">What we do</span>
-        <h2 class="h2">Services built for buyers,<br>sellers and brokerages</h2>
-      </div>
-      <div class="aside">
-        <p>One team across Dubai and Vancouver, combining market data with hands-on yacht experience.</p>
-        <a class="link" href="#" style="margin-top:20px">All Services <svg><use href="#i-arrow"/></svg></a>
-      </div>
-    </div>
-    <div class="svcs" id="svcs"></div>
-  </div>
-</section>
+        <section class="d-sec" aria-labelledby="feats">
+          <h2 id="feats">Features and amenities</h2>
+          <div class="feats"><span class="feat"><svg aria-hidden="true"><use href="#i-check"/></svg>Fold-down beach club</span><span class="feat"><svg aria-hidden="true"><use href="#i-check"/></svg>Zero-speed stabilisers</span><span class="feat"><svg aria-hidden="true"><use href="#i-check"/></svg>Sundeck jacuzzi</span><span class="feat"><svg aria-hidden="true"><use href="#i-check"/></svg>Tender garage</span><span class="feat"><svg aria-hidden="true"><use href="#i-check"/></svg>Gym equipment</span><span class="feat"><svg aria-hidden="true"><use href="#i-check"/></svg>Water toys</span><span class="feat"><svg aria-hidden="true"><use href="#i-check"/></svg>Wi-Fi and satellite TV</span><span class="feat"><svg aria-hidden="true"><use href="#i-check"/></svg>Air conditioning</span></div>
+        </section>
 
-<!-- ============ Market intelligence ============ -->
-<section class="sec" id="insights">
-  <div class="wrap">
-    <div class="sec-head">
-      <div>
-        <span class="label">Market intelligence</span>
-        <h2 class="h2">Insight from the water</h2>
+        <section class="d-sec" aria-labelledby="loc">
+          <h2 id="loc">Location</h2>
+          <div class="map"><svg class="land" viewBox="0 0 800 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M0 0H800V96C760 104 730 126 688 122C650 118 628 96 584 100C538 104 526 140 480 144C440 148 418 126 380 130C332 136 318 182 268 190C224 198 184 180 148 194C112 208 70 236 0 230Z"/><path d="M560 340C570 300 606 282 646 276C686 270 720 282 756 270C774 264 788 254 800 244V340Z"/></svg><span class="pin" aria-hidden="true"></span><div class="map-label"><div class="k">Yacht located in</div><div class="v">Dubai, UAE</div></div></div>
+        </section>
+
+        <section class="d-sec" aria-label="Safety">
+          <div class="safety"><svg aria-hidden="true"><use href="#i-shield"/></svg><div>
+          <h3>Before you buy</h3>
+          <p>Yacht Affair is an advertising platform. We do not inspect vessels, hold funds or take part in any sale.</p>
+          <ul>
+            <li>Verify ownership, liens, documentation and registration.</li>
+            <li>Commission an independent survey and sea trial.</li>
+            <li>Check the identity and credentials of the seller or broker.</li>
+            <li>Be cautious of requests for wire transfers, deposits to unfamiliar accounts, or pressure to move off-platform.</li>
+          </ul>
+          <p style="margin-top:14px;font-size:15px">Read more in our <a href="terms-of-use.html#section-4">Terms of Use</a> and <a href="article.html">buyer’s checklist</a>.</p>
+        </div></div>
+        </section>
       </div>
-      <a class="link" href="market-intelligence.html">View all articles <svg><use href="#i-arrow"/></svg></a>
-    </div>
-    <div class="insights-grid" id="posts"></div>
-  </div>
-</section>
 
-<!-- ============ Partner logos ============ -->
-<section class="partners" id="partners">
-  <div class="wrap">
-    <p class="k">Listings from trusted<br>partner brokerages</p>
-    <div class="marquee"><ul class="track" id="track"></ul></div>
-  </div>
-</section>
-
-<!-- ============ Contact CTA ============ -->
-<section class="sec" id="contact">
-  <div class="wrap">
-    <div class="cta-panel">
-      <div class="grid">
-        <div class="cta-copy">
-          <span class="label">Get in touch</span>
-          <h2 class="h2">Looking to buy, sell or list a yacht?</h2>
-          <p>Speak with the Yacht Affair team about advertising, a listing or your account.</p>
-          <div class="office-row">
-            <div class="office"><div class="k">Call us</div><a class="v" href="tel:+13689998223">+1 368-999-8223</a><a class="s" href="mailto:info@yachtaffair.com">info@yachtaffair.com</a></div>
-            <div class="office"><div class="k">Vancouver office</div><div class="v">800-525 West 8th Avenue</div><div class="s">Vancouver, BC V5Z 1C6, Canada</div></div>
+      <aside class="d-aside" id="enquire" aria-label="Price and enquiry">
+        <div class="price-card">
+          <div class="k">Asking price</div>
+          <div class="amt">€18,500,000</div>
+          <p class="tax">Prices may exclude taxes, registration and other costs. Confirm the full price with the listing broker.</p>
+          <div class="acts">
+            <a class="btn btn-primary" href="#enquiry">Enquire Now</a>
+            <button class="icon-btn" type="button" data-save aria-pressed="false" aria-label="Save yacht"><svg aria-hidden="true"><use href="#i-heart"/></svg></button>
+            <button class="icon-btn" type="button" aria-label="Share"><svg aria-hidden="true"><use href="#i-share"/></svg></button>
           </div>
         </div>
-        <form class="form">
-          <h3>Start a conversation</h3>
-          <label class="in"><span>Full name</span><input placeholder="Your name"></label>
-          <label class="in"><span>Email</span><input type="email" placeholder="you@email.com"></label>
-          <label class="in"><span>Phone</span><input type="tel" placeholder="+1"></label>
-          <label class="in"><span>I’m interested in</span><select><option>Buying a yacht</option><option>Selling a yacht</option><option>Listing as a brokerage</option><option>Market intelligence</option></select></label>
-          <label class="in full"><span>Message</span><textarea placeholder="Tell us what you’re looking for"></textarea></label>
-          <button class="btn btn-primary" type="submit">Send Enquiry <svg><use href="#i-arrow"/></svg></button>
+        <div class="broker">
+          <span class="logo-box"><svg viewBox="0 0 160 40" aria-hidden="true"><circle cx="18" cy="20" r="12" fill="none" stroke="currentColor" stroke-width="3"/><path d="M12 22l6-8 6 8z" fill="currentColor"/><rect x="40" y="12" width="104" height="7" rx="2" fill="currentColor"/><rect x="40" y="24" width="64" height="4" rx="2" fill="currentColor" opacity=".55"/></svg></span>
+          <div><a class="n" href="advertiser.html">Example Yacht Brokers</a><p class="s">Partner brokerage · Dubai, UAE</p></div>
+          <div class="acts"><a class="btn btn-glass" href="tel:+97140000000"><svg aria-hidden="true"><use href="#i-phone"/></svg>Call</a><a class="btn btn-glass" href="advertiser.html">View Profile</a></div>
+        </div>
+        <form class="form" id="enquiry" aria-labelledby="enqTitle">
+          <h3 id="enqTitle">Enquire about this yacht</h3>
+          <label class="in"><span>Full name</span><input autocomplete="name" placeholder="Your name" required></label>
+          <div class="row2"><label class="in"><span>Email</span><input type="email" autocomplete="email" placeholder="you@email.com" required></label><label class="in"><span>Phone</span><input type="tel" autocomplete="tel" placeholder="+1"></label></div>
+          
+          <label class="in"><span>Message</span><textarea>I’m interested in Azure Meridian (Benetti Oasis 40M). Please send me more information.</textarea></label>
+          <button class="btn btn-primary" type="submit">Send Enquiry <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
           <p class="form-ok" role="status">Thank you. This is a design prototype, so the form isn’t connected yet.</p>
-          <p class="note">By sending this form you agree to our <a href="privacy-policy.html">Privacy Policy</a>.</p>
+          <p class="note">Your details and message go directly to Example Yacht Brokers, who will reply under their own privacy policy. See our <a href="privacy-policy.html#section-4">Privacy Policy</a>.</p>
         </form>
+        <p class="lst-meta"><span>Listing ref YA-24018 · Listed 2 Sep 2026 · Updated 28 Sep 2026</span><a href="contact.html?topic=report">Report this listing</a></p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<div class="m-bar" aria-hidden="true">
+  <div><span class="k">Asking price</span><b>€18,500,000</b></div>
+  <a class="btn btn-primary" href="#enquiry" tabindex="-1">Enquire Now</a>
+</div>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="label">You may also like</span>
+        <h2 class="h2">Similar yachts</h2>
       </div>
+      <a class="link" href="yachts.html">View all yachts <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="cards">
+    <a class="card" href="yacht.html">
+      <div class="card-media">
+        <img src="https://images.unsplash.com/photo-1674606878551-f424ad6ce965?auto=format&fit=crop&w=900&q=80" alt="Pelagia, Ferretti 1000" loading="lazy">
+        
+        <span class="logo-chip" title="Listed by partner brokerage"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="40" height="40" rx="9" fill="none" stroke="currentColor" stroke-width="3"/><path d="M13 31 24 15l11 16z" fill="currentColor"/></svg></span>
+      </div>
+      <div class="card-body">
+        <span class="card-builder">Ferretti 1000</span>
+        <h3 class="card-title">Pelagia</h3>
+        <div class="specs"><span class="spec"><svg aria-hidden="true"><use href="#i-ruler"/></svg>30.5m</span><span class="spec"><svg aria-hidden="true"><use href="#i-cal"/></svg>2020</span><span class="spec"><svg aria-hidden="true"><use href="#i-pin"/></svg>Split, Croatia</span></div>
+        <div class="card-foot"><div class="price"><small>Asking price</small>€8,600,000</div><span class="card-go"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></div>
+      </div>
+    </a>
+<a class="card" href="yacht.html">
+      <div class="card-media">
+        <img src="https://images.unsplash.com/photo-1759135695910-0a6aaaab6b14?auto=format&fit=crop&w=900&q=80" alt="Nomad Spirit, Heesen" loading="lazy">
+        
+        <span class="logo-chip" title="Listed by partner brokerage"><svg viewBox="0 0 32 56" aria-hidden="true"><path d="M16 3 29 16v37H3V16Z" fill="none" stroke="currentColor" stroke-width="3"/><rect x="10" y="26" width="12" height="4" fill="currentColor"/><rect x="10" y="35" width="12" height="4" fill="currentColor"/><rect x="10" y="44" width="12" height="4" fill="currentColor"/></svg></span>
+      </div>
+      <div class="card-body">
+        <span class="card-builder">Heesen</span>
+        <h3 class="card-title">Nomad Spirit</h3>
+        <div class="specs"><span class="spec"><svg aria-hidden="true"><use href="#i-ruler"/></svg>50.0m</span><span class="spec"><svg aria-hidden="true"><use href="#i-cal"/></svg>2016</span><span class="spec"><svg aria-hidden="true"><use href="#i-pin"/></svg>Monaco</span></div>
+        <div class="card-foot"><div class="price poa"><small>Asking price</small><b>Price on Application</b></div><span class="card-go"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></div>
+      </div>
+    </a>
+<a class="card" href="yacht.html">
+      <div class="card-media">
+        <img src="https://images.unsplash.com/photo-1621277224630-81d9af65e40c?auto=format&fit=crop&w=900&q=80" alt="Kalista, Azimut Grande 35M" loading="lazy">
+        <span class="badge badge-sold">Sold</span>
+        <span class="logo-chip" title="Listed by partner brokerage"><svg viewBox="0 0 160 40" aria-hidden="true"><circle cx="18" cy="20" r="12" fill="none" stroke="currentColor" stroke-width="3"/><path d="M12 22l6-8 6 8z" fill="currentColor"/><rect x="40" y="12" width="104" height="7" rx="2" fill="currentColor"/><rect x="40" y="24" width="64" height="4" rx="2" fill="currentColor" opacity=".55"/></svg></span>
+      </div>
+      <div class="card-body">
+        <span class="card-builder">Azimut Grande 35M</span>
+        <h3 class="card-title">Kalista</h3>
+        <div class="specs"><span class="spec"><svg aria-hidden="true"><use href="#i-ruler"/></svg>35.0m</span><span class="spec"><svg aria-hidden="true"><use href="#i-cal"/></svg>2017</span><span class="spec"><svg aria-hidden="true"><use href="#i-pin"/></svg>Antibes, France</span></div>
+        <div class="card-foot"><div class="price"><small>Asking price</small>US$9,750,000</div><span class="card-go"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></div>
+      </div>
+    </a>
+<a class="card" href="yacht.html">
+      <div class="card-media">
+        <img src="https://images.unsplash.com/photo-1747447724564-ee7bc64606f2?auto=format&fit=crop&w=900&q=80" alt="Solenne, Sanlorenzo SX88" loading="lazy">
+        <span class="badge badge-offer">Under Offer</span>
+        <span class="logo-chip" title="Listed by partner brokerage"><svg viewBox="0 0 160 40" aria-hidden="true"><circle cx="18" cy="20" r="12" fill="none" stroke="currentColor" stroke-width="3"/><path d="M12 22l6-8 6 8z" fill="currentColor"/><rect x="40" y="12" width="104" height="7" rx="2" fill="currentColor"/><rect x="40" y="24" width="64" height="4" rx="2" fill="currentColor" opacity=".55"/></svg></span>
+      </div>
+      <div class="card-body">
+        <span class="card-builder">Sanlorenzo SX88</span>
+        <h3 class="card-title">Solenne</h3>
+        <div class="specs"><span class="spec"><svg aria-hidden="true"><use href="#i-ruler"/></svg>27.0m</span><span class="spec"><svg aria-hidden="true"><use href="#i-cal"/></svg>2023</span><span class="spec"><svg aria-hidden="true"><use href="#i-pin"/></svg>Dubai, UAE</span></div>
+        <div class="card-foot"><div class="price"><small>Asking price</small>€7,900,000</div><span class="card-go"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></div>
+      </div>
+    </a>
     </div>
   </div>
 </section>
@@ -292,94 +300,6 @@
 </footer>
 
 <a class="chat" href="contact.html" aria-label="Chat with us"><svg aria-hidden="true"><use href="#i-chat"/></svg></a>
-<script>
-const U = (id, w = 1200) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`;
-const LOGOS = {
-  wide: '<svg viewBox="0 0 160 40"><circle cx="18" cy="20" r="12" fill="none" stroke="currentColor" stroke-width="3"/><path d="M12 22l6-8 6 8z" fill="currentColor"/><rect x="40" y="12" width="104" height="7" rx="2" fill="currentColor"/><rect x="40" y="24" width="64" height="4" rx="2" fill="currentColor" opacity=".55"/></svg>',
-  square: '<svg viewBox="0 0 48 48"><rect x="4" y="4" width="40" height="40" rx="9" fill="none" stroke="currentColor" stroke-width="3"/><path d="M13 31 24 15l11 16z" fill="currentColor"/></svg>',
-  tall: '<svg viewBox="0 0 32 56"><path d="M16 3 29 16v37H3V16Z" fill="none" stroke="currentColor" stroke-width="3"/><rect x="10" y="26" width="12" height="4" fill="currentColor"/><rect x="10" y="35" width="12" height="4" fill="currentColor"/><rect x="10" y="44" width="12" height="4" fill="currentColor"/></svg>'
-};
-const YACHTS = [
-  {name:'Aurora', len:'23.2m', year:2021, builder:'Sunseeker 76 Yacht', loc:'Palma, Spain', price:'€3,950,000', status:'', img:'1567899378494-47b22a2ae96a', logo:'wide'},
-  {name:'The Great Northern Lights of Vancouver', len:'46.0m', year:2018, builder:'Feadship', loc:'Vancouver, Canada', price:'', status:'offer', img:'1569263979104-865ab7cd8d13', logo:'tall'},
-  {name:'Azure Meridian', len:'40.0m', year:2020, builder:'Benetti Oasis 40M', loc:'Dubai, UAE', price:'€18,500,000', status:'', img:'1634242210756-6759f2d2ff03', logo:'square'},
-  {name:'Kalista', len:'35.0m', year:2017, builder:'Azimut Grande 35M', loc:'Antibes, France', price:'US$9,750,000', status:'sold', img:'1621277224630-81d9af65e40c', logo:'wide'},
-  {name:'Silver Tide', len:'26.0m', year:2022, builder:'Princess Y85', loc:'Southampton, UK', price:'£4,200,000', status:'', img:'1605281317010-fe5ffe798166', logo:'square'},
-  {name:'Nomad Spirit', len:'50.0m', year:2016, builder:'Heesen', loc:'Monaco', price:'', status:'', img:'1759135695910-0a6aaaab6b14', logo:'tall'},
-  {name:'Solenne', len:'27.0m', year:2023, builder:'Sanlorenzo SX88', loc:'Dubai, UAE', price:'€7,900,000', status:'offer', img:'1747447724564-ee7bc64606f2', logo:'wide'},
-  {name:'Blue Haven', len:'27.0m', year:2019, builder:"Riva 88' Folgore", loc:'Fort Lauderdale, USA', price:'€6,250,000', status:'', img:'1535024966840-e7424dc2635b', logo:'square'}
-];
-const SERVICES = [
-  ['Yacht Sales & Acquisition','Find and secure the right yacht with expert guidance from shortlist to handover.','1559385301-0187cb6eff46'],
-  ['Listing & Marketing for Brokerages','Showcase partner listings to qualified buyers with photography-led presentation.','1672939113905-b02ef5db7203'],
-  ['Market Intelligence & Valuation','Data-led insight on pricing, demand and time on market.','1459787915554-b34915863013'],
-  ['Owner Advisory','Support from survey and sea trial to crew, refit and resale.','1674606878551-f424ad6ce965']
-];
-const POSTS = [
-  {cat:'Market Report', date:'24 Sep 2026', read:'6 min read', title:'Q3 2026 Superyacht Market Report: Pre-owned Prices Hold Firm', ex:'What the latest quarter tells buyers and sellers about pricing, demand and time on market for 30 to 50 metre yachts.', img:'1740482881421-f4592b6575fe'},
-  {cat:'Destinations', date:'17 Sep 2026', read:'4 min read', title:'Why Dubai Is Becoming a Year-Round Yachting Hub', ex:'New marinas, easier berthing and winter sunshine are drawing owners to the Gulf.', img:'1611577810610-642f8ac05c32'},
-  {cat:'Buyer Guides', date:'09 Sep 2026', read:'8 min read', title:'Buying Your First 30m Yacht: A Practical Checklist', ex:'From survey and sea trial to crew and running costs, the steps that matter before you sign.', img:'1600812703042-38e573598898'}
-];
-const ic = id => `<svg><use href="#${id}"/></svg>`;
-const badge = s => s === 'offer' ? '<span class="badge badge-offer">Under Offer</span>' : s === 'sold' ? '<span class="badge badge-sold">Sold</span>' : '';
-const price = p => p ? `<div class="price"><small>Asking price</small>${p}</div>` : `<div class="price poa"><small>Asking price</small><b>Price on Application</b></div>`;
-
-document.getElementById('cards').innerHTML = YACHTS.map(y => `
-  <a class="card" href="yacht.html">
-    <div class="card-media">
-      <img src="${U(y.img, 900)}" alt="${y.name}, ${y.builder}">
-      ${badge(y.status)}
-      <span class="logo-chip" title="Listed by partner brokerage">${LOGOS[y.logo]}</span>
-    </div>
-    <div class="card-body">
-      <span class="card-builder">${y.builder}</span>
-      <h3 class="card-title">${y.name}</h3>
-      <div class="specs"><span class="spec">${ic('i-ruler')}${y.len}</span><span class="spec">${ic('i-cal')}${y.year}</span><span class="spec">${ic('i-pin')}${y.loc}</span></div>
-      <div class="card-foot">${price(y.price)}<span class="card-go">${ic('i-arrow')}</span></div>
-    </div>
-  </a>`).join('');
-
-document.getElementById('svcs').innerHTML = SERVICES.map((s, i) => `
-  <a class="svc" href="#">
-    <img src="${U(s[2], 900)}" alt="">
-    <div class="svc-top"><span class="svc-n">0${i + 1}</span><span class="svc-go">${ic('i-arrow')}</span></div>
-    <div><h3 class="h3">${s[0]}</h3><p>${s[1]}</p></div>
-  </a>`).join('');
-
-const [lead, ...rest] = POSTS;
-document.getElementById('posts').innerHTML = `
-  <a class="post post-lead" href="article.html">
-    <div class="post-media"><img src="${U(lead.img, 1600)}" alt=""></div>
-    <div class="post-meta"><span class="cat">${lead.cat}</span><span>${lead.date}</span><span>·</span><span>${lead.read}</span></div>
-    <h3 class="h3">${lead.title}</h3>
-    <p>${lead.ex}</p>
-    <span class="link">Read article ${ic('i-arrow')}</span>
-  </a>
-  <div class="post-list">${rest.map(p => `
-    <a class="post post-row" href="article.html">
-      <div class="post-media"><img src="${U(p.img, 800)}" alt=""></div>
-      <div>
-        <div class="post-meta"><span class="cat">${p.cat}</span><span>${p.date}</span></div>
-        <h4>${p.title}</h4>
-        <p>${p.ex}</p>
-        <span class="link">Read article ${ic('i-arrow')}</span>
-      </div>
-    </a>`).join('')}
-  </div>`;
-
-const logoSet = ['wide','square','tall','wide','square','tall','wide','square'];
-document.getElementById('track').innerHTML = [...logoSet, ...logoSet].map(k => `<li>${LOGOS[k]}</li>`).join('');
-document.querySelector('[data-logo="wide"]').innerHTML = LOGOS.wide;
-
-const v = document.getElementById('heroVideo'), t = document.getElementById('playToggle');
-t.onclick = () => {
-  const paused = v.paused; paused ? v.play() : v.pause();
-  t.setAttribute('aria-label', paused ? 'Pause video' : 'Play video');
-  const icon = document.getElementById('playIcon');
-  icon.innerHTML = `<use href="#${paused ? 'i-pause' : 'i-play'}"/>`;
-  inlineIcons(icon.parentNode);
-};
-</script>
 <script src="assets/js/site.js"></script>
 </body>
 </html>

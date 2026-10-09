@@ -70,6 +70,29 @@ if (docTab && docTabs.scrollWidth > docTabs.clientWidth) {
   docTabs.scrollLeft += t.left - c.left - (c.width - t.width) / 2;
 }
 
+// Listing pages: filter drawer on small screens, filter pills and grid or list view
+const filters = document.getElementById('filters');
+if (filters) {
+  const setFilters = open => { filters.classList.toggle('open', open); document.documentElement.style.overflow = open ? 'hidden' : ''; };
+  document.querySelectorAll('[data-filters-open]').forEach(b => b.addEventListener('click', () => setFilters(true)));
+  filters.querySelectorAll('[data-filters-close]').forEach(b => b.addEventListener('click', () => setFilters(false)));
+  addEventListener('keydown', e => { if (e.key === 'Escape' && filters.classList.contains('open')) setFilters(false); });
+}
+document.querySelectorAll('.pill-opt').forEach(p => p.addEventListener('click', () => p.classList.toggle('on')));
+document.querySelectorAll('.view-tg button').forEach(b => b.addEventListener('click', () => {
+  b.parentNode.querySelectorAll('button').forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', String(x === b)); });
+  document.querySelector('.results .cards').classList.toggle('as-list', b.dataset.view === 'list');
+}));
+
+// Save buttons on listings
+document.querySelectorAll('[data-save]').forEach(b => b.addEventListener('click', () => {
+  const on = b.getAttribute('aria-pressed') !== 'true';
+  document.querySelectorAll('[data-save]').forEach(x => x.setAttribute('aria-pressed', String(on)));
+}));
+
+// Prototype forms (newsletter, account) don't submit anywhere yet
+document.querySelectorAll('form.form-lite').forEach(f => f.addEventListener('submit', e => e.preventDefault()));
+
 // Year in the footer
 document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
 
