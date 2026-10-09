@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yacht Affair · Yachts for Sale & Charter</title>
+<meta name="description" content="Yacht Affair is an online marketplace for yachts and boats for sale and for charter.">
+<meta name="theme-color" content="#0A0F1A">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<script>if (new URLSearchParams(location.search).has('figma')) document.documentElement.classList.add('figma');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/home.css">
+</head>
+<body id="top">
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs><linearGradient id="skyGrad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#38B6FF"/><stop offset="1" stop-color="#004AAD"/></linearGradient></defs>
+  <symbol id="ya" viewBox="0 0 343 229"><path class="mA" fill-rule="evenodd" d="M292.03 227.15L277.49 197.51L170.48 197.51L156.24 227.15L108.81 227.15L225.32 2.44L342.14 227.15Z M223.54 87.22L190.34 156L257.34 156Z"/><path class="mY" d="M122.55 112.39L187.96 2.59L236.85 2.59L145.05 154.08L145.05 226.08L98.86 226.08L98.86 158.28L4.07 2.59L57.46 2.59Z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21Z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="9.5" r="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+  <symbol id="i-ruler" viewBox="0 0 24 24"><path d="M3 15 15 3l6 6L9 21Z M7 11l2 2M10 8l2 2M13 5l2 2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.6"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15L19.5 12Z" fill="currentColor"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 8h18M3 16h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v5.5c0 4.4 3 8.2 7 9.5 4-1.3 7-5.1 7-9.5V6Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="m8.8 12 2.2 2.2 4.4-4.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v4h4M9 12h6M9 16h6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m8.5 12.2 2.4 2.4 4.6-4.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 7.8v5M12 16.2v.1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 11v5.2M12 7.8v.1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></symbol>
+  <symbol id="i-in" viewBox="0 0 24 24"><path d="M5 9.5h3V19H5zM6.5 4.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM10.5 9.5h2.9v1.3c.5-.9 1.6-1.6 3.1-1.6 2.6 0 3.5 1.6 3.5 4.3V19h-3v-4.8c0-1.3-.3-2.2-1.5-2.2s-2 .9-2 2.3V19h-3Z" fill="currentColor"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 9v6l5-3Z" fill="currentColor"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M4.5 4h4.2l10.8 16h-4.2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="m19 4-5.9 6.7M5 20l5.9-6.7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path d="M14 3.5v11.25a3.75 3.75 0 1 1-3.75-3.75" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M14 3.5c.4 2.9 2.4 4.9 5.5 5.1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+</svg>
+
+<!-- ============ Header ============ -->
+<header class="site-header" id="header">
+  <div class="wrap">
+    <a href="index.html" aria-label="Yacht Affair home"><svg class="mark" aria-hidden="true"><use href="#ya"/></svg></a>
+    <nav class="nav" aria-label="Main">
+      <a class="active" aria-current="page" href="index.html#market">Yachts for Sale</a>
+      <a href="index.html#insights">Market Intelligence</a>
+      <a href="index.html#services">Services</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a class="icon-btn phone" href="tel:+13689998223" aria-label="Call us on +1 368-999-8223"><svg aria-hidden="true"><use href="#i-phone"/></svg></a>
+      <a class="btn btn-sm btn-primary btn-head" href="contact.html?topic=advertising">List With Us</a>
+      <button class="icon-btn burger" id="burger" aria-label="Open menu" aria-controls="menu" aria-expanded="false"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="menu" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="menu-top">
+    <a href="index.html" aria-label="Yacht Affair home"><svg class="mark" style="height:34px" aria-hidden="true"><use href="#ya"/></svg></a>
+    <button class="icon-btn" id="menuClose" aria-label="Close menu"><svg aria-hidden="true"><use href="#i-close"/></svg></button>
+  </div>
+  <nav aria-label="Mobile">
+    <a class="active" href="index.html#market">Yachts for Sale</a>
+    <a href="index.html#insights">Market Intelligence</a>
+    <a href="index.html#services">Services</a>
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="menu-foot">
+    <a class="btn btn-primary" href="contact.html?topic=advertising">List With Us</a>
+    <span><a href="tel:+13689998223">+1 368-999-8223</a> · <a href="mailto:info@yachtaffair.com">info@yachtaffair.com</a></span>
+  </div>
+</div>
+
+<main id="main">
+<!-- ============ Hero ============ -->
+<section class="hero" id="hero">
+  <video class="hero-media" id="heroVideo" autoplay muted loop playsinline preload="auto"
+    poster="https://images.unsplash.com/photo-1674606867042-2aa3581c1bb5?auto=format&fit=crop&w=2400&q=80">
+    <source src="https://videos.pexels.com/video-files/31735552/13521457_1920_1080_30fps.mp4" type="video/mp4">
+  </video>
+  <img class="hero-poster" src="https://images.unsplash.com/photo-1674606867042-2aa3581c1bb5?auto=format&fit=crop&w=2400&q=80" alt="">
+
+  <!-- Logo effect: the scene is dimmed everywhere except inside the YA letterforms -->
+  <svg class="hero-veil" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <mask id="yaHole" maskUnits="userSpaceOnUse" x="0" y="0" width="1920" height="1080">
+        <rect width="1920" height="1080" fill="#fff"/>
+        <g class="ya-g"><path fill-rule="evenodd" d="M292.03 227.15L277.49 197.51L170.48 197.51L156.24 227.15L108.81 227.15L225.32 2.44L342.14 227.15Z M223.54 87.22L190.34 156L257.34 156Z"/><path d="M122.55 112.39L187.96 2.59L236.85 2.59L145.05 154.08L145.05 226.08L98.86 226.08L98.86 158.28L4.07 2.59L57.46 2.59Z"/></g>
+      </mask>
+      <mask id="behindY-veil" maskUnits="userSpaceOnUse" x="-10" y="-10" width="363" height="249"><rect x="-10" y="-10" width="363" height="249" fill="#fff"/><path d="M120.79 111.33L186.78 0.53L240.51 0.53L146.82 155.15L147.12 155.15L147.12 228.14L96.80 228.14L96.80 159.35L0.39 0.53L58.64 0.53Z"/></mask>
+    </defs>
+    <rect class="veil-fill" width="1920" height="1080" mask="url(#yaHole)"/>
+    <g class="ya-g ya-outline"><path pathLength="1" d="M292.03 227.15L277.49 197.51L170.48 197.51L156.24 227.15L108.81 227.15L225.32 2.44L342.14 227.15Z M223.54 87.22L190.34 156L257.34 156Z" mask="url(#behindY-veil)"/><path pathLength="1" d="M122.55 112.39L187.96 2.59L236.85 2.59L145.05 154.08L145.05 226.08L98.86 226.08L98.86 158.28L4.07 2.59L57.46 2.59Z"/></g>
+  </svg>
+  <div class="hero-fade"></div>
+
+  <div class="hero-inner grid">
+    <div class="hero-copy">
+      <span class="label">Yacht marketplace · Sale &amp; charter</span>
+      <h1 class="display">A new course for <em>yacht brokerage.</em></h1>
+      <p class="sub">Curated yachts from trusted partner brokerages, with the clarity, data and speed today’s buyers expect.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#market">Explore Yachts for Sale <svg><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-glass" href="#contact">Talk to Our Team</a>
+      </div>
+    </div>
+    <div class="hero-side">
+      <button class="ring" id="playToggle" aria-label="Pause video"><svg id="playIcon"><use href="#i-pause"/></svg></button>
+      <span>Now showing<br><b style="color:#fff;font-weight:500">Azure Meridian · Benetti</b></span>
+    </div>
+
+    <form class="search" onsubmit="return false" aria-label="Search yachts">
+      <label class="field"><span class="k">Yacht type</span><span class="v">All yachts <svg><use href="#i-down"/></svg></span></label>
+      <label class="field"><span class="k">Length</span><span class="v">Any length <svg><use href="#i-down"/></svg></span></label>
+      <label class="field"><span class="k">Location</span><span class="v">Anywhere <svg><use href="#i-down"/></svg></span></label>
+      <label class="field"><span class="k">Keyword</span><span class="v ph">Name, builder or model <svg><use href="#i-search"/></svg></span></label>
+      <button class="btn btn-primary" type="submit"><svg><use href="#i-search"/></svg>Search Yachts</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============ Featured partner ============ -->
+<section class="sec" id="featured">
+  <div class="wrap">
+    <a class="feature" href="#">
+      <img class="bg" src="https://images.unsplash.com/photo-1559385301-0187cb6eff46?auto=format&fit=crop&w=2400&q=80" alt="Superyacht aft deck">
+      <span class="dur">Partner film · 02:45</span>
+      <span class="big-play"><svg><use href="#i-play"/></svg></span>
+      <div class="feature-panel">
+        <span class="label">Featured partner</span>
+        <div class="logo-box" data-logo="wide"></div>
+        <h2 class="h3">Inside the Benetti Oasis 40M: a walkthrough</h2>
+        <p>The layout, the beach club and the details that set this 40-metre yacht apart, presented by one of our partner brokerages.</p>
+        <div class="row">
+          <span class="btn btn-primary"><svg><use href="#i-play"/></svg>Watch Video</span>
+          <span class="btn btn-glass">View Their Listings</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ============ Available in the market ============ -->
+<section class="sec" id="market" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="label">Available in the market</span>
+        <h2 class="h2">Yachts for sale now</h2>
+      </div>
+      <div class="tabs" role="tablist">
+        <button class="tab active">All</button>
+        <button class="tab">Motor Yachts</button>
+        <button class="tab">Superyachts 30m+</button>
+        <button class="tab">Sailing</button>
+        <button class="tab">New to Market</button>
+      </div>
+    </div>
+    <div class="cards" id="cards"></div>
+    <div class="market-foot"><span>Showing 8 of 124 yachts</span><a class="btn btn-glass" href="#">View All Yachts <svg><use href="#i-arrow"/></svg></a></div>
+  </div>
+</section>
+
+<!-- ============ Services ============ -->
+<section class="sec services" id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="label">What we do</span>
+        <h2 class="h2">Services built for buyers,<br>sellers and brokerages</h2>
+      </div>
+      <div class="aside">
+        <p>One team across Dubai and Vancouver, combining market data with hands-on yacht experience.</p>
+        <a class="link" href="#" style="margin-top:20px">All Services <svg><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+    <div class="svcs" id="svcs"></div>
+  </div>
+</section>
+
+<!-- ============ Market intelligence ============ -->
+<section class="sec" id="insights">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="label">Market intelligence</span>
+        <h2 class="h2">Insight from the water</h2>
+      </div>
+      <a class="link" href="#">View all articles <svg><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="insights-grid" id="posts"></div>
+  </div>
+</section>
+
+<!-- ============ Partner logos ============ -->
+<section class="partners" id="partners">
+  <div class="wrap">
+    <p class="k">Listings from trusted<br>partner brokerages</p>
+    <div class="marquee"><ul class="track" id="track"></ul></div>
+  </div>
+</section>
+
+<!-- ============ Contact CTA ============ -->
+<section class="sec" id="contact">
+  <div class="wrap">
+    <div class="cta-panel">
+      <div class="grid">
+        <div class="cta-copy">
+          <span class="label">Get in touch</span>
+          <h2 class="h2">Looking to buy, sell or list a yacht?</h2>
+          <p>Speak with the Yacht Affair team about advertising, a listing or your account.</p>
+          <div class="office-row">
+            <div class="office"><div class="k">Call us</div><a class="v" href="tel:+13689998223">+1 368-999-8223</a><a class="s" href="mailto:info@yachtaffair.com">info@yachtaffair.com</a></div>
+            <div class="office"><div class="k">Vancouver office</div><div class="v">800-525 West 8th Avenue</div><div class="s">Vancouver, BC V5Z 1C6, Canada</div></div>
+          </div>
+        </div>
+        <form class="form">
+          <h3>Start a conversation</h3>
+          <label class="in"><span>Full name</span><input placeholder="Your name"></label>
+          <label class="in"><span>Email</span><input type="email" placeholder="you@email.com"></label>
+          <label class="in"><span>Phone</span><input type="tel" placeholder="+1"></label>
+          <label class="in"><span>I’m interested in</span><select><option>Buying a yacht</option><option>Selling a yacht</option><option>Listing as a brokerage</option><option>Market intelligence</option></select></label>
+          <label class="in full"><span>Message</span><textarea placeholder="Tell us what you’re looking for"></textarea></label>
+          <button class="btn btn-primary" type="submit">Send Enquiry <svg><use href="#i-arrow"/></svg></button>
+          <p class="form-ok" role="status">Thank you. This is a design prototype, so the form isn’t connected yet.</p>
+          <p class="note">By sending this form you agree to our <a href="privacy-policy.html">Privacy Policy</a>.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ Footer ============ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="grid">
+      <div class="f-brand">
+        <svg class="mark" style="height:56px" aria-hidden="true"><use href="#ya"/></svg>
+        <p>Connecting the yachting world. Yacht Affair is an online marketplace for yachts and boats for sale and for charter.</p>
+        <div class="socials">
+          <a href="https://www.instagram.com/yachtaffair/" target="_blank" rel="noopener" aria-label="Yacht Affair on Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+          <a href="https://www.linkedin.com/company/yachtaffair/home/" target="_blank" rel="noopener" aria-label="Yacht Affair on LinkedIn"><svg aria-hidden="true"><use href="#i-in"/></svg></a>
+          <a href="https://www.youtube.com/@YachtAffair" target="_blank" rel="noopener" aria-label="Yacht Affair on YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+          <a href="https://x.com/YachtAffair" target="_blank" rel="noopener" aria-label="Yacht Affair on X"><svg aria-hidden="true"><use href="#i-x"/></svg></a>
+          <a href="https://www.tiktok.com/@yachtaffair" target="_blank" rel="noopener" aria-label="Yacht Affair on TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+        </div>
+      </div>
+      <div class="f-col c1"><h4>Yachts</h4><ul><li><a href="index.html#market">Yachts for Sale</a></li><li><a href="index.html#market">Motor Yachts</a></li><li><a href="index.html#market">Sailing Yachts</a></li><li><a href="index.html#partners">Partner Brokerages</a></li></ul></div>
+      <div class="f-col c2"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="index.html#services">Services</a></li><li><a href="index.html#insights">Market Intelligence</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="f-col c3"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="terms-of-use.html">Terms of Use</a></li><li><a href="cookie-policy.html">Cookie Policy</a></li><li><a href="advertiser-agreement.html">Advertiser Agreement</a></li></ul></div>
+    </div>
+    <div class="f-offices">
+      <div class="f-office"><div class="k">Office</div><address>800-525 West 8th Avenue<br>Vancouver, BC V5Z 1C6<br>Canada</address><a href="https://www.google.com/maps/search/?api=1&query=800-525+West+8th+Avenue+Vancouver+BC+V5Z+1C6" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-pin"/></svg>Get directions</a></div>
+      <div class="f-office"><div class="k">General enquiries</div><a href="tel:+13689998223"><svg aria-hidden="true"><use href="#i-phone"/></svg>+1 368-999-8223</a><a href="mailto:info@yachtaffair.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>info@yachtaffair.com</a></div>
+      <div class="f-office"><div class="k">Advertise with us</div><a href="mailto:advertise@yachtaffair.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>advertise@yachtaffair.com</a><a href="advertiser-agreement.html"><svg aria-hidden="true"><use href="#i-doc"/></svg>Advertiser Agreement</a></div>
+    </div>
+    <svg class="f-giant" viewBox="0 0 343 229" aria-hidden="true" style="margin-inline:auto"><defs><mask id="behindY-foot" maskUnits="userSpaceOnUse" x="-10" y="-10" width="363" height="249"><rect x="-10" y="-10" width="363" height="249" fill="#fff"/><path d="M120.79 111.33L186.78 0.53L240.51 0.53L146.82 155.15L147.12 155.15L147.12 228.14L96.80 228.14L96.80 159.35L0.39 0.53L58.64 0.53Z"/></mask></defs><path pathLength="1" d="M292.03 227.15L277.49 197.51L170.48 197.51L156.24 227.15L108.81 227.15L225.32 2.44L342.14 227.15Z M223.54 87.22L190.34 156L257.34 156Z" mask="url(#behindY-foot)"/><path pathLength="1" d="M122.55 112.39L187.96 2.59L236.85 2.59L145.05 154.08L145.05 226.08L98.86 226.08L98.86 158.28L4.07 2.59L57.46 2.59Z"/></svg>
+    <div class="f-bottom">
+      <span>© <span data-year>2026</span> Yacht Affair. Operated by Bogati Continental Inc.</span>
+      <nav aria-label="Legal"><a href="privacy-policy.html">Privacy</a><a href="terms-of-use.html">Terms</a><a href="cookie-policy.html">Cookies</a><a href="#top">Back to top ↑</a></nav>
+    </div>
+  </div>
+</footer>
+
+<a class="chat" href="contact.html" aria-label="Chat with us"><svg aria-hidden="true"><use href="#i-chat"/></svg></a>
+<script>
+const U = (id, w = 1200) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`;
+const LOGOS = {
+  wide: '<svg viewBox="0 0 160 40"><circle cx="18" cy="20" r="12" fill="none" stroke="currentColor" stroke-width="3"/><path d="M12 22l6-8 6 8z" fill="currentColor"/><rect x="40" y="12" width="104" height="7" rx="2" fill="currentColor"/><rect x="40" y="24" width="64" height="4" rx="2" fill="currentColor" opacity=".55"/></svg>',
+  square: '<svg viewBox="0 0 48 48"><rect x="4" y="4" width="40" height="40" rx="9" fill="none" stroke="currentColor" stroke-width="3"/><path d="M13 31 24 15l11 16z" fill="currentColor"/></svg>',
+  tall: '<svg viewBox="0 0 32 56"><path d="M16 3 29 16v37H3V16Z" fill="none" stroke="currentColor" stroke-width="3"/><rect x="10" y="26" width="12" height="4" fill="currentColor"/><rect x="10" y="35" width="12" height="4" fill="currentColor"/><rect x="10" y="44" width="12" height="4" fill="currentColor"/></svg>'
+};
+const YACHTS = [
+  {name:'Aurora', len:'23.2m', year:2021, builder:'Sunseeker 76 Yacht', loc:'Palma, Spain', price:'€3,950,000', status:'', img:'1567899378494-47b22a2ae96a', logo:'wide'},
+  {name:'The Great Northern Lights of Vancouver', len:'46.0m', year:2018, builder:'Feadship', loc:'Vancouver, Canada', price:'', status:'offer', img:'1569263979104-865ab7cd8d13', logo:'tall'},
+  {name:'Azure Meridian', len:'40.0m', year:2020, builder:'Benetti Oasis 40M', loc:'Dubai, UAE', price:'€18,500,000', status:'', img:'1634242210756-6759f2d2ff03', logo:'square'},
+  {name:'Kalista', len:'35.0m', year:2017, builder:'Azimut Grande 35M', loc:'Antibes, France', price:'US$9,750,000', status:'sold', img:'1621277224630-81d9af65e40c', logo:'wide'},
+  {name:'Silver Tide', len:'26.0m', year:2022, builder:'Princess Y85', loc:'Southampton, UK', price:'£4,200,000', status:'', img:'1605281317010-fe5ffe798166', logo:'square'},
+  {name:'Nomad Spirit', len:'50.0m', year:2016, builder:'Heesen', loc:'Monaco', price:'', status:'', img:'1759135695910-0a6aaaab6b14', logo:'tall'},
+  {name:'Solenne', len:'27.0m', year:2023, builder:'Sanlorenzo SX88', loc:'Dubai, UAE', price:'€7,900,000', status:'offer', img:'1747447724564-ee7bc64606f2', logo:'wide'},
+  {name:'Blue Haven', len:'27.0m', year:2019, builder:"Riva 88' Folgore", loc:'Fort Lauderdale, USA', price:'€6,250,000', status:'', img:'1535024966840-e7424dc2635b', logo:'square'}
+];
+const SERVICES = [
+  ['Yacht Sales & Acquisition','Find and secure the right yacht with expert guidance from shortlist to handover.','1559385301-0187cb6eff46'],
+  ['Listing & Marketing for Brokerages','Showcase partner listings to qualified buyers with photography-led presentation.','1672939113905-b02ef5db7203'],
+  ['Market Intelligence & Valuation','Data-led insight on pricing, demand and time on market.','1459787915554-b34915863013'],
+  ['Owner Advisory','Support from survey and sea trial to crew, refit and resale.','1674606878551-f424ad6ce965']
+];
+const POSTS = [
+  {cat:'Market Report', date:'24 Sep 2026', read:'6 min read', title:'Q3 2026 Superyacht Market Report: Pre-owned Prices Hold Firm', ex:'What the latest quarter tells buyers and sellers about pricing, demand and time on market for 30 to 50 metre yachts.', img:'1740482881421-f4592b6575fe'},
+  {cat:'Destinations', date:'17 Sep 2026', read:'4 min read', title:'Why Dubai Is Becoming a Year-Round Yachting Hub', ex:'New marinas, easier berthing and winter sunshine are drawing owners to the Gulf.', img:'1611577810610-642f8ac05c32'},
+  {cat:'Buyer Guides', date:'09 Sep 2026', read:'8 min read', title:'Buying Your First 30m Yacht: A Practical Checklist', ex:'From survey and sea trial to crew and running costs, the steps that matter before you sign.', img:'1600812703042-38e573598898'}
+];
+const ic = id => `<svg><use href="#${id}"/></svg>`;
+const badge = s => s === 'offer' ? '<span class="badge badge-offer">Under Offer</span>' : s === 'sold' ? '<span class="badge badge-sold">Sold</span>' : '';
+const price = p => p ? `<div class="price"><small>Asking price</small>${p}</div>` : `<div class="price poa"><small>Asking price</small><b>Price on Application</b></div>`;
+
+document.getElementById('cards').innerHTML = YACHTS.map(y => `
+  <a class="card" href="#">
+    <div class="card-media">
+      <img src="${U(y.img, 900)}" alt="${y.name}, ${y.builder}">
+      ${badge(y.status)}
+      <span class="logo-chip" title="Listed by partner brokerage">${LOGOS[y.logo]}</span>
+    </div>
+    <div class="card-body">
+      <span class="card-builder">${y.builder}</span>
+      <h3 class="card-title">${y.name}</h3>
+      <div class="specs"><span class="spec">${ic('i-ruler')}${y.len}</span><span class="spec">${ic('i-cal')}${y.year}</span><span class="spec">${ic('i-pin')}${y.loc}</span></div>
+      <div class="card-foot">${price(y.price)}<span class="card-go">${ic('i-arrow')}</span></div>
+    </div>
+  </a>`).join('');
+
+document.getElementById('svcs').innerHTML = SERVICES.map((s, i) => `
+  <a class="svc" href="#">
+    <img src="${U(s[2], 900)}" alt="">
+    <div class="svc-top"><span class="svc-n">0${i + 1}</span><span class="svc-go">${ic('i-arrow')}</span></div>
+    <div><h3 class="h3">${s[0]}</h3><p>${s[1]}</p></div>
+  </a>`).join('');
+
+const [lead, ...rest] = POSTS;
+document.getElementById('posts').innerHTML = `
+  <a class="post post-lead" href="#">
+    <div class="post-media"><img src="${U(lead.img, 1600)}" alt=""></div>
+    <div class="post-meta"><span class="cat">${lead.cat}</span><span>${lead.date}</span><span>·</span><span>${lead.read}</span></div>
+    <h3 class="h3">${lead.title}</h3>
+    <p>${lead.ex}</p>
+    <span class="link">Read article ${ic('i-arrow')}</span>
+  </a>
+  <div class="post-list">${rest.map(p => `
+    <a class="post post-row" href="#">
+      <div class="post-media"><img src="${U(p.img, 800)}" alt=""></div>
+      <div>
+        <div class="post-meta"><span class="cat">${p.cat}</span><span>${p.date}</span></div>
+        <h4>${p.title}</h4>
+        <p>${p.ex}</p>
+        <span class="link">Read article ${ic('i-arrow')}</span>
+      </div>
+    </a>`).join('')}
+  </div>`;
+
+const logoSet = ['wide','square','tall','wide','square','tall','wide','square'];
+document.getElementById('track').innerHTML = [...logoSet, ...logoSet].map(k => `<li>${LOGOS[k]}</li>`).join('');
+document.querySelector('[data-logo="wide"]').innerHTML = LOGOS.wide;
+
+const v = document.getElementById('heroVideo'), t = document.getElementById('playToggle');
+t.onclick = () => {
+  const paused = v.paused; paused ? v.play() : v.pause();
+  t.setAttribute('aria-label', paused ? 'Pause video' : 'Play video');
+  const icon = document.getElementById('playIcon');
+  icon.innerHTML = `<use href="#${paused ? 'i-pause' : 'i-play'}"/>`;
+  inlineIcons(icon.parentNode);
+};
+</script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>
